@@ -1,0 +1,10 @@
+services:
+  oe_webtools_analytics.event_subscriber:
+    class: Drupal\oe_webtools_analytics\EventSubscriber\WebtoolsImportSettingsSubscriber
+    arguments: ['@config.factory', '@request_stack']
+    tags:
+      - { name: event_subscriber }
+
+  oe_webtools_analytics.search:
+    class:  Drupal\oe_webtools_analytics\Entity\WebtoolsAnalyticsSearch
+    arguments: []
