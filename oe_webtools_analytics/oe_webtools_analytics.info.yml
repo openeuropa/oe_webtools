@@ -1,0 +1,6 @@
+  name: aaa.webtools
+  description: An experimental module to build our first Drupal 8 module
+  package: Custom
+  type: module
+  version: 1.0
+  core: 8.x
