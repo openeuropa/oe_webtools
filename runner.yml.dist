@@ -1,0 +1,28 @@
+drupal:
+  root: "build"
+  base_url: "http://web:8080/build"
+  database:
+    host: "mysql"
+    port: "3306"
+    name: "oe_webtools"
+    user: "root"
+    password: ""
+  post_install:
+    - "./vendor/bin/drush en oe_webtools -y"
+    - "./vendor/bin/drush cr"
+  settings:
+    settings:
+      file_scan_ignore_directories:
+        - "node_modules"
+        - "bower_components"
+        - "vendor"
+        - "${drupal.root}"
+
+commands:
+  drupal:site-setup:
+    - { task: "symlink", from: "../../..", to: "${drupal.root}/modules/custom/oe_webtools" }
+    - { task: "run", command: "drupal:drush-setup" }
+    - { task: "run", command: "drupal:settings-setup" }
+    - { task: "run", command: "setup:behat" }
+  setup:behat:
+    - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
