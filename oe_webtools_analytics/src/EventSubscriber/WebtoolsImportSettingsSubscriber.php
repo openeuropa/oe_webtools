@@ -9,13 +9,14 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Url;
-use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;  
+use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Event Subscriber WebtoolsImportSettingsSubscriber.
@@ -62,13 +63,13 @@ class WebtoolsImportSettingsSubscriber implements EventSubscriberInterface {
    */
   public function onSetSiteDefaults(WebtoolsImportSettingsEvent $event) {
     // SiteID.
-    $site_id = $this->config->get('site_id');
+    $site_id = $this->config->get(WebtoolsAnalyticsIndex::SITE_ID);
     if ($site_id) {
       $event->setSiteId((string) $site_id);
     }
     // SitePath.
-    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get('site_path')) {
-      $event->setSitePath((array) $this->config->get('site_path'));
+    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(WebtoolsAnalyticsIndex::SITE_PATH)) {
+      $event->setSitePath((array) $this->config->get(WebtoolsAnalyticsIndex::SITE_PATH));
     }
     else {
       $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
