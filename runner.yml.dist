@@ -8,7 +8,7 @@ drupal:
     user: "root"
     password: ""
   post_install:
-    - "./vendor/bin/drush en oe_webtools -y"
+    - "./vendor/bin/drush en oe_webtools oe_webtools_analytics -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:
