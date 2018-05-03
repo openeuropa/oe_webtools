@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\Tests\oe_webtools\Behat;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;

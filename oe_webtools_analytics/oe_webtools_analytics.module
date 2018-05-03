@@ -5,6 +5,8 @@
  * Contains Drupal hooks.
  */
 
+declare(strict_types = 1);
+
 use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
 
 /**
