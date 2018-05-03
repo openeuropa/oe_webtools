@@ -7,19 +7,19 @@
 
 declare(strict_types = 1);
 
-/**
- * Implements hook_requirements().
- */
-function oe_webtools_analytics_requirements($phase) {
-  $requirements = [];
-  // Report missing siteId on settings.
-  if ($phase == 'runtime' && \Drupal::configFactory()->get('oe_webtools.analytics')->get('site_id')) {
-    $requirements['webtools_analytics'] = [
-      'title' => t('Webtools analytics requirements.'),
-      'value' => 'The siteId is missing from settings.php',
-      'severity' => REQUIREMENT_WARNING,
-    ];
-  }
-
-  return $requirements;
-}
+///**
+// * Implements hook_requirements().
+// */
+//function oe_webtools_analytics_requirements($phase) {
+//  $requirements = [];
+//  // Report missing siteId on settings.
+//  if ($phase == 'runtime' && \Drupal::configFactory()->get('oe_webtools.analytics')->get('site_id')) {
+//    $requirements['webtools_analytics'] = [
+//      'title' => t('Webtools analytics requirements.'),
+//      'value' => 'The siteId is missing from settings.php',
+//      'severity' => REQUIREMENT_WARNING,
+//    ];
+//  }
+//
+//  return $requirements;
+//}
