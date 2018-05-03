@@ -88,7 +88,11 @@ class DrupalContext extends RawDrupalContext {
    * @Given the/these module/modules is/are not enabled
    */
   public function disableModule(TableNode $modules_table) {
-    // @todo
+    foreach ($modules_table->getHash() as $row) {
+      if (!$this->moduleHandler->moduleExists($row['modules'])) {
+        \Drupal::service('module_installer')->uninstall($row['modules']);
+      }
+    }
   }
 
 }

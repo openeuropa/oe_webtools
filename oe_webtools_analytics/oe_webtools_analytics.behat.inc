@@ -19,52 +19,68 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
   /**
    * Setup demo site.
    *
+   * @param  Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
    * @BeforeScenario @webtoolsAnalytics
    */
-  public function setupWebtoolsAnalytics(BeforeScenarioScope $scope) {
+  public function setupWebtoolsAnalytics(BeforeScenarioScope $scope) : void {
     \Drupal::service('module_installer')->install(['oe_webtools_analytics']);
   }
 
   /**
-   * Checking if the settings on the page match the value on config.
+   * Create the analytics settings on runtime.
    *
-   * @Then the rendered script should contains the :arg1 with the same value as the configuration set in settings file
+   * @param string $property
+   *   The property label, eg.: siteID, sitePath, is403, is404.
+   *
+   * @param string $value
+   *   The actual property value.
+   *
+   * @Then I should be able to set the property :arg1 with the value :arg2
    */
-  public function theSiteIdRenderedOnThePageShouldBeTheSameAsInSettingsFile($siteIdLabel) {
-    // Getting the current settings.
-    $settingsList = $this->getAnalyticsSettingsFromPage();
-
-    // The siteId from the settings.php file.
-    $settingsSiteId = \Drupal::configFactory()->get('oe_webtools.analytics')->get(WebtoolsAnalyticsIndex::SITE_ID);
-
-    // The rendered siteId.
-    $onPageSiteId = $settingsList[$siteIdLabel];
-
-    // Message to be displayed in case of failure.
-    $failMsg = "The siteID on settings is $settingsSiteId which differ to the rendered siteID = $onPageSiteId";
-
-    PHPUnit_Framework_Assert::assertEquals($onPageSiteId, $settingsSiteId, $failMsg);
+  public function iShouldBeAbleToSetThePropertyWithTheValue($property, $value) : void {
+    \Drupal::configFactory()->getEditable('oe_webtools.analytics')
+      ->set($property, $value)
+      ->save();
   }
 
   /**
-   * Set a new config value for siteID.
+   * Inspect whether or not the analytic's script has been rendered with the right value.
    *
-   * @Then I set the SiteId with :arg1 in settings file
+   * @param string $property
+   *   The property label, eg.: siteID, sitePath, is403, is404.
+   *
+   * @param string $value
+   *   The actual property value.
+   *
+   * @Then the analytics script should have the property :arg1 set to value :arg2
    */
-  public function setSideIdInSettingsFile($siteIdValue) {
-    \Drupal::configFactory()->getEditable('oe_webtools.analytics')
-      ->set(WebtoolsAnalyticsIndex::SITE_ID, $siteIdValue)
-      ->save();
+  public function theAnalyticsScriptShouldHaveThePropertySetToValue($property, $value) : void {
+
+    // Getting the current settings.
+    $settingsList = $this->getAnalyticsSettingsFromPage();
+
+    // The rendered siteId.
+    $onPageSiteId = $settingsList[$property];
+
+    // Message to be displayed in case of failure.
+    $failMsg = "The siteID on settings is $value which differ to the rendered siteID = $onPageSiteId";
+
+    PHPUnit_Framework_Assert::assertEquals($onPageSiteId, $value, $failMsg);
   }
 
   /**
    * Check if is403 or is404 is true on 403 and 404 page accordingly.
    *
-   * @Then the rendered script should contains the :arg1 configuration setting equal to true
+   * @param string $property
+   *   The property label, eg.: siteID, sitePath, is403, is404.
+   *
+   * @see Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex
+   *
+   * @Then the Analytics script should contains the :arg1 configuration setting equal to true
    */
-  public function theRenderedScriptShouldContainsTheConfigurationSettingEqualToTrue($setting_key) {
+  public function theAnalyticsScriptShouldContainsTheConfigurationSettingEqualToTrue($property) : void {
     $settingsList = $this->getAnalyticsSettingsFromPage();
-    switch ($setting_key) {
+    switch ($property) {
       case 'is403':
         PHPUnit_Framework_Assert::assertTrue($settingsList[WebtoolsAnalyticsIndex::IS403]);
         break;
