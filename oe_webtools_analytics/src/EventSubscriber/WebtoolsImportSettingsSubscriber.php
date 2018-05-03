@@ -11,7 +11,7 @@ namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
 use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;  
+use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

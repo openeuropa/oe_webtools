@@ -3,14 +3,14 @@
 declare(strict_types = 1);
 
 /**
- * Contains the json index that will be find on page when the script tag is rendered.
+ * Contains the json index.
+ *
+ * It will be found on the page when the analytic script tag is rendered.
  *
  * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
  */
 
 namespace Drupal\oe_webtools_analytics\Utils;
-
-
 
 /**
  * Class WebtoolsAnalyticsSearch.
@@ -34,17 +34,17 @@ class WebtoolsAnalyticsIndex {
   const  IS404 = 'is404';
 
   /**
-   *
+   * The analytics tools name, for e.g: piwik.
    */
   const  UTILITY = 'utility';
 
   /**
-   *  Allows you to refine your statistics by indicating a section  or a subwebsite of your site.
+   * The domain + root path without protocol.
    */
   const  SITE_PATH = 'sitePath';
 
   /**
-   * 
+   * Refine the statistics by indicating a site section  or a subwebsite.
    */
   const  SITE_SECTION = 'siteSection';
 

@@ -23,14 +23,14 @@ class WebtoolsAnalyticsSearch implements jsonserializable {
    *
    * @var string
    */
-  protected $keyword;
+  private $keyword;
 
   /**
    * Category of the search (optional).
    *
    * @var string
    */
-  protected $category;
+  private $category;
 
   /**
    * Count of search results (optional).
@@ -38,7 +38,7 @@ class WebtoolsAnalyticsSearch implements jsonserializable {
    * @var int
    *   An integer indicating how many results were found.
    */
-  protected $count;
+  private $count;
 
   /**
    * Sets the search keyword.
