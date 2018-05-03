@@ -8,7 +8,6 @@ default:
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\Tests\oe_webtools\Behat\DrupalContext
-        - Drupal\Tests\oe_webtools\Behat\MinkContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
