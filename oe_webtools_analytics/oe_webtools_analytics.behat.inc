@@ -7,10 +7,10 @@
 
 declare(strict_types = 1);
 
-use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
 use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
+
 /**
  * Behat step definitions for testing the OE Webtools Analytics module.
  */
@@ -26,9 +26,11 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
   }
 
   /**
+   * Checking if the settings on the page match the value on config.
+   *
    * @Then the rendered script should contains the :arg1 with the same value as the configuration set in settings file
    */
-  public function theSiteIDRenderedOnThePageShouldBeTheSameAsInSettingsFile($siteIdLabel) {
+  public function theSiteIdRenderedOnThePageShouldBeTheSameAsInSettingsFile($siteIdLabel) {
     // Getting the current settings.
     $settingsList = $this->getAnalyticsSettingsFromPage();
 
@@ -45,6 +47,8 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
   }
 
   /**
+   * Set a new config value for siteID.
+   *
    * @Then I set the SiteId with :arg1 in settings file
    */
   public function setSideIdInSettingsFile($siteIdValue) {
@@ -54,6 +58,8 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
   }
 
   /**
+   * Check if is403 or is404 is true on 403 and 404 page accordingly.
+   *
    * @Then the rendered script should contains the :arg1 configuration setting equal to true
    */
   public function theRenderedScriptShouldContainsTheConfigurationSettingEqualToTrue($setting_key) {
@@ -76,11 +82,11 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
    * The list of webtools settings found in current page.
    *
    * @return array
-   *  An array of  settings found in current page.
+   *   An array of  settings found in current page.
    */
   private function getAnalyticsSettingsFromPage() : array {
-    $session =  $this->getSession();
-    // Inspect if the <script type="application/json">{"utility":"piwik","siteID":"5454544545454","sitePath":["localhost\/open_europa\/oe_webtools\/build\/"]}</script>
+    $session = $this->getSession();
+    // Inspect if the <script type="application/json">{"utility":"piwik","siteID":"5454544545454","sitePath":["localhost\/open_europa\/oe_webtools\/build\/"]}</script>.
     $elem = $session->getPage()->find('css', "script[type='application/json']");
     $settings_list = json_decode($elem->getText(), TRUE);
 

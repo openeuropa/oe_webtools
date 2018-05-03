@@ -32,42 +32,42 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
    *
    * @var string
    */
-  protected $siteId;
+  private $siteId;
 
   /**
    * A specific section or a subwebsite of main site.
    *
    * @var string
    */
-  protected $siteSection;
+  private $siteSection;
 
   /**
    * Allows you to define the root path of your website.
    *
    * @var array
    */
-  protected $sitePath;
+  private $sitePath;
 
   /**
    * Set this variable to true on your 404 page.
    *
    * @var bool
    */
-  protected $is404Page;
+  private $is404Page;
 
   /**
    * Set this variable to true on your 403 page.
    *
    * @var bool
    */
-  protected $is403Page;
+  private $is403Page;
 
   /**
    * Allows to override or set the language of the current page (optional).
    *
    * @var string
    */
-  protected $langCode;
+  private $langCode;
 
   /**
    * Allows to switch between these instances (optional).
@@ -78,14 +78,14 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
    *
    * @var string
    */
-  protected $instance;
+  private $instance;
 
   /**
    * The Search result in json format.
    *
    * @var \Drupal\oe_webtools_analytics\Entity\WebtoolsAnalyticsSearch
    */
-  protected $search;
+  private $search;
 
   /**
    * WebtoolsImportSettingsEvent constructor.
@@ -201,10 +201,10 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
   }
 
   /**
-   * This method checks whether or not the siteId exists.
+   * A mandatory field "siteId".
    *
    * @return bool
-   *   Teh siteId is a mandatory field.
+   *   Whether or not the siteId exists.
    */
   public function isValid() {
     // SiteId is required.

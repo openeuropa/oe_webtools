@@ -10,8 +10,9 @@ use Behat\Gherkin\Node\TableNode;
  */
 class DrupalContext extends RawDrupalContext {
   /**
-   * @var  Drupal\Core\Extension\ModuleHandler
-   *   A ModuleHandler instance.
+   * A ModuleHandler instance.
+   *
+   * @var Drupal\Core\Extension\ModuleHandler
    */
   private $moduleHandler;
 
@@ -50,12 +51,11 @@ class DrupalContext extends RawDrupalContext {
    */
   public function theseModulesAreEnabled(TableNode $modules_table) {
     $cache_flushing = FALSE;
-    $message = array();
-    
+    $message = [];
+
     foreach ($modules_table->getHash() as $row) {
       if (!$this->moduleHandler->moduleExists($row['modules'])) {
-        
-          $message[] = $row['modules'];
+        $message[] = $row['modules'];
       }
       else {
         $cache_flushing = TRUE;
