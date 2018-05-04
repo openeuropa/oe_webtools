@@ -3,23 +3,25 @@
 declare(strict_types = 1);
 
 /**
- * Webtools WebtoolsImportSettingsEvent Event.
+ * Webtools AnalyticsEvent Event.
  *
  * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
  */
 
 namespace Drupal\oe_webtools_analytics\Event;
 
-use Drupal\oe_webtools_analytics\Entity\WebtoolsAnalyticsSearch;
-use Symfony\Component\EventDispatcher\Event;
 use JsonSerializable;
+use Symfony\Component\EventDispatcher\Event;
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use Drupal\oe_webtools_analytics\Entity\SearchParameters;
+use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
 
 /**
  * Class WebtoolsImportDataEvent.
  *
  * @package Drupal\oe_webtools_analytics\Event
  */
-class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
+class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface {
   /**
    * This event allows you to set the Analytics variable.
    *
@@ -83,54 +85,45 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
   /**
    * The Search result in json format.
    *
-   * @var \Drupal\oe_webtools_analytics\Entity\WebtoolsAnalyticsSearch
+   * @var \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
    */
   private $search;
 
   /**
-   * WebtoolsImportSettingsEvent constructor.
+   * @var string
+   */
+  private $utility;
+
+  /**
+   * AnalyticsEvent constructor.
    */
   public function __construct() {
-    $this->search = new WebtoolsAnalyticsSearch();
+    $this->search = new SearchParameters();
   }
 
   /**
-   * Sets the site id.
-   *
-   * @param string $siteId
-   *   It is a mandatory field type NUMBER and the default value "n/a".
+   * {@inheritdoc}
    */
   public function setSiteId(string $siteId): void {
     $this->siteId = $siteId;
   }
 
   /**
-   * Sets the sitePath, allowing to identify "outlinks" and "inlink".
-   *
-   * From other websites in the same domain.
-   *
-   * @param array $sitePath
-   *   The value must be: domain (without protocol) + root path of the site.
+   * {@inheritdoc}
    */
   public function setSitePath(array $sitePath): void {
     $this->sitePath = $sitePath;
   }
 
   /**
-   * Sets the section or a subwebsite allowing to refine the statistics.
-   *
-   * @param string $siteSection
-   *   An optional string with dafault value "n/a".
+   * {@inheritdoc}
    */
   public function setSiteSection(string $siteSection): void {
     $this->siteSection = $siteSection;
   }
 
   /**
-   * Sets to true on 404 page.
-   *
-   * @param bool $is404Page
-   *   A boolean variable set as false by default.
+   * {@inheritdoc}
    */
   public function setIs404Page(bool $is404Page = TRUE): void {
     $this->is404Page = $is404Page;
@@ -147,10 +140,7 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
   }
 
   /**
-   * Allows you to override or set the language of the current page.
-   *
-   * @param string $langCode
-   *   An optional string with "unknown" as default value.
+   * {@inheritdoc}
    */
   public function setLangCode(string $langCode): void {
     $this->langCode = $langCode;
@@ -174,16 +164,86 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
   /**
    * {@inheritdoc}
    */
+  public function setUtility(string $utility = 'piwik'): void {
+    $this->utility = $utility;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSiteId(): string {
+    return $this->siteId;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSiteSection(): string {
+    return $this->siteSection;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSitePath(): array {
+    return $this->sitePath;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function is404Page(): bool {
+    return $this->is404Page;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function is403Page(): bool {
+    return $this->is403Page;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLangCode(): string {
+    return $this->langCode;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getInstance(): string {
+    return $this->instance;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getSearch(): SearchParametersInterface {
+    return $this->search;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getUtility(): string {
+    return $this->utility;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function jsonSerialize() {
     $data = [
-      "utility" => "piwik",
-      'siteID' => $this->siteId,
-      'sitePath' => $this->sitePath,
-      'siteSection' => $this->siteSection,
-      'is404' => $this->is404Page,
-      'is403' => $this->is403Page,
-      'lang' => $this->langCode,
-      'instance' => $this->instance,
+      self::UTILITY => $this->utility,
+      self::SITE_ID => $this->siteId,
+      self::SITE_PATH => $this->sitePath,
+      self::SITE_SECTION => $this->siteSection,
+      self::IS404 => $this->is404Page,
+      self::IS403 => $this->is403Page,
+      self::LANG => $this->langCode,
+      self::INSTANCE => $this->instance,
     ];
 
     if ($this->search->isSetKeyword()) {
@@ -201,12 +261,9 @@ class WebtoolsImportSettingsEvent extends Event implements JsonSerializable {
   }
 
   /**
-   * A mandatory field "siteId".
-   *
-   * @return bool
-   *   Whether or not the siteId exists.
+   * {@inheritdoc}
    */
-  public function isValid() {
+  public function isValid() : bool {
     // SiteId is required.
     if (!$this->siteId) {
       return FALSE;

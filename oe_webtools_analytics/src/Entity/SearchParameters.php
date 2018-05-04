@@ -13,11 +13,11 @@ namespace Drupal\oe_webtools_analytics\Entity;
 use JsonSerializable;
 
 /**
- * Class WebtoolsAnalyticsSearch.
+ * Class SearchParameters.
  *
  * @package Drupal\oe_webtools_analytics\Entity
  */
-class WebtoolsAnalyticsSearch implements jsonserializable {
+class SearchParameters implements jsonserializable, SearchParametersInterface {
   /**
    * Keyword searched (mandatory).
    *
@@ -41,50 +41,58 @@ class WebtoolsAnalyticsSearch implements jsonserializable {
   private $count;
 
   /**
-   * Sets the search keyword.
-   *
-   * @param string $keyword
-   *   A mandatory string value.
+   * {@inheritdoc}
    */
   public function setKeyword(string $keyword): void {
     $this->keyword = $keyword;
   }
 
   /**
-   * Sets search category.
-   *
-   * @param string $category
-   *   An optional string value.
+   * {@inheritdoc}
    */
   public function setCategory($category): void {
     $this->category = $category;
   }
 
   /**
-   * Sets search results count.
-   *
-   * @param int $count
-   *   An optional number value.
+   * {@inheritdoc}
    */
   public function setCount(int $count): void {
     $this->count = $count;
   }
 
   /**
-   * Check whether or not the keyword has been set.
-   *
-   * @return bool
-   *   True in case the variable has been set otherwise false.
+   * {@inheritdoc}
+   */
+  public function getKeyword(): string {
+    return $this->keyword;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCategory(): string {
+    return $this->category;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCount(): int {
+    return $this->count;
+  }
+
+
+
+  /**
+   * {@inheritdoc}
    */
   public function isSetKeyword() {
     return !empty($this->keyword);
   }
 
   /**
-   * Serialize the data with custom indexes.
-   *
-   * @return array|mixed
-   *   An array of above parameters.
+   * {@inheritdoc}
    */
   public function jsonSerialize() {
     $search = [
