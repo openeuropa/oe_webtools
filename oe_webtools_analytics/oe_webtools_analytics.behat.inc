@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \OEParagraphsSubContext.
+ * Contains \OEWebtoolsAnalyticsSubContext.
  */
 
 declare(strict_types = 1);
@@ -93,13 +93,12 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
     $elem = $session->getPage()->find('css', "script[type='application/json']");
     $settings_list = json_decode($elem->getText(), TRUE);
 
-    $valid_required_settings = [
+    $required_settings = [
       AnalyticsEventInterface::SITE_ID,
       AnalyticsEventInterface::SITE_PATH,
-      // AnalyticsEventInterface::UTILITY,
     ];
 
-    foreach ($valid_required_settings as $setting) {
+    foreach ($required_settings as $setting) {
       if (!isset($settings_list[$setting])) {
         throw new \RuntimeException("The configuration is missing, please check if the entry \"$setting\" exists within settings.php.");
       }
@@ -109,15 +108,15 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
   }
 
   /**
-   * Check whether or not the analytic property is valid accordingly to the documentation.
-   *
-   * The documentation can be found at.
-   * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
+   * Validate the property accordingly to the documentation.
    *
    * @param string $attributeName
+   *   The nalytic attribute name.
+   *
    * @return bool
+   *   True or false.
    */
-  private function isValidAttribute( string $attributeName) : boolean {
+  private function isValidAttribute(string $attributeName) : boolean {
     $validAttributes = [
       AnalyticsEventInterface::IS403,
       AnalyticsEventInterface::IS404,
@@ -129,4 +128,5 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
 
     return in_array($attributeName, $validAttributes);
   }
+
 }

@@ -1,10 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\oe_webtools_analytics;
 
 use JsonSerializable;
 use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
 
+/**
+ * Provides an interface for AnalyticsEvent accordingly to the documentation.
+ *
+ * @package Drupal\oe_webtools_analytics
+ */
 interface AnalyticsEventInterface extends JsonSerializable {
 
   /**
@@ -38,7 +45,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
   const  SITE_PATH = 'sitePath';
 
   /**
-   *  Allows to send the tracking information from different servers.
+   * Allows to send the tracking information from different servers.
    */
   const  INSTANCE = 'instance';
 
@@ -47,7 +54,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    */
   const  SITE_SECTION = 'siteSection';
   /**
-   * This variable is set to true when search with the parameters form SearchParameters class.
+   * Set to true when search with the parameters form SearchParameters class.
    *
    * @see \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
    */
@@ -117,9 +124,10 @@ interface AnalyticsEventInterface extends JsonSerializable {
   public function setInstance(string $instance): void;
 
   /**
-   * Sets the utility parameter, eg: piwik.
+   * Sets the utility parameter.
    *
    * @param string $utility
+   *   By default is set to "piwik".
    */
   public function setUtility(string $utility = 'piwik'): void;
 
@@ -127,6 +135,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Get siteID.
    *
    * @return string
+   *   The unique number for each site.
    */
   public function getSiteId(): string;
 
@@ -134,6 +143,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Get the section.
    *
    * @return string
+   *   The section or subsection within page.
    */
   public function getSiteSection(): string;
 
@@ -141,6 +151,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Get the sitePath.
    *
    * @return array
+   *   A set of domain without protocol + root path to the site.
    */
   public function getSitePath(): array;
 
@@ -148,13 +159,15 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Get whether or not is a 404 page.
    *
    * @return bool
+   *   True in case is 404 page otherwise false.
    */
   public function is404Page(): bool;
 
   /**
-   * Get whether or not is a 404 page.
+   * Get whether or not is a 403 page.
    *
    * @return bool
+   *   True in case is 403 page otherwise false.
    */
   public function is403Page(): bool;
 
@@ -162,6 +175,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Get the site language.
    *
    * @return string
+   *   The current page language.
    */
   public function getLangCode(): string;
 
@@ -169,20 +183,23 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Get the instance.
    *
    * @return string
+   *   An optional string, e.g: testing.
    */
   public function getInstance(): string;
 
   /**
-   * An instance of SearchParameters class.
+   * An object which will give json structure with some parameters.
    *
-   * @return SearchParametersInterface
+   * @return \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   *   An instance of SearchParameters class.
    */
   public function getSearch(): SearchParametersInterface;
 
   /**
-   * Get the utility parameter,by default is "piwik".
+   * Get the utility parameter.
    *
    * @return string
+   *   A string which by default is "piwik"
    */
   public function getUtility(): string;
 
@@ -192,5 +209,6 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * @return bool
    *   Whether or not the siteId exists.
    */
-  public function isValid() : bool;
+  public function isValid(): bool;
+
 }

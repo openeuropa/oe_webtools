@@ -90,7 +90,10 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   private $search;
 
   /**
+   * The analytic parameter.
+   *
    * @var string
+   *   A string which by default it sets to "piwiki".
    */
   private $utility;
 
@@ -263,12 +266,9 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   /**
    * {@inheritdoc}
    */
-  public function isValid() : bool {
+  public function isValid(): bool {
     // SiteId is required.
-    if (!$this->siteId) {
-      return FALSE;
-    }
-    return TRUE;
+    return !empty($this->siteId);
   }
 
 }

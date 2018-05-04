@@ -82,12 +82,10 @@ class SearchParameters implements jsonserializable, SearchParametersInterface {
     return $this->count;
   }
 
-
-
   /**
    * {@inheritdoc}
    */
-  public function isSetKeyword() {
+  public function isSetKeyword(): bool {
     return !empty($this->keyword);
   }
 

@@ -46,33 +46,29 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack) {
     // Get id from settings.php!
-    if ($configFactory->get('oe_webtools.analytics')) {
-      $this->config = $configFactory->get('oe_webtools.analytics');
-      $this->requestStack = $requestStack;
-    }
-    else {
+    if (!$configFactory->get('oe_webtools.analytics')) {
       throw new \InvalidArgumentException(t('The "oe_webtools.analytics" settings is missing from settings.php', [], ['context' => 'oe_webtools']));
     }
+    $this->config = $configFactory->get('oe_webtools.analytics');
+    $this->requestStack = $requestStack;
   }
 
   /**
    * Kernel request event handler.
    *
-   * @param \Drupal\oe_webtools_analytics\Event\AnalyticsEvent $event
+   * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     // SiteID.
-    $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
-    if ($site_id) {
+    if ($site_id = $this->config->get(AnalyticsEventInterface::SITE_ID)) {
       $event->setSiteId((string) $site_id);
     }
+
     // SitePath.
-    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(AnalyticsEventInterface::SITE_PATH)) {
-      $event->setSitePath((array) $this->config->get(AnalyticsEventInterface::SITE_PATH));
-    }
-    else {
-      $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
+    $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
+    if ($site_path = $this->config->get(AnalyticsEventInterface::SITE_PATH)) {
+      $event->setSitePath((array) $site_path);
     }
 
     // Set exception flags when access is denied, or page not found.
@@ -80,8 +76,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     if ($request_exception instanceof NotFoundHttpException) {
       $event->setIs404Page();
     }
-
-    if ($request_exception instanceof AccessDeniedHttpException) {
+    elseif ($request_exception instanceof AccessDeniedHttpException) {
       $event->setIs403Page();
     }
   }

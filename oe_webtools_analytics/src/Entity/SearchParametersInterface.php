@@ -16,6 +16,7 @@ namespace Drupal\oe_webtools_analytics\Entity;
  * @package Drupal\oe_webtools_analytics\Entity
  */
 interface SearchParametersInterface {
+
   /**
    * Sets the search keyword.
    *
@@ -41,17 +42,26 @@ interface SearchParametersInterface {
   public function setCount(int $count): void;
 
   /**
+   * The search keyword.
+   *
    * @return string
+   *   A string with the value searched.
    */
   public function getKeyword(): string;
 
   /**
+   * Get the search category parameter.
+   *
    * @return string
+   *   The search category.
    */
   public function getCategory(): string;
 
   /**
+   * Get the search count parameter.
+   *
    * @return int
+   *   The number of results found.
    */
   public function getCount(): int;
 

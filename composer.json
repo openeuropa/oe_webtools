@@ -1,6 +1,6 @@
 {
     "name": "openeuropa/oe_webtools",
-    "description": "OpenEuropa Drupal module template.",
+    "description": "OpenEuropa webtools integration.",
     "type": "drupal-module",
     "license": "EUPL-1.2",
     "minimum-stability": "dev",
