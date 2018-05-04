@@ -2,7 +2,7 @@
 
 /**
  * @file
- *   Contains Drupal hooks.
+ * Contains Drupal hooks.
  */
 
 declare(strict_types = 1);
