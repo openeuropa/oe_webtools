@@ -7,7 +7,6 @@
 
 declare(strict_types = 1);
 
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
 use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
 
@@ -15,18 +14,6 @@ use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
  * Behat step definitions for testing the OE Webtools Analytics module.
  */
 class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
-
-  /**
-   * Set up webtools analytic's module.
-   *
-   * @param Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
-   *   BeforeScenario hook scope.
-   *
-   * @BeforeScenario @webtoolsAnalytics
-   */
-  public function setupWebtoolsAnalytics(BeforeScenarioScope $scope) : void {
-    \Drupal::service('module_installer')->install(['oe_webtools_analytics']);
-  }
 
   /**
    * Create the analytics settings on runtime.
