@@ -6,7 +6,6 @@ default:
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\Tests\oe_webtools\Behat\DrupalContext
   extensions:
     Behat\MinkExtension:
