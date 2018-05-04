@@ -90,7 +90,10 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   private $search;
 
   /**
+   * The analytic parameter.
+   *
    * @var string
+   *   A string which by default it sets to "piwiki".
    */
   private $utility;
 

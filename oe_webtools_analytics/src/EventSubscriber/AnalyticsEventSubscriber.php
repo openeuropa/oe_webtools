@@ -58,7 +58,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * Kernel request event handler.
    *
-   * @param \Drupal\oe_webtools_analytics\Event\AnalyticsEvent $event
+   * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
@@ -67,6 +67,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     if ($site_id) {
       $event->setSiteId((string) $site_id);
     }
+
     // SitePath.
     if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(AnalyticsEventInterface::SITE_PATH)) {
       $event->setSitePath((array) $this->config->get(AnalyticsEventInterface::SITE_PATH));

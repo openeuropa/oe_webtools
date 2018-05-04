@@ -82,8 +82,6 @@ class SearchParameters implements jsonserializable, SearchParametersInterface {
     return $this->count;
   }
 
-
-
   /**
    * {@inheritdoc}
    */
