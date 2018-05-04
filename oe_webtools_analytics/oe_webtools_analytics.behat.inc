@@ -8,7 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
-use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 
 /**
  * Behat step definitions for testing the OE Webtools Analytics module.
@@ -44,15 +44,15 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
   public function theAnalyticsScriptShouldHaveThePropertySetToValue($property, $value) : void {
 
     // Getting the current settings.
-    $settingsList = $this->getAnalyticsSettingsFromPage();
+    $settings_list = $this->getAnalyticsSettingsFromPage();
 
     // The rendered siteId.
-    $onPageSiteId = $settingsList[$property];
+    $on_page_siteId = $settings_list[$property];
 
     // Message to be displayed in case of failure.
-    $failMsg = "The siteID on settings is $value which differ to the rendered siteID = $onPageSiteId";
+    $failed_msg = "The siteID on settings is $value which differ to the rendered siteID = $on_page_siteId";
 
-    PHPUnit_Framework_Assert::assertEquals($onPageSiteId, $value, $failMsg);
+    PHPUnit_Framework_Assert::assertEquals($on_page_siteId, $value, $failed_msg);
   }
 
   /**
@@ -61,19 +61,19 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
    * @param string $property
    *   The property label, eg.: siteID, sitePath, is403, is404.
    *
-   * @see Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex
+   * @see \Drupal\oe_webtools_analytics\AnalyticsEventInterface
    *
    * @Then the Analytics script should contains the :arg1 configuration setting equal to true
    */
   public function theAnalyticsScriptShouldContainsTheConfigurationSettingEqualToTrue($property) : void {
     $settingsList = $this->getAnalyticsSettingsFromPage();
     switch ($property) {
-      case 'is403':
-        PHPUnit_Framework_Assert::assertTrue($settingsList[WebtoolsAnalyticsIndex::IS403]);
+      case AnalyticsEventInterface::IS403:
+        PHPUnit_Framework_Assert::assertTrue($settingsList[AnalyticsEventInterface::IS403]);
         break;
 
-      case 'is404':
-        PHPUnit_Framework_Assert::assertTrue($settingsList[WebtoolsAnalyticsIndex::IS404]);
+      case AnalyticsEventInterface::IS404:
+        PHPUnit_Framework_Assert::assertTrue($settingsList[AnalyticsEventInterface::IS404]);
         break;
 
       default:
@@ -93,19 +93,40 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
     $elem = $session->getPage()->find('css', "script[type='application/json']");
     $settings_list = json_decode($elem->getText(), TRUE);
 
-    $valid_settings = [
-      'siteID',
-      'sitePath',
-      'utility',
+    $valid_required_settings = [
+      AnalyticsEventInterface::SITE_ID,
+      AnalyticsEventInterface::SITE_PATH,
+      // AnalyticsEventInterface::UTILITY,
     ];
 
-    foreach ($valid_settings as $setting) {
+    foreach ($valid_required_settings as $setting) {
       if (!isset($settings_list[$setting])) {
-        throw new \RuntimeException("The configuration is missing, please check if the entry \"config['oe_webtools.analytics']['site_id']\" within settings.php exists.");
+        throw new \RuntimeException("The configuration is missing, please check if the entry \"$setting\" exists within settings.php.");
       }
     }
 
     return $settings_list;
   }
 
+  /**
+   * Check whether or not the analytic property is valid accordingly to the documentation.
+   *
+   * The documentation can be found at.
+   * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
+   *
+   * @param string $attributeName
+   * @return bool
+   */
+  private function isValidAttribute( string $attributeName) : boolean {
+    $validAttributes = [
+      AnalyticsEventInterface::IS403,
+      AnalyticsEventInterface::IS404,
+      AnalyticsEventInterface::SITE_ID,
+      AnalyticsEventInterface::UTILITY,
+      AnalyticsEventInterface::SITE_PATH,
+      AnalyticsEventInterface::SITE_SECTION,
+    ];
+
+    return in_array($attributeName, $validAttributes);
+  }
 }

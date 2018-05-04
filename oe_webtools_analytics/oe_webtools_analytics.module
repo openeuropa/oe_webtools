@@ -7,7 +7,7 @@
 
 declare(strict_types = 1);
 
-use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
+use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 
 /**
  * Implements hook_page_attachments().
@@ -15,9 +15,9 @@ use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
  * Collects the Analytics settings and sets them as a JSON snippet.
  */
 function oe_webtools_analytics_page_attachments(array &$attachments) {
-  $import_settings_event = new WebtoolsImportSettingsEvent();
+  $import_settings_event = new AnalyticsEvent();
   $event_dispatcher = \Drupal::service('event_dispatcher');
-  $event_dispatcher->dispatch(WebtoolsImportSettingsEvent::NAME, $import_settings_event);
+  $event_dispatcher->dispatch(AnalyticsEvent::NAME, $import_settings_event);
 
   if ($import_settings_event->isValid()) {
     $attachments['#attached']['html_head'][] = [

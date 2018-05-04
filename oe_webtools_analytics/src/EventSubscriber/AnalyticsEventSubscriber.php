@@ -4,24 +4,24 @@ declare(strict_types = 1);
 
 /**
  * @file
- * Listening to the WebtoolsImportSettingsEvent.
+ * Listening to the AnalyticsEvent.
  */
 
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\oe_webtools_analytics\Utils\ValidSettingsAttributes;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
+use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
- * Event Subscriber WebtoolsImportSettingsSubscriber.
+ * Event Subscriber AnalyticsEventSubscriber.
  */
-class WebtoolsImportSettingsSubscriber implements EventSubscriberInterface {
+class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * The Configuration overrides instance.
    *
@@ -37,7 +37,7 @@ class WebtoolsImportSettingsSubscriber implements EventSubscriberInterface {
   protected $requestStack;
 
   /**
-   * WebtoolsImportSettingsSubscriber constructor.
+   * AnalyticsEventSubscriber constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration object.
@@ -58,18 +58,18 @@ class WebtoolsImportSettingsSubscriber implements EventSubscriberInterface {
   /**
    * Kernel request event handler.
    *
-   * @param \Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent $event
+   * @param \Drupal\oe_webtools_analytics\Event\AnalyticsEvent $event
    *   Response event.
    */
-  public function onSetSiteDefaults(WebtoolsImportSettingsEvent $event) {
+  public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     // SiteID.
-    $site_id = $this->config->get(ValidSettingsAttributes::SITE_ID);
+    $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
     if ($site_id) {
       $event->setSiteId((string) $site_id);
     }
     // SitePath.
-    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(ValidSettingsAttributes::SITE_PATH)) {
-      $event->setSitePath((array) $this->config->get(ValidSettingsAttributes::SITE_PATH));
+    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(AnalyticsEventInterface::SITE_PATH)) {
+      $event->setSitePath((array) $this->config->get(AnalyticsEventInterface::SITE_PATH));
     }
     else {
       $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
@@ -90,8 +90,8 @@ class WebtoolsImportSettingsSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    // Subscribing to listening to the WebtoolsImportSettings event.
-    $events[WebtoolsImportSettingsEvent::NAME][] = ['onSetSiteDefaults'];
+    // Subscribing to listening to the Analytics event.
+    $events[AnalyticsEvent::NAME][] = ['onSetSiteDefaults'];
 
     return $events;
   }
