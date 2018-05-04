@@ -17,9 +17,11 @@ use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
 class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
 
   /**
-   * Setup demo site.
+   * Set up webtools analytic's module.
    *
-   * @param  Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
+   * @param Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
+   *   BeforeScenario hook scope.
+   *
    * @BeforeScenario @webtoolsAnalytics
    */
   public function setupWebtoolsAnalytics(BeforeScenarioScope $scope) : void {
@@ -31,24 +33,22 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
    *
    * @param string $property
    *   The property label, eg.: siteID, sitePath, is403, is404.
-   *
    * @param string $value
    *   The actual property value.
    *
    * @Then I should be able to set the property :arg1 with the value :arg2
    */
-  public function iShouldBeAbleToSetThePropertyWithTheValue($property, $value) : void {
+  public function iShouldBeAbleToSetThePropertyWithTheValue(string $property, string $value) : void {
     \Drupal::configFactory()->getEditable('oe_webtools.analytics')
       ->set($property, $value)
       ->save();
   }
 
   /**
-   * Inspect whether or not the analytic's script has been rendered with the right value.
+   * Inspect whether or not the analytic's script has the right settings value.
    *
    * @param string $property
    *   The property label, eg.: siteID, sitePath, is403, is404.
-   *
    * @param string $value
    *   The actual property value.
    *
