@@ -14,7 +14,7 @@ class DrupalContext extends RawDrupalContext {
   /**
    * A ModuleHandler instance.
    *
-   * @var Drupal\Core\Extension\ModuleHandler
+   * @var \Drupal\Core\Extension\ModuleHandler
    */
   private $moduleHandler;
 
@@ -49,9 +49,11 @@ class DrupalContext extends RawDrupalContext {
    * @param \Behat\Gherkin\Node\TableNode $modules_table
    *   The table listing modules.
    *
+   * @throws \Exception
+   *
    * @Given the/these module/modules is/are enabled
    */
-  public function theseModulesAreEnabled(TableNode $modules_table) {
+  public function enableModule(TableNode $modules_table) {
     $cache_flushing = FALSE;
     $message = [];
 
@@ -60,6 +62,7 @@ class DrupalContext extends RawDrupalContext {
         $message[] = $row['modules'];
       }
       else {
+        \Drupal::service('module_installer')->install([$row['modules']]);
         $cache_flushing = TRUE;
       }
     }

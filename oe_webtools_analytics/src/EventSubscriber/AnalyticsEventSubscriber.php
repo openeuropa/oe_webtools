@@ -12,7 +12,7 @@ namespace Drupal\oe_webtools_analytics\EventSubscriber;
 use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Drupal\oe_webtools_analytics\Utils\WebtoolsAnalyticsIndex;
+use Drupal\oe_webtools_analytics\Utils\ValidSettingsAttributes;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\oe_webtools_analytics\Event\WebtoolsImportSettingsEvent;
@@ -63,13 +63,13 @@ class WebtoolsImportSettingsSubscriber implements EventSubscriberInterface {
    */
   public function onSetSiteDefaults(WebtoolsImportSettingsEvent $event) {
     // SiteID.
-    $site_id = $this->config->get(WebtoolsAnalyticsIndex::SITE_ID);
+    $site_id = $this->config->get(ValidSettingsAttributes::SITE_ID);
     if ($site_id) {
       $event->setSiteId((string) $site_id);
     }
     // SitePath.
-    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(WebtoolsAnalyticsIndex::SITE_PATH)) {
-      $event->setSitePath((array) $this->config->get(WebtoolsAnalyticsIndex::SITE_PATH));
+    if (\Drupal::configFactory()->get('oe_webtools.analytics')->get(ValidSettingsAttributes::SITE_PATH)) {
+      $event->setSitePath((array) $this->config->get(ValidSettingsAttributes::SITE_PATH));
     }
     else {
       $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));

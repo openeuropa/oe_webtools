@@ -1,4 +1,4 @@
-@api @webtoolsAnalytics
+@api
 Feature: Check Analytics
   In order to check if the type attribute is set for the Piwik element.
   As a developer and or a site administrator
