@@ -209,6 +209,6 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * @return bool
    *   Whether or not the siteId exists.
    */
-  public function isValid() : bool;
+  public function isValid(): bool;
 
 }

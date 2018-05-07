@@ -85,7 +85,7 @@ class SearchParameters implements jsonserializable, SearchParametersInterface {
   /**
    * {@inheritdoc}
    */
-  public function isSetKeyword() {
+  public function isSetKeyword(): bool {
     return !empty($this->keyword);
   }
 
