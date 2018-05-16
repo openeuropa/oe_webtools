@@ -1,6 +1,8 @@
-# OpenEuropa oe_webtools module to load Third-party library (CDN).
+# OpenEuropa Webtools
 
-[![Build Status](https://travis-ci.org/openeuropa/oe_webtools.svg?branch=master)](https://travis-ci.org/openeuropa/oe_webtools)
+[![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/oe_webtools/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/oe_webtools)
+
+ module to load Third-party library (CDN).
 
 ## Development setup
 

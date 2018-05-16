@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions for testing the OE Webtools Analytics module.
@@ -52,7 +53,7 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
     // Message to be displayed in case of failure.
     $failed_msg = "The siteID on settings is $value which differ to the rendered siteID = $on_page_siteId";
 
-    PHPUnit_Framework_Assert::assertEquals($on_page_siteId, $value, $failed_msg);
+    Assert::assertEquals($on_page_siteId, $value, $failed_msg);
   }
 
   /**
@@ -69,11 +70,11 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
     $settingsList = $this->getAnalyticsSettingsFromPage();
     switch ($property) {
       case AnalyticsEventInterface::IS403:
-        PHPUnit_Framework_Assert::assertTrue($settingsList[AnalyticsEventInterface::IS403]);
+        Assert::assertTrue($settingsList[AnalyticsEventInterface::IS403]);
         break;
 
       case AnalyticsEventInterface::IS404:
-        PHPUnit_Framework_Assert::assertTrue($settingsList[AnalyticsEventInterface::IS404]);
+        Assert::assertTrue($settingsList[AnalyticsEventInterface::IS404]);
         break;
 
       default:
