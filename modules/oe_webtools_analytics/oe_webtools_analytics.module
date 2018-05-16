@@ -28,7 +28,7 @@ function oe_webtools_analytics_page_attachments(array &$attachments) {
         '#attributes' => ['type' => 'application/json'],
       ],
       // A key, to make it possible to recognize this when altering.
-      'oe-webtools-analytics',
+      'oe_webtools_analytics',
     ];
   }
 }
