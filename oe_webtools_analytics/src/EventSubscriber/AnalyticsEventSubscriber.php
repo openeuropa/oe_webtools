@@ -46,10 +46,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack) {
     // Get id from settings.php!
-    if (!$configFactory->get('oe_webtools.analytics')) {
-      throw new \InvalidArgumentException(t('The "oe_webtools.analytics" settings is missing from settings.php', [], ['context' => 'oe_webtools']));
-    }
-    $this->config = $configFactory->get('oe_webtools.analytics');
+    $this->config = $configFactory->get(AnalyticsEventInterface::WEBTOOLS_ANALYTICS_SETTINGS);
     $this->requestStack = $requestStack;
   }
 
@@ -60,10 +57,16 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
-    // SiteID.
-    if ($site_id = $this->config->get(AnalyticsEventInterface::SITE_ID)) {
-      $event->setSiteId((string) $site_id);
+    $factory = \Drupal::service('logger.factory');
+
+    // SiteID must exist and be an integer.
+    if (!is_numeric($site_id = $this->config->get(AnalyticsEventInterface::SITE_ID))) {
+      $factory->get('default')->debug('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing!');
+      return;
     }
+
+    // Setting SiteID.
+    $event->setSiteId((string) $site_id);
 
     // SitePath.
     $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
