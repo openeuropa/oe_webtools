@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
-
+use Behat\Behat\Event\FeatureEvent;
 /**
  * Behat step definitions for testing the OE Webtools Analytics module.
  */
@@ -23,10 +23,10 @@ class OEWebtoolsAnalyticsSubContext extends DrupalSubContextBase {
    * @param string $value
    *   The actual property value.
    *
-   * @Then I should be able to set the property :arg1 with the value :arg2
+   * @Then I should be able to set the webtools analytics property :arg1 with the value :arg2
    */
   public function iShouldBeAbleToSetThePropertyWithTheValue(string $property, string $value) : void {
-    \Drupal::configFactory()->getEditable('oe_webtools.analytics')
+    \Drupal::configFactory()->getEditable(AnalyticsEventInterface::WEBTOOLS_ANALYTICS_SETTINGS)
       ->set($property, $value)
       ->save();
   }

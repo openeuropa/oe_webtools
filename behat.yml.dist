@@ -6,7 +6,9 @@ default:
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\Tests\oe_webtools\Behat\DrupalContext
+        - Drupal\DrupalExtension\Context\ConfigContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
@@ -16,6 +18,6 @@ default:
     Drupal\DrupalExtension:
       api_driver: "drupal"
       drupal:
-        drupal_root: "build"
+        drupal_root: "${drupal.root}"
   formatters:
     progress: ~
