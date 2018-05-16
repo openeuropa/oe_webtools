@@ -9,13 +9,16 @@ Feature: Check Analytics
       | modules                            |
       | oe_webtools_analytics              |
     And I am logged in as a user with the "administrator" role
-
+#  @webtoolsSettings
   Scenario: Check if the Analytics script is embedded into the page correctly
-    Given I am on the homepage
-    Then I should be able to set the property "siteID" with the value "1234567"
-    When I reload the page
+#    Given I am on the homepage
+#    Then I should be able to set the webtools analytics property "siteID" with the value "12345670"
+    Given I set the configuration item "oe_webtools.analytics" with key "siteID" to "12345670"
+#      | key        | values      |
+#      | siteID     | 12345670    |
+    When I go to "/"
     Then the response status code should be 200
-    Then the analytics script should have the property "siteID" set to value "1234567"
+    Then the analytics script should have the property "siteID" set to value "12345670"
 
   Scenario: Check if the Analytics script flags non existing pages
     Given I go to "falsepage"
