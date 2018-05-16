@@ -35,6 +35,14 @@ pipeline:
     commands:
       - composer require webflo/drupal-core-require-dev:${DRUPAL_VERSION=8.6.x}
 
+  site-install:
+    image: fpfis/php71-build
+    commands:
+      - ./vendor/bin/run drupal:site-install
+      # Reset permission since installation runs as root. @todo Fix this.
+      - chown -R 1000:1000 build/sites/default
+      - chmod -R 777 /tmp
+
   grumphp:
     group: test
     image: fpfis/php71-build
