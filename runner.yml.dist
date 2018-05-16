@@ -23,6 +23,5 @@ commands:
     - { task: "symlink", from: "../../..", to: "${drupal.root}/modules/custom/oe_webtools" }
     - { task: "run", command: "drupal:drush-setup" }
     - { task: "run", command: "drupal:settings-setup" }
-    - { task: "run", command: "setup:phpunit" }
   setup:phpunit:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
