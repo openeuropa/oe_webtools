@@ -46,7 +46,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack) {
     // Get id from settings.php!
-    $this->config = $configFactory->get(AnalyticsEventInterface::WEBTOOLS_ANALYTICS_SETTINGS);
+    $this->config = $configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
     $this->requestStack = $requestStack;
   }
 
@@ -60,7 +60,8 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     $factory = \Drupal::service('logger.factory');
 
     // SiteID must exist and be an integer.
-    if (!is_numeric($site_id = $this->config->get(AnalyticsEventInterface::SITE_ID))) {
+    $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
+    if (!is_numeric($site_id)) {
       $factory->get('default')->debug('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing!');
       return;
     }

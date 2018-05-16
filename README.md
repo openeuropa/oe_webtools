@@ -2,7 +2,7 @@
 
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/oe_webtools/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/oe_webtools)
 
- module to load Third-party library (CDN).
+Webtools integration for OpenEuropa.
 
 ## Development setup
 
@@ -24,7 +24,7 @@ $ ./vendor/bin/run drupal:site-setup
 ```
 
 This will symlink the theme in the proper directory within the test site and
-perform token substitution in test configuration files such as `behat.yml.dist`.
+perform token substitution in test configuration files such as `phpunit.xml.dist`.
 
 * Install test site by running:
 
@@ -69,10 +69,4 @@ To run the phpunit test:
 
 ```
 $ docker-compose exec -u web web ./vendor/bin/phpunit
-```
-
-To run the behat test:
-
-```
-$ docker-compose exec -u web web ./vendor/bin/behat
 ```

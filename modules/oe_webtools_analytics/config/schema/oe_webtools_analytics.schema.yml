@@ -1,0 +1,12 @@
+oe_webtools_analytics.settings:
+  type: config_object
+  label: 'Webtools Analytics settings'
+  mapping:
+    siteID:
+      type: string
+      label: 'Site ID'
+      description: 'The site unique identifier.'
+    sitePath:
+      type: string
+      label: 'Site path'
+      description: 'The domain + root path without protocol.'
