@@ -16,7 +16,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
   /**
    * The Webtools analytics entrance in settings.php.
    */
-  const WEBTOOLS_ANALYTICS_SETTINGS = 'oe_webtools.analytics';
+  const CONFIG_NAME = 'oe_webtools_analytics.settings';
 
   /**
    * The site unique identifier.
