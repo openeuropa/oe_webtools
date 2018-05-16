@@ -26,6 +26,7 @@ function oe_webtools_analytics_page_attachments(array &$attachments) {
         '#tag' => 'script',
         '#value' => $import_settings_event,
         '#attributes' => ['type' => 'application/json'],
+        '#cache' => ['contexts' => ['url']],
       ],
       // A key, to make it possible to recognize this when altering.
       'oe_webtools_analytics',
