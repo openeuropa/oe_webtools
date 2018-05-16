@@ -9,7 +9,7 @@ declare(strict_types = 1);
 
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
-use Behat\Behat\Event\FeatureEvent;
+
 /**
  * Behat step definitions for testing the OE Webtools Analytics module.
  */

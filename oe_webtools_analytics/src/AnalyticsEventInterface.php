@@ -13,6 +13,10 @@ use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
  * @package Drupal\oe_webtools_analytics
  */
 interface AnalyticsEventInterface extends JsonSerializable {
+  /**
+   * The Webtools analytics entrance in settings.php.
+   */
+  const WEBTOOLS_ANALYTICS_SETTINGS = 'oe_webtools.analytics';
 
   /**
    * The site unique identifier.
