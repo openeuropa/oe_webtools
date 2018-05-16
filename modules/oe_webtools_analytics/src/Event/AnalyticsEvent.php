@@ -22,6 +22,7 @@ use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
  * @package Drupal\oe_webtools_analytics\Event
  */
 class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface {
+
   /**
    * This event allows you to set the Analytics variable.
    *
