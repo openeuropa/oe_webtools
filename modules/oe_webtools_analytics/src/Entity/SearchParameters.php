@@ -17,7 +17,7 @@ use JsonSerializable;
  *
  * @package Drupal\oe_webtools_analytics\Entity
  */
-class SearchParameters implements jsonserializable, SearchParametersInterface {
+class SearchParameters implements JsonSerializable, SearchParametersInterface {
   /**
    * Keyword searched (mandatory).
    *

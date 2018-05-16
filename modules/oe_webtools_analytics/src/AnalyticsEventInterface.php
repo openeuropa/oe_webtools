@@ -26,43 +26,43 @@ interface AnalyticsEventInterface extends JsonSerializable {
   /**
    * Representing the 403 key in settings.
    */
-  const  IS403 = 'is403';
+  const IS403 = 'is403';
 
   /**
    * Representing the 404 key in settings.
    */
-  const  IS404 = 'is404';
+  const IS404 = 'is404';
 
   /**
    * The current page language.
    */
-  const  LANG = 'lang';
+  const LANG = 'lang';
 
   /**
    * The analytics tools name, for e.g: piwik.
    */
-  const  UTILITY = 'utility';
+  const UTILITY = 'utility';
 
   /**
    * The domain + root path without protocol.
    */
-  const  SITE_PATH = 'sitePath';
+  const SITE_PATH = 'sitePath';
 
   /**
    * Allows to send the tracking information from different servers.
    */
-  const  INSTANCE = 'instance';
+  const INSTANCE = 'instance';
 
   /**
    * Refine the statistics by indicating a site section  or a subwebsite.
    */
-  const  SITE_SECTION = 'siteSection';
+  const SITE_SECTION = 'siteSection';
   /**
    * Set to true when search with the parameters form SearchParameters class.
    *
    * @see \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
    */
-  const  SEARCH = 'search';
+  const SEARCH = 'search';
 
   /**
    * Sets the site id.
