@@ -48,4 +48,7 @@ pipeline:
     group: test
     image: fpfis/php71-build
     commands:
+      # Reset permission since installation runs as root. @todo Fix this.
+      - chown -R 1000:1000 build/sites/default
+      - chmod -R 777 /tmp
       - ./vendor/bin/phpunit
