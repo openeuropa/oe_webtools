@@ -22,7 +22,7 @@ services:
     environment:
       - PLUGIN_ENDPOINT=web:8080
       - PLUGIN_GEN_AUTH=yes
-      - PLUGIN_DOMAIN=oe_webtools-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}.ci.fpfis.tech.ec.europa.eu
+      - PLUGIN_DOMAIN=oe-webtools-${DRONE_BUILD_NUMBER}-${DRONE_JOB_NUMBER}.ci.fpfis.tech.ec.europa.eu
       - PLUGIN_URL_OUTPUT_FILE=/test/oe_webtools/.frpc
 
 matrix:
@@ -49,6 +49,18 @@ pipeline:
     image: fpfis/php71-build
     commands:
       # Reset permission since installation runs as root. @todo Fix this.
+      - mkdir -p build/sites/simpletest
       - chown -R 1000:1000 build/sites/default
+      - chown -R 1000:1000 build/sites/simpletest
       - chmod -R 777 /tmp
-      - ./vendor/bin/phpunit
+      - useradd -u 1000 -m -s /bin/bash web
+      - su web -c"./vendor/bin/phpunit"
+
+  wait-for-debug:
+    image: fpfis/php71-build
+    commands:
+      - sleep 3600
+    when:
+      event: push
+      branch: debug/*
+      status: failure
