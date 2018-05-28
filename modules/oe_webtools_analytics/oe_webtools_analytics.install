@@ -14,6 +14,11 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
  */
 function oe_webtools_analytics_requirements($phase) {
   $requirements = [];
+
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
   // Report missing siteId on settings.
   if (\Drupal::configFactory()->get(AnalyticsEventInterface::CONFIG_NAME)->get(AnalyticsEventInterface::SITE_ID)) {
     return $requirements;
