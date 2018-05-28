@@ -16,7 +16,6 @@ namespace Drupal\oe_webtools_analytics\Entity;
  * @package Drupal\oe_webtools_analytics\Entity
  */
 interface SearchParametersInterface {
-
   /**
    * Sets the search keyword.
    *

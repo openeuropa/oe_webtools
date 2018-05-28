@@ -13,7 +13,6 @@ use Drupal\oe_webtools_analytics\EventSubscriber\AnalyticsEventSubscriber;
  * @package Drupal\Tests\oe_webtools_analytics\Kernel
  */
 class AnalyticsEventSubscriberServiceTest extends KernelTestBase {
-
   /**
    * {@inheritdoc}
    */

@@ -26,7 +26,6 @@ class ConfigurationTest extends BrowserTestBase {
    * Test that the Webtools JavaScript library is correctly loaded on a page.
    */
   public function testLibraryLoading(): void {
-
     \Drupal::configFactory()
       ->getEditable(AnalyticsEventInterface::CONFIG_NAME)
       ->set("siteID", "123")
