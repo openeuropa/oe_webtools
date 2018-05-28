@@ -9,9 +9,11 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
+use Drupal\Core\Config\ImmutableConfig;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -27,14 +29,21 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $config;
+  private $config;
 
   /**
    * {@inheritdoc}
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
-  protected $requestStack;
+  private $requestStack;
+
+  /**
+   * The search parameter object.
+   *
+   * @var \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   */
+  private $search;
 
   /**
    * AnalyticsEventSubscriber constructor.
@@ -43,11 +52,40 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   The configuration object.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request on the stack.
+   * @param \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface $searchParameters
    */
-  public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack) {
+  public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack, SearchParametersInterface $searchParameters) {
     // Get id from settings.php!
     $this->config = $configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
     $this->requestStack = $requestStack;
+    $this->search = $searchParameters;
+  }
+
+  /**
+   * Get the search parameter object.
+   *
+   * @return \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   */
+  public function getSearchParameters(): SearchParametersInterface {
+    return $this->search;
+  }
+
+  /**
+   * Get the request stack object.
+   *
+   * @return \Symfony\Component\HttpFoundation\RequestStack
+   */
+  public function getRequestStack(): RequestStack {
+    return $this->requestStack;
+  }
+
+  /**
+   * Get the config factory object.
+   *
+   * @return \Drupal\Core\Config\ImmutableConfig
+   */
+  public function getConfig(): ImmutableConfig {
+    return $this->config;
   }
 
   /**
@@ -59,29 +97,36 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     $factory = \Drupal::service('logger.factory');
 
+    // Search handling.
+    $event->setSearchParameters($this->getSearchParameters());
+
     // SiteID must exist and be an integer.
-    $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
+    $site_id = $this->getConfig()->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
-      $factory->get('default')->debug('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing!');
+      $factory
+        ->get('default')
+        ->debug('The setting "'.AnalyticsEventInterface::SITE_ID.'" is missing from settings file.');
       return;
     }
 
     // Setting SiteID.
     $event->setSiteId((string) $site_id);
 
-    // SitePath.
+    // SitePath handling.
     $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
-    if ($site_path = $this->config->get(AnalyticsEventInterface::SITE_PATH)) {
+    if ($site_path = $this->getConfig()->get(AnalyticsEventInterface::SITE_PATH)) {
       $event->setSitePath((array) $site_path);
     }
 
     // Set exception flags when access is denied, or page not found.
-    $request_exception = $this->requestStack->getCurrentRequest()->attributes->get('exception');
+    $request_exception = $this
+      ->getRequestStack()
+      ->getCurrentRequest()->attributes->get('exception');
     if ($request_exception instanceof NotFoundHttpException) {
-      $event->setIs404Page();
+      $event->setIs404Page(TRUE);
     }
     elseif ($request_exception instanceof AccessDeniedHttpException) {
-      $event->setIs403Page();
+      $event->setIs403Page(TRUE);
     }
   }
 

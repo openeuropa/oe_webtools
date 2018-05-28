@@ -62,7 +62,14 @@ interface AnalyticsEventInterface extends JsonSerializable {
    *
    * @see \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
    */
-  const SEARCH = 'search';
+  public const SEARCH = 'search';
+
+  /**
+   * Set the search parameters object.
+   *
+   * @param \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface $searchParameters
+   */
+  public function setSearchParameters(SearchParametersInterface $searchParameters): void;
 
   /**
    * Sets the site id.
