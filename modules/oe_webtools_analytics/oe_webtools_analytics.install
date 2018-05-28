@@ -26,7 +26,7 @@ function oe_webtools_analytics_requirements($phase) {
 
   $requirements['webtools_analytics'] = [
     'title' => t('Webtools analytics requirements.'),
-    'value' => 'The siteId is missing from settings.php',
+    'value' => 'The setting "'.AnalyticsEventInterface::SITE_ID.'" is missing from settings file.',
     'severity' => REQUIREMENT_WARNING,
   ];
 
