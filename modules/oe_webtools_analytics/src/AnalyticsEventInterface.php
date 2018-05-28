@@ -76,7 +76,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * @param string $siteId
    *   It is a mandatory field type NUMBER and the default value "n/a".
    */
-  public function setSiteId(string $siteId): void;
+  public function setSiteId(string $siteId = 'n/a'): void;
 
   /**
    * Sets the sitePath, allowing to identify "outlinks" and "inlink".
@@ -94,7 +94,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * @param string $siteSection
    *   An optional string with default value "n/a".
    */
-  public function setSiteSection(string $siteSection): void;
+  public function setSiteSection(string $siteSection = 'n/a'): void;
 
   /**
    * Sets to true on 404 page.
@@ -118,7 +118,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * @param string $langCode
    *   An optional string with "unknown" as default value.
    */
-  public function setLangCode(string $langCode): void;
+  public function setLangCode(string $langCode = 'unknown'): void;
 
   /**
    * Sets Instance to send the tracking information to different servers.
@@ -131,7 +131,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * @param string $instance
    *   An optional string with "unknown" as default value.
    */
-  public function setInstance(string $instance): void;
+  public function setInstance(string $instance = ''): void;
 
   /**
    * Sets the utility parameter.
