@@ -93,7 +93,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    * The analytic parameter.
    *
    * @var string
-   *   A string which by default it sets to "piwiki".
+   *   A string which by default it sets to "piwik".
    */
   private $utility;
 
