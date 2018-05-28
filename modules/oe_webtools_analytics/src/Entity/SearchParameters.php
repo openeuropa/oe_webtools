@@ -97,7 +97,7 @@ class SearchParameters implements SearchParametersInterface {
    * {@inheritdoc}
    */
   public function isSetKeyword(): bool {
-    return !empty($this->getKeyword());
+    return null !== $this->getKeyword();
   }
 
   /**
