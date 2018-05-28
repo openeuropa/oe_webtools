@@ -35,15 +35,15 @@ class ConfigurationTest extends BrowserTestBase {
 
     $this->drupalGet('<front>');
     $this->assertSession()
-      ->responseContains('<script type="application/json">{"siteID":"123","sitePath":["ec.europa.eu"]}</script>');
+      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"]}</script>');
 
     $this->drupalGet('not-existing-page');
     $this->assertSession()
-      ->responseContains('<script type="application/json">{"siteID":"123","sitePath":["ec.europa.eu"],"is404":true}</script>');
+      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is404":true}</script>');
 
     $this->drupalGet('admin');
     $this->assertSession()
-      ->responseContains('<script type="application/json">{"siteID":"123","sitePath":["ec.europa.eu"],"is403":true}</script>');
+      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is403":true}</script>');
   }
 
 }
