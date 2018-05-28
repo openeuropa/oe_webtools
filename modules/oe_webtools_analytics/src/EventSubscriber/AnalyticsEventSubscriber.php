@@ -13,7 +13,6 @@ use Drupal\Core\Config\ImmutableConfig;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -52,24 +51,11 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   The configuration object.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request on the stack.
-   * @param \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface $searchParameters
-   *   The search parameters object.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack, SearchParametersInterface $searchParameters) {
+  public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack) {
     // Get id from settings.php!
     $this->config = $configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
     $this->requestStack = $requestStack;
-    $this->search = $searchParameters;
-  }
-
-  /**
-   * Get the search parameter object.
-   *
-   * @return \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
-   *   The search parameters object.
-   */
-  public function getSearchParameters(): SearchParametersInterface {
-    return $this->search;
   }
 
   /**
@@ -100,9 +86,6 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     $factory = \Drupal::service('logger.factory');
-
-    // Search handling.
-    $event->setSearchParameters($this->getSearchParameters());
 
     // SiteID must exist and be an integer.
     $site_id = $this->getConfig()->get(AnalyticsEventInterface::SITE_ID);

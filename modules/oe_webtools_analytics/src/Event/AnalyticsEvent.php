@@ -10,6 +10,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\Event;
 
+use Drupal\oe_webtools_analytics\Entity\SearchParameters;
 use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
@@ -109,6 +110,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
     $this->setIs404Page();
     $this->setIs403Page();
     $this->setSiteId();
+    $this->setSearchParameters(new SearchParameters());
   }
 
   /**
