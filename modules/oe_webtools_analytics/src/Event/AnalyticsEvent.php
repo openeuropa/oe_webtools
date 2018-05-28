@@ -101,7 +101,21 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    * AnalyticsEvent constructor.
    */
   public function __construct() {
-    $this->search = new SearchParameters();
+    // This is to prevent issues when serializing the object.
+    // Those settings are temporary until a UI exists to set them.
+    $this->setUtility();
+    $this->setSiteSection();
+    $this->setLangCode();
+    $this->setInstance();
+    $this->setIs404Page(FALSE);
+    $this->setIs403Page(FALSE);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setSearchParameters(SearchParametersInterface $searchParameters): void {
+    $this->search = $searchParameters;
   }
 
   /**
@@ -133,10 +147,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   }
 
   /**
-   * Sets to true on 403 page.
-   *
-   * @param bool $is403Page
-   *   A boolean variable set as false by default.
+   * {@inheritdoc}
    */
   public function setIs403Page(bool $is403Page = TRUE): void {
     $this->is403Page = $is403Page;
@@ -150,15 +161,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   }
 
   /**
-   * Sets Instance to send the tracking information to different servers.
-   *
-   * Servers:
-   *    https://webanalytics.ec.europa.eu
-   *    https://webanalytics.europa.eu
-   *    https://webgate.ec.europa.eu/fpfis/piwik.
-   *
-   * @param string $instance
-   *   An optional string with "unknown" as default value.
+   * {@inheritdoc}
    */
   public function setInstance(string $instance): void {
     $this->instance = $instance;
@@ -239,14 +242,14 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    */
   public function jsonSerialize() {
     $data = [
-      self::UTILITY => $this->utility,
-      self::SITE_ID => $this->siteId,
-      self::SITE_PATH => $this->sitePath,
-      self::SITE_SECTION => $this->siteSection,
-      self::IS404 => $this->is404Page,
-      self::IS403 => $this->is403Page,
-      self::LANG => $this->langCode,
-      self::INSTANCE => $this->instance,
+      self::UTILITY => $this->getUtility(),
+      self::SITE_ID => $this->getSiteId(),
+      self::SITE_PATH => $this->getSitePath(),
+      self::SITE_SECTION => $this->getSiteSection(),
+      self::IS404 => $this->is404Page(),
+      self::IS403 => $this->is403Page(),
+      self::LANG => $this->getLangCode(),
+      self::INSTANCE => $this->getInstance(),
     ];
 
     if ($this->search->isSetKeyword()) {
@@ -268,7 +271,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    */
   public function isValid(): bool {
     // SiteId is required.
-    return !empty($this->siteId);
+    return !empty($this->getSiteId());
   }
 
 }

@@ -41,6 +41,19 @@ class SearchParameters implements JsonSerializable, SearchParametersInterface {
   private $count;
 
   /**
+   * SearchParameters constructor.
+   *
+   * @param string $category
+   * @param string $keyword
+   * @param int $count
+   */
+  public function __construct(string $category = '', string $keyword = '', int $count = 0) {
+    $this->setCategory($category);
+    $this->setKeyword($keyword);
+    $this->setCount($count);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function setKeyword(string $keyword): void {
@@ -86,20 +99,18 @@ class SearchParameters implements JsonSerializable, SearchParametersInterface {
    * {@inheritdoc}
    */
   public function isSetKeyword(): bool {
-    return !empty($this->keyword);
+    return !empty($this->getKeyword());
   }
 
   /**
    * {@inheritdoc}
    */
   public function jsonSerialize() {
-    $search = [
-      'keyword' => $this->keyword,
-      'category' => $this->category,
-      'count' => $this->count,
-    ];
-
-    return array_filter($search);
+    return array_filter([
+      'keyword' => $this->getKeyword(),
+      'category' => $this->getCategory(),
+      'count' => $this->getCount(),
+    ]);
   }
 
 }
