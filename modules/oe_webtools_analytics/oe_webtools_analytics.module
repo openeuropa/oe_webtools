@@ -19,17 +19,19 @@ function oe_webtools_analytics_page_attachments(array &$attachments) {
   $event_dispatcher = \Drupal::service('event_dispatcher');
   $event_dispatcher->dispatch(AnalyticsEvent::NAME, $import_settings_event);
 
-  if ($import_settings_event->isValid()) {
-    $attachments['#attached']['html_head'][] = [
-      [
-        '#type' => 'html_tag',
-        '#tag' => 'script',
-        '#value' => $import_settings_event,
-        '#attributes' => ['type' => 'application/json'],
-        '#cache' => ['contexts' => ['url']],
-      ],
-      // A key, to make it possible to recognize this when altering.
-      'oe_webtools_analytics',
-    ];
+  if (!$import_settings_event->isValid()) {
+    return;
   }
+
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => $import_settings_event,
+      '#attributes' => ['type' => 'application/json'],
+      '#cache' => ['contexts' => ['url']],
+    ],
+    // A key, to make it possible to recognize this when altering.
+    'oe_webtools_analytics',
+  ];
 }

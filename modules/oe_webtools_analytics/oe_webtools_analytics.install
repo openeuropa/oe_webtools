@@ -15,13 +15,15 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 function oe_webtools_analytics_requirements($phase) {
   $requirements = [];
   // Report missing siteId on settings.
-  if (!\Drupal::configFactory()->get(AnalyticsEventInterface::CONFIG_NAME)->get(AnalyticsEventInterface::SITE_ID)) {
-    $requirements['webtools_analytics'] = [
-      'title' => t('Webtools analytics requirements.'),
-      'value' => 'The siteId is missing from settings.php',
-      'severity' => REQUIREMENT_WARNING,
-    ];
+  if (\Drupal::configFactory()->get(AnalyticsEventInterface::CONFIG_NAME)->get(AnalyticsEventInterface::SITE_ID)) {
+    return $requirements;
   }
+
+  $requirements['webtools_analytics'] = [
+    'title' => t('Webtools analytics requirements.'),
+    'value' => 'The siteId is missing from settings.php',
+    'severity' => REQUIREMENT_WARNING,
+  ];
 
   return $requirements;
 }
