@@ -253,7 +253,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
     ];
 
     if ($this->search->isSetKeyword()) {
-      $data['search'] = $this->search->jsonSerialize();
+      $data[self::SEARCH] = $this->search->jsonSerialize();
     }
 
     return array_filter($data);
