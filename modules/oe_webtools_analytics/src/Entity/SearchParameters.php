@@ -10,14 +10,12 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\Entity;
 
-use JsonSerializable;
-
 /**
  * Class SearchParameters.
  *
  * @package Drupal\oe_webtools_analytics\Entity
  */
-class SearchParameters implements JsonSerializable, SearchParametersInterface {
+class SearchParameters implements SearchParametersInterface {
   /**
    * Keyword searched (mandatory).
    *

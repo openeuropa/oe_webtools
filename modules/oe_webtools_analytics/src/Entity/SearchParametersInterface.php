@@ -15,7 +15,7 @@ namespace Drupal\oe_webtools_analytics\Entity;
  *
  * @package Drupal\oe_webtools_analytics\Entity
  */
-interface SearchParametersInterface {
+interface SearchParametersInterface extends \JsonSerializable {
   /**
    * Sets the search keyword.
    *
