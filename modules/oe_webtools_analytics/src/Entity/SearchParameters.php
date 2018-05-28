@@ -42,8 +42,11 @@ class SearchParameters implements SearchParametersInterface {
    * SearchParameters constructor.
    *
    * @param string $category
+   *   The category.
    * @param string $keyword
+   *   The keyword.
    * @param int $count
+   *   The search count.
    */
   public function __construct(string $category = '', string $keyword = '', int $count = 0) {
     $this->setCategory($category);
@@ -97,7 +100,7 @@ class SearchParameters implements SearchParametersInterface {
    * {@inheritdoc}
    */
   public function isSetKeyword(): bool {
-    return null !== $this->getKeyword();
+    return NULL !== $this->getKeyword();
   }
 
   /**

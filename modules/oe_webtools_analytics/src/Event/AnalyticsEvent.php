@@ -13,7 +13,6 @@ namespace Drupal\oe_webtools_analytics\Event;
 use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
-use Drupal\oe_webtools_analytics\Entity\SearchParameters;
 use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
 
 /**
@@ -27,7 +26,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    *
    * @Event Drupal\oe_webtools_analytics\Event\WebtoolsImportDataEvent
    */
-  const NAME = 'webtools_analytics.data_collection';
+  public const NAME = 'webtools_analytics.data_collection';
 
   /**
    * The site ID (mandatory).
@@ -46,7 +45,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   /**
    * Allows you to define the root path of your website.
    *
-   * @var array
+   * @var string[]
    */
   private $sitePath;
 
@@ -107,8 +106,9 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
     $this->setSiteSection();
     $this->setLangCode();
     $this->setInstance();
-    $this->setIs404Page(FALSE);
-    $this->setIs403Page(FALSE);
+    $this->setIs404Page();
+    $this->setIs403Page();
+    $this->setSiteId();
   }
 
   /**
@@ -121,7 +121,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   /**
    * {@inheritdoc}
    */
-  public function setSiteId(string $siteId): void {
+  public function setSiteId(string $siteId = 'n/a'): void {
     $this->siteId = $siteId;
   }
 
@@ -135,35 +135,35 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   /**
    * {@inheritdoc}
    */
-  public function setSiteSection(string $siteSection): void {
+  public function setSiteSection(string $siteSection = ''): void {
     $this->siteSection = $siteSection;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setIs404Page(bool $is404Page = TRUE): void {
+  public function setIs404Page(bool $is404Page = FALSE): void {
     $this->is404Page = $is404Page;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setIs403Page(bool $is403Page = TRUE): void {
+  public function setIs403Page(bool $is403Page = FALSE): void {
     $this->is403Page = $is403Page;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setLangCode(string $langCode): void {
+  public function setLangCode(string $langCode = ''): void {
     $this->langCode = $langCode;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setInstance(string $instance): void {
+  public function setInstance(string $instance = ''): void {
     $this->instance = $instance;
   }
 
@@ -271,7 +271,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    */
   public function isValid(): bool {
     // SiteId is required.
-    return null !== $this->getSiteId();
+    return NULL !== $this->getSiteId();
   }
 
 }

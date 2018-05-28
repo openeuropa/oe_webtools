@@ -9,54 +9,52 @@ use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
 
 /**
  * Provides an interface for AnalyticsEvent accordingly to the documentation.
- *
- * @package Drupal\oe_webtools_analytics
  */
 interface AnalyticsEventInterface extends JsonSerializable {
   /**
    * The Webtools analytics entrance in settings.php.
    */
-  const CONFIG_NAME = 'oe_webtools_analytics.settings';
+  public const CONFIG_NAME = 'oe_webtools_analytics.settings';
 
   /**
    * The site unique identifier.
    */
-  const SITE_ID = 'siteID';
+  public const SITE_ID = 'siteID';
 
   /**
    * Representing the 403 key in settings.
    */
-  const IS403 = 'is403';
+  public const IS403 = 'is403';
 
   /**
    * Representing the 404 key in settings.
    */
-  const IS404 = 'is404';
+  public const IS404 = 'is404';
 
   /**
    * The current page language.
    */
-  const LANG = 'lang';
+  public const LANG = 'lang';
 
   /**
    * The analytics tools name, for e.g: piwik.
    */
-  const UTILITY = 'utility';
+  public const UTILITY = 'utility';
 
   /**
    * The domain + root path without protocol.
    */
-  const SITE_PATH = 'sitePath';
+  public const SITE_PATH = 'sitePath';
 
   /**
    * Allows to send the tracking information from different servers.
    */
-  const INSTANCE = 'instance';
+  public const INSTANCE = 'instance';
 
   /**
    * Refine the statistics by indicating a site section  or a subwebsite.
    */
-  const SITE_SECTION = 'siteSection';
+  public const SITE_SECTION = 'siteSection';
   /**
    * Set to true when search with the parameters form SearchParameters class.
    *
@@ -68,6 +66,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Set the search parameters object.
    *
    * @param \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface $searchParameters
+   *   The search parameters object.
    */
   public function setSearchParameters(SearchParametersInterface $searchParameters): void;
 
@@ -93,7 +92,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
    * Sets the section or a subwebsite allowing to refine the statistics.
    *
    * @param string $siteSection
-   *   An optional string with dafault value "n/a".
+   *   An optional string with default value "n/a".
    */
   public function setSiteSection(string $siteSection): void;
 

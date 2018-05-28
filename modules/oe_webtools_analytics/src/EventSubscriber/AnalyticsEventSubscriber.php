@@ -53,6 +53,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request on the stack.
    * @param \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface $searchParameters
+   *   The search parameters object.
    */
   public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack, SearchParametersInterface $searchParameters) {
     // Get id from settings.php!
@@ -65,6 +66,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    * Get the search parameter object.
    *
    * @return \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   *   The search parameters object.
    */
   public function getSearchParameters(): SearchParametersInterface {
     return $this->search;
@@ -74,6 +76,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    * Get the request stack object.
    *
    * @return \Symfony\Component\HttpFoundation\RequestStack
+   *   The request stack.
    */
   public function getRequestStack(): RequestStack {
     return $this->requestStack;
@@ -83,6 +86,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    * Get the config factory object.
    *
    * @return \Drupal\Core\Config\ImmutableConfig
+   *   The config.
    */
   public function getConfig(): ImmutableConfig {
     return $this->config;
@@ -105,7 +109,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     if (!is_numeric($site_id)) {
       $factory
         ->get('default')
-        ->debug('The setting "'.AnalyticsEventInterface::SITE_ID.'" is missing from settings file.');
+        ->debug('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
     }
 

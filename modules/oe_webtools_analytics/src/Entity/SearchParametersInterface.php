@@ -16,6 +16,7 @@ namespace Drupal\oe_webtools_analytics\Entity;
  * @package Drupal\oe_webtools_analytics\Entity
  */
 interface SearchParametersInterface extends \JsonSerializable {
+
   /**
    * Sets the search keyword.
    *
@@ -70,6 +71,6 @@ interface SearchParametersInterface extends \JsonSerializable {
    * @return bool
    *   True in case the variable has been set otherwise false.
    */
-  public function isSetKeyword();
+  public function isSetKeyword(): bool;
 
 }
