@@ -273,7 +273,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    */
   public function isValid(): bool {
     // SiteId is required.
-    return NULL !== $this->getSiteId();
+    return 'n/a' !== $this->getSiteId();
   }
 
 }
