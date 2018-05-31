@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains installation hooks.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+
+/**
+ * Implements hook_requirements().
+ */
+function oe_webtools_analytics_requirements($phase) {
+  $requirements = [];
+
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
+  // Report missing siteId on settings.
+  if (\Drupal::configFactory()->get(AnalyticsEventInterface::CONFIG_NAME)->get(AnalyticsEventInterface::SITE_ID)) {
+    return $requirements;
+  }
+
+  $requirements['webtools_analytics'] = [
+    'title' => t('Webtools analytics requirements.'),
+    'value' => 'The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.',
+    'severity' => REQUIREMENT_WARNING,
+  ];
+
+  return $requirements;
+}
