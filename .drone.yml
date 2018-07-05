@@ -37,10 +37,4 @@ pipeline:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:
-      # Reset permission since installation runs as root. @todo Fix this.
-      - mkdir -p build/sites/simpletest
-      - chown -R 1000:1000 build/sites/default
-      - chown -R 1000:1000 build/sites/simpletest
-      - chmod -R 777 /tmp
-      - useradd -u 1000 -m -s /bin/bash web
-      - su web -c"./vendor/bin/phpunit"
+      - ./vendor/bin/phpunit
