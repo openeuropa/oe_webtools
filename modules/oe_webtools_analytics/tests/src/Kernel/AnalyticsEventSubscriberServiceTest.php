@@ -10,6 +10,8 @@ use Drupal\oe_webtools_analytics\EventSubscriber\AnalyticsEventSubscriber;
 /**
  * Test to ensure 'AnalyticsEventSubscriber' service is reachable.
  *
+ * @group oe_webtools_analytics
+ *
  * @package Drupal\Tests\oe_webtools_analytics\Kernel
  */
 class AnalyticsEventSubscriberServiceTest extends KernelTestBase {

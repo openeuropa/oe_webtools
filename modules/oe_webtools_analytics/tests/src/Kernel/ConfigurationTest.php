@@ -9,6 +9,8 @@ use Drupal\Tests\BrowserTestBase;
 
 /**
  * Class ConfigurationTest.
+ *
+ * @group oe_webtools_analytics
  */
 class ConfigurationTest extends BrowserTestBase {
 
