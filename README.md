@@ -52,9 +52,9 @@ $ docker-compose up -d
 Then:
 
 ```
-$ docker-compose exec -u web web composer install
-$ docker-compose exec -u web web ./vendor/bin/run drupal:site-setup
-$ docker-compose exec -u web web ./vendor/bin/run drupal:site-install
+$ docker-compose exec web composer install
+$ docker-compose exec web ./vendor/bin/run drupal:site-setup
+$ docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
 
 Your test site will be available at [http://localhost:8080/build](http://localhost:8080/build).
@@ -62,11 +62,11 @@ Your test site will be available at [http://localhost:8080/build](http://localho
 To run the grumphp test:
 
 ```
-$ docker-compose exec -u web web ./vendor/bin/grumphp run
+$ docker-compose exec web ./vendor/bin/grumphp run
 ```
 
 To run the phpunit test:
 
 ```
-$ docker-compose exec -u web web ./vendor/bin/phpunit
+$ docker-compose exec web ./vendor/bin/phpunit
 ```
