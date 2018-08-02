@@ -1,1 +1,49 @@
 <?php
+
+declare(strict_types = 1);
+
+use Drupal\oe_webtools_laco_widget\Event\LacoWidgetConfig;
+
+/**
+ * Implements hook_page_attachments().
+ */
+function oe_webtools_laco_widget_page_attachments(array &$attachments) {
+  /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
+  $dispatcher = \Drupal::service('event_dispatcher');
+
+  $include = ['#page-wrapper'];
+  $exclude = ['.nolaco', '.more-link', '.pager'];
+  $event = new LacoWidgetConfig($include, $exclude);
+  /** @var LacoWidgetConfig $event */
+  $event = $dispatcher->dispatch(LacoWidgetConfig::LACO_WIDGET_CONFIG_EVENT, $event);
+
+  // If a subscriber removes the "include" selectors, we default to the defaults
+  // because it's a required parameter. If the client does not want any selector
+  // there is no reason for the module to be enabled.
+  $include = $event->getInclude() ? $event->getInclude() : $include;
+  $json = [
+    'service' => 'laco',
+    'include' => implode(', ', $include),
+    'coverage' => [
+      'document' => 'any',
+      'page' => 'any',
+    ],
+    'icon' => 'all',
+  ];
+
+  if ($event->getExclude()) {
+    $json['exclude'] = implode(', ', $event->getExclude());
+  }
+
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => json_encode($json),
+      '#attributes' => ['type' => 'application/json'],
+    ],
+    'oe_webtools_laco_widget',
+  ];
+
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+}

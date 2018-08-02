@@ -1,5 +1,5 @@
-name: OpenEuropa Webtools LACO Widget
-description: Adds a widget for Webtools LACO.
+name: OpenEuropa Webtools Laco Widget
+description: Adds a widget for Webtools Laco.
 package: OpenEuropa
 type: module
 core: 8.x
