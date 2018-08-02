@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Contains Drupal hooks.
+ */
+
 declare(strict_types = 1);
 
 use Drupal\oe_webtools_laco_widget\Event\LacoWidgetConfig;
@@ -14,7 +19,7 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
   $include = ['#page-wrapper'];
   $exclude = ['.nolaco', '.more-link', '.pager'];
   $event = new LacoWidgetConfig($include, $exclude);
-  /** @var LacoWidgetConfig $event */
+  /** @var \Drupal\oe_webtools_laco_widget\Event\LacoWidgetConfig $event */
   $event = $dispatcher->dispatch(LacoWidgetConfig::LACO_WIDGET_CONFIG_EVENT, $event);
 
   // If a subscriber removes the "include" selectors, we default to the defaults

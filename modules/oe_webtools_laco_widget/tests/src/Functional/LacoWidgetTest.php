@@ -2,10 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_webtools_analytics\Functional;
+namespace Drupal\Tests\oe_webtools_laco_widget\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 
+/**
+ * Check if the Laco widget code is on the front page.
+ */
 class LacoWidgetTest extends BrowserTestBase {
 
   /**
@@ -19,7 +22,7 @@ class LacoWidgetTest extends BrowserTestBase {
   /**
    * Test that the Laco widget JSON script loads on the page.
    */
-  public function testLacoScriptLoading(): void {
+  public function testLacoScriptLoading():void {
     $this->drupalGet('<front>');
     $this->assertSession()
       ->responseContains('<script type="application/json">{"service":"laco","include":"#page-wrapper","coverage":{"document":"any","page":"any"},"icon":"all","exclude":".nolaco, .more-link, .pager"}</script>');
