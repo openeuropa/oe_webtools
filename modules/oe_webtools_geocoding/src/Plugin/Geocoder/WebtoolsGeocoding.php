@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\oe_webtools\Plugin\Geocoder\Provider;
+namespace Drupal\oe_webtools_geocoding\Plugin\Geocoder\Provider;
 
 use Drupal\geocoder\ProviderUsingHandlerWithAdapterBase;
 
