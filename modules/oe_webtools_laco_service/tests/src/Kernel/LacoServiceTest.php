@@ -130,6 +130,9 @@ class LacoServiceTest extends KernelTestBase {
 
   /**
    * Creates a few test requests with their expected response status codes.
+   *
+   * Would be a nice candidate as a dataProvider but we need the setUp() to run
+   * before so we cannot use it as such.
    */
   protected function createTestRequests() {
     $entity_one = $this->createTestMultilingualEntity('entity one');
