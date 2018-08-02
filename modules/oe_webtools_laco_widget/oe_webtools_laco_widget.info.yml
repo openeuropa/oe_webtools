@@ -1,0 +1,8 @@
+name: OpenEuropa Webtools LACO Widget
+description: Adds a widget for Webtools LACO.
+package: OpenEuropa
+type: module
+core: 8.x
+
+dependencies:
+  oe_webtools:oe_webtools
