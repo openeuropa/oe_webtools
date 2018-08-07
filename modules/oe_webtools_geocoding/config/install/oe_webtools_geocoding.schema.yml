@@ -1,0 +1,3 @@
+geocoder.settings.plugins.webtools_geocoding:
+  type: mapping
+  label: 'WebtoolsGeocoding arguments'
