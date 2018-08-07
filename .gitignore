@@ -1,5 +1,8 @@
 .DS_Store
 /.idea
+/build
 /composer.lock
 /grumphp.yml
+/phpunit.xml
+/runner.yml
 /vendor
