@@ -24,7 +24,7 @@ class ConfigSchemaTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'geocoder',
     'oe_webtools_geocoding',
   ];
