@@ -9,7 +9,7 @@
         "php": "^7.1",
         "drupal/core": "~8.5",
         "drupal/geocoder": "dev-3.x",
-        "openeuropa/webtools-geocoding-provider": "dev-initial-implementation"
+        "openeuropa/webtools-geocoding-provider": "dev-master"
     },
     "require-dev": {
         "composer/installers": "^1.2",
