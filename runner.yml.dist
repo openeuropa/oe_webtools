@@ -1,0 +1,29 @@
+drupal:
+  root: "build"
+  base_url: "http://web:8080/build"
+  database:
+    host: "mysql"
+    port: "3306"
+    name: "oe_webtools_location"
+    user: "root"
+    password: ""
+  post_install:
+    - "./vendor/bin/drush en oe_webtools_geocoding -y"
+    - "./vendor/bin/drush cr"
+  settings:
+    settings:
+      file_scan_ignore_directories:
+        - "vendor"
+        - "${drupal.root}"
+  site:
+    profile: "minimal"
+    name: "OpenEuropa Webtools Location"
+
+commands:
+  drupal:site-setup:
+    - { task: "symlink", from: "../../..", to: "${drupal.root}/modules/custom/oe_webtools_location" }
+    - { task: "run", command: "drupal:drush-setup" }
+    - { task: "run", command: "drupal:settings-setup" }
+    - { task: "run", command: "setup:phpunit" }
+  setup:phpunit:
+    - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }

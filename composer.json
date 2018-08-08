@@ -1,0 +1,49 @@
+{
+    "name": "openeuropa/oe_webtools_location",
+    "description": "Adds support for Webtools location services in Drupal.",
+    "type": "drupal-module",
+    "license": "EUPL-1.2",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.1",
+        "drupal/core": "~8.5",
+        "drupal/geocoder": "dev-3.x",
+        "openeuropa/webtools-geocoding-provider": "dev-initial-implementation"
+    },
+    "require-dev": {
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "~1.0",
+        "drupal-composer/drupal-scaffold": "^2.5",
+        "drush/drush": "^9.3",
+        "openeuropa/code-review": "^0.3",
+        "openeuropa/task-runner": "^0.7.0",
+        "webflo/drupal-core-require-dev": "8.5.x"
+    },
+    "scripts": {
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/webtools-geocoding-provider.git"
+        }
+    ],
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "installer-paths": {
+            "build/core": ["type:drupal-core"],
+            "build/modules/contrib/{$name}": ["type:drupal-module"],
+            "build/themes/contrib/{$name}": ["type:drupal-theme"]
+        },
+        "patches": {
+            "drupal/core": {
+                "https://www.drupal.org/project/drupal/issues/2943172": "https://www.drupal.org/files/issues/2018-07-05/2943172-kernel-test-base-3.patch"
+            }
+        }
+    }
+}

@@ -1,0 +1,4 @@
+geocoder.settings.plugins.webtools_geocoding:
+  type: sequence
+  label: 'WebtoolsGeocoding arguments'
+  sequence:
