@@ -14,9 +14,9 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
   $logger = \Drupal::logger('oe_webtools_laco_widget');
   $config = \Drupal::config('oe_webtools_laco_widget.settings');
 
-  $include = $config->get('include_classes');
+  $include = $config->get('include');
   if (!$include) {
-    $logger->info('There are no classes to include the Laco widget for. Widget is not being printed.');
+    $logger->info('There are no selectors to include the Laco widget for. Widget is not being printed.');
     return;
   }
 
@@ -30,7 +30,7 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
     'icon' => $config->get('icon'),
   ];
 
-  $exclude = $config->get('exclude_classes');
+  $exclude = $config->get('exclude');
   if ($exclude) {
     $json['exclude'] = implode(', ', $exclude);
   }
