@@ -2,42 +2,37 @@
 
 /**
  * @file
- * Contains Drupal hooks.
+ * OpenEuropa Webtools Laco Widget module.
  */
 
 declare(strict_types = 1);
-
-use Drupal\oe_webtools_laco_widget\Event\LacoWidgetConfig;
 
 /**
  * Implements hook_page_attachments().
  */
 function oe_webtools_laco_widget_page_attachments(array &$attachments) {
-  /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher */
-  $dispatcher = \Drupal::service('event_dispatcher');
+  $logger = \Drupal::logger('oe_webtools_laco_widget');
+  $config = \Drupal::config('oe_webtools_laco_widget.settings');
 
-  $include = ['#page-wrapper'];
-  $exclude = ['.nolaco', '.more-link', '.pager'];
-  $event = new LacoWidgetConfig($include, $exclude);
-  /** @var \Drupal\oe_webtools_laco_widget\Event\LacoWidgetConfig $event */
-  $event = $dispatcher->dispatch(LacoWidgetConfig::LACO_WIDGET_CONFIG_EVENT, $event);
+  $include = $config->get('include_classes');
+  if (!$include) {
+    $logger->info('There are no classes to include the Laco widget for. Widget is not being printed.');
+    return;
+  }
 
-  // If a subscriber removes the "include" selectors, we default to the defaults
-  // because it's a required parameter. If the client does not want any selector
-  // there is no reason for the module to be enabled.
-  $include = $event->getInclude() ? $event->getInclude() : $include;
   $json = [
     'service' => 'laco',
     'include' => implode(', ', $include),
     'coverage' => [
-      'document' => 'any',
-      'page' => 'any',
+      'document' => $config->get('coverage.document'),
+      'page' => $config->get('coverage.page'),
     ],
-    'icon' => 'all',
+    'icon' => $config->get('icon'),
   ];
 
-  if ($event->getExclude()) {
-    $json['exclude'] = implode(', ', $event->getExclude());
+  $exclude = $config->get('exclude_classes');
+  if ($exclude) {
+    $json['exclude'] = implode(', ', $exclude);
   }
 
   $attachments['#attached']['html_head'][] = [

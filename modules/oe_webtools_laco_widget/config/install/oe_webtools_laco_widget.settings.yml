@@ -1,0 +1,6 @@
+include_classes: ['#page-wrapper']
+exclude_classes: ['.nolaco', '.more-link', '.pager']
+coverage:
+  document: 'any'
+  page: 'any'
+icon: 'all'
