@@ -4,12 +4,12 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_laco_service\EventSubscriber;
 
+use Drupal\Core\Access\AccessResultAllowed;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\oe_webtools_laco_service\LacoServiceHeaders;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
  * Subscribes to the request Kernel event.
@@ -47,40 +47,34 @@ class LacoServiceDefaultSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events['kernel.request'] = ['onRequest'];
+    $events[KernelEvents::CONTROLLER] = ['onController'];
     return $events;
   }
 
   /**
-   * Responds to the request event.
+   * Responds to the controller event.
    *
-   * If it's a Laco request, respond directly with information about the
-   * existence of the requested language on the site.
+   * Changes the controller on Laco requests.
    *
-   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
-   *   The subscriber event.
+   * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
+   *   The dispatched event.
    */
-  public function onRequest(GetResponseEvent $event) {
+  public function onController(FilterControllerEvent $event) {
+    if (!$event->getRequest()->attributes->has('_is_laco_request')) {
+      return;
+    }
+
     $request = $event->getRequest();
-    if ($request->attributes->get('_format') !== 'laco') {
+    if (!$request->attributes->get('_access_result') instanceof AccessResultAllowed) {
       return;
     }
 
-    $route = $this->routeMatch->getRouteObject();
-    // We don't do anything if we are looking at an entity route because that is
-    // handled by a dedicated controller.
-    if ($route->hasOption('_oe_laco_entity_type')) {
-      return;
-    }
+    $method = $this->routeMatch->getRouteObject()->hasOption('_oe_laco_entity_type') ? 'getEntityLacoLanguage' : 'getDefaultLacoLanguage';
 
-    $response = new Response();
-    $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
-    $available = $this->languageManager->getLanguage($language) !== NULL ? TRUE : FALSE;
-
-    $status_header = $available ? '200 OK' : '404 Not found';
-    $response->headers->set('Status', $status_header);
-    $event->setResponse($response);
-    $event->stopPropagation();
+    /** @var \Drupal\Core\Controller\ControllerResolverInterface $resolver */
+    $resolver = \Drupal::service('controller_resolver');
+    $controller = $resolver->getControllerFromDefinition("Drupal\oe_webtools_laco_service\Controller\LacoServiceController::$method");
+    $event->setController($controller);
   }
 
 }

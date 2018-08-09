@@ -15,8 +15,8 @@ use Symfony\Component\Routing\RouteCollection;
 /**
  * Laco service route subscriber.
  *
- * Subscribes to the route generation to add our custom route "duplicates" to
- * certain entity type canonical routes.
+ * Subscribes to the route generation to alter content entity routes and add
+ * a Laco flag.
  */
 class RouteSubscriber extends RouteSubscriberBase {
 
@@ -41,8 +41,6 @@ class RouteSubscriber extends RouteSubscriberBase {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    // We need this to run at the very last moment because we want to inherit
-    // route definitions which may have already been altered by other modules.
     $events[RoutingEvents::ALTER][] = ['onAlterRoutes', -1000];
     return $events;
   }
@@ -65,15 +63,7 @@ class RouteSubscriber extends RouteSubscriberBase {
         continue;
       }
 
-      $new_route = clone $route;
-      $new_route->setMethods(['GET', 'HEAD']);
-      $new_route->setRequirement('_format', 'laco');
-      // We specify the entity type so that in the controller we can easily
-      // load the parameter from the route match.
-      // @see LacoServiceController::getEntity().
-      $new_route->setOption('_oe_laco_entity_type', $entity_type);
-      $new_route->setDefault('_controller', '\Drupal\oe_webtools_laco_service\Controller\LacoServiceController::getLacoLanguage');
-      $collection->add('oe_webtools_laco_service.' . $route_name, $new_route);
+      $route->setOption('_oe_laco_entity_type', $entity_type);
     }
   }
 

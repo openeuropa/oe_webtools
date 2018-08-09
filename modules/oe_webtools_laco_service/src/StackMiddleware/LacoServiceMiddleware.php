@@ -11,9 +11,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Laco service middleware.
  *
- * Looks for Laco service requests and sets a format for them so that
- * "duplicate" entity routes can match on it and deliver Laco information about
- * the requested entity and language.
+ * Looks for Laco service requests and sets an attribute on the request.
  */
 class LacoServiceMiddleware implements HttpKernelInterface {
 
@@ -39,7 +37,7 @@ class LacoServiceMiddleware implements HttpKernelInterface {
    */
   public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
     if ($this->isLacoServiceRequest($request)) {
-      $request->attributes->set('_format', 'laco');
+      $request->attributes->set('_is_laco_request', 'true');
     }
 
     return $this->httpKernel->handle($request, $type, $catch);
