@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_laco_service\Kernel;
 
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\oe_webtools_laco_service\LacoServiceHeaders;
@@ -53,6 +52,7 @@ class LacoServiceTest extends KernelTestBase {
     // Give anonymous users permission to view test entities.
     Role::load(RoleInterface::ANONYMOUS_ID)
       ->grantPermission('view test entity')
+      ->grantPermission('access administration pages')
       ->save();
 
     // Set up some languages.
@@ -63,14 +63,14 @@ class LacoServiceTest extends KernelTestBase {
   }
 
   /**
-   * Main Laco service test.
+   * Laco service test for entities.
    *
-   * Tests that the Laco service works: requests made to entity routes which
-   * contain certain headers and language will return empty responses
-   * that contain a status code that confirms the existence of a translation
-   * in that language.
+   * Tests that the Laco service works with entities: requests made to entity
+   * routes which contain certain headers and language will return empty
+   * responses that contain a status code that confirms the existence of a
+   * translation in that language.
    */
-  public function testLacoService() {
+  public function testEntityLacoService() {
     $requests = $this->createTestRequests();
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $kernel */
     $kernel = \Drupal::getContainer()->get('http_kernel');
@@ -94,6 +94,30 @@ class LacoServiceTest extends KernelTestBase {
     $crawler = new Crawler($response->getContent());
     $title = $crawler->filter('title');
     $this->assertEquals('entity title |', trim($title->text()));
+  }
+
+  /**
+   * Laco service test for other pages.
+   *
+   * Tests that the Laco service works with other pages. If a laco request is
+   * made to a non-entity page, the service will check if the requested language
+   * is enabled on the site.
+   */
+  public function testDefaultLacoService() {
+    /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $kernel */
+    $kernel = \Drupal::getContainer()->get('http_kernel');
+    $requests = $this->createDefaultPageRequests();
+
+    foreach ($requests as $definition) {
+      $request = $definition[0];
+      $response = $kernel->handle($request);
+      $status = $response->headers->get('Status');
+      $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
+
+      // Check also that the response content is empty to make sure that the
+      // actual route we hit is not the real canonical route.
+      $this->assertEmpty($response->getContent(), 'The response contains content.');
+    }
   }
 
   /**
@@ -129,7 +153,7 @@ class LacoServiceTest extends KernelTestBase {
   }
 
   /**
-   * Creates a few test requests with their expected response status codes.
+   * Creates entity test requests with their expected response status codes.
    *
    * Would be a nice candidate as a dataProvider but we need the setUp() to run
    * before so we cannot use it as such.
@@ -145,55 +169,55 @@ class LacoServiceTest extends KernelTestBase {
 
     $requests = [];
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_one, 'en'),
+      $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'en'),
       '200 OK',
       'entity one in en',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_one, 'fr'),
+      $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'fr'),
       '404 Not found',
       'entity one in fr',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_one, 'nl'),
+      $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'nl'),
       '404 Not found',
       'entity one in nl',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_two, 'en'),
+      $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'en'),
       '200 OK',
       'entity two in en',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_two, 'fr'),
+      $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'fr'),
       '200 OK',
       'entity two in fr',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_two, 'nl'),
+      $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'nl'),
       '404 Not found',
       'entity two in nl',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_three, 'en'),
+      $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'en'),
       '200 OK',
       'entity three in en',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_three, 'fr'),
+      $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'fr'),
       '404 Not found',
       'entity three in fr',
     ];
 
     $requests[] = [
-      $this->createRequestToEntityAndLanguage($entity_three, 'nl'),
+      $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'nl'),
       '200 OK',
       'entity three in nl',
     ];
@@ -202,18 +226,47 @@ class LacoServiceTest extends KernelTestBase {
   }
 
   /**
-   * Creates a Laco Request for a given entity and language.
+   * Creates regular page test requests with expected response status codes.
+   */
+  protected function createDefaultPageRequests() {
+    $requests = [];
+    $requests[] = [
+      $this->createRequestForUrlAndLanguage('/admin', 'en'),
+      '200 OK',
+      'homepage in en',
+    ];
+    $requests[] = [
+      $this->createRequestForUrlAndLanguage('/admin', 'fr'),
+      '200 OK',
+      'homepage in fr',
+    ];
+    $requests[] = [
+      $this->createRequestForUrlAndLanguage('/admin', 'nl'),
+      '200 OK',
+      'homepage in nl',
+    ];
+    $requests[] = [
+      $this->createRequestForUrlAndLanguage('/admin', 'de'),
+      '404 Not found',
+      'homepage in de',
+    ];
+
+    return $requests;
+  }
+
+  /**
+   * Creates a Laco Request for a Url and language.
    *
-   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
-   *   The 'entity_test_mul'.
+   * @param string $url
+   *   The URL to request.
    * @param string $language
    *   A language for the request.
    *
    * @return \Symfony\Component\HttpFoundation\Request
    *   A Request object.
    */
-  protected function createRequestToEntityAndLanguage(ContentEntityInterface $entity, $language) {
-    $request = Request::create($entity->toUrl()->toString());
+  protected function createRequestForUrlAndLanguage($url, $language) {
+    $request = Request::create($url);
     $request->headers->set(LacoServiceHeaders::HTTP_HEADER_SERVICE_NAME, LacoServiceHeaders::HTTP_HEADER_SERVICE_VALUE);
     $request->headers->set(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME, $language);
     $request->setMethod('HEAD');

@@ -51,22 +51,10 @@ class RouteSubscriber extends RouteSubscriberBase {
    * {@inheritdoc}
    */
   protected function alterRoutes(RouteCollection $collection) {
+    // Only include routes for content entities with canonical links.
     $definitions = $this->entityTypeManager->getDefinitions();
-
-    // Eliminate config entity types and those for which we won't be checking
-    // Laco translations.
-    $eliminate = [
-      'block_content',
-      'comment',
-      'contact_message',
-      'shortcut',
-      'user',
-      'file',
-      'menu_link_content',
-    ];
-
-    $definitions = array_filter($definitions, function (EntityTypeInterface $definition) use ($eliminate) {
-      return $definition instanceof ContentEntityTypeInterface && !in_array($definition->id(), $eliminate);
+    $definitions = array_filter($definitions, function (EntityTypeInterface $definition) {
+      return $definition instanceof ContentEntityTypeInterface && $definition->hasLinkTemplate('canonical');
     });
 
     foreach ($definitions as $definition) {

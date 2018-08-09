@@ -8,3 +8,8 @@ services:
     arguments: ['@entity_type.manager']
     tags:
       - { name: event_subscriber }
+  oe_webtools_laco_service.request_subscriber:
+    class: Drupal\oe_webtools_laco_service\EventSubscriber\LacoServiceDefaultSubscriber
+    arguments: ['@current_route_match', '@language_manager']
+    tags:
+      - { name: event_subscriber }

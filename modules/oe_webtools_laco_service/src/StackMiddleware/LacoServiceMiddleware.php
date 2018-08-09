@@ -38,11 +38,10 @@ class LacoServiceMiddleware implements HttpKernelInterface {
    * {@inheritdoc}
    */
   public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = TRUE) {
-    if (!$this->isLacoServiceRequest($request)) {
-      return $this->httpKernel->handle($request, $type, $catch);
+    if ($this->isLacoServiceRequest($request)) {
+      $request->attributes->set('_format', 'laco');
     }
 
-    $request->attributes->set('_format', 'laco');
     return $this->httpKernel->handle($request, $type, $catch);
   }
 
