@@ -40,3 +40,16 @@ pipeline:
       - chown -R 500:500 *
       - chmod -R 777 build/sites
       - su - www-data -s /bin/sh -c "cd /test/oe_webtools && ./vendor/bin/phpunit"
+
+  start-demo:
+    group: test
+    image: fpfis/drone-frpc-plugin:latest
+    secrets: [ frpc_token, frpc_server ]
+    endpoint: web:8080
+    gen_auth: yes
+    domain: ${DRONE_REPO_NAME}-${DRONE_BUILD_NUMBER}-demo.ci.fpfis.tech.ec.europa.eu
+    url_output_file: /test/.frpc
+    when:
+      event: push
+      branch: [ demo-*, debug-* ]
+      status: [ success, failure ]
