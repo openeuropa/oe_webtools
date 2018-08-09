@@ -29,9 +29,4 @@ class LacoServiceHeaders {
    */
   const HTTP_HEADER_LANGUAGE_NAME = 'EC-LACO-lang';
 
-  /**
-   * HTTP Header name for debugging reasons.
-   */
-  const HTTP_DEBUG_HEADER = 'EC-NextEuropa-LACO';
-
 }
