@@ -1,4 +1,4 @@
-include: ['#page-wrapper']
+include: ['body']
 exclude: ['.nolaco', '.more-link', '.pager']
 coverage:
   document: 'any'

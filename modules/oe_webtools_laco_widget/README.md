@@ -1,7 +1,7 @@
 # OpenEuropa Webtools Laco Widget
 
 Provides a widget that integrates with the Webtools Laco service and which checks if a 
-link to o page or document is available in other translations.
+link to a page or document is available in other translations.
 
 ### How it works
 
@@ -16,7 +16,7 @@ The default widget that is being output is the following:
 ```
 {
     "service"    : "laco",
-    "include"    : "#page-wrapper",
+    "include"    : "body",
     "exclude"    : ".nolaco, .more-link, .pager"
     "icon"       : "dot",
     "coverage" : {

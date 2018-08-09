@@ -16,7 +16,8 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
 
   $include = $config->get('include');
   if (!$include) {
-    $logger->info('There are no selectors to include the Laco widget for. Widget is not being printed.');
+    $logger->warning('There are no selectors to include the Laco widget for. 
+    Please either provide include selectors or uninstall the module.');
     return;
   }
 
