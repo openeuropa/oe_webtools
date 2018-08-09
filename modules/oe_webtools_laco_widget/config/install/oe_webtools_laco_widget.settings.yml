@@ -1,0 +1,6 @@
+include: ['body']
+exclude: ['.nolaco', '.more-link', '.pager']
+coverage:
+  document: 'any'
+  page: 'any'
+icon: 'all'

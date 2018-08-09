@@ -76,3 +76,9 @@ $ docker-compose exec web ./vendor/bin/phpunit
 The Webtools module contains a submodule that provides a service for retrieving
 information about language coverage of entity resources. For more information on 
 how to use and test this module, check out the module [README](modules/oe_webtools_laco_service/README.md).
+
+## OpenEuropa Webtools Laco Widget
+
+The Webtools module contains a submodule that provides a widget which integrates
+with the Laco service. For more information on how to use and configure this module, 
+check out the module [README](modules/oe_webtools_laco_widget/README.md).

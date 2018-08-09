@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Webtools Laco Widget module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_page_attachments().
+ */
+function oe_webtools_laco_widget_page_attachments(array &$attachments) {
+  $logger = \Drupal::logger('oe_webtools_laco_widget');
+  $config = \Drupal::config('oe_webtools_laco_widget.settings');
+
+  $include = $config->get('include');
+  if (!$include) {
+    $logger->warning('There are no selectors to include the Laco widget for. 
+    Please either provide include selectors or uninstall the module.');
+    return;
+  }
+
+  $json = [
+    'service' => 'laco',
+    'include' => implode(', ', $include),
+    'coverage' => [
+      'document' => $config->get('coverage.document'),
+      'page' => $config->get('coverage.page'),
+    ],
+    'icon' => $config->get('icon'),
+  ];
+
+  $exclude = $config->get('exclude');
+  if ($exclude) {
+    $json['exclude'] = implode(', ', $exclude);
+  }
+
+  $attachments['#attached']['html_head'][] = [
+    [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => json_encode($json),
+      '#attributes' => ['type' => 'application/json'],
+    ],
+    'oe_webtools_laco_widget',
+  ];
+
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+}
