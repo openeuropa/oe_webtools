@@ -62,7 +62,7 @@ class LacoServiceDefaultSubscriber implements EventSubscriberInterface {
    */
   public function onRequest(GetResponseEvent $event) {
     $request = $event->getRequest();
-    if (!$request->attributes->get('_format') == 'laco') {
+    if ($request->attributes->get('_format') !== 'laco') {
       return;
     }
 
