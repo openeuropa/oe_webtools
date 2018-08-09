@@ -25,7 +25,7 @@ class LacoWidgetTest extends BrowserTestBase {
   public function testLacoScriptLoading():void {
     $this->drupalGet('<front>');
     $this->assertSession()
-      ->responseContains('<script type="application/json">{"service":"laco","include":"#page-wrapper","coverage":{"document":"any","page":"any"},"icon":"all","exclude":".nolaco, .more-link, .pager"}</script>');
+      ->responseContains('<script type="application/json">{"service":"laco","include":"body","coverage":{"document":"any","page":"any"},"icon":"all","exclude":".nolaco, .more-link, .pager"}</script>');
   }
 
 }
