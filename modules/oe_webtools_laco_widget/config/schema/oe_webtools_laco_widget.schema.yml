@@ -1,0 +1,29 @@
+oe_webtools_laco_widget.settings:
+  type: config_object
+  label: 'Webtools Laco Widget settings'
+  mapping:
+    include:
+      type: sequence
+      label: 'Include'
+      sequence:
+        type: string
+        label: 'Class'
+    exclude:
+      type: sequence
+      label: 'Exclude'
+      sequence:
+        type: string
+        label: 'Class'
+    coverage:
+      type: mapping
+      label: 'Coverage'
+      mapping:
+        document:
+          type: string
+          label: 'Document'
+        page:
+          type: string
+          label: 'Page'
+    icon:
+      type: string
+      label: 'Icon'
