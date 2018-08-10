@@ -77,7 +77,7 @@ class LacoServiceTest extends KernelTestBase {
     foreach ($requests as $definition) {
       $request = $definition[0];
       $response = $kernel->handle($request);
-      $status = $response->headers->get('Status');
+      $status = $response->getStatusCode();
       $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
 
       // Check also that the response content is empty to make sure that the
@@ -111,7 +111,7 @@ class LacoServiceTest extends KernelTestBase {
     foreach ($requests as $definition) {
       $request = $definition[0];
       $response = $kernel->handle($request);
-      $status = $response->headers->get('Status');
+      $status = $response->getStatusCode();
       $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
 
       // Check also that the response content is empty to make sure that the
@@ -170,55 +170,55 @@ class LacoServiceTest extends KernelTestBase {
     $requests = [];
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'en'),
-      '200 OK',
+      '200',
       'entity one in en',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'fr'),
-      '404 Not found',
+      '404',
       'entity one in fr',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'nl'),
-      '404 Not found',
+      '404',
       'entity one in nl',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'en'),
-      '200 OK',
+      '200',
       'entity two in en',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'fr'),
-      '200 OK',
+      '200',
       'entity two in fr',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'nl'),
-      '404 Not found',
+      '404',
       'entity two in nl',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'en'),
-      '200 OK',
+      '200',
       'entity three in en',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'fr'),
-      '404 Not found',
+      '404',
       'entity three in fr',
     ];
 
     $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'nl'),
-      '200 OK',
+      '200',
       'entity three in nl',
     ];
 
@@ -232,22 +232,22 @@ class LacoServiceTest extends KernelTestBase {
     $requests = [];
     $requests[] = [
       $this->createRequestForUrlAndLanguage('/admin', 'en'),
-      '200 OK',
+      '200',
       'homepage in en',
     ];
     $requests[] = [
       $this->createRequestForUrlAndLanguage('/admin', 'fr'),
-      '200 OK',
+      '200',
       'homepage in fr',
     ];
     $requests[] = [
       $this->createRequestForUrlAndLanguage('/admin', 'nl'),
-      '200 OK',
+      '200',
       'homepage in nl',
     ];
     $requests[] = [
       $this->createRequestForUrlAndLanguage('/admin', 'de'),
-      '404 Not found',
+      '404',
       'homepage in de',
     ];
 
