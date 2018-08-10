@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 /**
  * Subscribes to the request Kernel event.
  */
-class LacoServiceDefaultSubscriber implements EventSubscriberInterface {
+class LacoServiceSubscriber implements EventSubscriberInterface {
 
   /**
    * The current route match.
