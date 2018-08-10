@@ -77,11 +77,7 @@ class LacoServiceController extends ControllerBase {
 
     // By this point it's guaranteed we have a Laco language requested.
     $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
-    $available = FALSE;
-    if ($entity->hasTranslation($language)) {
-      $available = TRUE;
-    }
-    return $this->responseFromAvailability($available);
+    return $this->responseFromAvailability($entity->hasTranslation($language));
   }
 
   /**
