@@ -72,7 +72,7 @@ class LacoServiceController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   A Response instance.
    */
-  public function getEntityLacoLanguage(Request $request):Response {
+  public function getEntityLacoLanguage(Request $request): Response {
     $entity = $this->getEntity();
 
     // By this point it's guaranteed we have a Laco language requested.
@@ -93,7 +93,7 @@ class LacoServiceController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   A Response instance.
    */
-  public function getDefaultLacoLanguage(Request $request):Response {
+  public function getDefaultLacoLanguage(Request $request): Response {
     $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
     $available = $this->languageManager->getLanguage($language) !== NULL ? TRUE : FALSE;
     return $this->responseFromAvailability($available);
@@ -105,7 +105,7 @@ class LacoServiceController extends ControllerBase {
    * @return \Drupal\Core\Entity\ContentEntityInterface
    *   A content entity of any type.
    */
-  protected function getEntity():ContentEntityInterface {
+  protected function getEntity(): ContentEntityInterface {
     $route = $this->routeMatch->getRouteObject();
     $entity_type = $route->getOption('_oe_laco_entity_type');
     return $this->routeMatch->getParameter($entity_type);
@@ -120,7 +120,7 @@ class LacoServiceController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\Response
    *   The response object.
    */
-  protected function responseFromAvailability(bool $available):Response {
+  protected function responseFromAvailability(bool $available): Response {
     $status = $available ? Response::HTTP_OK : Response::HTTP_NOT_FOUND;
     $response = new Response();
     $response->setStatusCode($status);

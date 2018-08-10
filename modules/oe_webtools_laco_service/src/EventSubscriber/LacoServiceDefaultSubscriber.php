@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_laco_service\EventSubscriber;
 
 use Drupal\Core\Access\AccessResultAllowed;
+use Drupal\Core\Controller\ControllerResolverInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -31,16 +32,26 @@ class LacoServiceDefaultSubscriber implements EventSubscriberInterface {
   protected $languageManager;
 
   /**
+   * The controller resolver.
+   *
+   * @var \Drupal\Core\Controller\ControllerResolverInterface
+   */
+  protected $controllerResolver;
+
+  /**
    * Constructs a new LacoServiceDefaultSubscriber object.
    *
    * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The current route match.
    * @param \Drupal\Core\Language\LanguageManagerInterface $languageManager
    *   The language manager.
+   * @param \Drupal\Core\Controller\ControllerResolverInterface $controllerResolver
+   *   The controller resolver.
    */
-  public function __construct(RouteMatchInterface $routeMatch, LanguageManagerInterface $languageManager) {
+  public function __construct(RouteMatchInterface $routeMatch, LanguageManagerInterface $languageManager, ControllerResolverInterface $controllerResolver) {
     $this->routeMatch = $routeMatch;
     $this->languageManager = $languageManager;
+    $this->controllerResolver = $controllerResolver;
   }
 
   /**
@@ -70,10 +81,7 @@ class LacoServiceDefaultSubscriber implements EventSubscriberInterface {
     }
 
     $method = $this->routeMatch->getRouteObject()->hasOption('_oe_laco_entity_type') ? 'getEntityLacoLanguage' : 'getDefaultLacoLanguage';
-
-    /** @var \Drupal\Core\Controller\ControllerResolverInterface $resolver */
-    $resolver = \Drupal::service('controller_resolver');
-    $controller = $resolver->getControllerFromDefinition("Drupal\oe_webtools_laco_service\Controller\LacoServiceController::$method");
+    $controller = $this->controllerResolver->getControllerFromDefinition("Drupal\oe_webtools_laco_service\Controller\LacoServiceController::$method");
     $event->setController($controller);
   }
 

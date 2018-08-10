@@ -7,7 +7,7 @@ namespace Drupal\oe_webtools_laco_service;
 /**
  * A simple class that contains the headers used by the Laco service.
  */
-class LacoServiceHeaders {
+final class LacoServiceHeaders {
 
   /**
    * HTTP method the service will be reacting to.

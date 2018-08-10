@@ -52,7 +52,7 @@ class LacoServiceMiddleware implements HttpKernelInterface {
    * @return bool
    *   Whether the request is for Laco or not.
    */
-  private function isLacoServiceRequest(Request $request) {
+  private function isLacoServiceRequest(Request $request): bool {
     if ($request->getMethod() !== 'HEAD') {
       return FALSE;
     }
@@ -60,11 +60,7 @@ class LacoServiceMiddleware implements HttpKernelInterface {
     $headers = $request->headers;
     $header = LacoServiceHeaders::HTTP_HEADER_SERVICE_NAME;
     $value = LacoServiceHeaders::HTTP_HEADER_SERVICE_VALUE;
-    if ($headers->get($header) === $value && $headers->has(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME)) {
-      return TRUE;
-    }
-
-    return FALSE;
+    return $headers->get($header) === $value && $headers->has(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
   }
 
 }

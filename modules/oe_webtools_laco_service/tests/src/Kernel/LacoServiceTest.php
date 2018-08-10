@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_laco_service\Kernel;
 
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\oe_webtools_laco_service\LacoServiceHeaders;
@@ -36,7 +37,7 @@ class LacoServiceTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('entity_test_mul');
@@ -70,7 +71,7 @@ class LacoServiceTest extends KernelTestBase {
    * responses that contain a status code that confirms the existence of a
    * translation in that language.
    */
-  public function testEntityLacoService() {
+  public function testEntityLacoService(): void {
     $requests = $this->createTestRequests();
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $kernel */
     $kernel = \Drupal::getContainer()->get('http_kernel');
@@ -103,7 +104,7 @@ class LacoServiceTest extends KernelTestBase {
    * made to a non-entity page, the service will check if the requested language
    * is enabled on the site.
    */
-  public function testDefaultLacoService() {
+  public function testDefaultLacoService(): void {
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $kernel */
     $kernel = \Drupal::getContainer()->get('http_kernel');
     $requests = $this->createDefaultPageRequests();
@@ -129,7 +130,7 @@ class LacoServiceTest extends KernelTestBase {
    * @return \Drupal\Core\Entity\ContentEntityInterface
    *   A 'entity_test_mul' entity.
    */
-  protected function createTestMultilingualEntity($name) {
+  protected function createTestMultilingualEntity($name): ContentEntityInterface {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $this->container->get('entity_type.manager')
       ->getStorage('entity_test_mul')
@@ -142,7 +143,7 @@ class LacoServiceTest extends KernelTestBase {
   /**
    * Enables translation for the entity_test_mul entity type.
    */
-  protected function enableTranslation() {
+  protected function enableTranslation(): void {
     // Enable translation for the current entity type and ensure the change is
     // picked up.
     $this->container->get('content_translation.manager')->setEnabled('entity_test_mul', 'entity_test_mul', TRUE);
@@ -158,7 +159,7 @@ class LacoServiceTest extends KernelTestBase {
    * Would be a nice candidate as a dataProvider but we need the setUp() to run
    * before so we cannot use it as such.
    */
-  protected function createTestRequests() {
+  protected function createTestRequests(): array {
     $entity_one = $this->createTestMultilingualEntity('entity one');
     $entity_two = $this->createTestMultilingualEntity('entity two');
     $entity_two->addTranslation('fr', ['name' => 'entity two fr']);
@@ -228,7 +229,7 @@ class LacoServiceTest extends KernelTestBase {
   /**
    * Creates regular page test requests with expected response status codes.
    */
-  protected function createDefaultPageRequests() {
+  protected function createDefaultPageRequests(): array {
     $requests = [];
     $requests[] = [
       $this->createRequestForUrlAndLanguage('/admin', 'en'),
@@ -265,7 +266,7 @@ class LacoServiceTest extends KernelTestBase {
    * @return \Symfony\Component\HttpFoundation\Request
    *   A Request object.
    */
-  protected function createRequestForUrlAndLanguage($url, $language) {
+  protected function createRequestForUrlAndLanguage($url, $language): Request {
     $request = Request::create($url);
     $request->headers->set(LacoServiceHeaders::HTTP_HEADER_SERVICE_NAME, LacoServiceHeaders::HTTP_HEADER_SERVICE_VALUE);
     $request->headers->set(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME, $language);
