@@ -81,11 +81,7 @@ class LacoServiceController extends ControllerBase {
     if ($entity->hasTranslation($language)) {
       $available = TRUE;
     }
-
-    $status_header = $available ? '200 OK' : '404 Not found';
-    $response = new Response();
-    $response->headers->set('Status', $status_header);
-    return $response;
+    return $this->responseFromAvailability($available);
   }
 
   /**
@@ -98,13 +94,9 @@ class LacoServiceController extends ControllerBase {
    *   A Response instance.
    */
   public function getDefaultLacoLanguage(Request $request):Response {
-    $response = new Response();
     $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
     $available = $this->languageManager->getLanguage($language) !== NULL ? TRUE : FALSE;
-
-    $status_header = $available ? '200 OK' : '404 Not found';
-    $response->headers->set('Status', $status_header);
-    return $response;
+    return $this->responseFromAvailability($available);
   }
 
   /**
@@ -117,6 +109,22 @@ class LacoServiceController extends ControllerBase {
     $route = $this->routeMatch->getRouteObject();
     $entity_type = $route->getOption('_oe_laco_entity_type');
     return $this->routeMatch->getParameter($entity_type);
+  }
+
+  /**
+   * Returns a Response object based on the availability of a translation.
+   *
+   * @param bool $available
+   *   Whether a translation is available.
+   *
+   * @return \Symfony\Component\HttpFoundation\Response
+   *   The response object.
+   */
+  protected function responseFromAvailability(bool $available):Response {
+    $status = $available ? Response::HTTP_OK : Response::HTTP_NOT_FOUND;
+    $response = new Response();
+    $response->setStatusCode($status);
+    return $response;
   }
 
 }
