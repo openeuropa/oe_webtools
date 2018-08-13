@@ -31,7 +31,9 @@ class LacoServiceTest extends KernelTestBase {
     'language',
     'content_translation',
     'text',
+    'page_cache',
     'oe_webtools_laco_service',
+    'oe_webtools_laco_service_test',
   ];
 
   /**
@@ -72,9 +74,24 @@ class LacoServiceTest extends KernelTestBase {
    * translation in that language.
    */
   public function testEntityLacoService(): void {
-    $requests = $this->createTestRequests();
     /** @var \Symfony\Component\HttpKernel\HttpKernelInterface $kernel */
-    $kernel = \Drupal::getContainer()->get('http_kernel');
+    $kernel = $this->container->get('http_kernel');
+
+    // Make a request to a regular entity route to cache the response.
+    $entity = $this->createTestMultilingualEntity('entity title');
+    $request = Request::create($entity->toUrl()->toString());
+    $response = $kernel->handle($request);
+    $crawler = new Crawler($response->getContent());
+    $title = $crawler->filter('title');
+    $this->assertEquals('entity title |', trim($title->text()));
+
+    // Make a request to the same entity, but for a non-existent language to
+    // test that the page cache request policy works.
+    $request = $this->createRequestForUrlAndLanguage($entity->toUrl()->toString(), 'de');
+    $response = $kernel->handle($request);
+    $this->assertEquals(404, $response->getStatusCode(), 'The page got cached.');
+
+    $requests = $this->createTestRequests();
     foreach ($requests as $definition) {
       $request = $definition[0];
       $response = $kernel->handle($request);
@@ -85,16 +102,6 @@ class LacoServiceTest extends KernelTestBase {
       // actual route we hit is not the real canonical route.
       $this->assertEmpty($response->getContent(), 'The response contains content.');
     }
-
-    // Make a request to a regular entity route and ensure that we are getting
-    // a response which contains content to prove we did not brake the canonical
-    // entity routes.
-    $entity = $this->createTestMultilingualEntity('entity title');
-    $request = Request::create($entity->toUrl()->toString());
-    $response = $kernel->handle($request);
-    $crawler = new Crawler($response->getContent());
-    $title = $crawler->filter('title');
-    $this->assertEquals('entity title |', trim($title->text()));
   }
 
   /**
