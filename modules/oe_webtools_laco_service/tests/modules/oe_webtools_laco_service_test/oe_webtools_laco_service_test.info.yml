@@ -1,0 +1,5 @@
+name: OE Webtools Laco Service Test
+description: A test module for the Laco service
+core: 8.x
+type: module
+package: Testing

@@ -1,0 +1,20 @@
+services:
+  oe_webtools_laco_service.service_middleware:
+    class: Drupal\oe_webtools_laco_service\StackMiddleware\LacoServiceMiddleware
+    tags:
+      - { name: http_middleware, priority: 300, responder: true }
+  oe_webtools_laco_service.route_subscriber:
+    class: Drupal\oe_webtools_laco_service\Routing\RouteSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
+  oe_webtools_laco_service.request_subscriber:
+    class: Drupal\oe_webtools_laco_service\EventSubscriber\LacoServiceSubscriber
+    arguments: ['@current_route_match', '@language_manager', '@controller_resolver']
+    tags:
+      - { name: event_subscriber }
+  oe_webtools.page_cache.laco_request_policy:
+    class: Drupal\oe_webtools_laco_service\PageCache\RequestPolicy\LacoRequestPolicy
+    tags:
+      - { name: page_cache_request_policy }
+      - { name: dynamic_page_cache_request_policy }

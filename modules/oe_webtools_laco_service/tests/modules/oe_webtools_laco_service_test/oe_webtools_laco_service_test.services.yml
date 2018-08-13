@@ -1,0 +1,8 @@
+services:
+  # Service that uses a core request policy that allows the page cache module
+  # to cache pages to anonymous users.
+  oe_webtools_laco_service_test.core_nosession_open_request_policy:
+    class: Drupal\Core\PageCache\RequestPolicy\NoSessionOpen
+    arguments: ['@session_configuration']
+    tags:
+      - { name: page_cache_request_policy }
