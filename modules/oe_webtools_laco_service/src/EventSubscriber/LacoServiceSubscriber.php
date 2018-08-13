@@ -71,7 +71,7 @@ class LacoServiceSubscriber implements EventSubscriberInterface {
    *   The dispatched event.
    */
   public function onController(FilterControllerEvent $event) {
-    if (!$event->getRequest()->attributes->has('_is_laco_request')) {
+    if (!$event->getRequest()->attributes->get('_is_laco_request')) {
       return;
     }
 

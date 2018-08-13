@@ -18,7 +18,7 @@ class LacoRequestPolicy implements RequestPolicyInterface {
    * {@inheritdoc}
    */
   public function check(Request $request) {
-    if ($request->attributes->has('_is_laco_request')) {
+    if ($request->attributes->get('_is_laco_request')) {
       return static::DENY;
     }
     return NULL;
