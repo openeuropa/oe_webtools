@@ -19,7 +19,7 @@ class LacoRequestPolicy implements RequestPolicyInterface {
    */
   public function check(Request $request) {
     if ($request->attributes->has('_is_laco_request')) {
-      // Return static::DENY;.
+      return static::DENY;
     }
     return NULL;
   }
