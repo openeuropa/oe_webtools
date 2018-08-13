@@ -23,7 +23,7 @@ class OeWebtoolsLacoServiceTestServiceProvider extends ServiceProviderBase {
   /**
    * {@inheritdoc}
    */
-  public function alter(ContainerBuilder $container) {
+  public function alter(ContainerBuilder $container): void {
     $definition = $container->getDefinition('page_cache_request_policy');
     $new = clone $definition;
     $container->removeDefinition('page_cache_request_policy');

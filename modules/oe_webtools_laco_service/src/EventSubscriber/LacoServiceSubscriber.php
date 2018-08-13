@@ -57,7 +57,7 @@ class LacoServiceSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[KernelEvents::CONTROLLER] = ['onController'];
     return $events;
   }
@@ -70,7 +70,7 @@ class LacoServiceSubscriber implements EventSubscriberInterface {
    * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
    *   The dispatched event.
    */
-  public function onController(FilterControllerEvent $event) {
+  public function onController(FilterControllerEvent $event): void {
     if (!$event->getRequest()->attributes->get('_is_laco_request')) {
       return;
     }

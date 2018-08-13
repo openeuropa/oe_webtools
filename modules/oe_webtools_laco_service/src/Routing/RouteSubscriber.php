@@ -40,7 +40,7 @@ class RouteSubscriber extends RouteSubscriberBase {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     $events[RoutingEvents::ALTER][] = ['onAlterRoutes', -1000];
     return $events;
   }
@@ -48,7 +48,7 @@ class RouteSubscriber extends RouteSubscriberBase {
   /**
    * {@inheritdoc}
    */
-  protected function alterRoutes(RouteCollection $collection) {
+  protected function alterRoutes(RouteCollection $collection): void {
     // Only include routes for content entities with canonical links.
     $definitions = $this->entityTypeManager->getDefinitions();
     $definitions = array_filter($definitions, function (EntityTypeInterface $definition) {
