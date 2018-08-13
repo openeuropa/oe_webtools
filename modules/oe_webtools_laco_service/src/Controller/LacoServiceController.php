@@ -91,8 +91,8 @@ class LacoServiceController extends ControllerBase {
    */
   public function getDefaultLacoLanguage(Request $request): Response {
     $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
-    $available = $this->languageManager->getLanguage($language) !== NULL ? TRUE : FALSE;
-    return $this->responseFromAvailability($available);
+
+    return $this->responseFromAvailability($this->languageManager->getLanguage($language) !== NULL);
   }
 
   /**
