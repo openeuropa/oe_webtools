@@ -1,0 +1,32 @@
+version: '2'
+services:
+  web:
+    image: fpfis/httpd-php-dev:7.1
+    working_dir: /var/www/html
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/var/www/html # Non Mac users.
+      # - nfsmount:/var/www/html # Mac Users with the nfsmount volume.
+    environment:
+      XDEBUG_CONFIG: "remote_enable=1 remote_host=${DOCKER_HOST_IP} remote_port=9000 idekey=PHPSTORM remote_autostart=1" # Non Mac users.
+      # XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1" # Mac users. Run this command in the terminal to map the IP address: sudo ifconfig en0 alias 10.254.254.254 255.255.255.0
+      PHP_IDE_CONFIG: "serverName=Docker"
+  mysql:
+    image: percona/percona-server:5.6
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - 3306:3306
+
+#### Mac users: uncomment the "volumes" key to enable the NFS file sharing.
+
+#volumes:
+#  nfsmount:
+#    driver: local
+#    driver_opts:
+#      type: nfs
+#      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+#      device: ":${PWD}/"
+
+#### End Mac users.
