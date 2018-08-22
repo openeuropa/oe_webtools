@@ -1,6 +1,6 @@
 services:
   oe_webtools_analytics.event_subscriber:
     class: Drupal\oe_webtools_analytics\EventSubscriber\AnalyticsEventSubscriber
-    arguments: ['@config.factory', '@request_stack']
+    arguments: ['@config.factory', '@request_stack', '@logger.factory']
     tags:
       - { name: event_subscriber }
