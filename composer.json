@@ -18,9 +18,9 @@
     "drush/drush": "^9",
     "nikic/php-parser": "~3",
     "openeuropa/code-review": "~0.3",
+    "openeuropa/drupal-core-require-dev": "~8.6@alpha",
     "openeuropa/task-runner": "^0.5",
-    "symfony/dom-crawler": "^3",
-    "webflo/drupal-core-require-dev": "~8.6@alpha"
+    "symfony/dom-crawler": "^3"
   },
   "scripts": {
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
@@ -45,11 +45,7 @@
   },
   "extra": {
     "composer-exit-on-patch-failure": true,
-    "patches": {
-      "drupal/core": {
-        "https://www.drupal.org/project/drupal/issues/2943172": "https://www.drupal.org/files/issues/2018-07-05/2943172-kernel-test-base-3.patch"
-      }
-    },
+    "enable-patching": true,
     "installer-paths": {
       "build/core": ["type:drupal-core"],
       "build/profiles/contrib/{$name}": ["type:drupal-profile"],
