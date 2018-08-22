@@ -41,7 +41,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    *
-   * @var \Drupal\Core\LoggerChannelFactoryInterface
+   * @var \Drupal\Core\LoggerChannelInterface
    */
   private $logger;
 
@@ -99,7 +99,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     // SiteID must exist and be an integer.
     $site_id = $this->getConfig()->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
-      $this->logger->debug('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
+      $this->logger->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
     }
 
