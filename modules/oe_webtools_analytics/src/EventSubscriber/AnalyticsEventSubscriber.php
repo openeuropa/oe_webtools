@@ -10,6 +10,7 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
 use Drupal\Core\Config\ImmutableConfig;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -38,6 +39,13 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   private $requestStack;
 
   /**
+   * {@inheritdoc}
+   *
+   * @var \Drupal\Core\LoggerChannelInterface
+   */
+  private $logger;
+
+  /**
    * The search parameter object.
    *
    * @var \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
@@ -51,11 +59,14 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   The configuration object.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request on the stack.
+   * @param \LoggerChannelFactoryInterface $loggerFactory
+   *   The logger channel factory.
    */
-  public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack) {
+  public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack, LoggerChannelFactoryInterface $loggerFactory) {
     // Get id from settings.php!
     $this->config = $configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
     $this->requestStack = $requestStack;
+    $this->logger = $loggerFactory->get('oe_webtools');
   }
 
   /**
@@ -85,14 +96,10 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
-    $factory = \Drupal::service('logger.factory');
-
     // SiteID must exist and be an integer.
     $site_id = $this->getConfig()->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
-      $factory
-        ->get('default')
-        ->debug('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
+      $this->logger->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
     }
 
