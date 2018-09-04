@@ -40,3 +40,8 @@ pipeline:
       - chown -R 500:500 *
       - chmod -R 777 build/sites
       - su - www-data -s /bin/sh -c "cd /test/oe_webtools && ./vendor/bin/phpunit"
+
+matrix:
+  COMPOSER_BOUNDARY:
+    - lowest
+    - highest
