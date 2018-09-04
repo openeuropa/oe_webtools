@@ -10,17 +10,17 @@
     "php": "^7.1"
   },
   "require-dev": {
-    "composer/installers": "^1.2",
+    "composer/installers": "~1.0",
     "cweagans/composer-patches": "~1.0",
     "drupal-composer/drupal-scaffold": "^2.2",
     "drupal/config_devel": "~1.2",
-    "drupal/console": "^1.6",
-    "drush/drush": "^9",
-    "nikic/php-parser": "~3",
+    "drupal/console": "~1.0",
+    "drush/drush": "~9.0",
+    "nikic/php-parser": "~3.0",
     "openeuropa/code-review": "~0.3",
     "openeuropa/drupal-core-require-dev": "~8.6",
-    "openeuropa/task-runner": "^0.5",
-    "symfony/dom-crawler": "^3"
+    "openeuropa/task-runner": "~0.1",
+    "symfony/dom-crawler": "~3.0"
   },
   "scripts": {
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
