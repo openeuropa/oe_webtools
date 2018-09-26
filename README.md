@@ -1,6 +1,7 @@
 # OpenEuropa Webtools
 
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/oe_webtools/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/oe_webtools)
+[![Packagist](https://img.shields.io/packagist/v/openeuropa/oe_webtools.svg)](https://packagist.org/packages/openeuropa/oe_webtools)
 
 Webtools integration for OpenEuropa.
 
