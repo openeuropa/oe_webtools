@@ -6,7 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "drupal/core": "~8.6@alpha",
+        "drupal/core": "~8.6",
         "php": "^7.1"
     },
     "require-dev": {
@@ -18,7 +18,7 @@
         "drush/drush": "~9.0",
         "nikic/php-parser": "~3.1.5",
         "openeuropa/code-review": "^1.0.0-alpha4",
-        "openeuropa/drupal-core-require-dev": "^8.6",
+        "openeuropa/drupal-core-require-dev": "~8.6",
         "openeuropa/task-runner": "~1.0",
         "drupal/console": "~1.0",
         "symfony/dom-crawler": "~3.0"
