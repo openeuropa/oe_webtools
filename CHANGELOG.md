@@ -1,8 +1,25 @@
 # Change Log
 
+## [0.2.0](https://github.com/openeuropa/oe_webtools/tree/0.2.0) (2018-09-27)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.1.0...0.2.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-785: Make sure component dependencies are as relaxed as possible. [\#13](https://github.com/openeuropa/oe_webtools/pull/13) ([aritomelo](https://github.com/aritomelo))
+- OPENEUROPA-1126: Use logger factory as a service. [\#12](https://github.com/openeuropa/oe_webtools/pull/12) ([aritomelo](https://github.com/aritomelo))
+- OPENEUROPA-768: Add oe drupal core require dev. [\#11](https://github.com/openeuropa/oe_webtools/pull/11) ([Medi4tor](https://github.com/Medi4tor))
+- OPENEUROPA-1165: Create a docker-compose.yml.dist file on oe\_webtools [\#10](https://github.com/openeuropa/oe_webtools/pull/10) ([upchuk](https://github.com/upchuk))
+- OPENEUROPA-1107: Include the widget of webtools for Laco [\#9](https://github.com/openeuropa/oe_webtools/pull/9) ([richardcanoe](https://github.com/richardcanoe))
+- OPENEUROPA-1108: Module to send the availability of the language for one content [\#8](https://github.com/openeuropa/oe_webtools/pull/8) ([upchuk](https://github.com/upchuk))
+- OPENEUROPA-632: Add minimum stability to drupal core. [\#7](https://github.com/openeuropa/oe_webtools/pull/7) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-721: Update code-review and grump.yml.dist file. [\#6](https://github.com/openeuropa/oe_webtools/pull/6) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-715: Missing group added to tests. [\#5](https://github.com/openeuropa/oe_webtools/pull/5) ([richardcanoe](https://github.com/richardcanoe))
+- OPENEUROPA-582: Update images on docker-compose and drone file. [\#4](https://github.com/openeuropa/oe_webtools/pull/4) ([voidtek](https://github.com/voidtek))
+
 ## [0.1.0](https://github.com/openeuropa/oe_webtools/tree/0.1.0) (2018-06-14)
 **Merged pull requests:**
 
+- Update CHANGELOG.md for 0.1.0 release. [\#3](https://github.com/openeuropa/oe_webtools/pull/3) ([ademarco](https://github.com/ademarco))
 - OPENEUROPA-336: Implement webtools integration [\#1](https://github.com/openeuropa/oe_webtools/pull/1) ([aritomelo](https://github.com/aritomelo))
 
 
