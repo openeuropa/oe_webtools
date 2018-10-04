@@ -9,7 +9,6 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Core\Url;
@@ -46,13 +45,6 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   private $loggerFactory;
 
   /**
-   * The search parameter object.
-   *
-   * @var \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
-   */
-  private $search;
-
-  /**
    * AnalyticsEventSubscriber constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
@@ -70,26 +62,6 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Get the request stack object.
-   *
-   * @return \Symfony\Component\HttpFoundation\RequestStack
-   *   The request stack.
-   */
-  public function getRequestStack(): RequestStack {
-    return $this->requestStack;
-  }
-
-  /**
-   * Get the config factory object.
-   *
-   * @return \Drupal\Core\Config\ImmutableConfig
-   *   The config.
-   */
-  public function getConfig(): ImmutableConfig {
-    return $this->config;
-  }
-
-  /**
    * Kernel request event handler.
    *
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
@@ -97,7 +69,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     // SiteID must exist and be an integer.
-    $site_id = $this->getConfig()->get(AnalyticsEventInterface::SITE_ID);
+    $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
       $this->loggerFactory->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
@@ -108,13 +80,12 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
 
     // SitePath handling.
     $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
-    if ($site_path = $this->getConfig()->get(AnalyticsEventInterface::SITE_PATH)) {
+    if ($site_path = $this->config->get(AnalyticsEventInterface::SITE_PATH)) {
       $event->setSitePath((array) $site_path);
     }
 
     // Set exception flags when access is denied, or page not found.
-    $request_exception = $this
-      ->getRequestStack()
+    $request_exception = $this->requestStack
       ->getCurrentRequest()->attributes->get('exception');
     if ($request_exception instanceof NotFoundHttpException) {
       $event->setIs404Page(TRUE);
