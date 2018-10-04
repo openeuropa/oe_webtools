@@ -79,7 +79,8 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     $event->setSiteId((string) $site_id);
 
     // SitePath handling.
-    $event->setSitePath((array) ($_SERVER['HTTP_HOST'] . Url::fromRoute('<front>')->toString()));
+    $sitePathFromRoute = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+    $event->setSitePath([$sitePathFromRoute]);
     if ($site_path = $this->config->get(AnalyticsEventInterface::SITE_PATH)) {
       $event->setSitePath((array) $site_path);
     }
