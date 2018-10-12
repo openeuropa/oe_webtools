@@ -8,12 +8,12 @@ declare(strict_types = 1);
  * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
  */
 
-namespace Drupal\oe_webtools_analytics\Entity;
+namespace Drupal\oe_webtools_analytics\Search;
 
 /**
  * Class SearchParameters.
  *
- * @package Drupal\oe_webtools_analytics\Entity
+ * @package Drupal\oe_webtools_analytics\Search
  */
 interface SearchParametersInterface extends \JsonSerializable {
 

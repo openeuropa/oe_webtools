@@ -5,7 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_analytics;
 
 use JsonSerializable;
-use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
+use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
 
 /**
  * Provides an interface for AnalyticsEvent accordingly to the documentation.
@@ -58,14 +58,14 @@ interface AnalyticsEventInterface extends JsonSerializable {
   /**
    * Set to true when search with the parameters form SearchParameters class.
    *
-   * @see \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   * @see \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    */
   public const SEARCH = 'search';
 
   /**
    * Set the search parameters object.
    *
-   * @param \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface $searchParameters
+   * @param \Drupal\oe_webtools_analytics\Search\SearchParametersInterface $searchParameters
    *   The search parameters object.
    */
   public function setSearchParameters(SearchParametersInterface $searchParameters): void;
@@ -200,7 +200,7 @@ interface AnalyticsEventInterface extends JsonSerializable {
   /**
    * An object which will give json structure with some parameters.
    *
-   * @return \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   * @return \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    *   An instance of SearchParameters class.
    */
   public function getSearch(): SearchParametersInterface;
