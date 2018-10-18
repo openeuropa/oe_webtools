@@ -10,11 +10,11 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\Event;
 
-use Drupal\oe_webtools_analytics\Entity\SearchParameters;
+use Drupal\oe_webtools_analytics\Search\SearchParameters;
 use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
-use Drupal\oe_webtools_analytics\Entity\SearchParametersInterface;
+use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
 
 /**
  * Class WebtoolsImportDataEvent.
@@ -85,7 +85,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
   /**
    * The Search result in json format.
    *
-   * @var \Drupal\oe_webtools_analytics\Entity\SearchParametersInterface
+   * @var \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    */
   private $search;
 
@@ -273,7 +273,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    */
   public function isValid(): bool {
     // SiteId is required.
-    return 'n/a' !== $this->getSiteId();
+    return $this->getSiteId() !== 'n/a';
   }
 
 }
