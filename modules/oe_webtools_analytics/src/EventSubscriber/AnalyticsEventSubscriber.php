@@ -40,9 +40,9 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    *
-   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  private $loggerFactory;
+  private $logger;
 
   /**
    * AnalyticsEventSubscriber constructor.
@@ -58,7 +58,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     // Get id from settings.php!
     $this->config = $configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
     $this->requestStack = $requestStack;
-    $this->loggerFactory = $loggerFactory->get('oe_webtools');
+    $this->logger = $loggerFactory->get('oe_webtools');
   }
 
   /**
@@ -71,7 +71,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     // SiteID must exist and be an integer.
     $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
-      $this->loggerFactory->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
+      $this->logger->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
     }
 
