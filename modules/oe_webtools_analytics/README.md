@@ -5,11 +5,12 @@ A Webtools Laco service that provides information on page access to a 3rd party 
 ### How it works
 
 This module triggers an event on a page load that allows subscribers to decide if the particular
-route is going to be tracked or not. It also allows to define all the available variables to customize the information being send to the analytics service.
-You can find more information on the available parameters [here](https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Piwik).
+route is going to be tracked or not. It also allows to define all the available variables to customize the information
+being send to the analytics service.
+You can find more information [here](http://ec.europa.eu/ipg/services/analytics/).
 
-If the route is valid and needs to be tracked, the module adds a new
-attachment to the page with the information needed for the webtools analytics service to start gathering visitor information.
+If the route is valid and needs to be tracked, the module adds a new attachment to the page with the information
+needed for the webtools analytics service to start gathering visitor information.
 
 ### How to use
 
