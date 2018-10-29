@@ -76,6 +76,12 @@ To run the phpunit test:
 $ docker-compose exec web ./vendor/bin/phpunit
 ```
 
+## OpenEuropa Webtools Analytics
+
+The Webtools module contains a submodule that provides a service for providing
+analytics information. For more information on how to use and configure this module,
+check out the module [README](modules/oe_webtools_analytics/README.md).
+
 ## OpenEuropa Webtools Laco Service
 
 The Webtools module contains a submodule that provides a service for retrieving
