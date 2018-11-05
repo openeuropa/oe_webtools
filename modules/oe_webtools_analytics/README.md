@@ -31,6 +31,6 @@ $config['oe_webtools_analytics.settings']['sitePath'] = ['ec.europa.eu'];
 
 #### Enable the module
 
-Once enabled, the module will provide the minimum required parameters for your all your sites to be tracked.
+Once enabled, the module will provide the minimum required parameters for all your sites to be tracked.
 If you wish to fine grain which specific routes are going to be tracked, you will need to subscribe
 to the AnalyticsEvent event and provide your custom logic there.
