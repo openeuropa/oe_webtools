@@ -18,10 +18,10 @@ needed for the webtools analytics service to start gathering visitor information
 
 In order to be able to track visitors to your site the Webtool Analytics module needs a default configuration in the form of two variables:
 
-* Site ID: This is the unique ID that identifies our site.
+* Site ID: This is the unique ID that identifies your site.
 * Site path: This is the base path that leads to your site.
 
-This configuration can be provided using Drupal 8 configuration system or by providing them on your sites settings.php file:
+This configuration can be provided using Drupal 8 configuration system or by providing details in your sites settings.php file:
 
 ```
 $config['oe_webtools_analytics.settings']['siteID'] = ['123'];
@@ -31,6 +31,6 @@ $config['oe_webtools_analytics.settings']['sitePath'] = ['ec.europa.eu'];
 
 #### Enable the module
 
-Once enabled, the module will provide the minimun required parameters for your all your site to be tracked.
+Once enabled, the module will provide the minimum required parameters for your all your sites to be tracked.
 If you wish to fine grain which specific routes are going to be tracked, you will need to subscribe
 to the AnalyticsEvent event and provide your custom logic there.
