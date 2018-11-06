@@ -1,0 +1,5 @@
+entity.webtools_analytics_rule.add_form:
+  route_name: entity.webtools_analytics_rule.add_form
+  title: 'Add Webtools Analytics rule'
+  appears_on:
+    - entity.webtools_analytics_rule.collection

@@ -1,0 +1,7 @@
+# Webtools analytics rule menu items definition
+entity.webtools_analytics_rule.collection:
+  title: 'Webtools Analytics site section rules'
+  route_name: entity.webtools_analytics_rule.collection
+  description: 'Manage Webtools Analytics site section rules.'
+  parent: system.admin_structure
+  weight: 99

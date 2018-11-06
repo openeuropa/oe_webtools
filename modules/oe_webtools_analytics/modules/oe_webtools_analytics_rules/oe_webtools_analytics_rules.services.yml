@@ -1,0 +1,5 @@
+services:
+  oe_webtools_analytics_rules.event_subscriber:
+    class: Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsEventSubscriber
+    tags:
+      - { name: event_subscriber }
