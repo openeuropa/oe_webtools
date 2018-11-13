@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_analytics_rules\Functional;
 
-use Drupal\Core\Cache\Cache;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Tests\BrowserTestBase;
 
@@ -40,12 +39,6 @@ class SectionRulesTest extends BrowserTestBase {
       ->getStorage('webtools_analytics_rule')
       ->create(['id' => 'id1', 'section' => 'section1', 'regex' => '/admin/'])
       ->save();
-
-    foreach (Cache::getBins() as $service_id => $cache_backend) {
-      if ('dynamic_page_cache' === $service_id || 'page' === $service_id) {
-        $cache_backend->deleteAll();
-      }
-    }
 
     $this->drupalGet('<front>');
     $this->assertSession()

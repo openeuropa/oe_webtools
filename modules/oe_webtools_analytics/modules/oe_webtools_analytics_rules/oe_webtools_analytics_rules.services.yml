@@ -4,3 +4,8 @@ services:
     arguments: ['@entity_type.manager', '@request_stack']
     tags:
       - { name: event_subscriber }
+  cache_context.webtools_analytics_section:
+    class: Drupal\oe_webtools_analytics_rules\OpenEuropaWebtoolsAnalyticsSiteSectionCacheContext
+    arguments: ['@oe_webtools_analytics_rules.event_subscriber']
+    tags:
+      - { name: cache.context }
