@@ -12,7 +12,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
 interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
 
   /**
-   * Getter for section.
+   * Returns the site section.
    *
    * @return string
    *   Section value for the rule.
@@ -20,7 +20,7 @@ interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
   public function getSection();
 
   /**
-   * Getter for regex.
+   * Returns the regular expression.
    *
    * @return string
    *   Regex value for the rule.

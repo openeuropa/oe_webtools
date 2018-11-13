@@ -9,12 +9,12 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * Event subscriptor for the Webtools Analytics event.
+ * Event subscriber for the Webtools Analytics event.
  */
 class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
 
   /**
-   * Kernel request event handler.
+   * Webtools Analytics event handler.
    *
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.

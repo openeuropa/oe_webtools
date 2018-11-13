@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class WebtoolsAnalyticsRuleForm.
+ * Builds the form to create and edit Webtools Analytics rule entities.
  */
 class WebtoolsAnalyticsRuleForm extends EntityForm {
 
@@ -45,7 +45,7 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
       '#title' => $this->t('Regex'),
       '#maxlength' => 255,
       '#default_value' => $rule->getRegex(),
-      '#description' => $this->t("The section activated by the rule."),
+      '#description' => $this->t("The regular expression to be used to match the site's paths. E.g.: /example/.*/"),
       '#required' => TRUE,
     ];
 

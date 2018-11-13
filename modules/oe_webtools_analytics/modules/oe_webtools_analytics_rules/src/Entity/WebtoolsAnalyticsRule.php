@@ -58,27 +58,21 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
   protected $section;
 
   /**
-   * The Regexp expression to be applied.
+   * The regular expression to be applied.
    *
    * @var string
    */
   protected $regex;
 
   /**
-   * Getter for section.
-   *
-   * @return string
-   *   Section value for the rule.
+   * {@inheritdoc}
    */
   public function getSection() {
     return $this->section;
   }
 
   /**
-   * Getter for regex.
-   *
-   * @return string
-   *   Regex value for the rule.
+   * {@inheritdoc}
    */
   public function getRegex() {
     return $this->regex;

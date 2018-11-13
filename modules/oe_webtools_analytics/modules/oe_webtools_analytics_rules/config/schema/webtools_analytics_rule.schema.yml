@@ -1,6 +1,6 @@
 oe_webtools_analytics_rules.webtools_analytics_rule.*:
   type: config_entity
-  label: 'Webtools Analytics rule config'
+  label: 'Webtools Analytics rule'
   mapping:
     id:
       type: string
