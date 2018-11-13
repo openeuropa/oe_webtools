@@ -19,13 +19,17 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
    *
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   *   Thrown if the entity type doesn't exist.
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   *   Thrown if the storage handler couldn't be loaded.
+   * @throws \RuntimeException
+   *   Thrown if storage of webtools_analytics_rule is not available.
    */
   public function setSection(AnalyticsEventInterface $event): void {
-    $storage = \Drupal::entityTypeManager()->getStorage('webtools_analytics_rule');
+    try {
+      $storage = \Drupal::entityTypeManager()
+        ->getStorage('webtools_analytics_rule');
+    }
+    catch (\Exception $e) {
+      throw new \RuntimeException($e->getMessage());
+    }
     $rules = $storage->loadMultiple();
     $current_uri = \Drupal::request()->getRequestUri();
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
