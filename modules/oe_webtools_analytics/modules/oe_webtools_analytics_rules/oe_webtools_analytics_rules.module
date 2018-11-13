@@ -1,8 +1,0 @@
-<?php
-
-/**
- * @file
- * Contains Drupal hooks.
- */
-
-declare(strict_types = 1);
