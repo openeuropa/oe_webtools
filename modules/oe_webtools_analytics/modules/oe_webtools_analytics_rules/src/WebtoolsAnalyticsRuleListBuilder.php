@@ -15,7 +15,7 @@ class WebtoolsAnalyticsRuleListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
-  public function buildHeader() {
+  public function buildHeader(): array {
     $header['section'] = $this->t('Section');
     $header['regex'] = $this->t('Regex');
     return $header + parent::buildHeader();
@@ -24,7 +24,7 @@ class WebtoolsAnalyticsRuleListBuilder extends ConfigEntityListBuilder {
   /**
    * {@inheritdoc}
    */
-  public function buildRow(EntityInterface $entity) {
+  public function buildRow(EntityInterface $entity): array {
     $row['section'] = $entity->getSection();
     $row['id'] = $entity->getRegex();
     return $row + parent::buildRow($entity);

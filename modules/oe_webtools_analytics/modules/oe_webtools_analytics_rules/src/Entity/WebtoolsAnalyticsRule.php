@@ -67,14 +67,14 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
   /**
    * {@inheritdoc}
    */
-  public function getSection() {
+  public function getSection(): string {
     return $this->section;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getRegex() {
+  public function getRegex(): string {
     return $this->regex;
   }
 

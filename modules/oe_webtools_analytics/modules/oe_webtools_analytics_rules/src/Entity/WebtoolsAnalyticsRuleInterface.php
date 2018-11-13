@@ -17,7 +17,7 @@ interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
    * @return string
    *   Section value for the rule.
    */
-  public function getSection();
+  public function getSection(): string;
 
   /**
    * Returns the regular expression.
@@ -25,6 +25,6 @@ interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
    * @return string
    *   Regex value for the rule.
    */
-  public function getRegex();
+  public function getRegex(): string;
 
 }

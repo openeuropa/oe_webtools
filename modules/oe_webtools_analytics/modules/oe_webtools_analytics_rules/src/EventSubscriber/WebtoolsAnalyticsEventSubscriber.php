@@ -24,7 +24,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    *   Thrown if the storage handler couldn't be loaded.
    */
-  public function setSection(AnalyticsEventInterface $event) {
+  public function setSection(AnalyticsEventInterface $event): void {
     $storage = \Drupal::entityTypeManager()->getStorage('webtools_analytics_rule');
     $rules = $storage->loadMultiple();
     $current_uri = \Drupal::request()->getRequestUri();
@@ -39,7 +39,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     // Subscribing to listening to the Analytics event.
     $events[AnalyticsEvent::NAME][] = ['setSection'];
 
