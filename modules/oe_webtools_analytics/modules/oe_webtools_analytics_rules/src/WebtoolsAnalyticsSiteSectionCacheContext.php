@@ -37,7 +37,7 @@ class OpenEuropaWebtoolsAnalyticsSiteSectionCacheContext implements CacheContext
    * {@inheritdoc}
    */
   public static function getLabel() {
-    return t('Webtools Analytics Site Section');
+    return t('Webtools Analytics site section');
   }
 
   /**
