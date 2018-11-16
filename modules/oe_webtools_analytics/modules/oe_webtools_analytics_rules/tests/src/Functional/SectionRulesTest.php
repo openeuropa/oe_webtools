@@ -8,7 +8,7 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Class SectionRulesTest.
+ * Tests for defining site sections using regular expressions.
  *
  * @group oe_webtools_analytics
  */
