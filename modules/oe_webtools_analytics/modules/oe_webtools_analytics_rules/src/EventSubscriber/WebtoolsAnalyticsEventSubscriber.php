@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics_rules\EventSubscriber;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
@@ -47,18 +49,25 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
-   *
-   * @throws \RuntimeException
-   *   Thrown if storage of webtools_analytics_rule is not available.
    */
   public function setSection(AnalyticsEventInterface $event): void {
     try {
       $storage = $this->eventTypeManager
         ->getStorage('webtools_analytics_rule');
     }
-    catch (\Exception $e) {
-      throw new \RuntimeException($e->getMessage());
+    // Because of the dynamic nature how entities work in Drupal the entity type
+    // manager can throw exceptions if an entity type is not available or
+    // invalid. However since we are using our our very own entity type we can
+    // be certain that this is defined and valid. Convert the exceptions into
+    // unchecked runtime exceptions so they don't need to be documented all the
+    // way up the call stack.
+    catch (InvalidPluginDefinitionException $e) {
+      throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
     }
+    catch (PluginNotFoundException $e) {
+      throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+    }
+
     $rules = $storage->loadMultiple();
     $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
