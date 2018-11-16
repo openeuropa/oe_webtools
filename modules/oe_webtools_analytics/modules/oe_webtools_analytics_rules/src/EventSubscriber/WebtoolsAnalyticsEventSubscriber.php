@@ -18,11 +18,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
 
   /**
-   * The event type manager.
+   * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $eventTypeManager;
+  private $entityTypeManager;
 
   /**
    * The request stack.
@@ -34,13 +34,13 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * WebtoolsAnalyticsEventSubscriber constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $eventTypeManager
-   *   The event type manager.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request stack.
    */
-  public function __construct(EntityTypeManagerInterface $eventTypeManager, RequestStack $requestStack) {
-    $this->eventTypeManager = $eventTypeManager;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack) {
+    $this->entityTypeManager = $entityTypeManager;
     $this->requestStack = $requestStack;
   }
 
@@ -52,7 +52,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function setSection(AnalyticsEventInterface $event): void {
     try {
-      $storage = $this->eventTypeManager
+      $storage = $this->entityTypeManager
         ->getStorage('webtools_analytics_rule');
     }
     // Because of the dynamic nature how entities work in Drupal the entity type
