@@ -55,14 +55,14 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
    *
    * @var string
    */
-  protected $section;
+  protected $section = '';
 
   /**
    * The regular expression to be applied.
    *
    * @var string
    */
-  protected $regex;
+  protected $regex = '';
 
   /**
    * {@inheritdoc}
