@@ -11,4 +11,4 @@ phpunit.xml
 runner.yml
 vendor
 yarn.lock
-docker-compose.yml
+docker-compose.*.yml
