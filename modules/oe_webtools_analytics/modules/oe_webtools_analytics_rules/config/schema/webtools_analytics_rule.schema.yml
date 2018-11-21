@@ -1,0 +1,15 @@
+oe_webtools_analytics_rules.webtools_analytics_rule.*:
+  type: config_entity
+  label: 'Webtools Analytics rule'
+  mapping:
+    id:
+      type: string
+      label: ID
+    section:
+      type: label
+      label: 'Section'
+    regex:
+      type: string
+      label: Regex
+    uuid:
+      type: string
