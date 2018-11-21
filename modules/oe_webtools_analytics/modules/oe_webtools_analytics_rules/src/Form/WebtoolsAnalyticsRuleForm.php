@@ -21,6 +21,15 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
     $rule = $this->entity;
 
+    $form['section'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Section'),
+      '#maxlength' => 255,
+      '#default_value' => $rule->getSection(),
+      '#description' => $this->t("The section activated by the rule."),
+      '#required' => TRUE,
+    ];
+
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $rule->id(),
@@ -29,15 +38,6 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
         'source' => ['section'],
       ],
       '#disabled' => !$rule->isNew(),
-    ];
-
-    $form['section'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Section'),
-      '#maxlength' => 255,
-      '#default_value' => $rule->getSection(),
-      '#description' => $this->t("The section activated by the rule."),
-      '#required' => TRUE,
     ];
 
     $form['regex'] = [
