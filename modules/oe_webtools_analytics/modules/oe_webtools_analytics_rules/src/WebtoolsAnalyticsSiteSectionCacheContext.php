@@ -46,6 +46,7 @@ class OpenEuropaWebtoolsAnalyticsSiteSectionCacheContext implements CacheContext
   public function getContext() {
     $event = new AnalyticsEvent();
     $this->analyticsEventSubscriber->setSection($event);
+
     return $event->getSiteSection();
   }
 
