@@ -14,7 +14,7 @@ use Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsEventSub
  *
  * Cache context ID: 'webtools_analytics_section'.
  */
-class OpenEuropaWebtoolsAnalyticsSiteSectionCacheContext implements CacheContextInterface {
+class WebtoolsAnalyticsSiteSectionCacheContext implements CacheContextInterface {
 
   /**
    * The Webtools Analytics event subscriber.
@@ -24,7 +24,7 @@ class OpenEuropaWebtoolsAnalyticsSiteSectionCacheContext implements CacheContext
   protected $analyticsEventSubscriber;
 
   /**
-   * Constructs a OpenEuropaWebtoolsAnalyticsSiteSectionCacheContext service.
+   * Constructs a WebtoolsAnalyticsSiteSectionCacheContext service.
    *
    * @param \Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsEventSubscriber $analytics_event_subscriber
    *   The workspace manager.
