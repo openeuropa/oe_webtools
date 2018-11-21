@@ -26,7 +26,7 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
       '#title' => $this->t('Section'),
       '#maxlength' => 255,
       '#default_value' => $rule->getSection(),
-      '#description' => $this->t("The section activated by the rule."),
+      '#description' => $this->t('The section activated by the rule.'),
       '#required' => TRUE,
     ];
 
@@ -79,6 +79,7 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
     $rule = $this->entity;
     $status = $rule->save();
+
     switch ($status) {
       case SAVED_NEW:
         $message = $this->t('Created the %label Webtools Analytics rule.', [
@@ -91,6 +92,7 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
           '%label' => $rule->label(),
         ]);
     }
+
     $this->messenger()->addMessage($message);
     $form_state->setRedirectUrl($rule->toUrl('collection'));
   }
