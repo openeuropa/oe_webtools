@@ -12,7 +12,7 @@ use Drupal\DrupalExtension\Context\ConfigContext;
 class WebtoolsAnalyticsConfigContext extends ConfigContext {
 
   /**
-   * Configures the CAS module to use Drupal login.
+   * Apply settings for the Webtools Analytics configuration.
    *
    * @param string $id
    *   ID for the Webtools Analytics.

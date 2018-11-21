@@ -16,9 +16,9 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
    * Asserts whether the Webtools Analytics json contains a certain parameter.
    *
    * @param string $parameter
-   *   The pages data.
+   *   The parameter name.
    * @param string $value
-   *   The pages data.
+   *   The parameter value.
    *
    * @throws \Exception
    *
@@ -44,7 +44,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
    * Asserts whether the Webtools Analytics json doesn't contain a parameter.
    *
    * @param string $parameter
-   *   The pages data.
+   *   The parameter name.
    *
    * @throws \Exception
    *
