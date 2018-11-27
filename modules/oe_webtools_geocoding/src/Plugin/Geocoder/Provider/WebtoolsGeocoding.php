@@ -11,7 +11,7 @@ use Drupal\geocoder\ProviderUsingHandlerWithAdapterBase;
  *
  * @GeocoderProvider(
  *   id = "webtools_geocoding",
- *   name = "WebtoolsGeocoding",
+ *   name = "Webtools Geocoding",
  *   handler = "\OpenEuropa\Provider\WebtoolsGeocoding\WebtoolsGeocoding",
  * )
  */
