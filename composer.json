@@ -6,9 +6,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "drupal/geocoder": "dev-3.x",
+        "drupal/geocoder": "^3.0",
         "openeuropa/drupal-core-require": "^8.6",
-        "openeuropa/webtools-geocoding-provider": "dev-master",
+        "openeuropa/webtools-geocoding-provider": "^1.0",
         "php": "^7.1"
     },
     "require-dev": {
