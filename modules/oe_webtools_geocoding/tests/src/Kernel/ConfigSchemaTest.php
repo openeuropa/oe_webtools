@@ -43,9 +43,6 @@ class ConfigSchemaTest extends KernelTestBase {
    */
   public function testConfigSchema() {
     $config = $this->config('geocoder.settings');
-    $plugins_options = $config->get('plugins_options');
-    $plugins_options['webtools_geocoding'] = [];
-    $config->set('plugins_options', $plugins_options)->save();
     $result = $this->checkConfigSchema($this->typedConfigManager, 'geocoder.settings', $config->get());
     $this->assertTrue($result);
   }
