@@ -7,7 +7,6 @@
     "prefer-stable": true,
     "require": {
         "drupal/geocoder": "^3.0",
-        "openeuropa/drupal-core-require": "^8.6",
         "openeuropa/webtools-geocoding-provider": "~0.1",
         "php": "^7.1"
     },
