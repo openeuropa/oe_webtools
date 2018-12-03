@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\oe_webtools_maps\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -24,7 +26,7 @@ class WebtoolsMapFormatter extends FormatterBase {
    */
   public static function defaultSettings() {
     return [
-      'foo' => 'bar',
+      'zoom_level' => 4,
     ] + parent::defaultSettings();
   }
 
@@ -32,11 +34,13 @@ class WebtoolsMapFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-
-    $elements['foo'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Foo'),
-      '#default_value' => $this->getSetting('foo'),
+    $elements['zoom_level'] = [
+      '#type' => 'range',
+      '#title' => $this->t('Zoom level'),
+      '#description' => $this->t('The zoom level that will be used when the map is displayed.'),
+      '#default_value' => $this->getSetting('zoom_level'),
+      '#min' => 0,
+      '#max' => 18,
     ];
 
     return $elements;
@@ -46,7 +50,9 @@ class WebtoolsMapFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary[] = $this->t('Foo: @foo', ['@foo' => $this->getSetting('foo')]);
+    $summary[] = $this->t('Zoom level: @zoom_level', [
+      '@zoom_level' => $this->getSetting('zoom_level'),
+    ]);
     return $summary;
   }
 
@@ -58,18 +64,13 @@ class WebtoolsMapFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $element[$delta] = [
-        '#type' => 'item',
-        '#markup' => <<<EOD
-<script type="application/json">{
-  "service": "map",
-  "custom": "$module_url/js/semic_community.js"
-}</script>
-EOD,
+        '#theme' => 'oe_webtools_maps_map',
+        '#latitude' => $item->get('lat')->getValue(),
+        '#longitude' => $item->get('lon')->getValue(),
+        '#zoom_level' => $this->getSetting('zoom_level'),
         '#attached' => [
           'library' => ['oe_webtools_maps/eu.webtools.load'],
         ],
-        // '#attached']['drupalSettings']['semic']['map']['adoptersListUrl'] = "$module_url/adopters.xml";
-        '#prefix'] = semic_map_markup($module_url);
       ];
     }
 
