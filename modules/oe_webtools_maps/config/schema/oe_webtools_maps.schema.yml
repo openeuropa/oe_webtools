@@ -1,0 +1,7 @@
+field.formatter.settings.oe_webtools_maps_map:
+  type: mapping
+  label: Webtools Map formatter settings
+  mapping:
+    foo:
+      type: string
+      label: Foo
