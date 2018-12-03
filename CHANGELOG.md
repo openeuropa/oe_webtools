@@ -1,10 +1,21 @@
 # Change Log
 
+## [0.3.0](https://github.com/openeuropa/oe_webtools/tree/0.3.0) (2018-12-03)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.2.0...0.3.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-1322: Use the proper Docker way of overriding docker-composer.yml file. [\#18](https://github.com/openeuropa/oe_webtools/pull/18) ([drupol](https://github.com/drupol))
+- OPENEUROPA-665: Add section rules to Webtool Analytics. [\#17](https://github.com/openeuropa/oe_webtools/pull/17) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1307: Add Readme for analytics module. [\#16](https://github.com/openeuropa/oe_webtools/pull/16) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1247: Cleanup and minor fixes for Analytics. [\#15](https://github.com/openeuropa/oe_webtools/pull/15) ([dxvargas](https://github.com/dxvargas))
+
 ## [0.2.0](https://github.com/openeuropa/oe_webtools/tree/0.2.0) (2018-09-27)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.1.0...0.2.0)
 
 **Merged pull requests:**
 
+- OPENEUROPA-1241: Update CHANGELOG.md. [\#14](https://github.com/openeuropa/oe_webtools/pull/14) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-785: Make sure component dependencies are as relaxed as possible. [\#13](https://github.com/openeuropa/oe_webtools/pull/13) ([aritomelo](https://github.com/aritomelo))
 - OPENEUROPA-1126: Use logger factory as a service. [\#12](https://github.com/openeuropa/oe_webtools/pull/12) ([aritomelo](https://github.com/aritomelo))
 - OPENEUROPA-768: Add oe drupal core require dev. [\#11](https://github.com/openeuropa/oe_webtools/pull/11) ([Medi4tor](https://github.com/Medi4tor))
