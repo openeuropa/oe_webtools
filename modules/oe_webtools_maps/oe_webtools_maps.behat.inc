@@ -56,7 +56,7 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
       }
     }
 
-    return $data;
+    return $maps;
   }
 
 }
