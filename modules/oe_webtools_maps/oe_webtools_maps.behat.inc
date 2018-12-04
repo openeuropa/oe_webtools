@@ -25,17 +25,7 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
    * @Then I should see a map centered on latitude :latitude and longitude :longitude
    */
   public function assertMapPresent(string $latitude, string $longitude): void {
-    $xpath = '//script[@type = "application/json"]';
-    /** @var \Behat\Mink\Element\NodeElement $element */
-    foreach ($this->getSession()->getPage()->findAll('xpath', $xpath) as $element) {
-      $data = json_decode($element->getText());
-
-      // Skip if this is not a Webtools map.
-      if (empty($data) || empty($data->service) || $data->service !== 'map' || empty($data->map)) {
-        continue;
-      }
-
-      // Check the coordinates.
+    foreach ($this->getWebtoolsMaps() as $data) {
       if (!empty($data->map->center) && count($data->map->center) === 2) {
         $center = $data->map->center;
         if ($center[0] == $longitude && $center[1] == $latitude) {
@@ -45,6 +35,28 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
       }
     }
     throw new \RuntimeException("Map with coordinates $latitude, $longitude was not found in the page.");
+  }
+
+  /**
+   * Returns an array of JSON data representing Webtools maps.
+   *
+   * @return \stdClass[]
+   *   The JSON data representing Webtools maps.
+   */
+  protected function getWebtoolsMaps(): array {
+    $maps = [];
+
+    $xpath = '//script[@type = "application/json"]';
+    /** @var \Behat\Mink\Element\NodeElement $element */
+    foreach ($this->getSession()->getPage()->findAll('xpath', $xpath) as $element) {
+      $data = json_decode($element->getText());
+
+      if (!empty($data) && !empty($data->service) && $data->service === 'map' && !empty($data->map)) {
+        $maps[] = $data;
+      }
+    }
+
+    return $data;
   }
 
 }
