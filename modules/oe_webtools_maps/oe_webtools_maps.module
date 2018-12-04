@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Hook implementations for the OpenEuropa Webtools Maps module.
  */
 
@@ -15,7 +16,7 @@ function oe_webtools_maps_theme($existing, $type, $theme, $path) {
       'variables' => [
         'zoom_level' => NULL,
         'longitude' => NULL,
-        'latitude' => NULL
+        'latitude' => NULL,
       ],
     ],
   ];
