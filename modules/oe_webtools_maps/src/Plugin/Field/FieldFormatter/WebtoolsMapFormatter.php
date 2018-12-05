@@ -15,8 +15,8 @@ use Drupal\Core\Form\FormStateInterface;
  *   id = "oe_webtools_maps_map",
  *   label = @Translation("Webtools Map"),
  *   field_types = {
- *     "geofield"
- *   }
+ *     "geofield",
+ *   },
  * )
  */
 class WebtoolsMapFormatter extends FormatterBase {
@@ -68,9 +68,12 @@ class WebtoolsMapFormatter extends FormatterBase {
         '#latitude' => $item->get('lat')->getValue(),
         '#longitude' => $item->get('lon')->getValue(),
         '#zoom_level' => $this->getSetting('zoom_level'),
-        '#attached' => [
-          'library' => ['oe_webtools_maps/eu.webtools.load'],
-        ],
+      ];
+    }
+
+    if ($element) {
+      $element['#attached'] = [
+        'library' => ['oe_webtools_maps/eu.webtools.load'],
       ];
     }
 

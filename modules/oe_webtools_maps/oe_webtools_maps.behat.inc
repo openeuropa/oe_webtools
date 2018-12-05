@@ -22,6 +22,9 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
    * @param string $longitude
    *   The longitude for the center map position.
    *
+   * @throws \RuntimeException
+   *   If the map with the given coordinates was not found in the page.
+   *
    * @Then I should see a map centered on latitude :latitude and longitude :longitude
    */
   public function assertMapPresent(string $latitude, string $longitude): void {
@@ -40,7 +43,7 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
   /**
    * Returns an array of JSON data representing Webtools maps.
    *
-   * @return \stdClass[]
+   * @return object[]
    *   The JSON data representing Webtools maps.
    */
   protected function getWebtoolsMaps(): array {
