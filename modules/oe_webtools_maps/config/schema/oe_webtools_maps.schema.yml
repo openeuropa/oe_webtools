@@ -1,0 +1,7 @@
+field.formatter.settings.oe_webtools_maps_map:
+  type: mapping
+  label: Webtools Map formatter settings
+  mapping:
+    zoom_level:
+      type: integer
+      label: 'Zoom level'
