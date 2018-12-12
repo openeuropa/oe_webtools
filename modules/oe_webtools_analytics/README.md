@@ -24,8 +24,8 @@ In order to be able to track visitors to your site the Webtool Analytics module 
 This configuration can be provided using Drupal 8 configuration system or by providing details in your sites settings.php file:
 
 ```
-$config['oe_webtools_analytics.settings']['siteID'] = ['123'];
-$config['oe_webtools_analytics.settings']['sitePath'] = ['ec.europa.eu'];
+$config['oe_webtools_analytics.settings']['siteID'] = '123';
+$config['oe_webtools_analytics.settings']['sitePath'] = 'ec.europa.eu';
 
 ```
 

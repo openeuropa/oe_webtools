@@ -78,6 +78,11 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     // Setting SiteID.
     $event->setSiteId((string) $site_id);
 
+    $instance = $this->config->get(AnalyticsEventInterface::INSTANCE);
+
+    // Setting Instance.
+    $event->setInstance((string) $instance);
+
     // SitePath handling.
     $site_path_route = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
     $event->setSitePath([$site_path_route]);

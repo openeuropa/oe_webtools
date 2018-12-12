@@ -10,3 +10,7 @@ oe_webtools_analytics.settings:
       type: string
       label: 'Site path'
       description: 'The domain + root path without protocol.'
+    instance:
+      type: string
+      label: 'Instance'
+      description: 'The test server instance. e.g. testing, ec.europa.eu or europa.eu.'
