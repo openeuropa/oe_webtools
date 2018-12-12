@@ -32,3 +32,14 @@ function oe_webtools_analytics_requirements($phase) {
 
   return $requirements;
 }
+
+/**
+ * Update oe_webtools_analytics.settings config instance, if value is empty.
+ */
+function oe_webtools_analytics_update_8001() {
+  if (!\Drupal::configFactory()->get(AnalyticsEventInterface::CONFIG_NAME)->get('instance')) {
+    $config = \Drupal::configFactory()->getEditable(AnalyticsEventInterface::CONFIG_NAME)
+      ->set('instance', 'testing');
+    $config->save(TRUE);
+  }
+}
