@@ -1,6 +1,6 @@
 # OpenEuropa Webtools Analytics
 
-A Webtools Laco service that provides information on page access to a 3rd party analytics service.
+A Webtools Analytics service that provides information on page access to a 3rd party analytics service.
 
 ### How it works
 
@@ -26,6 +26,7 @@ This configuration can be provided using Drupal 8 configuration system or by pro
 ```
 $config['oe_webtools_analytics.settings']['siteID'] = '123';
 $config['oe_webtools_analytics.settings']['sitePath'] = 'ec.europa.eu';
+$config['oe_webtools_analytics.settings']['instance'] = 'testing';
 
 ```
 
