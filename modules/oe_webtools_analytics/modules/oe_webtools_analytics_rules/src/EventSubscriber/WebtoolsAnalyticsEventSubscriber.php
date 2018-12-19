@@ -6,6 +6,8 @@ namespace Drupal\oe_webtools_analytics_rules\EventSubscriber;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
@@ -32,16 +34,26 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   private $requestStack;
 
   /**
+   * A cache backend interface.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  private $cache;
+
+  /**
    * WebtoolsAnalyticsEventSubscriber constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request stack.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache
+   *   A cache backend used to store webtools rules for uris.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, CacheBackendInterface $cache) {
     $this->entityTypeManager = $entityTypeManager;
     $this->requestStack = $requestStack;
+    $this->cache = $cache;
   }
 
   /**
@@ -71,9 +83,15 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     $rules = $storage->loadMultiple();
     $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
+    if ($cached_section = $this->cache->get($current_uri)) {
+      $event->setSiteSection($cached_section->data);
+      return;
+    }
     foreach ($rules as $rule) {
       if (preg_match($rule->getRegex(), $current_uri, $matches) === 1) {
-        $event->setSiteSection($rule->getSection());
+        $section = $rule->getSection();
+        $event->setSiteSection($section);
+        $this->cache->set($current_uri, $section, Cache::PERMANENT, $rule->getCacheTags());
       }
     }
   }
