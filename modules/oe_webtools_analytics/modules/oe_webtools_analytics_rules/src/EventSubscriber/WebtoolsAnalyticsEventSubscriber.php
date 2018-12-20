@@ -11,6 +11,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -62,14 +63,22 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
    */
-  public function setSection(AnalyticsEventInterface $event): void {
+  public function analyticsEventHandler(AnalyticsEventInterface $event): void {
+    $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
+    if ($cache = $this->cache->get($current_uri)) {
+      if ($cache->data) {
+        $event->setSiteSection($cache->data['section']);
+      }
+      return;
+    }
+
     try {
       $storage = $this->entityTypeManager
         ->getStorage('webtools_analytics_rule');
     }
     // Because of the dynamic nature how entities work in Drupal the entity type
     // manager can throw exceptions if an entity type is not available or
-    // invalid. However since we are using our our very own entity type we can
+    // invalid. However since we are using our very own entity type we can
     // be certain that this is defined and valid. Convert the exceptions into
     // unchecked runtime exceptions so they don't need to be documented all the
     // way up the call stack.
@@ -81,19 +90,50 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     }
 
     $rules = $storage->loadMultiple();
-    $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
-    if ($cached_section = $this->cache->get($current_uri)) {
-      $event->setSiteSection($cached_section->data);
-      return;
-    }
     foreach ($rules as $rule) {
       if (preg_match($rule->getRegex(), $current_uri, $matches) === 1) {
-        $section = $rule->getSection();
-        $event->setSiteSection($section);
-        $this->cache->set($current_uri, $section, Cache::PERMANENT, $rule->getCacheTags());
+        $this->updateAnalyticsEvent($event, $current_uri, $rule);
+        // By this break we have to explicitly handle possible overlapping
+        // of rules.
+        // So for know we will select first suitable rule.
+        return;
       }
     }
+    // We have to cache for uri NULL data, if we don't have suitable rule.
+    $this->cache->set($current_uri, NULL, Cache::PERMANENT, $storage->getEntityType()->getListCacheTags());
+
+  }
+
+  /**
+   * Get only needed information from rule.
+   *
+   * @param \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule
+   *   Rule config entity.
+   *
+   * @return array
+   *   Structured array of rule
+   */
+  private function getRuleInfo(WebtoolsAnalyticsRuleInterface $rule): array {
+    return [
+      'section' => $rule->getSection(),
+    ];
+  }
+
+  /**
+   * Update Webtools Analytics event.
+   *
+   * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
+   *   Response event.
+   * @param string $current_uri
+   *   Uri of current request.
+   * @param \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule
+   *   Rule config entity.
+   */
+  private function updateAnalyticsEvent(AnalyticsEventInterface &$event, string $current_uri, WebtoolsAnalyticsRuleInterface $rule): void {
+    $rule_data = $this->getRuleInfo();
+    $event->setSiteSection($rule_data['section']);
+    $this->cache->set($current_uri, $rule_data, Cache::PERMANENT, $rule->getCacheTags());
   }
 
   /**
@@ -101,7 +141,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     // Subscribing to listening to the Analytics event.
-    $events[AnalyticsEvent::NAME][] = ['setSection'];
+    $events[AnalyticsEvent::NAME][] = ['analyticsEventHandler'];
 
     return $events;
   }
