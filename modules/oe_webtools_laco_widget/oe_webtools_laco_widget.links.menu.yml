@@ -1,0 +1,5 @@
+oe_webtools_laco_widget.settings:
+  title: Webtools Laco Widget
+  description: 'Configure Laco Widget settings.'
+  route_name: oe_webtools_laco_widget.settings
+  parent: system.admin_config_regional
