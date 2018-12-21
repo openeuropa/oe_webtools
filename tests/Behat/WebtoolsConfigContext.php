@@ -7,9 +7,9 @@ namespace Drupal\Tests\oe_webtools\Behat;
 use Drupal\DrupalExtension\Context\ConfigContext;
 
 /**
- * Class DrupalContext.
+ * Class WebtoolsConfigContext.
  */
-class WebtoolsAnalyticsConfigContext extends ConfigContext {
+class WebtoolsConfigContext extends ConfigContext {
 
   /**
    * Apply settings for the Webtools Analytics configuration.
@@ -24,6 +24,21 @@ class WebtoolsAnalyticsConfigContext extends ConfigContext {
   public function webtoolsAnalyicsConfigIsSet(string $id, string $sitepath): void {
     $this->setConfig('oe_webtools_analytics.settings', 'siteID', $id);
     $this->setConfig('oe_webtools_analytics.settings', 'sitePath', $sitepath);
+  }
+
+  /**
+   * Backup configs that need to be reverted in AfterScenario.
+   *
+   * @BeforeScenario @BackupLacoConfigs
+   */
+  public function backupLacoConfigs() {
+
+    $name = 'oe_webtools_laco_widget.settings';
+
+    $configs = $this->getDriver()->getCore()->configGet($name);
+    foreach ($configs as $key => $backup) {
+      $this->config[$name][$key] = $backup;
+    }
   }
 
 }
