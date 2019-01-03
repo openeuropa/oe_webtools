@@ -1,7 +1,7 @@
 services:
   oe_webtools_analytics_rules.event_subscriber:
     class: Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsEventSubscriber
-    arguments: ['@entity_type.manager', '@request_stack']
+    arguments: ['@entity_type.manager', '@request_stack', '@cache.webtools_analytics_rules']
     tags:
       - { name: event_subscriber }
   cache_context.webtools_analytics_section:
@@ -9,3 +9,9 @@ services:
     arguments: ['@oe_webtools_analytics_rules.event_subscriber']
     tags:
       - { name: cache.context }
+  cache.webtools_analytics_rules:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    tags:
+      - { name: cache.bin, default_backend: cache.backend.chainedfast }
+    factory: cache_factory:get
+    arguments: [webtools_analytics_rules]
