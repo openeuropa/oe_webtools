@@ -65,10 +65,18 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
     $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     if ($cache = $this->cache->get($current_uri)) {
+      // Abort checking rules, if we cached NULL.
+      // By NULL we mean that current URI don't have rules.
+      if ($cache->data === NULL) {
+        return;
+      }
+      // Set site section by cached data.
+      // In case of additional data for updating by rule
+      // this code should be updated.
       if (isset($cache->data['section'])) {
         $event->setSiteSection($cache->data['section']);
+        return;
       }
-      return;
     }
 
     try {
@@ -92,11 +100,14 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
     foreach ($rules as $rule) {
       if (preg_match($rule->getRegex(), $current_uri, $matches) === 1) {
+        // In case of additional data for updating by rule
+        // this code should be updated.
         $event->setSiteSection($rule->getSection());
         $this->cache->set($current_uri, ['section' => $rule->getSection()], Cache::PERMANENT, $rule->getCacheTags());
         // By this break we have to explicitly handle possible overlapping
         // of rules.
         // So for know we will select first suitable rule.
+        // @todo It would be nice to handle overlapping of rules for reducing mess for site builders.
         return;
       }
     }
