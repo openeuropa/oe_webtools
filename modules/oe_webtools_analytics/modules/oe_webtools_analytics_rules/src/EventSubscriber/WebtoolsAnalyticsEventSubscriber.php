@@ -65,14 +65,11 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
     $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     if ($cache = $this->cache->get($current_uri)) {
-      // Abort checking rules, if we cached NULL.
-      // By NULL we mean that current URI don't have rules.
+      // If there is no cached data there is no section that applies to the uri.
       if ($cache->data === NULL) {
         return;
       }
-      // Set site section by cached data.
-      // In case of additional data for updating by rule
-      // this code should be updated.
+      // Set site section from the cached data.
       if (isset($cache->data['section'])) {
         $event->setSiteSection($cache->data['section']);
         return;
@@ -100,18 +97,14 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
     foreach ($rules as $rule) {
       if (preg_match($rule->getRegex(), $current_uri, $matches) === 1) {
-        // In case of additional data for updating by rule
-        // this code should be updated.
         $event->setSiteSection($rule->getSection());
         $this->cache->set($current_uri, ['section' => $rule->getSection()], Cache::PERMANENT, $rule->getCacheTags());
-        // By this break we have to explicitly handle possible overlapping
-        // of rules.
-        // So for know we will select first suitable rule.
-        // @todo It would be nice to handle overlapping of rules for reducing mess for site builders.
+        // Currently there is no defined behavior for overlapping rules so we
+        // only take into account the first rule that applies.
         return;
       }
     }
-    // We have to cache for uri NULL data, if we don't have suitable rule.
+    // Cache NULL if there is no rule that applies to the uri.
     $this->cache->set($current_uri, NULL, Cache::PERMANENT, $storage->getEntityType()->getListCacheTags());
   }
 
