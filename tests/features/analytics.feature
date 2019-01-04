@@ -3,7 +3,6 @@ Feature: Webtools Analytics
   In order to provide analytics
   As the site manager
   I need to be able to configure the settings
-  And Webtools Analytics works as expected
 
   Background:
     Given I am logged in as a user with the "administer site configuration" permission
