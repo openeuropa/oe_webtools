@@ -10,18 +10,22 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\Event;
 
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
+use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\oe_webtools_analytics\Search\SearchParameters;
+use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
 use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
-use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
-use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
 
 /**
  * Class WebtoolsImportDataEvent.
  *
  * @package Drupal\oe_webtools_analytics\Event
  */
-class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface {
+class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface, RefinableCacheableDependencyInterface {
+  use RefinableCacheableDependencyTrait;
+
   /**
    * This event allows you to set the Analytics variable.
    *

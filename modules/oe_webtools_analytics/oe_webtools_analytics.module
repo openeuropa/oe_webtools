@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
+use Drupal\Core\Cache\CacheableMetadata;
 
 /**
  * Implements hook_page_attachments().
@@ -23,15 +24,18 @@ function oe_webtools_analytics_page_attachments(array &$attachments) {
     return;
   }
 
-  $attachments['#attached']['html_head'][] = [
+  $analytics_attachment = [
     [
       '#type' => 'html_tag',
       '#tag' => 'script',
       '#value' => $import_settings_event,
       '#attributes' => ['type' => 'application/json'],
-      '#cache' => ['contexts' => ['url']],
     ],
     // A key, to make it possible to recognize this when altering.
     'oe_webtools_analytics',
   ];
+
+  $cache = CacheableMetadata::createFromObject($import_settings_event);
+  $cache->applyTo($analytics_attachment);
+  $attachments['#attached']['html_head'][] = $analytics_attachment;
 }
