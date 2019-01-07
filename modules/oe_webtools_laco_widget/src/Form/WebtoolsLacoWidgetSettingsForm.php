@@ -20,6 +20,13 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
+  public function getFormId() {
+    return 'oe_webtools_laco_widget_settings';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['intro'] = [
       '#type' => 'item',
@@ -46,7 +53,7 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Document'),
       '#options' => ['any' => 'any', 'other' => 'other', 'false' => 'false'],
       '#default_value' => $this->config(static::CONFIGNAME)->get('coverage.document'),
-      '#description' => $this->t('Rule for links to (binary) documents..'),
+      '#description' => $this->t('Rule for links to (binary) documents.'),
     ];
     $form['coverage']['coverage_page'] = [
       '#type' => 'select',
@@ -90,13 +97,6 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
       ->set('icon', $form_state->getValues()['icon'])
       ->save();
     parent::submitForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getFormId() {
-    return 'oe_webtools_laco_widget_settings';
   }
 
   /**
