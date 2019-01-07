@@ -8,6 +8,9 @@ oe_webtools_analytics_rules.webtools_analytics_rule.*:
     section:
       type: label
       label: 'Section'
+    multilingual:
+      type: boolean
+      label: 'Support multilingual aliases'
     regex:
       type: string
       label: Regex
