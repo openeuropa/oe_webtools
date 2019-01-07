@@ -23,6 +23,8 @@ drupal:
     - "./vendor/bin/drush en oe_webtools oe_webtools_analytics_rules -y"
     - "./vendor/bin/drush en oe_webtools oe_webtools_laco_service -y"
     - "./vendor/bin/drush en oe_webtools oe_webtools_laco_widget -y"
+    - "./vendor/bin/drush en path -y"
+    - "./vendor/bin/drush en language -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:

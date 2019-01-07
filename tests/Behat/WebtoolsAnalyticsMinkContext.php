@@ -32,7 +32,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
       $json_value = json_decode($script->getText(), TRUE);
       if (isset($json_value['utility']) && $json_value['utility'] == 'piwik') {
         $json_found = TRUE;
-        Assert::assertEquals($value, $json_value[$parameter]);
+        Assert::assertEquals($value, $json_value[$parameter] ?? '');
       }
     }
     if (!$json_found) {
