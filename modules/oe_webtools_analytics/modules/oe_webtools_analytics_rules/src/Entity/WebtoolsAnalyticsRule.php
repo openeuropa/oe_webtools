@@ -29,6 +29,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "section" = "section",
+ *     "multilingual" = "multilingual",
  *     "regex" = "regex",
  *     "uuid" = "uuid"
  *   },
@@ -58,6 +59,13 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
   protected $section = '';
 
   /**
+   * The Webtools Analytics rule applicable for multilingual aliases.
+   *
+   * @var bool
+   */
+  protected $multilingual = FALSE;
+
+  /**
    * The regular expression to be applied.
    *
    * @var string
@@ -76,6 +84,14 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
    */
   public function getRegex(): string {
     return $this->regex;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isSupportMultilingualAliases(): bool {
+    $moduleHandler = \Drupal::service('module_handler');
+    return (bool) $this->multilingual && $moduleHandler->moduleExists('path');
   }
 
 }

@@ -11,8 +11,10 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Cmf\Component\Routing\RouteProviderInterface;
 
 /**
  * Event subscriber for the Webtools Analytics event.
@@ -34,6 +36,13 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   private $requestStack;
 
   /**
+   * The route provider.
+   *
+   * @var \Symfony\Cmf\Component\Routing\RouteProviderInterface
+   */
+  protected $routeProvider;
+
+  /**
    * A cache backend interface.
    *
    * @var \Drupal\Core\Cache\CacheBackendInterface
@@ -47,12 +56,15 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *   The entity type manager.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request stack.
+   * @param \Symfony\Cmf\Component\Routing\RouteProviderInterface $route_provider
+   *   The Route provider.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend used to store webtools rules for uris.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, CacheBackendInterface $cache) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, RouteProviderInterface $route_provider, CacheBackendInterface $cache) {
     $this->entityTypeManager = $entityTypeManager;
     $this->requestStack = $requestStack;
+    $this->routeProvider = $route_provider;
     $this->cache = $cache;
   }
 
@@ -63,8 +75,8 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
-    $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
-    if ($cache = $this->cache->get($current_uri)) {
+    $current_path = $this->requestStack->getCurrentRequest()->getPathInfo();
+    if ($cache = $this->cache->get($current_path)) {
       // If there is no cached data there is no section that applies to the uri.
       if ($cache->data === NULL) {
         return;
@@ -76,6 +88,24 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
       }
     }
 
+    /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|false $rule */
+    if ($rule = $this->getRuleByPath($current_path)) {
+      $event->setSiteSection($rule->getSection());
+      $this->cache->set($current_path, ['section' => $rule->getSection()], Cache::PERMANENT, $rule->getCacheTags());
+    }
+
+  }
+
+  /**
+   * Get a rule which related to current path.
+   *
+   * @param string $path
+   *   Current path.
+   *
+   * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|null
+   *   Rule related to current path.
+   */
+  private function getRuleByPath(string $path): ?WebtoolsAnalyticsRuleInterface {
     try {
       $storage = $this->entityTypeManager
         ->getStorage('webtools_analytics_rule');
@@ -96,16 +126,34 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     $rules = $storage->loadMultiple();
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
     foreach ($rules as $rule) {
-      if (preg_match($rule->getRegex(), $current_uri, $matches) === 1) {
-        $event->setSiteSection($rule->getSection());
-        $this->cache->set($current_uri, ['section' => $rule->getSection()], Cache::PERMANENT, $rule->getCacheTags());
-        // Currently there is no defined behavior for overlapping rules so we
-        // only take into account the first rule that applies.
-        return;
+      if ($rule->isSupportMultilingualAliases()) {
+        // Get source of current URI.
+        // But some reason we don't have correct information about current path.
+        // For updating information
+        // we have to run $this->routeProvider->getRouteCollectionForRequest().
+        $this->routeProvider->getRouteCollectionForRequest($this->requestStack->getCurrentRequest());
+        $source = \Drupal::service('path.current')->getPath();
+
+        $query = \Drupal::database()->select('url_alias', 'ua');
+        $query->fields('ua', ['pid']);
+        $query->condition('ua.source', $source);
+        // As mysql doesn't support PCRE, we have to remove modifiers.
+        $regexp = preg_replace(['/^\//', '/\/.?$/'], '', $rule->getRegex());
+        $query->condition('ua.alias', $regexp, 'REGEXP');
+        $default_langcode = \Drupal::config('system.site')->get('default_langcode');
+        $query->condition('ua.langcode', $default_langcode);
+        if ($query->execute()->fetchAll()) {
+          return $rule;
+        }
+      }
+      elseif (preg_match($rule->getRegex(), $path, $matches) === 1) {
+        return $rule;
       }
     }
+
     // Cache NULL if there is no rule that applies to the uri.
-    $this->cache->set($current_uri, NULL, Cache::PERMANENT, $storage->getEntityType()->getListCacheTags());
+    $this->cache->set($path, NULL, Cache::PERMANENT, $storage->getEntityType()->getListCacheTags());
+    return NULL;
   }
 
   /**

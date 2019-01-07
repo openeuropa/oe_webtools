@@ -40,6 +40,13 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
       '#disabled' => !$rule->isNew(),
     ];
 
+    $form['multilingual'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Is support multilingual aliases.'),
+      '#default_value' => $rule->isSupportMultilingualAliases(),
+      '#description' => $this->t("If you select this checkbox, regexp would be applied for all aliases. E.g.: if you have /news/ regexp value, rule could be applied for /fr/nouvelles/* and /nl/nieuws/* pathes."),
+    ];
+
     $form['regex'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Regex'),
