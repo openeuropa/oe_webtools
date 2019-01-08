@@ -27,13 +27,6 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames() {
-    return ['oe_webtools_analytics.settings'];
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['siteID'] = [
       '#type' => 'number',
@@ -53,6 +46,7 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
       '#default_value' => $this->config(static::CONFIGNAME)->get('instance'),
       '#description' => $this->t('The server instance. e.g. testing, ec.europa.eu or europa.eu.'),
     ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -66,6 +60,13 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
       ->set('instance', $form_state->getValues()['instance'])
       ->save();
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function getEditableConfigNames() {
+    return ['oe_webtools_analytics.settings'];
   }
 
 }
