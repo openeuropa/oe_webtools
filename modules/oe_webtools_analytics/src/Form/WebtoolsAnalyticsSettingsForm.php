@@ -36,7 +36,7 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['siteID'] = [
-      '#type' => 'textfield',
+      '#type' => 'number',
       '#title' => $this->t('Site ID'),
       '#default_value' => $this->config(static::CONFIGNAME)->get('siteID'),
       '#description' => $this->t('The site unique numeric identifier.'),
@@ -54,18 +54,6 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
       '#description' => $this->t('The server instance. e.g. testing, ec.europa.eu or europa.eu.'),
     ];
     return parent::buildForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
-
-    $site_id = $form_state->getValue('siteID');
-    if (!is_numeric($site_id)) {
-      $form_state->setErrorByName('siteID', $this->t('The value must be numeric.'));
-    }
   }
 
   /**
