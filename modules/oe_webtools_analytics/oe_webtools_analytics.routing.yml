@@ -4,4 +4,4 @@ oe_webtools_analytics.settings:
     _form: 'Drupal\oe_webtools_analytics\Form\WebtoolsAnalyticsSettingsForm'
     _title: 'Webtools Analytics settings'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer webtools analytics'

@@ -10,11 +10,6 @@ Feature: Webtools Analytics
   Scenario: Create Webtools Analytics settings
     Given I am on "admin/config/system/oe_webtools_analytics"
     Then I should see "Webtools Analytics settings"
-    When I fill in "Site ID" with "INFO"
-    And I fill in "Site path" with "ec.europa.eu/info"
-    And I fill in "Instance" with "ec.europa.eu"
-    And I press "Save configuration"
-    Then I should see the message "The value must be numeric."
     When I fill in "Site ID" with "123456"
     And I fill in "Site path" with "ec.europa.eu/info"
     And I fill in "Instance" with "ec.europa.eu"
