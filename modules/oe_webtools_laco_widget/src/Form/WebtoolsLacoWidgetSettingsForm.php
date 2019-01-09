@@ -32,16 +32,26 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
       '#type' => 'item',
       '#description' => $this->t('For more information check the module <a href="@href">documentation</a>.', ['@href' => 'https://github.com/openeuropa/oe_webtools/blob/master/modules/oe_webtools_laco_widget/README.md']),
     ];
+
+    $include_value = '';
+    if (!empty($this->config(static::CONFIGNAME)->get('include'))) {
+      $include_value = implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('include'));
+    }
     $form['include'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Include'),
-      '#default_value' => implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('include')),
+      '#default_value' => $include_value,
       '#description' => $this->t('CSS selectors within which to apply the widget.'),
     ];
+
+    $exclude_value = '';
+    if (!empty($this->config(static::CONFIGNAME)->get('exclude'))) {
+      $exclude_value = implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('exclude'));
+    }
     $form['exclude'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Exclude'),
-      '#default_value' => implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('exclude')),
+      '#default_value' => $exclude_value,
       '#description' => $this->t('CSS selectors to exclude the widget.'),
     ];
     $form['coverage'] = [
