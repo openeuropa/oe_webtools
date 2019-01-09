@@ -3,7 +3,6 @@ Feature: Webtools LACO Widget
   In order to provide LACO service
   As the site manager
   I need to be able to configure LACO widget
-  And LACO widget works as expected
 
   Background:
     Given I am logged in as a user with the "administer webtools laco widget configuration" permission

@@ -4,6 +4,7 @@ default:
       paths:
         - %paths.base%/tests/features
       contexts:
+        - Drupal\DrupalExtension\Context\ConfigContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
