@@ -63,6 +63,8 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
+    // We need to invalidate the render arrays if any rule changes.
+    $event->addCacheTags(['webtools_analytics_rule_list']);
     $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     if ($cache = $this->cache->get($current_uri)) {
       // If there is no cached data there is no section that applies to the uri.
