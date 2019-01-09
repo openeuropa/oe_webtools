@@ -24,21 +24,21 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $entityTypeManager;
+  protected $entityTypeManager;
 
   /**
    * The request stack.
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
-  private $requestStack;
+  protected $requestStack;
 
   /**
    * A cache backend interface.
    *
    * @var \Drupal\Core\Cache\CacheBackendInterface
    */
-  private $cache;
+  protected $cache;
 
   /**
    * WebtoolsAnalyticsEventSubscriber constructor.

@@ -68,6 +68,8 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function onSetSiteDefaults(AnalyticsEvent $event) {
+    $event->addCacheableDependency($this->config);
+
     // SiteID must exist and be an integer.
     $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
@@ -99,8 +101,6 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     elseif ($request_exception instanceof AccessDeniedHttpException) {
       $event->setIs403Page(TRUE);
     }
-
-    $event->addCacheableDependency($this->config);
   }
 
   /**

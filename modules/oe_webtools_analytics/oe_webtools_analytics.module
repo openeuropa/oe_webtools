@@ -16,23 +16,27 @@ use Drupal\Core\Cache\CacheableMetadata;
  * Collects the Analytics settings and sets them as a JSON snippet.
  */
 function oe_webtools_analytics_page_attachments(array &$attachments) {
-  $import_settings_event = new AnalyticsEvent();
+  $event = new AnalyticsEvent();
   $event_dispatcher = \Drupal::service('event_dispatcher');
-  $event_dispatcher->dispatch(AnalyticsEvent::NAME, $import_settings_event);
+  $event_dispatcher->dispatch(AnalyticsEvent::NAME, $event);
 
-  if (!$import_settings_event->isValid()) {
+  $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
+  $event_cache = CacheableMetadata::createFromObject($event);
+
+  if (!$event->isValid()) {
+    $cache = $existing_cache->merge($event_cache);
+    $cache->applyTo($attachments);
     return;
   }
 
   $analytics_attachment = [
     '#type' => 'html_tag',
     '#tag' => 'script',
-    '#value' => $import_settings_event,
+    '#value' => $event,
     '#attributes' => ['type' => 'application/json'],
   ];
 
-  $cache = CacheableMetadata::createFromObject($import_settings_event);
-  $cache->applyTo($analytics_attachment);
+  $event_cache->applyTo($analytics_attachment);
   $attachments['#attached']['html_head'][] = [
     $analytics_attachment,
     // A key, to make it possible to recognize this when altering.
