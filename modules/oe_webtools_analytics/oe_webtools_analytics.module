@@ -25,17 +25,17 @@ function oe_webtools_analytics_page_attachments(array &$attachments) {
   }
 
   $analytics_attachment = [
-    [
-      '#type' => 'html_tag',
-      '#tag' => 'script',
-      '#value' => $import_settings_event,
-      '#attributes' => ['type' => 'application/json'],
-    ],
-    // A key, to make it possible to recognize this when altering.
-    'oe_webtools_analytics',
+    '#type' => 'html_tag',
+    '#tag' => 'script',
+    '#value' => $import_settings_event,
+    '#attributes' => ['type' => 'application/json'],
   ];
 
   $cache = CacheableMetadata::createFromObject($import_settings_event);
   $cache->applyTo($analytics_attachment);
-  $attachments['#attached']['html_head'][] = $analytics_attachment;
+  $attachments['#attached']['html_head'][] = [
+    $analytics_attachment,
+    // A key, to make it possible to recognize this when altering.
+    'oe_webtools_analytics',
+  ];
 }
