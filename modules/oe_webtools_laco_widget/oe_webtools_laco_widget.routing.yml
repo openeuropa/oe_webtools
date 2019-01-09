@@ -4,4 +4,4 @@ oe_webtools_laco_widget.settings:
     _form: 'Drupal\oe_webtools_laco_widget\Form\WebtoolsLacoWidgetSettingsForm'
     _title: 'Webtools Laco Widget settings'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer webtools laco widget configuration'

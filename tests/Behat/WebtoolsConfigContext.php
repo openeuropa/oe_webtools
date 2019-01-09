@@ -32,7 +32,6 @@ class WebtoolsConfigContext extends ConfigContext {
    * @BeforeScenario @BackupLacoConfigs
    */
   public function backupLacoConfigs() {
-
     $name = 'oe_webtools_laco_widget.settings';
 
     $configs = $this->getDriver()->getCore()->configGet($name);

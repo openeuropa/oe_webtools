@@ -6,7 +6,7 @@ Feature: Webtools LACO Widget
   And LACO widget works as expected
 
   Background:
-    Given I am logged in as a user with the "administer site configuration" permission
+    Given I am logged in as a user with the "administer webtools laco widget configuration" permission
 
   @BackupLacoConfigs
   Scenario: Configure Webtools Laco Widget settings
