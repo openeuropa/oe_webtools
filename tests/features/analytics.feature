@@ -5,8 +5,9 @@ Feature: Webtools Analytics
   I need to be able to configure the settings
 
   Background:
-    Given I am logged in as a user with the "administer site configuration" permission
+    Given I am logged in as a user with the "administer webtools analytics" permission
 
+  @BackupAnalyticsConfigs
   Scenario: Create Webtools Analytics settings
     Given I am on "admin/config/system/oe_webtools_analytics"
     Then I should see "Webtools Analytics settings"
