@@ -85,7 +85,8 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Preprocess given values.
     foreach (['include', 'exclude'] as $key) {
       $form_state->setValue($key, array_filter(preg_split("/\r\n/", $form_state->getValues()[$key])));
     }
@@ -93,13 +94,7 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
       'document' => $form_state->getValues()['coverage_document'],
       'page' => $form_state->getValues()['coverage_page'],
     ]);
-    parent::validateForm($form, $form_state);
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config(static::CONFIGNAME)
       ->set('include', $form_state->getValues()['include'])
       ->set('exclude', $form_state->getValues()['exclude'])
