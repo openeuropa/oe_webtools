@@ -8,9 +8,9 @@ oe_webtools_analytics_rules.webtools_analytics_rule.*:
     section:
       type: label
       label: 'Section'
-    multilingual:
+    match_on_site_default_language:
       type: boolean
-      label: 'Support multilingual aliases'
+      label: 'Match on path alias for site default language'
     regex:
       type: string
       label: Regex
