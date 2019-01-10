@@ -8,13 +8,16 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Path\AliasManager;
+use Drupal\Core\Path\CurrentPathStack;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Cmf\Component\Routing\RouteProviderInterface;
+use Drupal\Core\Routing\RouteProviderInterface;
 
 /**
  * Event subscriber for the Webtools Analytics event.
@@ -38,9 +41,23 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * The route provider.
    *
-   * @var \Symfony\Cmf\Component\Routing\RouteProviderInterface
+   * @var \Drupal\Core\Routing\RouteProviderInterface
    */
   protected $routeProvider;
+
+  /**
+   * The current path service.
+   *
+   * @var \Drupal\Core\Path\CurrentPathStack
+   */
+  protected $currentPathStack;
+
+  /**
+   * The alias manager service.
+   *
+   * @var \Drupal\Core\Path\AliasManager
+   */
+  protected $aliasManager;
 
   /**
    * A cache backend interface.
@@ -50,22 +67,38 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   private $cache;
 
   /**
+   * The configuration object.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  private $siteConfig;
+
+  /**
    * WebtoolsAnalyticsEventSubscriber constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request stack.
-   * @param \Symfony\Cmf\Component\Routing\RouteProviderInterface $route_provider
+   * @param \Drupal\Core\Routing\RouteProviderInterface $route_provider
    *   The Route provider.
+   * @param \Drupal\Core\Path\CurrentPathStack $currentPathStack
+   *   The current path service.
+   * @param \Drupal\Core\Path\AliasManager $aliasManager
+   *   The alias manager service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend used to store webtools rules for uris.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config
+   *   The Config Factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, RouteProviderInterface $route_provider, CacheBackendInterface $cache) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, RouteProviderInterface $route_provider, CurrentPathStack $currentPathStack, AliasManager $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config) {
     $this->entityTypeManager = $entityTypeManager;
     $this->requestStack = $requestStack;
     $this->routeProvider = $route_provider;
+    $this->currentPathStack = $currentPathStack;
+    $this->aliasManager = $aliasManager;
     $this->cache = $cache;
+    $this->siteConfig = $config->get('system.site');
   }
 
   /**
@@ -126,27 +159,17 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     $rules = $storage->loadMultiple();
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
     foreach ($rules as $rule) {
-      if ($rule->isSupportMultilingualAliases()) {
+      $current_path = $path;
+      if ($rule->matchOnSiteDefaultLanguage()) {
         // Get source of current URI.
         // But some reason we don't have correct information about current path.
         // For updating information
         // we have to run $this->routeProvider->getRouteCollectionForRequest().
         $this->routeProvider->getRouteCollectionForRequest($this->requestStack->getCurrentRequest());
-        $source = \Drupal::service('path.current')->getPath();
-
-        $query = \Drupal::database()->select('url_alias', 'ua');
-        $query->fields('ua', ['pid']);
-        $query->condition('ua.source', $source);
-        // As mysql doesn't support PCRE, we have to remove modifiers.
-        $regexp = preg_replace(['/^\//', '/\/.?$/'], '', $rule->getRegex());
-        $query->condition('ua.alias', $regexp, 'REGEXP');
-        $default_langcode = \Drupal::config('system.site')->get('default_langcode');
-        $query->condition('ua.langcode', $default_langcode);
-        if ($query->execute()->fetchAll()) {
-          return $rule;
-        }
+        $current_path = $this->aliasManager->getAliasByPath($this->currentPathStack->getPath(), $this->siteConfig->get('default_langcode'));
       }
-      elseif (preg_match($rule->getRegex(), $path, $matches) === 1) {
+
+      if (preg_match($rule->getRegex(), $current_path) === 1) {
         return $rule;
       }
     }
