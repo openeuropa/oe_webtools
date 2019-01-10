@@ -4,12 +4,10 @@ Feature: Webtools Analytics
   As the site manager
   I need to be able to configure the settings
 
-  Background:
-    Given I am logged in as a user with the "administer webtools analytics" permission
-
   @BackupAnalyticsConfigs
   Scenario: Create Webtools Analytics settings
-    Given I am on "admin/config/system/oe_webtools_analytics"
+    Given I am logged in as a user with the "administer webtools analytics" permission
+    And I am on "admin/config/system/oe_webtools_analytics"
     Then I should see "Webtools Analytics settings"
     When I fill in "Site ID" with "123456"
     And I fill in "Site path" with "ec.europa.eu/info"
