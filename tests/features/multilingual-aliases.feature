@@ -22,7 +22,7 @@ Feature: Webtools Analytics multilingual aliases
     Given I am on "admin/structure/webtools_analytics_rule/add"
     And I fill in "Machine-readable name" with "multilingual"
     And I fill in "Section" with "multilingual"
-    And I check the box "Is support multilingual aliases"
+    And I check the box "Match on path alias for site default language."
     And I fill in "Regex" with "/news/"
     When I press "Save"
     # Check the rule applies
