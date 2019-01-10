@@ -86,20 +86,22 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Preprocess given values.
-    foreach (['include', 'exclude'] as $key) {
-      $form_state->setValue($key, array_filter(preg_split("/\r\n/", $form_state->getValues()[$key])));
-    }
-    $form_state->setValue('coverage', [
-      'document' => $form_state->getValues()['coverage_document'],
-      'page' => $form_state->getValues()['coverage_page'],
-    ]);
+
+    $form_values = $form_state->getValues();
+
+    // Preprocess needed form values.
+    $include_value = array_filter(preg_split("/\r\n/", $form_values['include']));
+    $exclude_value = array_filter(preg_split("/\r\n/", $form_values['exclude']));
+    $coverage_value = [
+      'document' => $form_values['coverage_document'],
+      'page' => $form_values['coverage_page'],
+    ];
 
     $this->config(static::CONFIGNAME)
-      ->set('include', $form_state->getValues()['include'])
-      ->set('exclude', $form_state->getValues()['exclude'])
-      ->set('coverage', $form_state->getValues()['coverage'])
-      ->set('icon', $form_state->getValues()['icon'])
+      ->set('include', $include_value)
+      ->set('exclude', $exclude_value)
+      ->set('coverage', $coverage_value)
+      ->set('icon', $form_values['icon'])
       ->save();
     parent::submitForm($form, $form_state);
   }

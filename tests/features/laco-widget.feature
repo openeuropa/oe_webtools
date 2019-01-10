@@ -4,12 +4,10 @@ Feature: Webtools LACO Widget
   As the site manager
   I need to be able to configure LACO widget
 
-  Background:
-    Given I am logged in as a user with the "administer webtools laco widget configuration" permission
-
   @BackupLacoConfigs
   Scenario: Configure Webtools Laco Widget settings
-    Given I am on "admin/config/regional/oe_webtools_laco_widget"
+    Given I am logged in as a user with the "administer webtools laco widget configuration" permission
+    When I am on "admin/config/regional/oe_webtools_laco_widget"
     Then I should see "Webtools Laco Widget settings"
     And I should not see "header-test"
     And I should not see "footer-test"
