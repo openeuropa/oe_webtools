@@ -64,10 +64,10 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * Kernel request event handler.
    *
-   * @param \Drupal\oe_webtools_analytics\Event\AnalyticsEvent $event
+   * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
    */
-  public function onSetSiteDefaults(AnalyticsEvent $event) {
+  public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     $event->addCacheableDependency($this->config);
 
     // SiteID must exist and be an integer.
