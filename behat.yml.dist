@@ -7,6 +7,7 @@ default:
         - Drupal\DrupalExtension\Context\ConfigContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
   extensions:
