@@ -1,0 +1,7 @@
+oe_webtools_laco_widget.settings:
+  path: '/admin/config/regional/oe_webtools_laco_widget'
+  defaults:
+    _form: 'Drupal\oe_webtools_laco_widget\Form\WebtoolsLacoWidgetSettingsForm'
+    _title: 'Webtools Laco Widget settings'
+  requirements:
+    _permission: 'administer webtools laco widget configuration'

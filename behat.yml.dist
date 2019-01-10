@@ -4,10 +4,12 @@ default:
       paths:
         - %paths.base%/tests/features
       contexts:
+        - Drupal\DrupalExtension\Context\ConfigContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
-        - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsConfigContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
   extensions:
     Behat\MinkExtension:
       goutte: ~
@@ -34,5 +36,7 @@ default:
         page header: ".ecl-page-header"
         page header site identity: ".ecl-page-header__identity"
         priorities dropdown menu: "#nav-menu-expandable-group-3"
+      selectors:
+        message_selector: ".messages"
   formatters:
     progress: ~
