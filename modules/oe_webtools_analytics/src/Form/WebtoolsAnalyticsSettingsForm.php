@@ -55,9 +55,9 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config(static::CONFIGNAME)
-      ->set('siteID', $form_state->getValues()['siteID'])
-      ->set('sitePath', $form_state->getValues()['sitePath'])
-      ->set('instance', $form_state->getValues()['instance'])
+      ->set('siteID', $form_state->getValue('siteID'))
+      ->set('sitePath', $form_state->getValue('sitePath'))
+      ->set('instance', $form_state->getValue('instance'))
       ->save();
     parent::submitForm($form, $form_state);
   }
