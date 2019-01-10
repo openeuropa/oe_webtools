@@ -29,7 +29,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "section" = "section",
- *     "multilingual" = "multilingual",
+ *     "match_on_site_default_language" = "match_on_site_default_language",
  *     "regex" = "regex",
  *     "uuid" = "uuid"
  *   },
@@ -63,7 +63,7 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
    *
    * @var bool
    */
-  protected $multilingual = FALSE;
+  protected $match_on_site_default_language = FALSE;
 
   /**
    * The regular expression to be applied.
@@ -89,9 +89,9 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
   /**
    * {@inheritdoc}
    */
-  public function isSupportMultilingualAliases(): bool {
+  public function matchOnSiteDefaultLanguage(): bool {
     $moduleHandler = \Drupal::service('module_handler');
-    return (bool) $this->multilingual && $moduleHandler->moduleExists('path');
+    return (bool) $this->match_on_site_default_language && $moduleHandler->moduleExists('path');
   }
 
 }

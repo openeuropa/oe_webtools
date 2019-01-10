@@ -25,7 +25,7 @@ interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
    * @return bool
    *   Is this rule applicable for all aliases in other languages.
    */
-  public function isSupportMultilingualAliases(): bool;
+  public function matchOnSiteDefaultLanguage(): bool;
 
   /**
    * Returns the regular expression.
