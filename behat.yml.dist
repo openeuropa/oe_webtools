@@ -10,6 +10,9 @@ default:
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
+        - OpenEuropa\Behat\TransformationContext:
+            pages:
+              Webtools Analytics configuration: '/admin/config/system/oe_webtools_analytics'
   extensions:
     Behat\MinkExtension:
       goutte: ~

@@ -15,7 +15,7 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
   /**
    * Name of the config being edited.
    */
-  const CONFIGNAME = 'oe_webtools_analytics.settings';
+  const CONFIG_NAME = 'oe_webtools_analytics.settings';
 
   /**
    * {@inheritdoc}
@@ -31,19 +31,19 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
     $form['siteID'] = [
       '#type' => 'number',
       '#title' => $this->t('Site ID'),
-      '#default_value' => $this->config(static::CONFIGNAME)->get('siteID'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('siteID'),
       '#description' => $this->t('The site unique numeric identifier.'),
     ];
     $form['sitePath'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Site path'),
-      '#default_value' => $this->config(static::CONFIGNAME)->get('sitePath'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('sitePath'),
       '#description' => $this->t('The domain + root path without protocol.'),
     ];
     $form['instance'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Instance'),
-      '#default_value' => $this->config(static::CONFIGNAME)->get('instance'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('instance'),
       '#description' => $this->t('The server instance. e.g. testing, ec.europa.eu or europa.eu.'),
     ];
 
@@ -54,7 +54,7 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->config(static::CONFIGNAME)
+    $this->config(static::CONFIG_NAME)
       ->set('siteID', $form_state->getValue('siteID'))
       ->set('sitePath', $form_state->getValue('sitePath'))
       ->set('instance', $form_state->getValue('instance'))
