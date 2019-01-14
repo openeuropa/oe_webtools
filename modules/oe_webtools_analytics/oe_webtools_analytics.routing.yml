@@ -1,0 +1,7 @@
+oe_webtools_analytics.settings:
+  path: '/admin/config/system/oe_webtools_analytics'
+  defaults:
+    _form: 'Drupal\oe_webtools_analytics\Form\WebtoolsAnalyticsSettingsForm'
+    _title: 'Webtools Analytics settings'
+  requirements:
+    _permission: 'administer webtools analytics'

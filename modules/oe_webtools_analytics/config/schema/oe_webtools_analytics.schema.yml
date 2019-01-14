@@ -13,4 +13,4 @@ oe_webtools_analytics.settings:
     instance:
       type: string
       label: 'Instance'
-      description: 'The test server instance. e.g. testing, ec.europa.eu or europa.eu.'
+      description: 'The server instance. e.g. testing, ec.europa.eu or europa.eu.'

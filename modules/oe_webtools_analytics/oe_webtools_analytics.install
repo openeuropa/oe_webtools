@@ -32,3 +32,23 @@ function oe_webtools_analytics_requirements($phase) {
 
   return $requirements;
 }
+
+/**
+ * Implements hook_update_N().
+ *
+ * Set default config.
+ */
+function oe_webtools_analytics_update_8001() {
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable(AnalyticsEventInterface::CONFIG_NAME);
+  if (is_null($config->get('siteID'))) {
+    $config->set('siteID', '');
+  }
+  if (is_null($config->get('sitePath'))) {
+    $config->set('sitePath', '');
+  }
+  if (is_null($config->get('instance'))) {
+    $config->set('instance', '');
+  }
+  $config->save(TRUE);
+}

@@ -83,4 +83,17 @@ class WebtoolsConfigContext extends RawDrupalContext {
     }
   }
 
+  /**
+   * Backup configs that need to be reverted in AfterScenario by ConfigContext.
+   *
+   * @BeforeScenario @BackupAnalyticsConfigs
+   */
+  public function backupAnalyticsConfigs() {
+    $name = 'oe_webtools_analytics.settings';
+    $configs = $this->getDriver()->getCore()->configGet($name);
+    foreach ($configs as $key => $value) {
+      $this->configContext->setConfig($name, $key, $value);
+    }
+  }
+
 }

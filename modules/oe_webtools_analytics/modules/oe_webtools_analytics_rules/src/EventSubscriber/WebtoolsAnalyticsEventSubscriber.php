@@ -95,6 +95,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
+    $event->addCacheTags(['webtools_analytics_rule_list']);
     $current_path = $this->requestStack->getCurrentRequest()->getPathInfo();
     $cache = $this->cache->get($current_path);
     if ($cache && $cache->data === NULL) {
