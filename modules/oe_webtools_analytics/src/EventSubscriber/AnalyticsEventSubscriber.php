@@ -69,6 +69,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event) {
     $event->addCacheableDependency($this->config);
+    $event->addCacheContexts(['url.path']);
 
     // SiteID must exist and be an integer.
     $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
