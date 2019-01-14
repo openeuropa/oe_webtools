@@ -90,8 +90,7 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
    * {@inheritdoc}
    */
   public function matchOnSiteDefaultLanguage(): bool {
-    $moduleHandler = \Drupal::service('module_handler');
-    return (bool) $this->match_on_site_default_language && $moduleHandler->moduleExists('path');
+    return (bool) $this->match_on_site_default_language;
   }
 
 }

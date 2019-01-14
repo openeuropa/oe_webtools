@@ -17,10 +17,7 @@ class WebtoolsAnalyticsRuleListBuilder extends ConfigEntityListBuilder {
    */
   public function buildHeader(): array {
     $header['section'] = $this->t('Section');
-    $moduleHandler = \Drupal::service('module_handler');
-    if ($moduleHandler->moduleExists('path')) {
-      $header['match_on_site_default_language'] = $this->t('Match on path alias for site default language');
-    }
+    $header['match_on_site_default_language'] = $this->t('Match on path alias for site default language');
     $header['regex'] = $this->t('Regex');
 
     return $header + parent::buildHeader();

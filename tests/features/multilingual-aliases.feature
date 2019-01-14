@@ -4,22 +4,21 @@ Feature: Webtools Analytics multilingual aliases
   As the site manager
   I need to be able to create rules that allow to pair section names with regular expressions with supporting aliases
 
-  Background:
-    Given I am logged in as a user with the "administer site configuration" permission
+  Scenario: Create Webtools Analytics Rule with supporting multilingual aliases
+    Given I am logged in as a user with the "administer site configuration, access administration pages" permission
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
     And the following languages are available:
       | languages |
       | en        |
       | fr        |
       | nl        |
-    And Aliases available for the path "/admin/config":
+    And aliases available for the path "/admin/config":
       | languages | url        |
       | en        | /news       |
       | fr        | /nouvelles  |
       | nl        | /nieuws     |
 
-  Scenario: Create Webtools Analytics Rule with supporting multilingual aliases
-    Given I am on "admin/structure/webtools_analytics_rule/add"
+    And I am on "admin/structure/webtools_analytics_rule/add"
     And I fill in "Machine-readable name" with "multilingual"
     And I fill in "Section" with "multilingual"
     And I check the box "Match on path alias for site default language."

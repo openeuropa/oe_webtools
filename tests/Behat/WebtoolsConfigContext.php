@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_webtools\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
@@ -61,6 +62,24 @@ class WebtoolsConfigContext extends RawDrupalContext {
     $configs = $this->getDriver()->getCore()->configGet($name);
     foreach ($configs as $key => $value) {
       $this->configContext->setConfig($name, $key, $value);
+    }
+  }
+
+  /**
+   * Add aliases for Behat tests.
+   *
+   * @param string $path
+   *   Source url for aliases.
+   * @param \Behat\Gherkin\Node\TableNode $aliasesTable
+   *   Language and alias pairs.
+   *
+   * @Given aliases available for the path :path:
+   */
+  public function aliasesAvailableForPath(string $path, TableNode $aliasesTable): void {
+    /** @var \Drupal\Core\Path\AliasStorageInterface $path_alias_storage */
+    $path_alias_storage = \Drupal::service('path.alias_storage');
+    foreach ($aliasesTable->getHash() as $row) {
+      $path_alias_storage->save($path, $row['url'], $row['languages']);
     }
   }
 

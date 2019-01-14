@@ -40,15 +40,12 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
       '#disabled' => !$rule->isNew(),
     ];
 
-    $moduleHandler = \Drupal::service('module_handler');
-    if ($moduleHandler->moduleExists('path')) {
-      $form['match_on_site_default_language'] = [
-        '#type' => 'checkbox',
-        '#title' => $this->t('Match on path alias for site default language.'),
-        '#default_value' => $rule->matchOnSiteDefaultLanguage(),
-        '#description' => $this->t("If you select this checkbox, regexp would be applied for all aliases. E.g.: if you have /news/ regexp value, rule could be applied for /fr/nouvelles/* and /nl/nieuws/* pathes."),
-      ];
-    }
+    $form['match_on_site_default_language'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Match on path alias for site default language.'),
+      '#default_value' => $rule->matchOnSiteDefaultLanguage(),
+      '#description' => $this->t("If you select this checkbox, regexp would be applied for all aliases. E.g.: if you have /news/ regexp value, rule could be applied for /fr/nouvelles/* and /nl/nieuws/* pathes."),
+    ];
 
     $form['regex'] = [
       '#type' => 'textfield',
