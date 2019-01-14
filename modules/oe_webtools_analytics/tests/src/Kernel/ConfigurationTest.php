@@ -39,25 +39,24 @@ class ConfigurationTest extends BrowserTestBase {
     $this->assertSession()
       ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
 
+    $this->drupalGet('not-existing-page');
+    $this->assertSession()
+      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is404":true,"instance":"testing"}</script>');
+
+    $this->drupalGet('admin');
+    $this->assertSession()
+      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}</script>');
+
     // Test the cache invalidation.
     $config = \Drupal::configFactory()
       ->getEditable(AnalyticsEventInterface::CONFIG_NAME)
-      ->set("siteID", "1234")
-      ->set("sitePath", "ec.europa.eu")
-      ->set("instance", "testing");
+      ->set("siteID", "1234");
     $config->save();
 
     $this->drupalGet('<front>');
     $this->assertSession()
       ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"1234","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
 
-    $this->drupalGet('not-existing-page');
-    $this->assertSession()
-      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"1234","sitePath":["ec.europa.eu"],"is404":true,"instance":"testing"}</script>');
-
-    $this->drupalGet('admin');
-    $this->assertSession()
-      ->responseContains('<script type="application/json">{"utility":"piwik","siteID":"1234","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}</script>');
   }
 
 }
