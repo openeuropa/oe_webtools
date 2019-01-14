@@ -4,11 +4,6 @@ services:
     arguments: ['@entity_type.manager', '@request_stack', '@path.current', '@path.alias_manager','@cache.webtools_analytics_rules', '@config.factory']
     tags:
       - { name: event_subscriber }
-  cache_context.webtools_analytics_section:
-    class: Drupal\oe_webtools_analytics_rules\WebtoolsAnalyticsSiteSectionCacheContext
-    arguments: ['@oe_webtools_analytics_rules.event_subscriber']
-    tags:
-      - { name: cache.context }
   cache.webtools_analytics_rules:
     class: Drupal\Core\Cache\CacheBackendInterface
     tags:
