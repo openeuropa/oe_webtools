@@ -24,21 +24,21 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $entityTypeManager;
+  protected $entityTypeManager;
 
   /**
    * The request stack.
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
-  private $requestStack;
+  protected $requestStack;
 
   /**
    * A cache backend interface.
    *
    * @var \Drupal\Core\Cache\CacheBackendInterface
    */
-  private $cache;
+  protected $cache;
 
   /**
    * WebtoolsAnalyticsEventSubscriber constructor.
@@ -63,6 +63,8 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
+    // We need to invalidate the render arrays if any rule changes.
+    $event->addCacheTags(['webtools_analytics_rule_list']);
     $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
     if ($cache = $this->cache->get($current_uri)) {
       // If there is no cached data there is no section that applies to the uri.
