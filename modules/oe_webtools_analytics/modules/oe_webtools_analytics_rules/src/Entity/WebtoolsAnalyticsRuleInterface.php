@@ -20,10 +20,10 @@ interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
   public function getSection(): string;
 
   /**
-   * Returns true, if rule support multilingual aliases.
+   * Indicates if the rule should be applied on the default site language alias.
    *
    * @return bool
-   *   Is this rule applicable for all aliases in other languages.
+   *   True if applies on the default site language alias.
    */
   public function matchOnSiteDefaultLanguage(): bool;
 

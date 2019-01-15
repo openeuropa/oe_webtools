@@ -59,7 +59,7 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
   protected $section = '';
 
   /**
-   * The Webtools Analytics rule applicable for multilingual aliases.
+   * Indicates if the rule should be applied on the default site language alias.
    *
    * @var bool
    */

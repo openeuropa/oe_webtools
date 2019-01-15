@@ -8,13 +8,12 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Path\AliasManager;
+use Drupal\Core\Path\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Event subscriber for the Webtools Analytics event.
@@ -29,23 +28,16 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
-   * The request stack.
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
-   */
-  protected $requestStack;
-
-  /**
    * The current path service.
    *
    * @var \Drupal\Core\Path\CurrentPathStack
    */
-  protected $currentPathStack;
+  protected $currentPath;
 
   /**
    * The alias manager service.
    *
-   * @var \Drupal\Core\Path\AliasManager
+   * @var \Drupal\Core\Path\AliasManagerInterface
    */
   protected $aliasManager;
 
@@ -68,21 +60,18 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-   *   The request stack.
-   * @param \Drupal\Core\Path\CurrentPathStack $currentPathStack
+   * @param \Drupal\Core\Path\CurrentPathStack $currentPath
    *   The current path service.
-   * @param \Drupal\Core\Path\AliasManager $aliasManager
+   * @param \Drupal\Core\Path\AliasManagerInterface $aliasManager
    *   The alias manager service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend used to store webtools rules for uris.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
    *   The Config Factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, CurrentPathStack $currentPathStack, AliasManager $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, CurrentPathStack $currentPath, AliasManagerInterface $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config) {
     $this->entityTypeManager = $entityTypeManager;
-    $this->requestStack = $requestStack;
-    $this->currentPathStack = $currentPathStack;
+    $this->currentPath = $currentPath;
     $this->aliasManager = $aliasManager;
     $this->cache = $cache;
     $this->siteConfig = $config->get('system.site');
@@ -96,19 +85,16 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
     $event->addCacheTags(['webtools_analytics_rule_list']);
-    $current_path = $this->requestStack->getCurrentRequest()->getPathInfo();
+    $current_path = $this->currentPath->getPath();
     $cache = $this->cache->get($current_path);
     if ($cache && $cache->data === NULL) {
       // If there is no cached data there is no section that applies to the uri.
       return;
     }
 
-    if ($cache = $this->cache->get($current_path)) {
-      // Set site section from the cached data.
-      if (isset($cache->data['section'])) {
-        $event->setSiteSection($cache->data['section']);
-        return;
-      }
+    if (isset($cache->data['section'])) {
+      $event->setSiteSection($cache->data['section']);
+      return;
     }
 
     $rule = $this->getRuleByPath($current_path);
@@ -138,7 +124,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
     foreach ($rules as $rule) {
       $current_path = $path;
       if ($rule->matchOnSiteDefaultLanguage()) {
-        $current_path = $this->aliasManager->getAliasByPath($this->currentPathStack->getPath(), $this->siteConfig->get('default_langcode'));
+        $current_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $this->siteConfig->get('default_langcode'));
       }
 
       if (preg_match($rule->getRegex(), $current_path) === 1) {

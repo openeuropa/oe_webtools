@@ -1,7 +1,7 @@
 services:
   oe_webtools_analytics_rules.event_subscriber:
     class: Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsEventSubscriber
-    arguments: ['@entity_type.manager', '@request_stack', '@path.current', '@path.alias_manager','@cache.webtools_analytics_rules', '@config.factory']
+    arguments: ['@entity_type.manager', '@path.current', '@path.alias_manager','@cache.webtools_analytics_rules', '@config.factory']
     tags:
       - { name: event_subscriber }
   cache.webtools_analytics_rules:
