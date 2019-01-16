@@ -40,6 +40,13 @@ class WebtoolsAnalyticsRuleForm extends EntityForm {
       '#disabled' => !$rule->isNew(),
     ];
 
+    $form['match_on_site_default_language'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Match on path alias for site default language.'),
+      '#default_value' => $rule->matchOnSiteDefaultLanguage(),
+      '#description' => $this->t("If checked, the matching will be done on the path alias for the site default language. For example, if you have the /news/ regex value, the rule would be applied to the '/fr/nouvelles/*' as well as the /nl/nieuws/* paths."),
+    ];
+
     $form['regex'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Regex'),

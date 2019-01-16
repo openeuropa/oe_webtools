@@ -20,6 +20,14 @@ interface WebtoolsAnalyticsRuleInterface extends ConfigEntityInterface {
   public function getSection(): string;
 
   /**
+   * Indicates if the rule should be applied on the default site language alias.
+   *
+   * @return bool
+   *   True if applies on the default site language alias.
+   */
+  public function matchOnSiteDefaultLanguage(): bool;
+
+  /**
    * Returns the regular expression.
    *
    * @return string

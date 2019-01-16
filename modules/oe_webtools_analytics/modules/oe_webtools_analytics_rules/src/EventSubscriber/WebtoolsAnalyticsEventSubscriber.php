@@ -4,15 +4,16 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics_rules\EventSubscriber;
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\Core\Path\CurrentPathStack;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Event subscriber for the Webtools Analytics event.
@@ -27,11 +28,18 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   protected $entityTypeManager;
 
   /**
-   * The request stack.
+   * The current path service.
    *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
+   * @var \Drupal\Core\Path\CurrentPathStack
    */
-  protected $requestStack;
+  protected $currentPath;
+
+  /**
+   * The alias manager service.
+   *
+   * @var \Drupal\Core\Path\AliasManagerInterface
+   */
+  protected $aliasManager;
 
   /**
    * A cache backend interface.
@@ -41,19 +49,32 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   protected $cache;
 
   /**
+   * The configuration object.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $siteConfig;
+
+  /**
    * WebtoolsAnalyticsEventSubscriber constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-   *   The request stack.
+   * @param \Drupal\Core\Path\CurrentPathStack $currentPath
+   *   The current path service.
+   * @param \Drupal\Core\Path\AliasManagerInterface $aliasManager
+   *   The alias manager service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend used to store webtools rules for uris.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config
+   *   The Config Factory service.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, CacheBackendInterface $cache) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, CurrentPathStack $currentPath, AliasManagerInterface $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config) {
     $this->entityTypeManager = $entityTypeManager;
-    $this->requestStack = $requestStack;
+    $this->currentPath = $currentPath;
+    $this->aliasManager = $aliasManager;
     $this->cache = $cache;
+    $this->siteConfig = $config->get('system.site');
   }
 
   /**
@@ -63,51 +84,55 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
-    // We need to invalidate the render arrays if any rule changes.
     $event->addCacheTags(['webtools_analytics_rule_list']);
-    $current_uri = $this->requestStack->getCurrentRequest()->getRequestUri();
-    if ($cache = $this->cache->get($current_uri)) {
+    $current_path = $this->currentPath->getPath();
+    $cache = $this->cache->get($current_path);
+    if ($cache && $cache->data === NULL) {
       // If there is no cached data there is no section that applies to the uri.
-      if ($cache->data === NULL) {
-        return;
-      }
-      // Set site section from the cached data.
-      if (isset($cache->data['section'])) {
-        $event->setSiteSection($cache->data['section']);
-        return;
-      }
+      return;
     }
 
-    try {
-      $storage = $this->entityTypeManager
-        ->getStorage('webtools_analytics_rule');
-    }
-    // Because of the dynamic nature how entities work in Drupal the entity type
-    // manager can throw exceptions if an entity type is not available or
-    // invalid. However since we are using our very own entity type we can
-    // be certain that this is defined and valid. Convert the exceptions into
-    // unchecked runtime exceptions so they don't need to be documented all the
-    // way up the call stack.
-    catch (InvalidPluginDefinitionException $e) {
-      throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
-    }
-    catch (PluginNotFoundException $e) {
-      throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+    if (isset($cache->data['section'])) {
+      $event->setSiteSection($cache->data['section']);
+      return;
     }
 
-    $rules = $storage->loadMultiple();
-    /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $rule */
-    foreach ($rules as $rule) {
-      if (preg_match($rule->getRegex(), $current_uri, $matches) === 1) {
-        $event->setSiteSection($rule->getSection());
-        $this->cache->set($current_uri, ['section' => $rule->getSection()], Cache::PERMANENT, $rule->getCacheTags());
-        // Currently there is no defined behavior for overlapping rules so we
-        // only take into account the first rule that applies.
-        return;
-      }
+    $rule = $this->getRuleByPath($current_path);
+    if ($rule instanceof WebtoolsAnalyticsRuleInterface) {
+      $event->setSiteSection($rule->getSection());
+      $this->cache->set($current_path, ['section' => $rule->getSection()], Cache::PERMANENT, $rule->getCacheTags());
+      return;
     }
+
     // Cache NULL if there is no rule that applies to the uri.
-    $this->cache->set($current_uri, NULL, Cache::PERMANENT, $storage->getEntityType()->getListCacheTags());
+    $this->cache->set($current_path, NULL, Cache::PERMANENT, ['webtools_analytics_rule_list']);
+  }
+
+  /**
+   * Get a rule which related to current path.
+   *
+   * @param string $path
+   *   Current path.
+   *
+   * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|null
+   *   Rule related to current path.
+   */
+  protected function getRuleByPath(string $path): ?WebtoolsAnalyticsRuleInterface {
+    /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface[] $rules */
+    $rules = $this->entityTypeManager->getStorage('webtools_analytics_rule')->loadMultiple();
+
+    foreach ($rules as $rule) {
+      $current_path = $path;
+      if ($rule->matchOnSiteDefaultLanguage()) {
+        $current_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $this->siteConfig->get('default_langcode'));
+      }
+
+      if (preg_match($rule->getRegex(), $current_path) === 1) {
+        return $rule;
+      }
+    }
+
+    return NULL;
   }
 
   /**

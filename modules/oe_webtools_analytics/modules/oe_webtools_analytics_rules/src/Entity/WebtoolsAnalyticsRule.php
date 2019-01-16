@@ -29,6 +29,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "section" = "section",
+ *     "match_on_site_default_language" = "match_on_site_default_language",
  *     "regex" = "regex",
  *     "uuid" = "uuid"
  *   },
@@ -58,6 +59,13 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
   protected $section = '';
 
   /**
+   * Indicates if the rule should be applied on the default site language alias.
+   *
+   * @var bool
+   */
+  protected $match_on_site_default_language = FALSE;
+
+  /**
    * The regular expression to be applied.
    *
    * @var string
@@ -76,6 +84,13 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
    */
   public function getRegex(): string {
     return $this->regex;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function matchOnSiteDefaultLanguage(): bool {
+    return (bool) $this->match_on_site_default_language;
   }
 
 }
