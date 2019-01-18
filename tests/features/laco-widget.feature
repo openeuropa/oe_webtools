@@ -7,7 +7,7 @@ Feature: Webtools LACO Widget
   @BackupLacoConfigs
   Scenario: Configure Webtools Laco Widget settings
     Given I am logged in as a user with the "administer webtools laco widget configuration" permission
-    When I am on "the Webtools Laco Widget settings page"
+    When I am on "the Webtools Laco Widget configuration page"
     Then I should see "Webtools Laco Widget settings"
     And I should not see "header-test"
     And I should not see "footer-test"

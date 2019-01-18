@@ -13,8 +13,8 @@ default:
         - OpenEuropa\Behat\TransformationContext:
             pages:
               Webtools Analytics configuration: '/admin/config/system/oe_webtools_analytics'
-              Webtools Laco Widget settings: 'admin/config/regional/oe_webtools_laco_widget'
-              Add Webtools Analytics rule: 'admin/structure/webtools_analytics_rule/add'
+              Webtools Laco Widget configuration: 'admin/config/regional/oe_webtools_laco_widget'
+              Webtools Analytics rule creation: 'admin/structure/webtools_analytics_rule/add'
               Webtools Analytics rule: 'admin/structure/webtools_analytics_rule'
   extensions:
     Behat\MinkExtension:

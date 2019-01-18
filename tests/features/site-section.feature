@@ -9,7 +9,7 @@ Feature: Webtools Analytics Site Section
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
 
   Scenario: Create Webtools Analytics Rule
-    Given I am on "the Add Webtools Analytics rule page"
+    Given I am on "the Webtools Analytics rule creation page"
     And I fill in "Machine-readable name" with "rule1"
     And I fill in "Section" with "examplesection"
     And I fill in "Regex" with "/\/custompath/"
