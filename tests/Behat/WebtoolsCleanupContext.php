@@ -7,6 +7,7 @@ namespace Drupal\Tests\oe_webtools\Behat;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\ScenarioInterface;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Path\AliasStorage;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
