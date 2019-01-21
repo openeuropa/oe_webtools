@@ -38,7 +38,7 @@ Feature: Webtools Analytics multilingual aliases
     Then the page analytics json should not contain the parameter "siteSection"
 
   @cleanup:webtools_analytics_rule @cleanup-aliases
-  Scenario: Make sure that Webtools Analytics rules work without checked "Match on path alias for site default language"
+  Scenario: Make sure that Webtools Analytics rules work without matching the alias in the site default language
     Given I am logged in as a user with the "administer site configuration, access administration pages" permission
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
     And the following languages are available:

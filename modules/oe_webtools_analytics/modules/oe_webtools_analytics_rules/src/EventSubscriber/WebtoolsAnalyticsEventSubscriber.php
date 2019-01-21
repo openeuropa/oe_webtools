@@ -122,7 +122,7 @@ class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * Get a rule which related to current path.
+   * Gets a rule is which related to the current path.
    *
    * @param string $path
    *   Current path.

@@ -62,8 +62,7 @@ class WebtoolsCleanupContext extends RawDrupalContext {
   public function collectExistingUrlAliases(BeforeScenarioScope $scope): void {
     // Reset the alias list at the beginning of each scenario.
     $this->existingAliases = [];
-    // Executing database query,
-    // because AliasStorage->load() returns only a single url alias.
+    // Executing database query, as AliasStorage->load() returns only one alias.
     $query = \Drupal::database()->select(AliasStorage::TABLE, 'ua');
     $query->fields('ua', ['pid']);
     $this->existingAliases = $query->execute()->fetchAllKeyed(0, 0);
