@@ -67,7 +67,7 @@ pipeline:
       - ./vendor/bin/drush -y config-set system.performance css.preprocess 0
       - ./vendor/bin/drush -y config-set system.performance js.preprocess 0
       # Run behat tests.
-      - ./vendor/bin/behat
+      - ./vendor/bin/behat --strict
 
 matrix:
   COMPOSER_BOUNDARY:
