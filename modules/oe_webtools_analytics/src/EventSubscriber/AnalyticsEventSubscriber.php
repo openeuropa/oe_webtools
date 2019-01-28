@@ -67,7 +67,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
    *   Response event.
    */
-  public function onSetSiteDefaults(AnalyticsEventInterface $event) {
+  public function onSetSiteDefaults(AnalyticsEventInterface $event): void {
     $event->addCacheableDependency($this->config);
     $event->addCacheContexts(['url.path']);
 
@@ -107,7 +107,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public static function getSubscribedEvents() {
+  public static function getSubscribedEvents(): array {
     // Subscribing to listening to the Analytics event.
     $events[AnalyticsEvent::NAME][] = ['onSetSiteDefaults'];
 

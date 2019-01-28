@@ -20,14 +20,14 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId(): string {
     return 'oe_webtools_analytics_settings';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['siteID'] = [
       '#type' => 'number',
       '#title' => $this->t('Site ID'),
@@ -53,7 +53,7 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config(static::CONFIG_NAME)
       ->set('siteID', $form_state->getValue('siteID'))
       ->set('sitePath', $form_state->getValue('sitePath'))
@@ -65,7 +65,7 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  protected function getEditableConfigNames() {
+  protected function getEditableConfigNames(): array {
     return ['oe_webtools_analytics.settings'];
   }
 
