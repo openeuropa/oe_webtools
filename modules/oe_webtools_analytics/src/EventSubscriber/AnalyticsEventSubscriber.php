@@ -29,21 +29,21 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  private $config;
+  protected $config;
 
   /**
    * {@inheritdoc}
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
-  private $requestStack;
+  protected $requestStack;
 
   /**
    * {@inheritdoc}
    *
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  private $logger;
+  protected $logger;
 
   /**
    * AnalyticsEventSubscriber constructor.
