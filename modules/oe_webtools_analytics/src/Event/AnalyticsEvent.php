@@ -2,12 +2,6 @@
 
 declare(strict_types = 1);
 
-/**
- * Webtools AnalyticsEvent Event.
- *
- * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
- */
-
 namespace Drupal\oe_webtools_analytics\Event;
 
 use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
@@ -18,9 +12,10 @@ use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class WebtoolsImportDataEvent.
+ * Event fired when a page is displayed, in order to handle analytics data.
  *
- * @package Drupal\oe_webtools_analytics\Event
+ * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
+ * @see oe_webtools_analytics_page_attachments()
  */
 class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface {
 

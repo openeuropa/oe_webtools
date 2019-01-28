@@ -8,7 +8,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Settings form for module.
+ * The form for managing the configuration of the Webtools Analytics module.
  */
 class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
 

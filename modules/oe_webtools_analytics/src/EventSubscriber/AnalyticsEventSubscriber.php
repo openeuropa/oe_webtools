@@ -2,11 +2,6 @@
 
 declare(strict_types = 1);
 
-/**
- * @file
- * Listening to the AnalyticsEvent.
- */
-
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -21,7 +16,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Event Subscriber AnalyticsEventSubscriber.
+ * Subscribes to the event fired when visitor data is collected for analytics.
  */
 class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
@@ -32,7 +27,7 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   protected $config;
 
   /**
-   * {@inheritdoc}
+   * The request stack.
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
@@ -46,10 +41,10 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   protected $logger;
 
   /**
-   * AnalyticsEventSubscriber constructor.
+   * Constructs an AnalyticsEventSubscriber.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   *   The configuration object.
+   *   The configuration object factory.
    * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *   The request on the stack.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
