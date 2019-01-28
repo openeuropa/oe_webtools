@@ -19,6 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Subscribes to the event fired when visitor data is collected for analytics.
  */
 class AnalyticsEventSubscriber implements EventSubscriberInterface {
+
   /**
    * The config factory.
    *

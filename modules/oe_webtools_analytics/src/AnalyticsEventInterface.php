@@ -12,6 +12,7 @@ use JsonSerializable;
  * Provides an interface for AnalyticsEvent accordingly to the documentation.
  */
 interface AnalyticsEventInterface extends JsonSerializable, RefinableCacheableDependencyInterface {
+
   /**
    * The Webtools analytics entrance in settings.php.
    */
