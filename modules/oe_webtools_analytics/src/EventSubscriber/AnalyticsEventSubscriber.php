@@ -9,15 +9,16 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics\EventSubscriber;
 
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Core\Url;
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Event Subscriber AnalyticsEventSubscriber.
