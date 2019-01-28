@@ -20,11 +20,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class AnalyticsEventSubscriber implements EventSubscriberInterface {
   /**
-   * The Configuration overrides instance.
+   * The config factory.
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $config;
+  protected $configFactory;
 
   /**
    * The request stack.
@@ -34,11 +34,11 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
   protected $requestStack;
 
   /**
-   * {@inheritdoc}
+   * The logger channel factory.
    *
-   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
    */
-  protected $logger;
+  protected $loggerFactory;
 
   /**
    * Constructs an AnalyticsEventSubscriber.
@@ -51,10 +51,9 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   The logger channel factory.
    */
   public function __construct(ConfigFactoryInterface $configFactory, RequestStack $requestStack, LoggerChannelFactoryInterface $loggerFactory) {
-    // Get id from settings.php!
-    $this->config = $configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
+    $this->configFactory = $configFactory;
     $this->requestStack = $requestStack;
-    $this->logger = $loggerFactory->get('oe_webtools');
+    $this->loggerFactory = $loggerFactory;
   }
 
   /**
@@ -64,34 +63,35 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function onSetSiteDefaults(AnalyticsEventInterface $event): void {
-    $event->addCacheableDependency($this->config);
+    $config = $this->configFactory->get(AnalyticsEventInterface::CONFIG_NAME);
+    $event->addCacheableDependency($config);
     $event->addCacheContexts(['url.path']);
 
     // SiteID must exist and be an integer.
-    $site_id = $this->config->get(AnalyticsEventInterface::SITE_ID);
+    $site_id = $config->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
-      $this->logger->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
+      $this->getLogger()->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
     }
 
     // Setting SiteID.
     $event->setSiteId((string) $site_id);
 
-    $instance = $this->config->get(AnalyticsEventInterface::INSTANCE);
+    $instance = $config->get(AnalyticsEventInterface::INSTANCE);
 
     // Setting Instance.
     $event->setInstance((string) $instance);
 
     // SitePath handling.
-    $site_path_route = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+    $route_options = ['absolute' => TRUE];
+    $site_path_route = Url::fromRoute('<front>', [], $route_options)->toString();
     $event->setSitePath([$site_path_route]);
-    if ($site_path = $this->config->get(AnalyticsEventInterface::SITE_PATH)) {
+    if ($site_path = $config->get(AnalyticsEventInterface::SITE_PATH)) {
       $event->setSitePath((array) $site_path);
     }
 
     // Set exception flags when access is denied, or page not found.
-    $request_exception = $this->requestStack
-      ->getCurrentRequest()->attributes->get('exception');
+    $request_exception = $this->requestStack->getCurrentRequest()->attributes->get('exception');
     if ($request_exception instanceof NotFoundHttpException) {
       $event->setIs404Page(TRUE);
     }
@@ -108,6 +108,16 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     $events[AnalyticsEvent::NAME][] = ['onSetSiteDefaults'];
 
     return $events;
+  }
+
+  /**
+   * Returns the logger for the OpenEuropa Webtools module.
+   *
+   * @return \Drupal\Core\Logger\LoggerChannelInterface
+   *   The logger.
+   */
+  protected function getLogger(): LoggerChannelInterface {
+    return $this->loggerFactory->get('oe_webtools');
   }
 
 }
