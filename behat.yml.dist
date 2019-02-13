@@ -18,7 +18,7 @@ default:
               Webtools Analytics rule creation: 'admin/structure/webtools_analytics_rule/add'
               Webtools Analytics rule: 'admin/structure/webtools_analytics_rule'
   extensions:
-    Behat\MinkExtension:
+    Drupal\MinkExtension:
       goutte: ~
       browser_name: 'chrome'
       javascript_session: 'selenium2'
