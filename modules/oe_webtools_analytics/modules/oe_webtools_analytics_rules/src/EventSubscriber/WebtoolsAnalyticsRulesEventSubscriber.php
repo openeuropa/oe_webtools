@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Event subscriber for the Webtools Analytics event.
  */
-class WebtoolsAnalyticsEventSubscriber implements EventSubscriberInterface {
+class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface {
 
   /**
    * The entity type manager.
