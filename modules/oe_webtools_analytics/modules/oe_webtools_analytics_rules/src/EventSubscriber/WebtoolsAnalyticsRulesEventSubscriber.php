@@ -29,11 +29,11 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
   protected $entityTypeManager;
 
   /**
-   * The current request.
+   * The request stack.
    *
-   * @var \Symfony\Component\HttpFoundation\Request
+   * @var \Symfony\Component\HttpFoundation\RequestStack
    */
-  protected $currentRequest;
+  protected $requestStack;
 
   /**
    * The current path service.
@@ -81,7 +81,7 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
    */
   public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, CurrentPathStack $currentPath, AliasManagerInterface $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config) {
     $this->entityTypeManager = $entityTypeManager;
-    $this->currentRequest = $requestStack->getCurrentRequest();
+    $this->requestStack = $requestStack;
     $this->currentPath = $currentPath;
     $this->aliasManager = $aliasManager;
     $this->cache = $cache;
@@ -103,7 +103,7 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     $event->addCacheContexts(['url.path']);
 
     // Getting current path (not system path).
-    $current_path = $this->currentRequest->getPathInfo();
+    $current_path = $this->requestStack->getCurrentRequest()->getPathInfo();
     $cache = $this->cache->get($current_path);
     if ($cache && $cache->data === NULL) {
       // If there is no cached data there is no section that applies to the uri.
