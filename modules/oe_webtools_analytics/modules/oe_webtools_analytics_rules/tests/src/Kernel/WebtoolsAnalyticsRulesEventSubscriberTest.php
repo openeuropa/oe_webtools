@@ -5,9 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_webtools_analytics_rules\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
-use Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsRulesEventSubscriber;
 
 /**
  * Tests that rule based analytics sections are returned for the current path.
