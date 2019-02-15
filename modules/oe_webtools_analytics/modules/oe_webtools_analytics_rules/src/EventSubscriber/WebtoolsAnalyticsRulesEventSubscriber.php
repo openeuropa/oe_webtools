@@ -97,6 +97,11 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
     $webtools_rules_cache_tags = ['config:webtools_analytics_rule_list'];
     $event->addCacheTags($webtools_rules_cache_tags);
+
+    // Since the rules that are used to discover the site sections are URI based
+    // the result cache should vary based on the path.
+    $event->addCacheContexts(['url.path']);
+
     // Getting current path (not system path).
     $current_path = $this->currentRequest->getPathInfo();
     $cache = $this->cache->get($current_path);
