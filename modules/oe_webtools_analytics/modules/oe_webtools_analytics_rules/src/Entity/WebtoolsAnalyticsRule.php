@@ -11,7 +11,14 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *
  * @ConfigEntityType(
  *   id = "webtools_analytics_rule",
- *   label = @Translation("Webtools Analytics site section rule"),
+ *   label = @Translation("Webtools Analytics rule"),
+ *   label_collection = @Translation("Webtools Analytics rules"),
+ *   label_singular = @Translation("Webtools Analytics rule"),
+ *   label_plural = @Translation("Webtools Analytics rules"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count Webtools Analytics rule",
+ *     plural = "@count Webtools Analytics rules",
+ *   ),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
  *     "list_builder" = "Drupal\oe_webtools_analytics_rules\WebtoolsAnalyticsRuleListBuilder",
