@@ -19,7 +19,7 @@ class WebtoolsAnalyticsRuleListBuilder extends ConfigEntityListBuilder {
   public function buildHeader(): array {
     $header['section'] = $this->t('Section');
     $header['match_on_site_default_language'] = $this->t('Match on path alias for site default language');
-    $header['regex'] = $this->t('Regex');
+    $header['regex'] = $this->t('Regular expression');
 
     return $header + parent::buildHeader();
   }
