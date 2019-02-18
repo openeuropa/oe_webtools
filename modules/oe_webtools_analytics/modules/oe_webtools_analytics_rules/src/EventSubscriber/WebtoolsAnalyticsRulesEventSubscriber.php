@@ -95,7 +95,7 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
    * Webtools Analytics event handler.
    *
    * @param \Drupal\oe_webtools_analytics\AnalyticsEventInterface $event
-   *   Response event.
+   *   The analytics event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
     // We return results based on rule entities. This means that if a rule is
@@ -135,13 +135,14 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
   }
 
   /**
-   * Gets a rule is which related to the current path.
+   * Returns a rule is which related to the given path.
    *
    * @param string $path
-   *   Current path.
+   *   The path for which to return the rule.
    *
    * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|null
-   *   Rule related to current path.
+   *   The rule related to the given path, or NULL if there is no corresponding
+   *   rule.
    */
   protected function getRuleByPath(string $path): ?WebtoolsAnalyticsRuleInterface {
     try {
