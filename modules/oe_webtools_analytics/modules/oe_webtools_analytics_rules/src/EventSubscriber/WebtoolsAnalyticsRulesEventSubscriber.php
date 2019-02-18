@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics_rules\EventSubscriber;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -136,8 +138,27 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
    *   Rule related to current path.
    */
   protected function getRuleByPath(string $path): ?WebtoolsAnalyticsRuleInterface {
-    /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface[] $rules */
-    $rules = $this->entityTypeManager->getStorage('webtools_analytics_rule')->loadMultiple();
+    try {
+      /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface[] $rules */
+      $rules = $this->entityTypeManager->getStorage('webtools_analytics_rule')->loadMultiple();
+    }
+    catch (PluginNotFoundException $e) {
+      // The entity type manager in core will throw a checked exception if an
+      // entity type is not defined. This is intended to deal with situations
+      // like the module that defines the entity type not being enabled. In our
+      // case we are sure that the entity type exists since we define it in our
+      // own module. We can convert this to an unchecked exception so this
+      // doesn't need to be checked again higher in the call stack.
+      throw new \RuntimeException('The webtools_analytics_rule entity type does not exist.', 0, $e);
+    }
+    catch (InvalidPluginDefinitionException $e) {
+      // The entity type manager in core will throw a checked exception if an
+      // entity type is invalid. In our case we are sure that the entity type is
+      // valid since we have defined it ourselves. We can convert this to an
+      // unchecked exception so this doesn't need to be checked again higher in
+      // the call stack.
+      throw new \RuntimeException('The webtools_analytics_rule entity type is invalid.', 0, $e);
+    }
 
     $default_language = $this->config->get('system.site')->get('default_langcode');
     $default_language_alias_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $default_language);
