@@ -124,14 +124,16 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     }
 
     $rule = $this->getRuleByPath($current_path);
-    if ($rule instanceof WebtoolsAnalyticsRuleInterface) {
-      $event->setSiteSection($rule->getSection());
-      $this->cache->set($current_path, ['section' => $rule->getSection()], Cache::PERMANENT, $webtools_rules_cache_tags);
-      return;
+
+    $section = $rule instanceof WebtoolsAnalyticsRuleInterface ? $rule->getSection() : NULL;
+
+    if ($section) {
+      $event->setSiteSection($section);
     }
 
     // Cache NULL if there is no rule that applies to the uri.
-    $this->cache->set($current_path, NULL, Cache::PERMANENT, $webtools_rules_cache_tags);
+    $cache_data = $section ? ['section' => $rule->getSection()] : NULL;
+    $this->cache->set($current_path, $cache_data, Cache::PERMANENT, $webtools_rules_cache_tags);
   }
 
   /**
