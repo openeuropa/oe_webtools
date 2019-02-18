@@ -57,11 +57,11 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
   protected $cache;
 
   /**
-   * The configuration object.
+   * The configuration object factory.
    *
-   * @var \Drupal\Core\Config\Config
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
-  protected $siteConfig;
+  protected $config;
 
   /**
    * WebtoolsAnalyticsEventSubscriber constructor.
@@ -85,7 +85,7 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     $this->currentPath = $currentPath;
     $this->aliasManager = $aliasManager;
     $this->cache = $cache;
-    $this->siteConfig = $config->get('system.site');
+    $this->config = $config;
   }
 
   /**
@@ -139,7 +139,8 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface[] $rules */
     $rules = $this->entityTypeManager->getStorage('webtools_analytics_rule')->loadMultiple();
 
-    $default_language_alias_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $this->siteConfig->get('default_langcode'));
+    $default_language = $this->config->get('system.site')->get('default_langcode');
+    $default_language_alias_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $default_language);
 
     foreach ($rules as $rule) {
       if (preg_match($rule->getRegex(), $rule->matchOnSiteDefaultLanguage() ? $default_language_alias_path : $path) === 1) {
