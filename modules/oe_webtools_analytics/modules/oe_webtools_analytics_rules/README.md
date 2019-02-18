@@ -87,3 +87,14 @@ Known issues and limitations
 
   Ref.
   [OPENEUROPA-1636](https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1636)
+* There currently is no dedicated permission to manage rules.
+
+  Ref.
+  [OPENEUROPA-1638](https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1638)
+* When creating a new rule a validation error appears when a section is being
+  reused: "The machine-readable name is already in use. It must be unique.".
+  This can be solved by manually changing the machine name to be unique, for
+  example by appending `_1` to it.
+
+  Ref.
+  [OPENEUROPA-1640](https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1640)
