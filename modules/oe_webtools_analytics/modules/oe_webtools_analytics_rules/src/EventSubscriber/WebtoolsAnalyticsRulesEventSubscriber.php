@@ -139,12 +139,10 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface[] $rules */
     $rules = $this->entityTypeManager->getStorage('webtools_analytics_rule')->loadMultiple();
 
-    foreach ($rules as $rule) {
-      if ($rule->matchOnSiteDefaultLanguage()) {
-        $path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $this->siteConfig->get('default_langcode'));
-      }
+    $default_language_alias_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $this->siteConfig->get('default_langcode'));
 
-      if (preg_match($rule->getRegex(), $path) === 1) {
+    foreach ($rules as $rule) {
+      if (preg_match($rule->getRegex(), $rule->matchOnSiteDefaultLanguage() ? $default_language_alias_path : $path) === 1) {
         return $rule;
       }
     }
