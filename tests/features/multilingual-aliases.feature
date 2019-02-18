@@ -15,9 +15,9 @@ Feature: Webtools Analytics multilingual aliases
       | nl        |
     And aliases available for the path "/admin/config":
       | languages | url        |
-      | en        | /news       |
-      | fr        | /nouvelles  |
-      | nl        | /nieuws     |
+      | en        | /news      |
+      | fr        | /nouvelles |
+      | nl        | /nieuws    |
 
     And I am on "admin/structure/webtools_analytics_rule/add"
     And I fill in "Machine-readable name" with "news_overview"
@@ -46,9 +46,9 @@ Feature: Webtools Analytics multilingual aliases
       | en        |
       | fr        |
     And aliases available for the path "/admin/config":
-      | languages | url         |
-      | en        | /news       |
-      | fr        | /nouvelles  |
+      | languages | url        |
+      | en        | /news      |
+      | fr        | /nouvelles |
 
     And I am on "admin/structure/webtools_analytics_rule/add"
     And I fill in "Section" with "news_overview_english"
