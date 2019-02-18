@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_analytics_rules\Kernel;
 
-use \Drupal\system\Tests\Routing\MockAliasManager as CoreMockAliasManager;
+use Drupal\system\Tests\Routing\MockAliasManager as CoreMockAliasManager;
 
 /**
  * An easily configurable mock alias manager.

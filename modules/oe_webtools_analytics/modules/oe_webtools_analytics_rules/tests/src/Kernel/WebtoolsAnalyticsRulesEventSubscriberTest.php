@@ -166,9 +166,9 @@ class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
         // based the result cache should vary based on the path.
         $this->assertCacheContexts(['url.path']);
 
-        // If any of the rules change then the result cache should be invalidated.
-        // Check that the list cache tags and contexts of the rule entity are
-        // included in the result.
+        // If any of the rules change then the result cache should be
+        // invalidated. Check that the list cache tags and contexts of the rule
+        // entity are included in the result.
         $this->assertCacheContexts($this->ruleEntityType->getListCacheContexts());
         $this->assertCacheTags($this->ruleEntityType->getListCacheTags());
       }
