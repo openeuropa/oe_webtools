@@ -45,9 +45,9 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @param \Behat\Gherkin\Node\TableNode $mediasTable
    *   Table of media data.
    *
-   * @Given I visiting remote video entity page:
+   * @Given I visit the remote video entity page:
    */
-  public function iVisitingRemoteVideoEntityPage(TableNode $mediasTable) {
+  public function iVisitTheRemoteVideoEntityPage(TableNode $mediasTable): void {
     $hash = $mediasTable->getColumnsHash();
     $media_data = reset($hash);
     if ($media_data) {
@@ -64,7 +64,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   /**
    * Checks that an OEmbed iframe url use CCK service.
    *
-   * @Then I should see the oEmbed video iframe with cookie consent kit usage
+   * @Then I should see the oEmbed video iframe with cookie consent
    */
   public function assertOembedIframeWithCckUsage(): void {
     $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');

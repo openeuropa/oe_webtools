@@ -12,7 +12,8 @@ use Drupal\media\IFrameMarkup;
 /**
  * Implements hook_preprocess_HOOK() for media-oembed-iframe.html.twig template.
  *
- * According to fact that from oEmbed service we receive html code with iframe,
+ * According to the fact that from oEmbed service we receive
+ * html code with iframe,
  * we have to change "src" attribute value for cookie consent service usage.
  */
 function oe_webtools_cookie_consent_preprocess_media_oembed_iframe(array &$variables): void {
