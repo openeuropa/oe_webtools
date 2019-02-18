@@ -264,7 +264,8 @@ class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
       // Test a combination of rules that match on the default language and the
       // current language, with two different default languages.
       // Note that the rule IDs are prefixed with numbers. This is because they
-      // are currently executed in alphabetical order.
+      // are currently executed in alphabetical order. They should instead be
+      // ordered by a user defined priority.
       // @todo Replace the number prefixes with priorities once OPENEUROPA-1633
       //   is fixed.
       // @see https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1633
@@ -336,11 +337,9 @@ class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
             '/news_overview_page' => 'news overview (default language alias)',
             '/news' => 'news overview (default language alias)',
             '/nuevas' => 'news overview (default language alias)',
-            // The definition of the unaliased system path is present earlier in
-            // the database and takes precedence.
-            // @todo The order of rules should be handled with a configurable
-            //   priority.
-            // @see https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1633
+            // The rule definition that matches the current path to the system
+            // path has a higher priority and takes precedence over the rule for
+            // the default language alias.
             '/taxonomy/term/344' => 'overview of antarctican news (current path)',
             '/news/antarctica' => 'overview of antarctican news (default language alias)',
             '/es/nuevas/antartida' => 'overview of antarctican news (default language alias)',
@@ -362,17 +361,15 @@ class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
             '/es/articulos' => '',
           ],
           'es' => [
-            // Since an alias in English exists for the news overview page, this
+            // Since an alias in Spanish exists for the news overview page, this
             // will match for all paths, including the system path and
             // translations.
             '/news_overview_page' => 'news overview (default language alias)',
             '/news' => 'news overview (default language alias)',
             '/nuevas' => 'news overview (default language alias)',
-            // The definition of the unaliased system path is present earlier in
-            // the database and takes precedence.
-            // @todo The order of rules should be handled with a configurable
-            //   priority.
-            // @see https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1633
+            // The rule definition that matches the current path to the system
+            // path has a higher priority and takes precedence over the rule for
+            // the default language alias.
             '/taxonomy/term/344' => 'overview of antarctican news (current path)',
             '/news/antarctica' => 'overview of antarctican news (default language alias)',
             '/es/nuevas/antartida' => 'overview of antarctican news (default language alias)',
