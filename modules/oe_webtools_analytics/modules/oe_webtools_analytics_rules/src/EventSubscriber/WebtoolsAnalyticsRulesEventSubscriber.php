@@ -9,6 +9,7 @@ use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Path\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
@@ -97,8 +98,13 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
    *   Response event.
    */
   public function analyticsEventHandler(AnalyticsEventInterface $event): void {
-    $webtools_rules_cache_tags = ['config:webtools_analytics_rule_list'];
+    // We return results based on rule entities. This means that if a rule is
+    // added or deleted, or if any of the existing rules change, the cached
+    // results should be invalidated.
+    $webtools_analytics_rule_definition = $this->getWebtoolsAnalyticsRuleDefinition();
+    $webtools_rules_cache_tags = $webtools_analytics_rule_definition->getListCacheTags();
     $event->addCacheTags($webtools_rules_cache_tags);
+    $event->addCacheContexts($webtools_analytics_rule_definition->getListCacheContexts());
 
     // Since the rules that are used to discover the site sections are URI based
     // the result cache should vary based on the path.
@@ -170,6 +176,29 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     }
 
     return NULL;
+  }
+
+  /**
+   * Returns the entity type definition for the Webtools Analytics Rule entity.
+   *
+   * @return \Drupal\Core\Entity\EntityTypeInterface
+   *   The entity type definition.
+   */
+  protected function getWebtoolsAnalyticsRuleDefinition(): EntityTypeInterface {
+    try {
+      $definition = $this->entityTypeManager->getDefinition('webtools_analytics_rule');
+    }
+    catch (PluginNotFoundException $e) {
+      // The entity type manager in core will throw a checked exception if an
+      // entity type is not defined. This is intended to deal with situations
+      // like the module that defines the entity type not being enabled. In our
+      // case we are sure that the entity type exists since we define it in our
+      // own module. We can convert this to an unchecked exception so this
+      // doesn't need to be checked again higher in the call stack.
+      throw new \RuntimeException('The webtools_analytics_rule entity type does not exist.', 0, $e);
+    }
+
+    return $definition;
   }
 
   /**
