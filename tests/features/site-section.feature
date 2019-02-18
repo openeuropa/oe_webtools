@@ -12,7 +12,7 @@ Feature: Webtools Analytics Site Section
     Given I am on "the Webtools Analytics rule creation page"
     And I fill in "Machine-readable name" with "rule1"
     And I fill in "Section" with "examplesection"
-    And I fill in "Regex" with "/\/custompath/"
+    And I fill in "Regex" with "|^/custompath/?$|"
     When I press "Save"
     Then I should be on "the Webtools Analytics rule page"
     Then I should see "examplesection"
