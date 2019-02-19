@@ -23,7 +23,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    *
    * @beforeScenario @remote-video
    */
-  public function enableTestModule(BeforeScenarioScope $scope): void {
+  public function enableModule(BeforeScenarioScope $scope): void {
     \Drupal::service('module_installer')->install(['oe_media']);
   }
 
@@ -35,7 +35,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    *
    * @afterScenario @remote-video
    */
-  public function disableTestModule(AfterScenarioScope $scope): void {
+  public function disableModule(AfterScenarioScope $scope): void {
     \Drupal::service('module_installer')->uninstall(['oe_media']);
   }
 
@@ -62,7 +62,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Checks that an OEmbed iframe url use CCK service.
+   * Checks that an OEmbed iframe url uses CCK service.
    *
    * @Then I should see the oEmbed video iframe with cookie consent
    */
