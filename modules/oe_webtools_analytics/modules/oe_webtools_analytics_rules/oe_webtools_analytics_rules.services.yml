@@ -1,9 +1,12 @@
 services:
   oe_webtools_analytics_rules.event_subscriber:
     class: Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsRulesEventSubscriber
-    arguments: ['@entity_type.manager', '@request_stack', '@path.current', '@path.alias_manager','@cache.webtools_analytics_rules', '@config.factory']
+    arguments: ['@oe_webtools_analytics_rules.rule_matcher', '@entity_type.manager', '@path.current']
     tags:
       - { name: event_subscriber }
+  oe_webtools_analytics_rules.rule_matcher:
+    class: Drupal\oe_webtools_analytics_rules\RuleMatcher
+    arguments: ['@entity_type.manager', '@request_stack', '@path.current', '@path.alias_manager','@cache.webtools_analytics_rules', '@config.factory']
   cache.webtools_analytics_rules:
     class: Drupal\Core\Cache\CacheBackendInterface
     tags:

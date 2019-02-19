@@ -420,7 +420,7 @@ class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
    * This invokes the main public method on the event subscriber under test.
    */
   protected function invokeAnalyticsEvent(): void {
-    $this->eventSubscriber->analyticsEventHandler($this->event);
+    $this->eventSubscriber->onAnalyticsEvent($this->event);
   }
 
   /**
