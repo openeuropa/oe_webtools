@@ -96,4 +96,19 @@ class WebtoolsAnalyticsRule extends ConfigEntityBase implements WebtoolsAnalytic
     return (bool) $this->match_on_site_default_language;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function calculateDependencies() {
+    parent::calculateDependencies();
+
+    // Add a dependency on the site configuration if we rely on the site default
+    // language.
+    if ($this->matchOnSiteDefaultLanguage()) {
+      $this->addDependency('config', 'system.site');
+    }
+
+    return $this;
+  }
+
 }
