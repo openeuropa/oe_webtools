@@ -121,6 +121,8 @@ class RuleMatcher implements RuleMatcherInterface {
 
   /**
    * {@inheritdoc}
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   public function getMatchingRule(string $path = NULL): ?WebtoolsAnalyticsRuleInterface {
     // Default to the current path.
@@ -221,7 +223,7 @@ class RuleMatcher implements RuleMatcherInterface {
   /**
    * Returns the Webtools Analytics Rule entities with the given entity IDs.
    *
-   * @param string[] $id
+   * @param string[]|null $ids
    *   Optional array of entity IDs to return. If omitted all entities will be
    *   returned.
    *

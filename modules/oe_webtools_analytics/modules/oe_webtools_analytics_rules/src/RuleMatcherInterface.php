@@ -14,7 +14,7 @@ interface RuleMatcherInterface {
   /**
    * Returns the Webtools Analytics rule that matches the given path.
    *
-   * @param string|NULL $path
+   * @param string|null $path
    *   Optional path to match. If omitted the current path will be checked.
    *
    * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|null
@@ -26,7 +26,7 @@ interface RuleMatcherInterface {
   /**
    * Returns the site section that matches the given path.
    *
-   * @param string|NULL $path
+   * @param string|null $path
    *   Optional path to match. If omitted the current path will be checked.
    *
    * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|null
