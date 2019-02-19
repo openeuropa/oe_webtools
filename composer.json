@@ -20,6 +20,7 @@
         "openeuropa/behat-transformation-context" : "~0.1",
         "openeuropa/code-review": "~1.0.0-alpha4",
         "openeuropa/drupal-core-require-dev": "^8.6",
+        "openeuropa/oe_media": "~0.1.0",
         "openeuropa/task-runner": "~1.0.0-beta3",
         "phpunit/phpunit": "~6.0",
         "symfony/dom-crawler": "~3.0"
