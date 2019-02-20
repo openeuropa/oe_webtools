@@ -13,6 +13,12 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 pipeline:
+  set-permissions:
+    image: fpfis/httpd-php-dev:7.1
+    commands:
+      - chgrp -R www-data /test/oe_webtools
+      - chmod -R g+s /test/oe_webtools
+
   composer-install-lowest:
     group: prepare
     image: fpfis/httpd-php-dev:7.1
@@ -42,7 +48,6 @@ pipeline:
     image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/run drupal:site-install
-      - chown -R www-data:www-data /test/oe_webtools/*
 
   test-grumphp:
     group: test
