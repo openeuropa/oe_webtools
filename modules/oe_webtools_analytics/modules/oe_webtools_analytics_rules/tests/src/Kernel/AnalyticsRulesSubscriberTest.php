@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @group oe_webtools_analytics_rules
  */
-class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
+class AnalyticsRulesSubscriberTest extends KernelTestBase {
 
   /**
    * An array of test path aliases in different languages, keyed by system path.
@@ -56,7 +56,7 @@ class WebtoolsAnalyticsRulesEventSubscriberTest extends KernelTestBase {
   /**
    * The event subscriber. This is the system under test.
    *
-   * @var \Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsRulesEventSubscriber
+   * @var \Drupal\oe_webtools_analytics_rules\EventSubscriber\AnalyticsRulesSubscriber
    */
   protected $eventSubscriber;
 

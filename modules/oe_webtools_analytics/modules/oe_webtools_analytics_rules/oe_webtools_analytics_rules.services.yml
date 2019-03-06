@@ -1,6 +1,6 @@
 services:
   oe_webtools_analytics_rules.event_subscriber:
-    class: Drupal\oe_webtools_analytics_rules\EventSubscriber\WebtoolsAnalyticsRulesEventSubscriber
+    class: Drupal\oe_webtools_analytics_rules\EventSubscriber\AnalyticsRulesSubscriber
     arguments: ['@oe_webtools_analytics_rules.rule_matcher', '@entity_type.manager', '@path.current']
     tags:
       - { name: event_subscriber }

@@ -15,7 +15,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Event subscriber for the Webtools Analytics event.
  */
-class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface {
+class AnalyticsRulesSubscriber implements EventSubscriberInterface {
 
   /**
    * The rule matcher.
@@ -32,7 +32,7 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
   protected $entityTypeManager;
 
   /**
-   * WebtoolsAnalyticsEventSubscriber constructor.
+   * Constructs an AnalyticsRulesSubscriber.
    *
    * @param \Drupal\oe_webtools_analytics_rules\RuleMatcherInterface $ruleMatcher
    *   The rule matcher.
@@ -67,7 +67,7 @@ class WebtoolsAnalyticsRulesEventSubscriber implements EventSubscriberInterface 
     // the result cache should vary based on the path.
     $event->addCacheContexts(['url.path']);
 
-    // Store the section that matches the current path on the event if it is'
+    // Store the section that matches the current path on the event if it is
     // found.
     $section = $this->ruleMatcher->getMatchingSection();
     if ($section) {
