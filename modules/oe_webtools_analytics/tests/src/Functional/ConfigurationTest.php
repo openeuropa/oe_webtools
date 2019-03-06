@@ -30,9 +30,9 @@ class ConfigurationTest extends BrowserTestBase {
   public function testLibraryLoading(): void {
     $config = \Drupal::configFactory()
       ->getEditable(AnalyticsEventInterface::CONFIG_NAME)
-      ->set("siteID", "123")
-      ->set("sitePath", "ec.europa.eu")
-      ->set("instance", "testing");
+      ->set('siteID', '123')
+      ->set('sitePath', 'ec.europa.eu')
+      ->set('instance', 'testing');
     $config->save();
 
     $this->drupalGet('<front>');
