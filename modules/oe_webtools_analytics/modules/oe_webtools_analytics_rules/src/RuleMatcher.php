@@ -94,16 +94,20 @@ class RuleMatcher implements RuleMatcherInterface {
    * {@inheritdoc}
    */
   public function getMatchingSection(string $path = NULL): ?string {
-    $current_path = $this->getCurrentPath();
-    $cache = $this->cache->get($current_path) ?: new \stdClass();
+    // Default to the current path.
+    if (!$path) {
+      $path = $this->getCurrentPath();
+    }
+
+    $cache = $this->cache->get($path) ?: new \stdClass();
 
     // Check if the cache data for the section has been set, taking into account
     // that its value might be NULL.
     if (empty($cache->data) || !array_key_exists('section', $cache->data)) {
-      $rule = $this->getMatchingRule($current_path);
+      $rule = $this->getMatchingRule($path);
 
       // Reload the cache object, it is updated when the rule was matched.
-      $cache = $this->cache->get($current_path) ?: new \stdClass();
+      $cache = $this->cache->get($path) ?: new \stdClass();
 
       $section = $rule instanceof WebtoolsAnalyticsRuleInterface ? $rule->getSection() : NULL;
       $cache->data = ['section' => $section] + ($cache->data ?? []);
@@ -113,7 +117,7 @@ class RuleMatcher implements RuleMatcherInterface {
       // results should be invalidated.
       $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getWebtoolsAnalyticsRuleListCacheTags());
 
-      $this->cache->set($current_path, $cache->data, Cache::PERMANENT, $cache->tags);
+      $this->cache->set($path, $cache->data, Cache::PERMANENT, $cache->tags);
     }
 
     return $cache->data['section'];
