@@ -26,10 +26,6 @@ class ConfigurationTest extends BrowserTestBase {
 
   /**
    * Tests if the configuration for the Webtools library is present on the page.
-   *
-   * @throws \Behat\Mink\Exception\ExpectationException
-   *   Thrown when an expected JSON configuration object is not present in the
-   *   page.
    */
   public function testLibraryLoading(): void {
     $config = \Drupal::configFactory()
