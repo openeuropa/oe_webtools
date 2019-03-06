@@ -24,27 +24,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class RuleMatcher implements RuleMatcherInterface {
 
   /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
-   * The request stack.
-   *
-   * @var \Symfony\Component\HttpFoundation\RequestStack
-   */
-  protected $requestStack;
-
-  /**
-   * The current path service.
-   *
-   * @var \Drupal\Core\Path\CurrentPathStack
-   */
-  protected $currentPath;
-
-  /**
    * The alias manager service.
    *
    * @var \Drupal\Core\Path\AliasManagerInterface
@@ -66,28 +45,49 @@ class RuleMatcher implements RuleMatcherInterface {
   protected $config;
 
   /**
+   * The current path service.
+   *
+   * @var \Drupal\Core\Path\CurrentPathStack
+   */
+  protected $currentPath;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a RuleMatcher service.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager.
-   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-   *   The request stack.
-   * @param \Drupal\Core\Path\CurrentPathStack $currentPath
-   *   The current path service.
    * @param \Drupal\Core\Path\AliasManagerInterface $aliasManager
    *   The alias manager service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend used to store webtools rules for uris.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config
    *   The Config Factory service.
+   * @param \Drupal\Core\Path\CurrentPathStack $currentPath
+   *   The current path service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack, CurrentPathStack $currentPath, AliasManagerInterface $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config) {
-    $this->entityTypeManager = $entityTypeManager;
-    $this->requestStack = $requestStack;
-    $this->currentPath = $currentPath;
+  public function __construct(AliasManagerInterface $aliasManager, CacheBackendInterface $cache, ConfigFactoryInterface $config, CurrentPathStack $currentPath, EntityTypeManagerInterface $entityTypeManager, RequestStack $requestStack) {
     $this->aliasManager = $aliasManager;
     $this->cache = $cache;
     $this->config = $config;
+    $this->currentPath = $currentPath;
+    $this->entityTypeManager = $entityTypeManager;
+    $this->requestStack = $requestStack;
   }
 
   /**
