@@ -115,7 +115,7 @@ class RuleMatcher implements RuleMatcherInterface {
       // We return results based on rule entities. This means that if a rule is
       // added or deleted, or if any of the existing rules change, the cached
       // results should be invalidated.
-      $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getWebtoolsAnalyticsRuleListCacheTags());
+      $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getListCacheTags());
 
       $this->cache->set($path, $cache->data, Cache::PERMANENT, $cache->tags);
     }
@@ -136,7 +136,7 @@ class RuleMatcher implements RuleMatcherInterface {
 
     $cache = $this->cache->get($path) ?: new \stdClass();
     if (isset($cache->data['rule'])) {
-      return $this->loadWebtoolsAnalyticsRule($cache->data['rule']);
+      return $this->loadRule($cache->data['rule']);
     }
 
     $site_configuration = $this->config->get('system.site');
@@ -145,7 +145,7 @@ class RuleMatcher implements RuleMatcherInterface {
 
     $matching_rule = NULL;
 
-    foreach ($this->loadWebtoolsAnalyticsRules() as $rule) {
+    foreach ($this->loadRules() as $rule) {
       if (preg_match($rule->getRegex(), $rule->matchOnSiteDefaultLanguage() ? $default_language_alias_path : $path) === 1) {
         $matching_rule = $rule;
         break;
@@ -158,7 +158,7 @@ class RuleMatcher implements RuleMatcherInterface {
     // We return results based on rule entities. This means that if a rule is
     // added or deleted, or if any of the existing rules change, the cached
     // results should be invalidated.
-    $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getWebtoolsAnalyticsRuleListCacheTags());
+    $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getListCacheTags());
 
     // Add the cache tags of the default site configuration if the rule depends
     // on the default language of the site.
@@ -176,7 +176,7 @@ class RuleMatcher implements RuleMatcherInterface {
    * @return \Drupal\Core\Entity\EntityTypeInterface
    *   The entity type definition.
    */
-  protected function getWebtoolsAnalyticsRuleDefinition(): EntityTypeInterface {
+  protected function getRuleDefinition(): EntityTypeInterface {
     try {
       $definition = $this->entityTypeManager->getDefinition('webtools_analytics_rule');
     }
@@ -199,7 +199,7 @@ class RuleMatcher implements RuleMatcherInterface {
    * @return \Drupal\Core\Entity\EntityStorageInterface
    *   The entity storage.
    */
-  protected function getWebtoolsAnalyticsRuleEntityStorage(): EntityStorageInterface {
+  protected function getRuleEntityStorage(): EntityStorageInterface {
     try {
       $storage = $this->entityTypeManager->getStorage('webtools_analytics_rule');
     }
@@ -234,9 +234,9 @@ class RuleMatcher implements RuleMatcherInterface {
    * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule[]
    *   The entities.
    */
-  protected function loadWebtoolsAnalyticsRules(array $ids = NULL): array {
+  protected function loadRules(array $ids = NULL): array {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule[] $rules */
-    $rules = $this->getWebtoolsAnalyticsRuleEntityStorage()->loadMultiple($ids);
+    $rules = $this->getRuleEntityStorage()->loadMultiple($ids);
     return $rules;
   }
 
@@ -249,8 +249,8 @@ class RuleMatcher implements RuleMatcherInterface {
    * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule|null
    *   The entity, or NULL if no entity with the given ID is found.
    */
-  protected function loadWebtoolsAnalyticsRule(string $id): ?WebtoolsAnalyticsRule {
-    $rules = $this->loadWebtoolsAnalyticsRules([$id]);
+  protected function loadRule(string $id): ?WebtoolsAnalyticsRule {
+    $rules = $this->loadRules([$id]);
     return reset($rules);
   }
 
@@ -260,8 +260,8 @@ class RuleMatcher implements RuleMatcherInterface {
    * @return string[]
    *   The list cache tags.
    */
-  protected function getWebtoolsAnalyticsRuleListCacheTags(): array {
-    return $this->getWebtoolsAnalyticsRuleDefinition()->getListCacheTags();
+  protected function getListCacheTags(): array {
+    return $this->getRuleDefinition()->getListCacheTags();
   }
 
   /**
