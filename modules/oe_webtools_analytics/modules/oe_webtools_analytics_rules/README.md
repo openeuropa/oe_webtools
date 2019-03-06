@@ -4,9 +4,6 @@ Webtools Analytics Rules
 This module allows an analytics engineer to create rules that can be used to
 match page URIs to site sections using regular expressions.
 
-This module is intended to allow the experts of the Webtools "Europa Analytics"
-team to take control of the visitor analytics in your website.
-
 
 Usage
 -----
