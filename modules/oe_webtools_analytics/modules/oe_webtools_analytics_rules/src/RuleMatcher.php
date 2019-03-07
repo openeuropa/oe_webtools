@@ -94,80 +94,114 @@ class RuleMatcher implements RuleMatcherInterface {
    * {@inheritdoc}
    */
   public function getMatchingSection(string $path = NULL): ?string {
-    // Default to the current path.
-    if (!$path) {
-      $path = $this->getCurrentPath();
-    }
-
-    $cache = $this->cache->get($path) ?: new \stdClass();
-
-    // Check if the cache data for the section has been set, taking into account
-    // that its value might be NULL.
-    if (empty($cache->data) || !array_key_exists('section', $cache->data)) {
-      $rule = $this->getMatchingRule($path);
-
-      // Reload the cache object, it is updated when the rule was matched.
-      $cache = $this->cache->get($path) ?: new \stdClass();
-
-      $section = $rule instanceof WebtoolsAnalyticsRuleInterface ? $rule->getSection() : NULL;
-      $cache->data = ['section' => $section] + ($cache->data ?? []);
-
-      // We return results based on rule entities. This means that if a rule is
-      // added or deleted, or if any of the existing rules change, the cached
-      // results should be invalidated.
-      $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getListCacheTags());
-
-      $this->cache->set($path, $cache->data, Cache::PERMANENT, $cache->tags);
-    }
-
-    return $cache->data['section'];
+    return $this->getDataForPath($path)['section'];
   }
 
   /**
    * {@inheritdoc}
-   *
-   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   public function getMatchingRule(string $path = NULL): ?WebtoolsAnalyticsRuleInterface {
+    $rule_id = $this->getDataForPath($path)['rule'];
+    return !empty($rule_id) ? $this->loadRule($rule_id) : NULL;
+  }
+
+  /**
+   * Returns cached analytics rule data for the given path.
+   *
+   * @param string|NULL $path
+   *   Optional path for which to return data. If omitted the current path will
+   *   be used.
+   *
+   * @return array
+   *   An associative array with two keys:
+   *   - section: Optional section name that matches the given path, or NULL if
+   *     there is no matching section.
+   *   - rule: Optional ID of the Webtools Analytics Rule entity that was used
+   *     to generate the matching section, or NULL if there is no matchine rule.
+   */
+  protected function getDataForPath(string $path = NULL): array {
     // Default to the current path.
     if (!$path) {
       $path = $this->getCurrentPath();
     }
 
     $cache = $this->cache->get($path) ?: new \stdClass();
-    if (isset($cache->data['rule'])) {
-      return $this->loadRule($cache->data['rule']);
+
+    // Return cached data if it exists.
+    if (empty($cache->data)) {
+      $cache = $this->populateCache($path);
     }
 
-    $site_configuration = $this->config->get('system.site');
-    $default_language = $site_configuration->get('default_langcode');
-    $default_language_alias_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $default_language);
+    return $cache->data;
+  }
 
-    $matching_rule = NULL;
+  /**
+   * Generates a fresh cache entry for the given path.
+   *
+   * @param string $path
+   *   The path for which to refresh the cache.
+   *
+   * @return \stdClass
+   *   The cache entry that was generated.
+   */
+  protected function populateCache(string $path): \stdClass {
+    $data = ['rule' => NULL, 'section' => NULL];
 
-    foreach ($this->loadRules() as $rule) {
-      if (preg_match($rule->getRegex(), $rule->matchOnSiteDefaultLanguage() ? $default_language_alias_path : $path) === 1) {
-        $matching_rule = $rule;
-        break;
-      }
-    }
-
-    $rule_id = $matching_rule instanceof WebtoolsAnalyticsRuleInterface ? $matching_rule->id() : NULL;
-    $cache->data = ['rule' => $rule_id] + ($cache->data ?? []);
+    $expire = Cache::PERMANENT;
 
     // We return results based on rule entities. This means that if a rule is
     // added or deleted, or if any of the existing rules change, the cached
     // results should be invalidated.
-    $cache->tags = Cache::mergeTags($cache->tags ?? [], $this->getListCacheTags());
+    $tags = $this->getListCacheTags();
 
-    // Add the cache tags of the default site configuration if the rule depends
-    // on the default language of the site.
-    $default_language_cache_tags = $matching_rule instanceof WebtoolsAnalyticsRuleInterface && $matching_rule->matchOnSiteDefaultLanguage() ? $site_configuration->getCacheTags() : [];
-    $cache->tags = Cache::mergeTags($cache->tags, $default_language_cache_tags);
+    if ($rule = $this->findMatchingRule($path)) {
+      $data['rule'] = $rule->id();
+      $data['section'] = $rule->getSection();
 
-    $this->cache->set($path, $cache->data, Cache::PERMANENT, $cache->tags);
+      // Add the cache tags of the default site configuration if the rule depends
+      // on the default language of the site.
+      if ($rule->matchOnSiteDefaultLanguage()) {
+        $tags = Cache::mergeTags($tags, $this->getSiteConfig()->getCacheTags());
+      }
+    }
 
-    return $matching_rule;
+    $this->cache->set($path, $data, $expire, $tags);
+
+    return (object) ['data' => $data, 'expire' => $expire, 'tags' => $tags];
+  }
+
+  /**
+   * Loops over the available rules and returns the first matching rule.
+   *
+   * @param string $path
+   *   The path to match.
+   *
+   * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface|null
+   *   The first matching rule, or NULL if none of the available rules match the
+   *   given path.
+   */
+  protected function findMatchingRule(string $path): ?WebtoolsAnalyticsRuleInterface {
+    $site_configuration = $this->getSiteConfig();
+    $default_language = $site_configuration->get('default_langcode');
+    $default_language_alias_path = $this->aliasManager->getAliasByPath($this->currentPath->getPath(), $default_language);
+
+    foreach ($this->loadRules() as $rule) {
+      if (preg_match($rule->getRegex(), $rule->matchOnSiteDefaultLanguage() ? $default_language_alias_path : $path) === 1) {
+        return $rule;
+      }
+    }
+
+    return NULL;
+  }
+
+  /**
+   * Returns the default site configuration.
+   *
+   * @return \Drupal\Core\Config\ImmutableConfig
+   *   The configuration object for the default site configuration.
+   */
+  protected function getSiteConfig() {
+    return $this->config->get('system.site');
   }
 
   /**
