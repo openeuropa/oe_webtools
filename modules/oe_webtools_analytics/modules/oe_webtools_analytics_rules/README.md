@@ -78,9 +78,9 @@ Known issues and limitations
 
   Ref.
   [OPENEUROPA-1637](https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1637)
-* There currently is no support for multilingual content based on system paths.
-  This means that paths such as `/node/*`, `/user` or `/admin/config/*` that
-  have aliases in other languages will not be resolved.
+* There currently is no support for creating rules based on system paths. This
+  means that paths such as `/node/*`, `/user` or `/admin/config/*` that have an
+  alias in the default language will not receive the correct section.
 
   Ref.
   [OPENEUROPA-1636](https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1636)
