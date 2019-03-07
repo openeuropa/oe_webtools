@@ -108,7 +108,7 @@ class RuleMatcher implements RuleMatcherInterface {
   /**
    * Returns cached analytics rule data for the given path.
    *
-   * @param string|NULL $path
+   * @param string|null $path
    *   Optional path for which to return data. If omitted the current path will
    *   be used.
    *
@@ -158,8 +158,8 @@ class RuleMatcher implements RuleMatcherInterface {
       $data['rule'] = $rule->id();
       $data['section'] = $rule->getSection();
 
-      // Add the cache tags of the default site configuration if the rule depends
-      // on the default language of the site.
+      // Add the cache tags of the default site configuration if the rule
+      // depends on the default language of the site.
       if ($rule->matchOnSiteDefaultLanguage()) {
         $tags = Cache::mergeTags($tags, $this->getSiteConfig()->getCacheTags());
       }
