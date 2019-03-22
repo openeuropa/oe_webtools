@@ -5,10 +5,12 @@ workspace:
 services:
   web:
     image: fpfis/httpd-php-dev:7.1
+    pull: true
     environment:
       - DOCUMENT_ROOT=/test/oe_webtools
   mysql:
     image: percona/percona-server:5.6
+    pull: true
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
