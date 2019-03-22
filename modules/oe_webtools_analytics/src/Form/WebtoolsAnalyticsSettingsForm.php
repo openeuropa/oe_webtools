@@ -40,11 +40,22 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
       '#default_value' => $this->config(static::CONFIG_NAME)->get('sitePath'),
       '#description' => $this->t('The domain + root path without protocol.'),
     ];
+
+    $instance_options = [
+      'ec.europa.eu' => $this->t('ec.europa.eu - for European Commission websites'),
+      'europa.eu' => $this->t('europa.eu - for inter-institutional websites'),
+      'testing' => $this->t('testing - for testing purposes'),
+    ];
+
+    $instance_value = $this->config(static::CONFIG_NAME)->get('instance');
+
     $form['instance'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Instance'),
-      '#default_value' => $this->config(static::CONFIG_NAME)->get('instance'),
-      '#description' => $this->t('The server instance. e.g. testing, ec.europa.eu or europa.eu.'),
+      '#type' => 'radios',
+      '#title' => $this->t('Europa Analytics server instance'),
+      '#options' => $instance_options,
+      // Default to ec.europa.eu if no value is configured.
+      '#default_value' => $instance_value ?: 'ec.europa.eu',
+      '#description' => $this->t('The Europa Analytics server to report analytics data to.'),
     ];
 
     return parent::buildForm($form, $form_state);
