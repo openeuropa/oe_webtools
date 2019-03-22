@@ -2,11 +2,6 @@ workspace:
   base: /test
   path: oe_webtools
 
-clone:
-  git:
-    image: plugins/git:next
-    pull: true
-
 services:
   web:
     image: fpfis/httpd-php-dev:7.1
@@ -22,7 +17,7 @@ services:
 pipeline:
   composer-install-lowest:
     group: prepare
-    image: fpfis/httpd-php-dev:7.1  
+    image: fpfis/httpd-php-dev:7.1
     commands:
       # @todo remove "composer install" step once the following issue is fixed.
       # @link https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1234
