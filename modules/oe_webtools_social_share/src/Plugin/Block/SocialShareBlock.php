@@ -15,7 +15,7 @@ use Drupal\Core\Block\BlockBase;
  *   category = @Translation("Webtools"),
  * )
  */
-class SocialShare extends BlockBase {
+class SocialShareBlock extends BlockBase {
 
   /**
    * {@inheritdoc}

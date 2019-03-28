@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Webtools Social Share module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_page_attachments().
+ */
+function oe_webtools_social_share_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+}
