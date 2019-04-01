@@ -34,12 +34,15 @@ class SocialShareBlock extends BlockBase {
       ],
       'stats' => TRUE,
     ];
+    $libraries = ['oe_webtools/drupal.webtools-smartloader'];
     return [
       'script' => [
         '#type' => 'html_tag',
         '#tag' => 'script',
         '#value' => json_encode($social_share_json),
         '#attributes' => ['type' => 'application/json'],
+        '#attached' => ['library' => $libraries],
+
       ],
     ];
   }
