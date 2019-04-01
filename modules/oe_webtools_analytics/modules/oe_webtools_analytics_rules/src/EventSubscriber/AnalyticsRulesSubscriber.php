@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_analytics_rules\EventSubscriber;
 
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
@@ -82,20 +81,7 @@ class AnalyticsRulesSubscriber implements EventSubscriberInterface {
    *   The entity type definition.
    */
   protected function getWebtoolsAnalyticsRuleDefinition(): EntityTypeInterface {
-    try {
-      $definition = $this->entityTypeManager->getDefinition('webtools_analytics_rule');
-    }
-    catch (PluginNotFoundException $e) {
-      // The entity type manager in core will throw a checked exception if an
-      // entity type is not defined. This is intended to deal with situations
-      // like the module that defines the entity type not being enabled. In our
-      // case we are sure that the entity type exists since we define it in our
-      // own module. We can convert this to an unchecked exception so this
-      // doesn't need to be checked again higher in the call stack.
-      throw new \RuntimeException('The webtools_analytics_rule entity type does not exist.', 0, $e);
-    }
-
-    return $definition;
+    return $this->entityTypeManager->getDefinition('webtools_analytics_rule');
   }
 
   /**

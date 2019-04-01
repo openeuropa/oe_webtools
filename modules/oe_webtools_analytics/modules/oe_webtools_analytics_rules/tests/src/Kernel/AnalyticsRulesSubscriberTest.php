@@ -25,13 +25,13 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
     ],
     '/taxonomy/term/344' => [
       'en' => '/news/antarctica',
-      'es' => '/es/nuevas/antartida',
+      'es' => '/nuevas/antartida',
     ],
     // The alias in the English language has been omitted so we can test that
     // the rules still work if aliases can be auto-generated using modules like
     // Pathauto.
     '/articles_page' => [
-      'es' => '/es/articulos',
+      'es' => '/articulos',
     ],
   ];
 
@@ -61,11 +61,11 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   protected $eventSubscriber;
 
   /**
-   * The entity type manager.
+   * The path alias manager used for testing.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Tests\oe_webtools_analytics_rules\Kernel\MockAliasManager
    */
-  protected $entityTypeManager;
+  protected $aliasManager;
 
   /**
    * The class representing the current path used in the test.
@@ -75,18 +75,25 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   protected $currentPathStack;
 
   /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The inbound path processor.
+   *
+   * @var \Drupal\Core\PathProcessor\InboundPathProcessorInterface
+   */
+  protected $pathProcessor;
+
+  /**
    * The request stack.
    *
    * @var \Symfony\Component\HttpFoundation\RequestStack
    */
   protected $requestStack;
-
-  /**
-   * The path alias manager used for testing.
-   *
-   * @var \Drupal\Tests\oe_webtools_analytics_rules\Kernel\MockAliasManager
-   */
-  protected $aliasManager;
 
   /**
    * The entity type definition of the Webtools Analytics Rule entity.
@@ -108,14 +115,16 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   protected function setUp(): void {
     parent::setUp();
 
+    $this->installConfig(['system']);
+
     // Use the mock alias manager in the container.
     $this->aliasManager = new MockAliasManager();
     $this->container->set('path.alias_manager', $this->aliasManager);
 
-    $this->initializeEvent();
     $this->eventSubscriber = $this->container->get('oe_webtools_analytics_rules.event_subscriber');
     $this->entityTypeManager = $this->container->get('entity_type.manager');
     $this->currentPathStack = $this->container->get('path.current');
+    $this->pathProcessor = $this->container->get('path_processor_manager');
     $this->requestStack = $this->container->get('request_stack');
     $this->ruleEntityType = $this->entityTypeManager->getDefinition('webtools_analytics_rule');
     $this->ruleEntityStorage = $this->entityTypeManager->getStorage('webtools_analytics_rule');
@@ -151,7 +160,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
       // Check that the expected sections are returned for the given test paths.
       foreach ($expected_sections as $path => $expected_section) {
         // Start with a clean event for each test case.
-        $this->initializeEvent();
+        $this->event = new AnalyticsEvent();
 
         // Set the current path to the one being tested.
         $this->setCurrentPath($path);
@@ -198,9 +207,9 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
             '/nuevas' => '',
             '/taxonomy/term/344' => '',
             '/news/antarctica' => '',
-            '/es/nuevas/antartida' => '',
+            '/nuevas/antartida' => '',
             '/articles_page' => '',
-            '/es/articulos' => '',
+            '/articulos' => '',
           ],
           'es' => [
             '/' => '',
@@ -215,9 +224,9 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
             '/nuevas' => '',
             '/taxonomy/term/344' => '',
             '/news/antarctica' => '',
-            '/es/nuevas/antartida' => '',
+            '/nuevas/antartida' => '',
             '/articles_page' => '',
-            '/es/articulos' => '',
+            '/articulos' => '',
           ],
         ],
       ],
@@ -328,6 +337,13 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
             'regex' => '|^/articles_page/?$|',
             'match_on_site_default_language' => FALSE,
           ],
+          // The articles overview matching the current path with a regex that
+          // looks for the system path, with a match on the default language.
+          '7_articles_overview_default_language_alias' => [
+            'section' => 'overview of articles (default language alias)',
+            'regex' => '|^/articles_page/?$|',
+            'match_on_site_default_language' => TRUE,
+          ],
         ],
         [
           'en' => [
@@ -343,16 +359,6 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
             '/taxonomy/term/344' => 'overview of antarctican news (current path)',
             '/news/antarctica' => 'overview of antarctican news (default language alias)',
             '/es/nuevas/antartida' => 'overview of antarctican news (default language alias)',
-            // This currently matches on the system path instead of on the
-            // default language alias since there is no alias defined in English
-            // (which is the default language).
-            // @todo Update this one OPENEUROPA-1637 is fixed.
-            //   Once this is fixed this is expected to match on the default
-            //   language alias since this rule has a higher priority than the
-            //   system path rule. This will require a dependency on the
-            //   Pathauto module.
-            // @see https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1637
-            '/articles_page' => 'overview of articles (current path)',
             // This is expected to match on the overview of articles in the
             // default language alias but this is currently not working because
             // the alias in English doesn't exist.
@@ -373,7 +379,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
             '/taxonomy/term/344' => 'overview of antarctican news (current path)',
             '/news/antarctica' => 'overview of antarctican news (default language alias)',
             '/es/nuevas/antartida' => 'overview of antarctican news (default language alias)',
-            // This doesn't match on the system path but on the default language
+            // This matches on the system path and not on the default language
             // alias since this rule has a higher priority.
             '/articles_page' => 'overview of articles (current path)',
             // There is no rule to define the default language alias when the
@@ -424,20 +430,15 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   }
 
   /**
-   * Initializes a new analytics event to use in the test.
-   */
-  protected function initializeEvent(): void {
-    $this->event = new AnalyticsEvent();
-  }
-
-  /**
    * Sets the current path on the request.
    *
    * @param string $path
    *   The path to set.
    */
   protected function setCurrentPath(string $path): void {
-    $this->requestStack->push(Request::create($path));
+    $request = Request::create($path);
+    $this->pathProcessor->processInbound($path, $request);
+    $this->requestStack->push($request);
     $this->currentPathStack->setPath($path);
   }
 
