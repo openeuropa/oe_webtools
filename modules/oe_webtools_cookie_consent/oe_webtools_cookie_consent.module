@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Webtools cookie consent module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\media\IFrameMarkup;
+
+/**
+ * Implements template_preprocess_media_oembed_iframe().
+ *
+ * Because the oEmbed format comes with the actual HTML iframe,
+ * we have to change its "src" attribute value
+ * with the URL of the Cookie Consent service, passing the original URL to it.
+ */
+function oe_webtools_cookie_consent_preprocess_media_oembed_iframe(array &$variables): void {
+  if ($variables['media'] instanceof IFrameMarkup) {
+    preg_match('/<iframe.*src=["\']+([^"\']*)["\']+[^<>]*><\/iframe>/', $variables['media']->__toString(), $matches);
+    if (!empty($matches[1])) {
+      $new_iframe = str_replace($matches[1], '//ec.europa.eu/cookie-consent/iframe?oriurl=' . $matches[1] . '&lang=' . \Drupal::languageManager()->getCurrentLanguage()->getId(), $variables['media']);
+      $variables['media'] = IFrameMarkup::create($new_iframe);
+    }
+  }
+}

@@ -10,6 +10,7 @@ default:
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
         - OpenEuropa\Behat\TransformationContext:
             pages:
@@ -20,6 +21,7 @@ default:
   extensions:
     Drupal\MinkExtension:
       goutte: ~
+      ajax_timeout: 10
       browser_name: 'chrome'
       javascript_session: 'selenium2'
       selenium2:
