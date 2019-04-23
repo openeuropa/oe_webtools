@@ -22,7 +22,7 @@
         "openeuropa/code-review": "~1.0@beta",
         "openeuropa/drupal-core-require-dev": "^8.6",
         "openeuropa/oe_media": "~0.1",
-        "openeuropa/task-runner": "~1.0@beta",
+        "openeuropa/task-runner": "~1.0.0-beta5",
         "phpunit/phpunit": "~6.0",
         "symfony/dom-crawler": "~3.0"
     },
