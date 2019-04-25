@@ -15,25 +15,25 @@ Feature: Webtools Analytics multilingual aliases
       | nl        |
     And aliases available for the path "/admin/config":
       | languages | url        |
-      | en        | /news       |
-      | fr        | /nouvelles  |
-      | nl        | /nieuws     |
+      | en        | /news      |
+      | fr        | /nouvelles |
+      | nl        | /nieuws    |
 
     And I am on "admin/structure/webtools_analytics_rule/add"
-    And I fill in "Machine-readable name" with "multilingual"
-    And I fill in "Section" with "multilingual"
-    And I check the box "Match on path alias for site default language."
-    And I fill in "Regex" with "/news/"
+    And I fill in "Machine-readable name" with "news_overview"
+    And I fill in "Section" with "news_overview"
+    And I check the box "Match translated pages on the path alias for the default language."
+    And I fill in "Regular expression" with "|^/news/?$|"
     Then I press "Save"
     # Check the rule applies
     When I am on "/admin/config"
-    Then the page analytics json should contain the parameter "siteSection" with the value "multilingual"
+    Then the page analytics json should contain the parameter "siteSection" with the value "news_overview"
     When I am on "/news"
-    Then the page analytics json should contain the parameter "siteSection" with the value "multilingual"
+    Then the page analytics json should contain the parameter "siteSection" with the value "news_overview"
     When I am on "/fr/nouvelles"
-    Then the page analytics json should contain the parameter "siteSection" with the value "multilingual"
+    Then the page analytics json should contain the parameter "siteSection" with the value "news_overview"
     When I am on "/nl/nieuws"
-    Then the page analytics json should contain the parameter "siteSection" with the value "multilingual"
+    Then the page analytics json should contain the parameter "siteSection" with the value "news_overview"
     When I am on "/admin"
     Then the page analytics json should not contain the parameter "siteSection"
 
@@ -46,25 +46,25 @@ Feature: Webtools Analytics multilingual aliases
       | en        |
       | fr        |
     And aliases available for the path "/admin/config":
-      | languages | url         |
-      | en        | /news       |
-      | fr        | /nouvelles  |
+      | languages | url        |
+      | en        | /news      |
+      | fr        | /nouvelles |
 
     And I am on "admin/structure/webtools_analytics_rule/add"
-    And I fill in "Machine-readable name" with "alias1"
-    And I fill in "Section" with "alias1"
-    And I fill in "Regex" with "/news/"
+    And I fill in "Section" with "news_overview_english"
+    And I fill in "Machine-readable name" with "news_overview_english"
+    And I fill in "Regular expression" with "|^/news/?$|"
     Then I press "Save"
     When I am on "/admin/config"
     Then the page analytics json should not contain the parameter "siteSection"
     When I am on "/news"
-    Then the page analytics json should contain the parameter "siteSection" with the value "alias1"
+    Then the page analytics json should contain the parameter "siteSection" with the value "news_overview_english"
 
     When I am on "admin/structure/webtools_analytics_rule/add"
-    And I fill in "Machine-readable name" with "alias2"
-    And I fill in "Section" with "alias2"
-    And I fill in "Regex" with "/nouvelles/"
+    And I fill in "Section" with "news_overview_french"
+    And I fill in "Machine-readable name" with "news_overview_french"
+    And I fill in "Regular expression" with "|^/fr/nouvelles/?$|"
     Then I press "Save"
     When I am on "fr/nouvelles"
-    Then the page analytics json should contain the parameter "siteSection" with the value "alias2"
+    Then the page analytics json should contain the parameter "siteSection" with the value "news_overview_french"
 

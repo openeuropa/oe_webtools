@@ -5,13 +5,14 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_analytics;
 
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
-use JsonSerializable;
 use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
+use JsonSerializable;
 
 /**
  * Provides an interface for AnalyticsEvent accordingly to the documentation.
  */
 interface AnalyticsEventInterface extends JsonSerializable, RefinableCacheableDependencyInterface {
+
   /**
    * The Webtools analytics entrance in settings.php.
    */

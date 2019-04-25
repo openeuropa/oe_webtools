@@ -60,7 +60,13 @@ composer install
 * Customize build settings by copying `runner.yml.dist` to `runner.yml` and
 changing relevant values, like your database credentials.
 
-* Install test site by running:
+* Generate configuration files:
+
+```bash
+./vendor/bin/run drupal:site-setup
+```
+
+* Install the site:
 
 ```bash
 ./vendor/bin/run drupal:site-install
