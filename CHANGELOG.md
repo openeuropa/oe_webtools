@@ -1,10 +1,44 @@
 # Change Log
 
+## [0.4.0](https://github.com/openeuropa/oe_webtools/tree/0.4.0) (2019-04-25)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.3.0...0.4.0)
+
+**Fixed bugs:**
+
+- Add oe\_webtools dependency to oe\_webtools\_social\_share [\#47](https://github.com/openeuropa/oe_webtools/issues/47)
+
+**Closed issues:**
+
+- Functional test of oe\_webtools\_analytics\_rules is not checked. [\#28](https://github.com/openeuropa/oe_webtools/issues/28)
+
+**Merged pull requests:**
+
+- Issue \#47: Add oe\_webtools dependency to oe\_webtools\_social\_share. [\#48](https://github.com/openeuropa/oe_webtools/pull/48) ([vever001](https://github.com/vever001))
+- OPENEUROPA-1747: Add social sharing block. [\#46](https://github.com/openeuropa/oe_webtools/pull/46) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- Clean composer. [\#45](https://github.com/openeuropa/oe_webtools/pull/45) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-1590: Add OE Webtools cookie consent kit. [\#39](https://github.com/openeuropa/oe_webtools/pull/39) ([sergepavle](https://github.com/sergepavle))
+- Fix file permissions [\#37](https://github.com/openeuropa/oe_webtools/pull/37) ([pfrenssen](https://github.com/pfrenssen))
+- OPENEUROPA-1609: Add ajax\_timeout setting for behat. [\#36](https://github.com/openeuropa/oe_webtools/pull/36) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-1609 Fix behat.yml.dist to use drupal-extension properly. [\#35](https://github.com/openeuropa/oe_webtools/pull/35) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-1292: OE Webtools Analytics refactoring [\#34](https://github.com/openeuropa/oe_webtools/pull/34) ([pfrenssen](https://github.com/pfrenssen))
+- OPENEUROPA-627: Move LACO permissions file to sub module. [\#33](https://github.com/openeuropa/oe_webtools/pull/33) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-1549: Using drupal/core. [\#32](https://github.com/openeuropa/oe_webtools/pull/32) ([upchuk](https://github.com/upchuk))
+- OPENEUROPA-1533: Add --strict flag for Behat tests executions. [\#31](https://github.com/openeuropa/oe_webtools/pull/31) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1538: Adjust Behat tests for OE Webtools Analytics rules. [\#30](https://github.com/openeuropa/oe_webtools/pull/30) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1522: Make sure we don't use Drupal paths in Behat scenarios. [\#29](https://github.com/openeuropa/oe_webtools/pull/29) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1414: Add support for multilingual aliases on Webtools Analytics rules. [\#27](https://github.com/openeuropa/oe_webtools/pull/27) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1516: Add cache metadata to analytics event. [\#26](https://github.com/openeuropa/oe_webtools/pull/26) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1500: Create configuration UI for Webtools Analytics module [\#24](https://github.com/openeuropa/oe_webtools/pull/24) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-1499: Add admin page for LACO Widget configurations. [\#23](https://github.com/openeuropa/oe_webtools/pull/23) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-1502: Add cache to Webtools Analytics rules. [\#22](https://github.com/openeuropa/oe_webtools/pull/22) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1465: Add instance parameter to webtools analytics [\#20](https://github.com/openeuropa/oe_webtools/pull/20) ([imanoleguskiza](https://github.com/imanoleguskiza))
+
 ## [0.3.0](https://github.com/openeuropa/oe_webtools/tree/0.3.0) (2018-12-03)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.2.0...0.3.0)
 
 **Merged pull requests:**
 
+- Update CHANGELOG.md for 0.3.0 release. [\#19](https://github.com/openeuropa/oe_webtools/pull/19) ([ademarco](https://github.com/ademarco))
 - OPENEUROPA-1322: Use the proper Docker way of overriding docker-composer.yml file. [\#18](https://github.com/openeuropa/oe_webtools/pull/18) ([drupol](https://github.com/drupol))
 - OPENEUROPA-665: Add section rules to Webtool Analytics. [\#17](https://github.com/openeuropa/oe_webtools/pull/17) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - OPENEUROPA-1307: Add Readme for analytics module. [\#16](https://github.com/openeuropa/oe_webtools/pull/16) ([imanoleguskiza](https://github.com/imanoleguskiza))
