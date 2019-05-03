@@ -30,7 +30,7 @@ providing details in your sites settings.php file:
 
 ```
 $config['oe_webtools_analytics.settings']['siteID'] = '123';
-$config['oe_webtools_analytics.settings']['sitePath'] = '/build';
+$config['oe_webtools_analytics.settings']['sitePath'] = 'ec.europa.eu/build';
 $config['oe_webtools_analytics.settings']['instance'] = 'ec.europa.eu';
 
 ```
