@@ -1,10 +1,19 @@
 # Change Log
 
-## [0.4.1](https://github.com/openeuropa/oe_webtools/tree/0.4.1) (2019-05-06)
+## [0.5.0](https://github.com/openeuropa/oe_webtools/tree/0.5.0) (2019-05-07)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.1...0.5.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-1813: Upgrade to 8.7. [\#52](https://github.com/openeuropa/oe_webtools/pull/52) ([upchuk](https://github.com/upchuk))
+
+## [0.4.1](https://github.com/openeuropa/oe_webtools/tree/0.4.1) (2019-05-07)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.0...0.4.1)
 
 **Merged pull requests:**
 
+- OPENEUROPA-1813: Fix behat test upgrading oe\_media. [\#54](https://github.com/openeuropa/oe_webtools/pull/54) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-1813: Create release 0.4.1. [\#53](https://github.com/openeuropa/oe_webtools/pull/53) ([voidtek](https://github.com/voidtek))
 - Added instance to README. [\#51](https://github.com/openeuropa/oe_webtools/pull/51) ([richardcanoe](https://github.com/richardcanoe))
 - OPENEUROPA-1874: Fixing tests. [\#50](https://github.com/openeuropa/oe_webtools/pull/50) ([upchuk](https://github.com/upchuk))
 
@@ -37,6 +46,7 @@
 - OPENEUROPA-1522: Make sure we don't use Drupal paths in Behat scenarios. [\#29](https://github.com/openeuropa/oe_webtools/pull/29) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1414: Add support for multilingual aliases on Webtools Analytics rules. [\#27](https://github.com/openeuropa/oe_webtools/pull/27) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1516: Add cache metadata to analytics event. [\#26](https://github.com/openeuropa/oe_webtools/pull/26) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1500: Create configuration UI for Webtools Analytics module [\#24](https://github.com/openeuropa/oe_webtools/pull/24) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-1499: Add admin page for LACO Widget configurations. [\#23](https://github.com/openeuropa/oe_webtools/pull/23) ([dxvargas](https://github.com/dxvargas))
 - OPENEUROPA-1502: Add cache to Webtools Analytics rules. [\#22](https://github.com/openeuropa/oe_webtools/pull/22) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1465: Add instance parameter to webtools analytics [\#20](https://github.com/openeuropa/oe_webtools/pull/20) ([imanoleguskiza](https://github.com/imanoleguskiza))
