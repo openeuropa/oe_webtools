@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.0.0](https://github.com/openeuropa/oe_webtools/tree/1.0.0) (2019-05-15)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.5.0...1.0.0)
+
+**Closed issues:**
+
+- Release 1.0.0 [\#56](https://github.com/openeuropa/oe_webtools/issues/56)
+
 ## [0.5.0](https://github.com/openeuropa/oe_webtools/tree/0.5.0) (2019-05-07)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.1...0.5.0)
 
 **Merged pull requests:**
 
+- OPENEUROPA-1813: Create release 0.5.0. [\#55](https://github.com/openeuropa/oe_webtools/pull/55) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1813: Upgrade to 8.7. [\#52](https://github.com/openeuropa/oe_webtools/pull/52) ([upchuk](https://github.com/upchuk))
 
 ## [0.4.1](https://github.com/openeuropa/oe_webtools/tree/0.4.1) (2019-05-07)
