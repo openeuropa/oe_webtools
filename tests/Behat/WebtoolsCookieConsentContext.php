@@ -16,6 +16,26 @@ use Drupal\media\Entity\Media;
 class WebtoolsCookieConsentContext extends RawDrupalContext {
 
   /**
+   * The config context.
+   *
+   * @var \Drupal\DrupalExtension\Context\ConfigContext
+   */
+  protected $configContext;
+
+  /**
+   * Gathers some other contexts.
+   *
+   * @param \Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
+   *   The before scenario scope.
+   *
+   * @BeforeScenario
+   */
+  public function gatherContexts(BeforeScenarioScope $scope) {
+    $environment = $scope->getEnvironment();
+    $this->configContext = $environment->getContext('Drupal\DrupalExtension\Context\ConfigContext');
+  }
+
+  /**
    * Enables the Media module.
    *
    * @param \Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
@@ -25,6 +45,9 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    */
   public function enableModule(BeforeScenarioScope $scope): void {
     \Drupal::service('module_installer')->install(['oe_media']);
+
+    $this->configContext->setConfig('media.settings', 'standalone_url', TRUE);
+    \Drupal::service('router.builder')->rebuild();
   }
 
   /**
