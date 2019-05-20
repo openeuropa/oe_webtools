@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Contains installation hooks.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Set default weight for 'webtools_analytics_rule' config entities.
+ */
+function oe_webtools_analytics_rules_update_8001(): void {
+  $configs = \Drupal::entityTypeManager()->getStorage('webtools_analytics_rule')->loadMultiple();
+  foreach ($configs as $config) {
+    $config->set('weight', -9);
+    $config->save();
+  }
+}
