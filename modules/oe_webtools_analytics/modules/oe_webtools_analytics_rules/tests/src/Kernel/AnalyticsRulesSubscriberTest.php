@@ -272,77 +272,78 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
       ],
       // Test a combination of rules that match on the default language and the
       // current language, with two different default languages.
-      // Note that the rule IDs are prefixed with numbers. This is because they
-      // are currently executed in alphabetical order. They should instead be
-      // ordered by a user defined priority.
-      // @todo Replace the number prefixes with priorities once OPENEUROPA-1633
-      //   is fixed.
-      // @see https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1633
+      // Note that the rule IDs are ordered by a user defined priority
+      // based on weight.
       [
         [
           // The rule to match the news overview on the default language alias
           // when the default language is set to English.
-          '0_news_overview_default_language_alias_english' => [
+          'news_overview_default_language_alias_english' => [
             'section' => 'news overview (default language alias)',
             'regex' => '|^/news/?$|',
             'match_on_site_default_language' => TRUE,
+            'weight' => 0,
           ],
           // The rule to match the news overview on the default language alias
           // when the default language is set to Spanish.
-          '1_news_overview_default_language_alias_spanish' => [
+          'news_overview_default_language_alias_spanish' => [
             'section' => 'news overview (default language alias)',
             'regex' => '|^/nuevas/?$|',
             'match_on_site_default_language' => TRUE,
+            'weight' => 1,
           ],
           // A rule that checks if the current path matches a regular expression
           // for the system path of the Antarctican news overview page. Since
           // this appears earlier in the database than the following rule this
           // will take precedence over it.
-          // @todo The order of rules should be handled with a configurable
-          //   priority.
-          // @see https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1633
-          '2_antarctican_news_overview_current_path' => [
+          'antarctican_news_overview_current_path' => [
             'section' => 'overview of antarctican news (current path)',
             'regex' => '|^/taxonomy/term/344/?$|',
             'match_on_site_default_language' => FALSE,
+            'weight' => 2,
           ],
           // The Antarctican news overview page set up to match the default
           // language alias in English.
-          '3_antarctican_news_overview_default_language_alias_english' => [
+          'antarctican_news_overview_default_language_alias_english' => [
             'section' => 'overview of antarctican news (default language alias)',
             'regex' => '|^/news/antarctica/?$|',
             'match_on_site_default_language' => TRUE,
+            'weight' => 3,
           ],
           // The Antarctican news overview page set up to match the default
           // language alias in Spanish.
-          '4_antarctican_news_overview_default_language_alias_spanish' => [
+          'antarctican_news_overview_default_language_alias_spanish' => [
             'section' => 'overview of antarctican news (default language alias)',
             'regex' => '|^/es/nuevas/antartida/?$|',
             'match_on_site_default_language' => TRUE,
+            'weight' => 4,
           ],
           // The articles overview set up to match the default language alias
           // in English. Note that the English alias has not been created. This
           // should still be possible to match if the Pathauto module is
           // enabled and OPENEUROPA-1637 is fixed.
-          '5_articles_overview_default_language_alias_english' => [
+          'articles_overview_default_language_alias_english' => [
             'section' => 'overview of articles (default language alias)',
             'regex' => '|^/articles/?$|',
             'match_on_site_default_language' => TRUE,
+            'weight' => 5,
           ],
           // The articles overview matching the current path with a regex that
           // looks for the system path. This has been defined to have a lower
           // priority than the rules that match the default site aliases.
-          '6_articles_overview_current_path' => [
+          'articles_overview_current_path' => [
             'section' => 'overview of articles (current path)',
             'regex' => '|^/articles_page/?$|',
             'match_on_site_default_language' => FALSE,
+            'weight' => 6,
           ],
           // The articles overview matching the current path with a regex that
           // looks for the system path, with a match on the default language.
-          '7_articles_overview_default_language_alias' => [
+          'articles_overview_default_language_alias' => [
             'section' => 'overview of articles (default language alias)',
             'regex' => '|^/articles_page/?$|',
             'match_on_site_default_language' => TRUE,
+            'weight' => 7,
           ],
         ],
         [
@@ -461,6 +462,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
         'section' => $rule_data['section'],
         'regex' => $rule_data['regex'],
         'match_on_site_default_language' => $rule_data['match_on_site_default_language'],
+        'weight' => $rule_data['weight'] ?? NULL,
       ])->save();
     }
   }
