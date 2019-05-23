@@ -73,7 +73,7 @@ class WebtoolsMapFormatter extends FormatterBase {
 
     if ($element) {
       $element['#attached'] = [
-        'library' => ['oe_webtools_maps/eu.webtools.load'],
+        'library' => ['oe_webtools/drupal.webtools-smartloader'],
       ];
     }
 

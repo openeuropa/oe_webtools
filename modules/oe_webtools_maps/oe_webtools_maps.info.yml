@@ -4,5 +4,7 @@ package: OpenEuropa
 
 type: module
 core: 8.x
+
 dependecies:
-- geofield
+- geofield:geofield
+- oe_webtools:oe_webtools
