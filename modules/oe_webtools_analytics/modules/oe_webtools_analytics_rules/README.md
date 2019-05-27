@@ -9,8 +9,8 @@ Usage
 -----
 
 1. Enable the module.
-1. Create a user role "Analytics engineer" and grant it the 'Administer Webtools
-   analytics rules' permission.
+1. Create a user role "Analytics engineer" and grant it the
+   "Administer Webtools Analytics" permission.
 1. Log in as a user with the "Analytics engineer" role.
 1. Manage rules at Administration > Structure > Webtools Analytics rules.
 
