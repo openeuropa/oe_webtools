@@ -62,4 +62,40 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
     return $maps;
   }
 
+  /**
+   * Checks that map is unavailable on the current page.
+   *
+   * @throws \RuntimeException
+   * If the map is available on the current page.
+   *
+   * @Then I should not see a map on the page
+   */
+  public function mapIsNotAvailable(): void {
+    foreach ($this->getWebtoolsMaps() as $data) {
+      if (empty($data)) {
+        // The map was not found.
+        return;
+      }
+    }
+    throw new RuntimeException("Map is available on the current page.");
+  }
+
+  /**
+   * Checks that map is available on the current page.
+   *
+   * @throws \RuntimeException
+   * If the map is unavailable on the current page.
+   *
+   * @Then I should see a map on the page
+   */
+  public function mapIsAvailable(): void {
+    foreach ($this->getWebtoolsMaps() as $data) {
+      if (!empty($data)) {
+        // The map was found.
+        return;
+      }
+    }
+    throw new RuntimeException("Map is unavailable on the current page.");
+  }
+
 }
