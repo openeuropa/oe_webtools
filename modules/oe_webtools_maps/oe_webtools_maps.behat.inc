@@ -66,7 +66,7 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
    * Checks that map is unavailable on the current page.
    *
    * @throws \RuntimeException
-   * If the map is available on the current page.
+   *   If the map is available on the current page.
    *
    * @Then I should not see a map on the page
    */
@@ -84,7 +84,7 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
    * Checks that map is available on the current page.
    *
    * @throws \RuntimeException
-   * If the map is unavailable on the current page.
+   *   If the map is unavailable on the current page.
    *
    * @Then I should see a map on the page
    */
