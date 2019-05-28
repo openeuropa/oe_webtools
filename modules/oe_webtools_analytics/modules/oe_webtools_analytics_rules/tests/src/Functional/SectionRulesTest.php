@@ -29,7 +29,6 @@ class SectionRulesTest extends BrowserTestBase {
    * Test that sections for different rules are correctly rendered.
    */
   public function testSectionRender(): void {
-
     // Configure the site to use analytics.
     $config = \Drupal::configFactory()
       ->getEditable(AnalyticsEventInterface::CONFIG_NAME)
@@ -37,9 +36,11 @@ class SectionRulesTest extends BrowserTestBase {
       ->set("sitePath", "ec.europa.eu");
     $config->save();
 
+    $analytic_rules_storage = $this->container->get('entity_type.manager')
+      ->getStorage('webtools_analytics_rule');
+
     // Create first rule under the main administration page.
-    $this->container->get('entity_type.manager')
-      ->getStorage('webtools_analytics_rule')
+    $analytic_rules_storage
       ->create([
         'id' => 'id1',
         'section' => 'section1',
@@ -48,8 +49,7 @@ class SectionRulesTest extends BrowserTestBase {
       ->save();
 
     // Create a second rule under the main configuration page.
-    $this->container->get('entity_type.manager')
-      ->getStorage('webtools_analytics_rule')
+    $analytic_rules_storage
       ->create([
         'id' => 'id2',
         'section' => 'section2',
@@ -75,16 +75,14 @@ class SectionRulesTest extends BrowserTestBase {
 
     // Change weight of rules.
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $id2 */
-    $id2 = $this->container->get('entity_type.manager')
-      ->getStorage('webtools_analytics_rule')
+    $id2 = $analytic_rules_storage
       ->load('id1');
 
     $id2->set('weight', -9);
     $id2->save();
 
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $id2 */
-    $id2 = $this->container->get('entity_type.manager')
-      ->getStorage('webtools_analytics_rule')
+    $id2 = $analytic_rules_storage
       ->load('id2');
 
     $id2->set('weight', -10);

@@ -33,11 +33,11 @@ Feature: Webtools Analytics Site Section
     And I press "Delete"
     Then I should be on "the Webtools Analytics rule page"
     And I should not see "examplesection"
-    # Check the rule doesnt apply.
+    # Check the rule doesn't apply.
     When I am on "custompath"
     Then the page analytics json should not contain the parameter "siteSection"
 
-  @cleanup:webtools_analytics_rule @weight
+  @cleanup:webtools_analytics_rule
   Scenario: Make sure that Webtools Analytics Rules applies by priority
     Given I am on "the Webtools Analytics rule creation page"
     And I fill in "Machine-readable name" with "rule1"
@@ -60,7 +60,7 @@ Feature: Webtools Analytics Site Section
     # We still see applying of previous rule.
     When I am on "custompath/subpage"
     Then the page analytics json should contain the parameter "siteSection" with the value "examplesection1"
-    # We are setting higher priority for the new rule.
+    # Re-order the rules to change their priority.
     When I am on "the Webtools Analytics rule page"
     And I select "-9" weight in the "examplesection1" row
     And I select "-10" weight in the "examplesection2" row

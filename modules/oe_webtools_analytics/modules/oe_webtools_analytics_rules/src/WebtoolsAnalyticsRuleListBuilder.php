@@ -39,9 +39,9 @@ class WebtoolsAnalyticsRuleListBuilder extends DraggableListBuilder {
     if (!$entity instanceof WebtoolsAnalyticsRuleInterface) {
       throw new \InvalidArgumentException('Only Webtools Analytics rules can be listed.');
     }
-    $header['section'] = $row['label'] = $entity->getSection();
+    $row['label'] = $entity->getSection();
     $row['regexp'] = [
-      '#markup' => $entity->getRegex(),
+      '#plain_text' => $entity->getRegex(),
     ];
     $row['match_on_site_default_language'] = [
       '#markup' => $entity->matchOnSiteDefaultLanguage() ? $this->t('Yes') : $this->t('No'),
@@ -55,7 +55,8 @@ class WebtoolsAnalyticsRuleListBuilder extends DraggableListBuilder {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildForm($form, $form_state);
-    $form['#prefix'] = '<p>' . t('This page provides a drag-and-drop interface for managing matching priority of <em>webtools analytics rules</em> for each page.') . '</p>';
+    $form['#prefix'] = '<p>' . $this->t('The analytics rules are processed from top to bottom. The order can be re-arranged through drag-and-drop.') . '</p>';
+
     return $form;
   }
 

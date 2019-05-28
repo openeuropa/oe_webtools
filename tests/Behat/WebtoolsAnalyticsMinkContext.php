@@ -72,7 +72,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
    * Change the weight of table row.
    *
    * Attempts to find the weight select box in a table row
-   * containing giving text.This is for administrative pages with ability
+   * containing giving text. This is for administrative pages with ability
    * to change the weight.
    *
    * @param string $weight
@@ -84,7 +84,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
    *
    * @throws \Behat\Mink\Exception\ElementNotFoundException
    */
-  public function assertClickInTableRow($weight, $rowText): void {
+  public function assertClickInTableRow(string $weight, string $rowText): void {
     $page = $this->getSession()->getPage();
     if ($weight_element = $this->getTableRow($page, $rowText)->find('css', 'select.weight')) {
       // Click the link and return.
@@ -109,7 +109,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
    *
    * @see \Drupal\DrupalExtension\Context\DrupalContext::getTableRow
    */
-  public function getTableRow(Element $element, $search): NodeElement {
+  public function getTableRow(Element $element, string $search): NodeElement {
     $rows = $element->findAll('css', 'tr');
     if (empty($rows)) {
       throw new \Exception(sprintf('No rows found on the page %s', $this->getSession()->getCurrentUrl()));

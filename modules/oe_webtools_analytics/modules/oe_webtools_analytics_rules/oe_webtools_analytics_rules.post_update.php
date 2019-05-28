@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains installation hooks.
+ * Post update functions for OpenEuropa Webtools Analytics Rules module.
  */
 
 declare(strict_types = 1);
@@ -10,10 +10,12 @@ declare(strict_types = 1);
 /**
  * Set default weight for 'webtools_analytics_rule' config entities.
  */
-function oe_webtools_analytics_rules_update_8001(): void {
+function oe_webtools_analytics_rules_post_update_rules_default_weight(): void {
   $configs = \Drupal::entityTypeManager()->getStorage('webtools_analytics_rule')->loadMultiple();
   foreach ($configs as $config) {
-    $config->set('weight', -9);
-    $config->save();
+    if ($config->get('weight') === NULL) {
+      $config->set('weight', -10);
+      $config->save();
+    }
   }
 }
