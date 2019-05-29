@@ -61,6 +61,12 @@ pipeline:
     commands:
       - ./vendor/bin/behat --strict
 
+  test-behat-static:
+    group: test
+    image: fpfis/httpd-php-dev:7.1
+    commands:
+      - ./vendor/bin/behat --strict --profile=static
+
 matrix:
   COMPOSER_BOUNDARY:
     - lowest
