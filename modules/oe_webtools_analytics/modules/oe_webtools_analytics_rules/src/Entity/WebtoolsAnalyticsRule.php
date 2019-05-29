@@ -32,7 +32,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "webtools_analytics_rule",
- *   admin_permission = "administer site configuration",
+ *   admin_permission = "administer webtools analytics",
  *   entity_keys = {
  *     "id" = "id"
  *   },

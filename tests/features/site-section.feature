@@ -5,7 +5,7 @@ Feature: Webtools Analytics Site Section
   I need to be able to create rules that allow to pair section names with regular expressions
 
   Background:
-    Given I am logged in as a user with the "administer site configuration" permission
+    Given I am logged in as a user with the "administer webtools analytics" permission
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
 
   Scenario: Create Webtools Analytics Rule
