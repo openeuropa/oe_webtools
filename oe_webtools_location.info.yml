@@ -1,6 +1,0 @@
-name: OpenEuropa Webtools location services
-description: Allows to use Webtools location services in sites built on the OpenEuropa platform.
-package: OpenEuropa
-
-type: module
-core: 8.x
