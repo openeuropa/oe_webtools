@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
+use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions for testing Webtools Maps.
@@ -41,6 +42,34 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
   }
 
   /**
+   * Checks that there are no maps on the current page.
+   *
+   * @Then I should not see a(ny) map(s) on the page
+   */
+  public function assertNoMapPresent(): void {
+    Assert::assertEmpty($this->getWebtoolsMaps());
+  }
+
+  /**
+   * Checks that one or more maps are available on the current page.
+   *
+   * @param string $count
+   *   The number of maps that are expected to be present in the page, or "a"
+   *   if we are checking for the presence of any number of maps on the page.
+   *
+   * @Then /^I should see (a|\d+) map(?:s|) on the page$/
+   */
+  public function assertMapCount($count): void {
+    $maps = $this->getWebtoolsMaps();
+    if (is_int($count)) {
+      Assert::assertCount($count, $maps);
+    }
+    else {
+      Assert::assertNotEmpty($this->getWebtoolsMaps());
+    }
+  }
+
+  /**
    * Returns an array of JSON data representing Webtools maps.
    *
    * @return object[]
@@ -60,42 +89,6 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
     }
 
     return $maps;
-  }
-
-  /**
-   * Checks that map is unavailable on the current page.
-   *
-   * @throws \RuntimeException
-   *   If the map is available on the current page.
-   *
-   * @Then I should not see a map on the page
-   */
-  public function mapIsNotAvailable(): void {
-    foreach ($this->getWebtoolsMaps() as $data) {
-      if (empty($data)) {
-        // The map was not found.
-        return;
-      }
-    }
-    throw new RuntimeException("Map is available on the current page.");
-  }
-
-  /**
-   * Checks that map is available on the current page.
-   *
-   * @throws \RuntimeException
-   *   If the map is unavailable on the current page.
-   *
-   * @Then I should see a map on the page
-   */
-  public function mapIsAvailable(): void {
-    foreach ($this->getWebtoolsMaps() as $data) {
-      if (!empty($data)) {
-        // The map was found.
-        return;
-      }
-    }
-    throw new RuntimeException("Map is unavailable on the current page.");
   }
 
 }
