@@ -9,6 +9,7 @@ drupal:
     password: ""
   post_install:
     - "./vendor/bin/drush en oe_webtools_geocoding -y"
+    - "./vendor/bin/drush en oe_webtools_maps -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:
@@ -18,6 +19,8 @@ drupal:
   site:
     profile: "minimal"
     name: "OpenEuropa Webtools Location"
+static_html:
+  base_url: "http://web:8080/tests/fixtures/static_html"
 
 commands:
   drupal:site-setup:
@@ -25,5 +28,8 @@ commands:
     - { task: "run", command: "drupal:drush-setup" }
     - { task: "run", command: "drupal:settings-setup" }
     - { task: "run", command: "setup:phpunit" }
+    - { task: "run", command: "setup:behat" }
   setup:phpunit:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
+  setup:behat:
+    - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
