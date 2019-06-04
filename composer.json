@@ -23,6 +23,7 @@
         "openeuropa/drupal-core-require-dev": "^8.7",
         "openeuropa/oe_media": "^1.0@beta",
         "openeuropa/task-runner": "~1.0.0-beta5",
+        "openeuropa/webtools-geocoding-provider": "~0.1",
         "phpunit/phpunit": "~6.0",
         "symfony/dom-crawler": "~3.0"
     },
