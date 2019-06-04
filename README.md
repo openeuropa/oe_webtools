@@ -47,6 +47,16 @@ The Webtools module contains a submodule that provides a widget which integrates
 with the Laco service. For more information on how to use and configure this module, 
 check out the module [README](modules/oe_webtools_laco_widget/README.md).
 
+### OpenEuropa Webtools Geocoding
+
+The Webtools module contains a submodule that provides a widget which integrates
+with the Geocoding service.
+
+### OpenEuropa Webtools Maps
+
+The Webtools module contains a submodule that provides a widget which integrates
+with the maps service.
+
 ## Development setup
 
 You can build the test site by running the following steps.
