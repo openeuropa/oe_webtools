@@ -235,6 +235,13 @@ class RuleMatcher implements RuleMatcherInterface {
   protected function loadRules(array $ids = NULL): array {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule[] $rules */
     $rules = $this->getRuleEntityStorage()->loadMultiple($ids);
+
+    if (count($rules) > 1) {
+      uasort($rules, function (WebtoolsAnalyticsRuleInterface $a, WebtoolsAnalyticsRuleInterface $b) {
+        return ($a->get('weight') <=> $b->get('weight'));
+      });
+    }
+
     return $rules;
   }
 

@@ -34,7 +34,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   config_prefix = "webtools_analytics_rule",
  *   admin_permission = "administer webtools analytics",
  *   entity_keys = {
- *     "id" = "id"
+ *     "id" = "id",
+ *     "weight" = "weight"
  *   },
  *   links = {
  *     "canonical" = "/admin/structure/webtools_analytics_rule/{webtools_analytics_rule}",
