@@ -1,0 +1,3 @@
+geocoder_provider.configuration.webtools_geocoding:
+  type: geocoder_provider_configuration
+  label: 'Webtools Geocoding configuration'

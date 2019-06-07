@@ -1,0 +1,9 @@
+name: OpenEuropa Webtools Geocoder
+description: Allows to use the Webtools Geocoder service in sites built on the OpenEuropa platform.
+package: OpenEuropa
+
+type: module
+core: 8.x
+
+dependencies:
+  - geocoder:geocoder

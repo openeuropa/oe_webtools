@@ -15,6 +15,7 @@
         "drupal-composer/drupal-scaffold": "^2.5.2",
         "drupal/config_devel": "~1.2",
         "drupal/drupal-extension": "^4.0",
+        "drupal/geocoder": "^3.0",
         "drush/drush": "~9.0",
         "nikic/php-parser": "^3.1.5",
         "openeuropa/behat-transformation-context" : "~0.1",
@@ -22,6 +23,7 @@
         "openeuropa/drupal-core-require-dev": "^8.7",
         "openeuropa/oe_media": "^1.0@beta",
         "openeuropa/task-runner": "~1.0.0-beta5",
+        "openeuropa/webtools-geocoding-provider": "~0.1",
         "phpunit/phpunit": "~6.0",
         "symfony/dom-crawler": "~3.0"
     },
