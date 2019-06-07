@@ -53,20 +53,12 @@ pipeline:
     group: test
     image: fpfis/httpd-php-ci:7.1
     commands:
-      # Reset permission since installation runs as root. @todo Fix this.
-      - chown -R 500:500 *
-      - chmod -R 777 build/sites
-      - su - www-data -s /bin/sh -c "cd /test/oe_webtools && ./vendor/bin/phpunit"
+      - ./vendor/bin/phpunit
 
   test-behat:
     group: test
     image: fpfis/httpd-php-ci:7.1
     commands:
-      # Reset permission since installation runs as root. @todo Fix this on drone.
-      - chmod -R 777 build
-      - ./vendor/bin/drush -y config-set system.performance css.preprocess 0
-      - ./vendor/bin/drush -y config-set system.performance js.preprocess 0
-      # Run behat tests.
       - ./vendor/bin/behat --strict
 
 matrix:
