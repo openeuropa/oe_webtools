@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\DrupalExtension\Context\DrupalSubContextBase;
+use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions for testing Webtools Maps.
@@ -38,6 +39,34 @@ class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
       }
     }
     throw new \RuntimeException("Map with coordinates $latitude, $longitude was not found in the page.");
+  }
+
+  /**
+   * Checks that there are no maps on the current page.
+   *
+   * @Then I should not see a(ny) map(s) on the page
+   */
+  public function assertNoMapPresent(): void {
+    Assert::assertEmpty($this->getWebtoolsMaps());
+  }
+
+  /**
+   * Checks that one or more maps are available on the current page.
+   *
+   * @param string $count
+   *   The number of maps that are expected to be present in the page, or "a"
+   *   if we are checking for the presence of any number of maps on the page.
+   *
+   * @Then /^I should see (a|\d+) map(?:s|) on the page$/
+   */
+  public function assertMapCount($count): void {
+    $maps = $this->getWebtoolsMaps();
+    if (is_int($count)) {
+      Assert::assertCount($count, $maps);
+    }
+    else {
+      Assert::assertNotEmpty($this->getWebtoolsMaps());
+    }
   }
 
   /**
