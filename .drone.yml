@@ -42,3 +42,9 @@ pipeline:
     image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/phpunit
+
+  behat-static:
+    group: test
+    image: fpfis/httpd-php-dev:7.1
+    commands:
+      - ./vendor/bin/behat --strict --profile=static
