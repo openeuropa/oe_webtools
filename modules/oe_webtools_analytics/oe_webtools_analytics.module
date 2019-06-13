@@ -44,4 +44,3 @@ function oe_webtools_analytics_page_attachments(array &$attachments): void {
   ];
   $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
 }
-}
