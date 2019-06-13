@@ -8,7 +8,6 @@ default:
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
