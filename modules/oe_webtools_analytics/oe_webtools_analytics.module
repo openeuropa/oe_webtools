@@ -42,4 +42,5 @@ function oe_webtools_analytics_page_attachments(array &$attachments): void {
     // A key, to make it possible to recognize this when altering.
     'oe_webtools_analytics',
   ];
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
 }
