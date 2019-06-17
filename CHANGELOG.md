@@ -1,11 +1,34 @@
 # Change Log
 
+## [1.1.0](https://github.com/openeuropa/oe_webtools/tree/1.1.0) (2019-06-17)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.0.0...1.1.0)
+
+**Implemented enhancements:**
+
+- OPENEUROPA-1633: Provide priorities for analytics rules [\#38](https://github.com/openeuropa/oe_webtools/issues/38)
+
+**Merged pull requests:**
+
+- Add smartloader to analytics. [\#71](https://github.com/openeuropa/oe_webtools/pull/71) ([sandervd](https://github.com/sandervd))
+- OPENEUROPA-1835: Add latest webtools location updates. [\#70](https://github.com/openeuropa/oe_webtools/pull/70) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1897: Remove permission related steps from drone. [\#65](https://github.com/openeuropa/oe_webtools/pull/65) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-1835: Merge oe\_webtools\_location modules after rebase [\#64](https://github.com/openeuropa/oe_webtools/pull/64) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-1897: Use ci image. [\#63](https://github.com/openeuropa/oe_webtools/pull/63) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1901: Use permission administer webtools analytics. [\#61](https://github.com/openeuropa/oe_webtools/pull/61) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-1633: \[oe\_webtools\] Provide priorities for analytics rules. [\#60](https://github.com/openeuropa/oe_webtools/pull/60) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1898: Adjust behat tests for allowing use media standalone url only in tests. [\#59](https://github.com/openeuropa/oe_webtools/pull/59) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-1864: Fix dependencies from oe\_media. [\#58](https://github.com/openeuropa/oe_webtools/pull/58) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.0.0](https://github.com/openeuropa/oe_webtools/tree/1.0.0) (2019-05-15)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.5.0...1.0.0)
 
 **Closed issues:**
 
 - Release 1.0.0 [\#56](https://github.com/openeuropa/oe_webtools/issues/56)
+
+**Merged pull requests:**
+
+- Update CHANGELOG.md for release 1.0.0. [\#57](https://github.com/openeuropa/oe_webtools/pull/57) ([richardcanoe](https://github.com/richardcanoe))
 
 ## [0.5.0](https://github.com/openeuropa/oe_webtools/tree/0.5.0) (2019-05-07)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.1...0.5.0)
