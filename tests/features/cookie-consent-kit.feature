@@ -3,6 +3,7 @@ Feature: Cookie consent kit.
   In order to show usage of cookie consent kit on the website
   As a anonymous user
   I want to be able to see the usage of CCK for remote videos.
+  I want to be able to see that the Cookie consent banner Js is loaded.
 
   @remote-video @cleanup:media
   Scenario: Remote videos should use cookie consent kit service.

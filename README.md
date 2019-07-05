@@ -75,6 +75,12 @@ with the maps service.
 
 * [drupal/geocoder 3.x](https://www.drupal.org/project/geocoder)
 
+### OpenEuropa Webtools Cookie Consent
+
+The Webtools module contains a submodule that provides a service for providing
+Cookie Consent Kit. For more information on how to use and configure this module,
+check out the module [README](modules/oe_webtools_cookie_consent/README.md).
+
 ## Development setup
 
 You can build the test site by running the following steps.
