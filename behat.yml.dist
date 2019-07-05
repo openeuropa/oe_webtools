@@ -18,6 +18,7 @@ default:
               Webtools Laco Widget configuration: 'admin/config/regional/oe_webtools_laco_widget'
               Webtools Analytics rule creation: 'admin/structure/webtools_analytics_rule/add'
               Webtools Analytics rule: 'admin/structure/webtools_analytics_rule'
+              Webtools Cookie Consent configuration: '/admin/config/system/oe_webtools_cookie_consent'
       filters:
         tags: "~@static"
   extensions:

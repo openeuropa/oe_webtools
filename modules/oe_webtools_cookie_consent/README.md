@@ -1,7 +1,7 @@
 # OpenEuropa Webtools Cookie consent
 
 A Webtools Cookie Consent Kit service that provides information on page access
-to a 3rd party analytics service.
+to a 3rd party CCK service.
 
 ### How it works
 
@@ -13,7 +13,18 @@ src of oEmbed video iframe to include cokie consent.
 
 #### Required configuration
 
-No required configuration.
+In order to be able to track visitors to your site the Webtool Cookie Consent module
+needs a default configuration in the form of this variable:
+
+* Enable Cookie Consent Kit: Enable the CCK banner.
+
+This configuration can be provided using Drupal 8 configuration system or by
+providing details in your sites settings.php file:
+
+```
+$config['oe_webtools_cookie_consent.settings']['cckEnabled'] = true;
+
+```
 
 #### Enable the module
 

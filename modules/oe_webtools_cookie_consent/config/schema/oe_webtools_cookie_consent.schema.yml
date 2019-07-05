@@ -1,0 +1,8 @@
+oe_webtools_cookie_consent.settings:
+  type: config_object
+  label: 'Webtools Cookie Consent settings'
+  mapping:
+    cckEnabled:
+      type: boolean
+      label: 'CCK banner'
+      description: 'Enable Cookie consent banner.'

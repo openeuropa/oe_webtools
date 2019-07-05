@@ -7,7 +7,9 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\media\IFrameMarkup;
+use Drupal\oe_webtools_cookie_consent\Event\CookieConsentEvent;
 
 /**
  * Implements template_preprocess_media_oembed_iframe().
@@ -30,5 +32,17 @@ function oe_webtools_cookie_consent_preprocess_media_oembed_iframe(array &$varia
  * Implements hook_page_attachments().
  */
 function oe_webtools_cookie_consent_page_attachments(array &$attachments) {
-  $attachments['#attached']['library'][] = 'oe_webtools_cookie_consent/drupal.webtools-cookie-consent';
+  $event = new CookieConsentEvent();
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(CookieConsentEvent::NAME, $event);
+
+  $event_cache = CacheableMetadata::createFromObject($event);
+  $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
+
+  $cache = $event_cache->merge($existing_cache);
+  $cache->applyTo($attachments);
+
+  if ($event->isCckEnabled()) {
+    $attachments['#attached']['library'][] = 'oe_webtools_cookie_consent/drupal.webtools-cookie-consent';
+  }
 }

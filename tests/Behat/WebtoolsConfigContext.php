@@ -96,4 +96,17 @@ class WebtoolsConfigContext extends RawDrupalContext {
     }
   }
 
+  /**
+   * Backup configs that need to be reverted in AfterScenario by ConfigContext.
+   *
+   * @BeforeScenario @BackupCookieConsentConfigs
+   */
+  public function backupCookieConsentConfigs() {
+    $name = 'oe_webtools_cookie_consent.settings';
+    $configs = $this->getDriver()->getCore()->configGet($name);
+    foreach ($configs as $key => $value) {
+      $this->configContext->setConfig($name, $key, $value);
+    }
+  }
+
 }
