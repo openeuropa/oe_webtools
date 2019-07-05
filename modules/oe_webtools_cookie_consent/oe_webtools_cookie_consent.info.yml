@@ -2,5 +2,7 @@ name: OpenEuropa Webtools Cookie consent
 description: Provides the Cookie consent kit service functionality.
 package: OpenEuropa Webtools
 type: module
-version: 1.0
 core: 8.x
+
+dependencies:
+  - oe_webtools:oe_webtools

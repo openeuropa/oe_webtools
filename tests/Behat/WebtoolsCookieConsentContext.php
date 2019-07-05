@@ -95,4 +95,13 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
     $this->assertSession()->elementExists('css', "iframe[src^='//ec.europa.eu/cookie-consent/iframe?oriurl=']");
   }
 
+  /**
+   * Checks that the CCK is loaded on the <HEAD> section of the page.
+   *
+   * @Then the CCK javascript is loaded on the head section of the page
+   */
+  public function assertCckJsLoaded(): void {
+    $this->assertSession()->elementExists('css', "head > script[src^='//europa.eu/wel/cookie-consent/consent.js']");
+  }
+
 }
