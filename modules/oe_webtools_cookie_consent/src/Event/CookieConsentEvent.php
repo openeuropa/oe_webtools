@@ -25,7 +25,7 @@ class CookieConsentEvent extends Event implements CookieConsentEventInterface {
   public const NAME = 'webtools_cookie_consent.data_collection';
 
   /**
-   * A specific section or a subwebsite of main site.
+   * Whether the CCK is enabled or not.
    *
    * @var bool
    */

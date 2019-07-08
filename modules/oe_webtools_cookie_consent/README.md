@@ -1,19 +1,18 @@
 # OpenEuropa Webtools Cookie consent
 
-A Webtools Cookie Consent Kit service that provides information on page access
-to a 3rd party CCK service.
+This component integrates the Webtools Cookie Consent Kit (CCK) with a site.
 
 ### How it works
 
-This module add the CCK js file on the <HEAD> section of the page and override the
-src of oEmbed video iframe to include cokie consent.
+This module adds the CCK js file on the <HEAD> section of the page and overrides the
+src of any oEmbed video iframe to include a cookie consent form.
 [here](https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Cookie+Consent+Kit).
 
 ### How to use
 
 #### Required configuration
 
-In order to be able to track visitors to your site the Webtool Cookie Consent module
+In order to provide the cookie consent functionality the OpenEuropa Webtools Cookie Consent module
 needs a default configuration in the form of this variable:
 
 * Enable Cookie Consent Kit: Enable the CCK banner.
