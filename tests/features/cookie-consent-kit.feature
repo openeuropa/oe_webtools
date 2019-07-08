@@ -7,7 +7,7 @@ Feature: Cookie consent kit.
   I want to be able to see that the Cookie consent banner Js is loaded.
 
   @BackupCookieConsentConfigs
-  Scenario: Create Webtools Analytics settings
+  Scenario: Create Webtools Cookie Consent settings
     Given I am logged in as a user with the "administer webtools cookie consent" permission
     When I am on "the Webtools Cookie Consent configuration page"
     Then I should see "Webtools Cookie Consent settings"
