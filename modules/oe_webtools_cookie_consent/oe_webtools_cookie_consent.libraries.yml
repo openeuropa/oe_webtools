@@ -2,4 +2,4 @@ drupal.webtools-cookie-consent:
   version: 1.x
   header: true
   js:
-    //europa.eu/wel/cookie-consent/consent.js: {}
+    //europa.eu/wel/cookie-consent/consent.js: { type: external, minified: false }
