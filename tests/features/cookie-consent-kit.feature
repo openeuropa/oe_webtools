@@ -27,9 +27,8 @@ Feature: Cookie consent kit.
     Then I should not see the "Cookie consent banner" region
 
     # Logging in does not require re-sign in.
-    When I am on the homepage
-    And I click "Sign in"
-    And I fill in "Email or username" with "test_cck"
+    When I go to "/user"
+    And I fill in "Username" with "test_cck"
     And I fill in "Password" with "test_cck"
     And I press "Sign in"
     Then I should not see the "Cookie consent banner" region
