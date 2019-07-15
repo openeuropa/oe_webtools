@@ -37,13 +37,17 @@ class CookieConsentEventSubscriber implements EventSubscriberInterface {
    * @param \Drupal\oe_webtools_cookie_consent\CookieConsentEventInterface $event
    *   Response event.
    */
-  public function onSetCckEnabled(CookieConsentEventInterface $event): void {
+  public function onSetCckConfig(CookieConsentEventInterface $event): void {
     $config = $this->configFactory->get(CookieConsentEventInterface::CONFIG_NAME);
     $event->addCacheableDependency($config);
 
-    // Setting CckEnabled.
-    $cck_enabled = $config->get(CookieConsentEventInterface::CCK_ENABLED);
-    $event->setCckEnabled((boolean) $cck_enabled);
+    // Setting BANNER_POPUP.
+    $config_data = $config->get(CookieConsentEventInterface::BANNER_POPUP);
+    $event->setBannerPopup((boolean) $config_data);
+
+    // Setting MEDIA_OEMBED_POPUP.
+    $config_data = $config->get(CookieConsentEventInterface::MEDIA_OEMBED_POPUP);
+    $event->setMediaOembedPopup((boolean) $config_data);
   }
 
   /**
@@ -51,7 +55,7 @@ class CookieConsentEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     // Subscribing to listening to the Cookie Consent event.
-    $events[CookieConsentEvent::NAME][] = ['onSetCckEnabled'];
+    $events[CookieConsentEvent::NAME][] = ['onSetCckConfig'];
 
     return $events;
   }

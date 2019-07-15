@@ -25,33 +25,53 @@ class CookieConsentEvent extends Event implements CookieConsentEventInterface {
   public const NAME = 'webtools_cookie_consent.data_collection';
 
   /**
-   * Whether the CCK is enabled or not.
+   * Whether the banner CCK loader is enabled or not.
    *
    * @var bool
    */
-  protected $cckEnabled;
+  protected $bannerPopup;
+
+  /**
+   * Whether the override of Media Oembed is enabled or not.
+   *
+   * @var bool
+   */
+  protected $mediaOembedPopup;
 
   /**
    * CookieConsentEvent constructor.
    */
   public function __construct() {
-    // This is to prevent issues when serializing the object.
-    // Those settings are temporary until a UI exists to set them.
-    $this->setCckEnabled();
+    $this->setBannerPopup(TRUE);
+    $this->setMediaOembedPopup(TRUE);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setCckEnabled(bool $cckEnabled = TRUE): void {
-    $this->cckEnabled = $cckEnabled;
+  public function setBannerPopup(bool $bannerPopup): void {
+    $this->bannerPopup = $bannerPopup;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function isCckEnabled(): bool {
-    return $this->cckEnabled;
+  public function setMediaOembedPopup(bool $mediaOembedPopup): void {
+    $this->mediaOembedPopup = $mediaOembedPopup;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isBannerPopup(): bool {
+    return $this->bannerPopup;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isMediaOembedPopup(): bool {
+    return $this->mediaOembedPopup;
   }
 
 }

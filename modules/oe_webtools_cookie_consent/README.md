@@ -1,16 +1,20 @@
 # OpenEuropa Webtools Cookie consent
 
-This component integrates the Webtools Cookie Consent Kit (CCK) with a site.
+This component provides the integration with the Webtools Cookie Consent Kit (CCK).
 
-### How it works
+## What it does
+The `oe_webtools_cookie_consent` module performs 3 different tasks:
+* Provides a banner that allows the user whether to accept or refuse tickets from the website.
+* Preprocesses the media_oembed iframes and alters the URL to go through the EC cookie consent service.
 
-This module adds the CCK js file on the <HEAD> section of the page and overrides the
-src of any oEmbed video iframe to include a cookie consent form.
-[here](https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Cookie+Consent+Kit).
+For more information see [here](https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Cookie+Consent+Kit).
 
-### How to use
+## How to use
 
-#### Required configuration
+Simply install the module and all available options will be enabled.
+Uninstall the module to disable the services.
+
+### Required configuration
 
 In order to provide the cookie consent functionality the OpenEuropa Webtools Cookie Consent module
 needs a default configuration in the form of this variable:
@@ -21,12 +25,7 @@ This configuration can be provided using Drupal 8 configuration system or by
 providing details in your sites settings.php file:
 
 ```
-$config['oe_webtools_cookie_consent.settings']['cckEnabled'] = true;
+$config['oe_webtools_cookie_consent.settings']['banner_popup'] = true;
+$config['oe_webtools_cookie_consent.settings']['media_oembed_popup'] = true;
 
 ```
-
-#### Enable the module
-
-Once enabled, the module will provide:
--  an oEmbed video iframe with cookie consent
--  a banner to your pages requesting the user to accept or refuse cookies on your site

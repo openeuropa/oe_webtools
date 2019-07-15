@@ -19,15 +19,28 @@ interface CookieConsentEventInterface extends RefinableCacheableDependencyInterf
   /**
    * Name of the variable in the CCK configuration.
    */
-  public const CCK_ENABLED = 'cckEnabled';
+  public const BANNER_POPUP = 'banner_popup';
+
+  /**
+   * Name of the variable in the CCK configuration.
+   */
+  public const MEDIA_OEMBED_POPUP = 'media_oembed_popup';
 
   /**
    * Sets whether or not the CCK is enabled.
    *
-   * @param bool $cckEnabled
+   * @param bool $bannerPopup
    *   A boolean variable set as true by default.
    */
-  public function setCckEnabled(bool $cckEnabled = TRUE): void;
+  public function setBannerPopup(bool $bannerPopup): void;
+
+  /**
+   * Sets whether or not the CCK is enabled.
+   *
+   * @param bool $mediaOembedPopup
+   *   A boolean variable set as true by default.
+   */
+  public function setMediaOembedPopup(bool $mediaOembedPopup): void;
 
   /**
    * Get whether or not the CCK is enabled.
@@ -35,6 +48,14 @@ interface CookieConsentEventInterface extends RefinableCacheableDependencyInterf
    * @return bool
    *   True if CCK is enabled.
    */
-  public function isCckEnabled(): bool;
+  public function isBannerPopup(): bool;
+
+  /**
+   * Get whether or not the CCK is enabled.
+   *
+   * @return bool
+   *   True if CCK is enabled.
+   */
+  public function isMediaOembedPopup(): bool;
 
 }

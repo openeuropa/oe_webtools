@@ -21,18 +21,25 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return 'oe_webtools_cookie_consent_settings';
+    return static::CONFIG_NAME;
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $form['cckEnabled'] = [
+    $form['bannerPopup'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable Webtools Cookie Consent Kit.'),
-      '#default_value' => $this->config(static::CONFIG_NAME)->get('cckEnabled'),
+      '#title' => $this->t('Enable the CCK banner.'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('banner_popup'),
       '#description' => $this->t('If checked, CCK will add a banner to your pages requesting the user to accept or refuse cookies on your site.'),
+    ];
+
+    $form['mediaOembedPopup'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable the override of Media oEmbed iframe.'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('media_oembed_popup'),
+      '#description' => $this->t('If checked, CCK will alter the URL to go through the EC cookie consent service.'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -43,7 +50,8 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config(static::CONFIG_NAME)
-      ->set('cckEnabled', $form_state->getValue('cckEnabled'))
+      ->set('banner_popup', $form_state->getValue('bannerPopup'))
+      ->set('media_oembed_popup', $form_state->getValue('mediaOembedPopup'))
       ->save();
     parent::submitForm($form, $form_state);
   }
@@ -52,7 +60,7 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames(): array {
-    return ['oe_webtools_cookie_consent.settings'];
+    return [static::CONFIG_NAME];
   }
 
 }

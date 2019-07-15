@@ -1,4 +1,4 @@
-drupal.webtools-cookie-consent:
+oe_webtools_cookie_consent.cck:
   version: 1.x
   header: true
   js:
