@@ -102,7 +102,7 @@ class WebtoolsConfigContext extends RawDrupalContext {
    * @param string $name
    *   Name of the configuration.
    */
-  private function backupConfigs(string $name) {
+  protected function backupConfigs(string $name) {
     $configs = $this->getDriver()->getCore()->configGet($name);
     foreach ($configs as $key => $value) {
       $this->configContext->setConfig($name, $key, $value);

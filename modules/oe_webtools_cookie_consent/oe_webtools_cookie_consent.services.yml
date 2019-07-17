@@ -1,6 +1,11 @@
 services:
-  oe_webtools_cookie_consent.event_subscriber:
-    class: Drupal\oe_webtools_cookie_consent\EventSubscriber\CookieConsentEventSubscriber
+  oe_webtools_cookie_consent.config_banner_popup:
+    class: Drupal\oe_webtools_cookie_consent\EventSubscriber\ConfigBannerPopupEventSubscriber
+    arguments: ['@config.factory']
+    tags:
+      - { name: event_subscriber }
+  oe_webtools_cookie_consent.config_video_popup:
+    class: Drupal\oe_webtools_cookie_consent\EventSubscriber\ConfigVideoPopupEventSubscriber
     arguments: ['@config.factory']
     tags:
       - { name: event_subscriber }

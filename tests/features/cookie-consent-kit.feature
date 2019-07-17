@@ -39,12 +39,12 @@ Feature: Cookie consent kit.
     Given I am logged in as a user with the "administer webtools cookie consent" permission
     When I am on "the Webtools Cookie Consent configuration page"
     Then I should see "Webtools Cookie Consent settings"
-    And the "Enable the override of Media oEmbed iframe." checkbox should be checked
+    And the "Enable the override of Media oEmbed and Video embed iframe." checkbox should be checked
 
-    When I uncheck "Enable the override of Media oEmbed iframe."
+    When I uncheck "Enable the override of Media oEmbed and Video embed iframe."
     And I press "Save configuration"
     Then I should see the message "The configuration options have been saved."
-    And the "Enable the override of Media oEmbed iframe." checkbox should not be checked
+    And the "Enable the override of Media oEmbed and Video embed iframe." checkbox should not be checked
 
     # Check that the oEmbed video iframe without cookie consent.
     When I am on "/media/test"

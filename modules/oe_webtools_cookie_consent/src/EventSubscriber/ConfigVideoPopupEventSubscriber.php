@@ -5,14 +5,13 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_cookie_consent\EventSubscriber;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\oe_webtools_cookie_consent\CookieConsentEventInterface;
-use Drupal\oe_webtools_cookie_consent\Event\CookieConsentEvent;
+use Drupal\oe_webtools_cookie_consent\Event\ConfigVideoPopupEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Subscribes to the event fired when visitor data is collected for CCK.
  */
-class CookieConsentEventSubscriber implements EventSubscriberInterface {
+class ConfigVideoPopupEventSubscriber implements EventSubscriberInterface {
 
   /**
    * The config factory.
@@ -22,7 +21,7 @@ class CookieConsentEventSubscriber implements EventSubscriberInterface {
   protected $configFactory;
 
   /**
-   * Constructs an CookieConsentEventSubscriber.
+   * Constructs an ConfigBannerPopupEventSubscriber.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   The configuration object factory.
@@ -34,20 +33,15 @@ class CookieConsentEventSubscriber implements EventSubscriberInterface {
   /**
    * Kernel request event handler.
    *
-   * @param \Drupal\oe_webtools_cookie_consent\CookieConsentEventInterface $event
+   * @param \Drupal\oe_webtools_cookie_consent\Event\ConfigVideoPopupEvent $event
    *   Response event.
    */
-  public function onSetCckConfig(CookieConsentEventInterface $event): void {
-    $config = $this->configFactory->get(CookieConsentEventInterface::CONFIG_NAME);
+  public function onSetVideoPopup(ConfigVideoPopupEvent $event): void {
+    $config = $this->configFactory->get(ConfigVideoPopupEvent::CONFIG_NAME);
     $event->addCacheableDependency($config);
 
-    // Setting BANNER_POPUP.
-    $config_data = $config->get(CookieConsentEventInterface::BANNER_POPUP);
-    $event->setBannerPopup((boolean) $config_data);
-
-    // Setting MEDIA_OEMBED_POPUP.
-    $config_data = $config->get(CookieConsentEventInterface::MEDIA_OEMBED_POPUP);
-    $event->setMediaOembedPopup((boolean) $config_data);
+    $config_data = $config->get(ConfigVideoPopupEvent::VIDEO_POPUP);
+    $event->setVideoPopup((boolean) $config_data);
   }
 
   /**
@@ -55,7 +49,7 @@ class CookieConsentEventSubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents(): array {
     // Subscribing to listening to the Cookie Consent event.
-    $events[CookieConsentEvent::NAME][] = ['onSetCckConfig'];
+    $events[ConfigVideoPopupEvent::NAME][] = ['onSetVideoPopup'];
 
     return $events;
   }

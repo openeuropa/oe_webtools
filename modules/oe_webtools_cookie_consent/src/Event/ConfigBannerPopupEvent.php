@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_cookie_consent\Event;
 
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
-use Drupal\oe_webtools_cookie_consent\CookieConsentEventInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
  *
  * @see oe_webtools_cookie_consent_page_attachments()
  */
-class CookieConsentEvent extends Event implements CookieConsentEventInterface {
+class ConfigBannerPopupEvent extends Event implements RefinableCacheableDependencyInterface {
 
   use RefinableCacheableDependencyTrait;
 
@@ -22,42 +22,37 @@ class CookieConsentEvent extends Event implements CookieConsentEventInterface {
    *
    * @Event Drupal\oe_webtools_cookie_consent\Event\WebtoolsImportDataEvent
    */
-  public const NAME = 'webtools_cookie_consent.data_collection';
+  public const NAME = 'oe_webtools_cookie_consent.data_collection_banner_popup';
+
+  /**
+   * The CCK configuration name.
+   */
+  public const CONFIG_NAME = 'oe_webtools_cookie_consent.settings';
+
+  /**
+   * Name of the variable in the CCK configuration.
+   */
+  public const BANNER_POPUP = 'banner_popup';
 
   /**
    * Whether the banner CCK loader is enabled or not.
    *
    * @var bool
    */
-  protected $bannerPopup;
-
-  /**
-   * Whether the override of Media Oembed is enabled or not.
-   *
-   * @var bool
-   */
-  protected $mediaOembedPopup;
+  protected $bannerPopup = TRUE;
 
   /**
    * CookieConsentEvent constructor.
    */
   public function __construct() {
-    $this->setBannerPopup(TRUE);
-    $this->setMediaOembedPopup(TRUE);
+    $this->setBannerPopup();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setBannerPopup(bool $bannerPopup): void {
+  public function setBannerPopup(bool $bannerPopup = TRUE): void {
     $this->bannerPopup = $bannerPopup;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setMediaOembedPopup(bool $mediaOembedPopup): void {
-    $this->mediaOembedPopup = $mediaOembedPopup;
   }
 
   /**
@@ -65,13 +60,6 @@ class CookieConsentEvent extends Event implements CookieConsentEventInterface {
    */
   public function isBannerPopup(): bool {
     return $this->bannerPopup;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function isMediaOembedPopup(): bool {
-    return $this->mediaOembedPopup;
   }
 
 }

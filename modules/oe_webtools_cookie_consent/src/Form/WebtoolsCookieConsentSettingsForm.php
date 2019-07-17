@@ -28,17 +28,17 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-    $form['bannerPopup'] = [
+    $form['banner_popup'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable the CCK banner.'),
       '#default_value' => $this->config(static::CONFIG_NAME)->get('banner_popup'),
       '#description' => $this->t('If checked, CCK will add a banner to your pages requesting the user to accept or refuse cookies on your site.'),
     ];
 
-    $form['mediaOembedPopup'] = [
+    $form['video_popup'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable the override of Media oEmbed iframe.'),
-      '#default_value' => $this->config(static::CONFIG_NAME)->get('media_oembed_popup'),
+      '#title' => $this->t('Enable the override of Media oEmbed and Video embed iframe.'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('video_popup'),
       '#description' => $this->t('If checked, CCK will alter the URL to go through the EC cookie consent service.'),
     ];
 
@@ -50,8 +50,8 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config(static::CONFIG_NAME)
-      ->set('banner_popup', $form_state->getValue('bannerPopup'))
-      ->set('media_oembed_popup', $form_state->getValue('mediaOembedPopup'))
+      ->set('banner_popup', $form_state->getValue('banner popup'))
+      ->set('video_popup', $form_state->getValue('video_popup'))
       ->save();
     parent::submitForm($form, $form_state);
   }
