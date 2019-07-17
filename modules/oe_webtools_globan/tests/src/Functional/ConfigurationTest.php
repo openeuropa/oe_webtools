@@ -50,7 +50,7 @@ class ConfigurationTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=011&amplang=it" defer></script>');
+    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=011&amp;lang=it" defer></script>');
   }
 
 }
