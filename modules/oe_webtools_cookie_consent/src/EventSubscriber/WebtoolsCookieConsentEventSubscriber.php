@@ -22,6 +22,11 @@ class WebtoolsCookieConsentEventSubscriber implements EventSubscriberInterface {
   protected $configFactory;
 
   /**
+   * The CCK configuration name.
+   */
+  public const CONFIG_NAME = 'oe_webtools_cookie_consent.settings';
+
+  /**
    * Constructs an WebtoolsCookieConsentEventSubscriber.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
@@ -38,10 +43,10 @@ class WebtoolsCookieConsentEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function onSetBannerPopup(ConfigBannerPopupEvent $event): void {
-    $config = $this->configFactory->get(ConfigBannerPopupEvent::CONFIG_NAME);
+    $config = $this->configFactory->get(static::CONFIG_NAME);
     $event->addCacheableDependency($config);
 
-    $config_data = $config->get(ConfigBannerPopupEvent::BANNER_POPUP);
+    $config_data = $config->get('banner_popup');
     $event->setBannerPopup((boolean) $config_data);
   }
 
@@ -52,10 +57,10 @@ class WebtoolsCookieConsentEventSubscriber implements EventSubscriberInterface {
    *   Response event.
    */
   public function onSetVideoPopup(ConfigVideoPopupEvent $event): void {
-    $config = $this->configFactory->get(ConfigVideoPopupEvent::CONFIG_NAME);
+    $config = $this->configFactory->get(static::CONFIG_NAME);
     $event->addCacheableDependency($config);
 
-    $config_data = $config->get(ConfigVideoPopupEvent::VIDEO_POPUP);
+    $config_data = $config->get('video_popup');
     $event->setVideoPopup((boolean) $config_data);
   }
 

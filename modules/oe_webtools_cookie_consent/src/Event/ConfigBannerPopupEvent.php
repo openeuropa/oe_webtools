@@ -25,16 +25,6 @@ class ConfigBannerPopupEvent extends Event implements RefinableCacheableDependen
   public const NAME = 'oe_webtools_cookie_consent.data_collection_banner_popup';
 
   /**
-   * The CCK configuration name.
-   */
-  public const CONFIG_NAME = 'oe_webtools_cookie_consent.settings';
-
-  /**
-   * Name of the variable in the CCK configuration.
-   */
-  public const BANNER_POPUP = 'banner_popup';
-
-  /**
    * Whether the banner CCK loader is enabled or not.
    *
    * @var bool
@@ -49,14 +39,20 @@ class ConfigBannerPopupEvent extends Event implements RefinableCacheableDependen
   }
 
   /**
-   * {@inheritdoc}
+   * Set whether or not the banner popup is enabled.
+   *
+   * @param bool $bannerPopup
+   *   A boolean variable set as true by default.
    */
   public function setBannerPopup(bool $bannerPopup = TRUE): void {
     $this->bannerPopup = $bannerPopup;
   }
 
   /**
-   * {@inheritdoc}
+   * Get whether or not the banner popup is enabled.
+   *
+   * @return bool
+   *   True if banner popup is enabled.
    */
   public function isBannerPopup(): bool {
     return $this->bannerPopup;

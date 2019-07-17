@@ -25,16 +25,6 @@ class ConfigVideoPopupEvent extends Event implements RefinableCacheableDependenc
   public const NAME = 'oe_webtools_cookie_consent.data_collection_video_popup';
 
   /**
-   * The CCK configuration name.
-   */
-  public const CONFIG_NAME = 'oe_webtools_cookie_consent.settings';
-
-  /**
-   * Name of the variable in the CCK configuration.
-   */
-  public const VIDEO_POPUP = 'video_popup';
-
-  /**
    * Whether the override of Media Oembed is enabled or not.
    *
    * @var bool
@@ -49,14 +39,20 @@ class ConfigVideoPopupEvent extends Event implements RefinableCacheableDependenc
   }
 
   /**
-   * {@inheritdoc}
+   * Set whether or not the video popup is enabled.
+   *
+   * @param bool $videoPopup
+   *   A boolean variable set as true by default.
    */
   public function setVideoPopup(bool $videoPopup = TRUE): void {
     $this->videoPopup = $videoPopup;
   }
 
   /**
-   * {@inheritdoc}
+   * Get whether or not the video popup is enabled.
+   *
+   * @return bool
+   *   True if video popup is enabled.
    */
   public function isVideoPopup(): bool {
     return $this->videoPopup;
