@@ -18,10 +18,15 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
   const CONFIG_NAME = 'oe_webtools_cookie_consent.settings';
 
   /**
+   * Machine name of the form.
+   */
+  const FORM_NAME = 'oe_webtools_cookie_consent_configure_form';
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return static::CONFIG_NAME;
+    return static::FORM_NAME;
   }
 
   /**
