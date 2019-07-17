@@ -32,7 +32,7 @@ class ConfigBannerPopupEvent extends Event implements RefinableCacheableDependen
   protected $bannerPopup = TRUE;
 
   /**
-   * CookieConsentEvent constructor.
+   * ConfigBannerPopupEvent constructor.
    */
   public function __construct() {
     $this->setBannerPopup();

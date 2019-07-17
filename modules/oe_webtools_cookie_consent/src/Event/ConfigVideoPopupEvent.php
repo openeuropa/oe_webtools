@@ -32,7 +32,7 @@ class ConfigVideoPopupEvent extends Event implements RefinableCacheableDependenc
   protected $videoPopup = TRUE;
 
   /**
-   * CookieConsentEvent constructor.
+   * ConfigVideoPopupEvent constructor.
    */
   public function __construct() {
     $this->setVideoPopup();
