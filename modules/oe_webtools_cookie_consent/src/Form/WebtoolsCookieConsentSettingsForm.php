@@ -37,7 +37,7 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
 
     $form['video_popup'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable the override of Media oEmbed and Video embed iframe.'),
+      '#title' => $this->t('Enable CCK video banner for the supported video elements.'),
       '#default_value' => $this->config(static::CONFIG_NAME)->get('video_popup'),
       '#description' => $this->t('If checked, CCK will alter the URL to go through the EC cookie consent service.'),
     ];

@@ -9,4 +9,4 @@ oe_webtools_cookie_consent.settings:
     video_popup:
       type: boolean
       label: 'CCK banner'
-      description: 'Enable the override of media oEmbed and video embed iframe.'
+      description: 'Enable CCK video banner for the supported video elements.'
