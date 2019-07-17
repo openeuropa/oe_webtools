@@ -1,0 +1,145 @@
+<?php
+
+/**
+ * @file
+ * Contains Drupal hooks.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attach smart loader.
+ */
+function oe_webtools_globan_page_attachments(array &$attachments): void {
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+  $config = \Drupal::service('config.factory')->getEditable('oe_webtools_globan.settings');
+
+  $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
+  $config_cache = CacheableMetadata::createFromObject($config);
+  $cache = $existing_cache->merge($config_cache);
+  $cache->applyTo($attachments);
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function oe_webtools_globan_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+  $config = \Drupal::service('config.factory')->getEditable('oe_webtools_globan.settings');
+
+  $globan_param = $config->get('display_eu_flag') ?? '1';
+  $globan_param .= $config->get('background_theme') ?? '1';
+  $globan_param .= $config->get('eu_institutions_links') ?? '1';
+
+  $url_test_params = ['wtgloban' => $globan_param];
+
+  if ($config->get('override_page_lang')) {
+    $url_test_params['lang'] = $config->get('override_page_lang');
+  }
+
+  $test_url = Url::fromRoute('<front>', [], ['query' => $url_test_params]);
+
+  $form['globan_settings'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Global banner settings'),
+  ];
+  $form['globan_settings']['livepreview'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Check appearance'),
+    '#markup' => '<a href="' . $test_url->toString() . '" target="_blank">' . t('Link') . '</a>',
+    '#description' => t('Link for testing appearance of global banner.'),
+  ];
+  $form['globan_settings']['display_eu_flag'] = [
+    '#type' => 'select',
+    '#title' => t('Display EU flag'),
+    '#options' => [
+      '0' => t('No - hide flag'),
+      '1' => t('Yes - display flag'),
+    ],
+    '#description' => t('Enable or disable the EU flag icon in the Global Banner.'),
+    '#default_value' => $config->get('display_eu_flag') ?? '1',
+  ];
+  $form['globan_settings']['background_theme'] = [
+    '#type' => 'select',
+    '#title' => t('Background theme'),
+    '#options' => [
+      '0' => t('Light'),
+      '1' => t('Dark'),
+    ],
+    '#description' => t("Select whether the Global Banner theme is light or dark, in order to correspond to your site's design."),
+    '#default_value' => $config->get('background_theme') ?? '1',
+  ];
+  $form['globan_settings']['eu_institutions_links'] = [
+    '#type' => 'select',
+    '#title' => t('See all EU Institutions and bodies'),
+    '#options' => [
+      '1' => t('Yes - show link'),
+      '2' => t('No - hide link'),
+    ],
+    '#description' => t('Show or hide a link to all EU institutions and Bodies, which can assist visitors with navigation.'),
+    '#default_value' => $config->get('eu_institutions_links') ?? '1',
+  ];
+  $lang_options = [];
+  foreach (\Drupal::service('language_manager')->getLanguages() as $language) {
+    $lang_options[$language->getId()] = $language->getName();
+  }
+  $form['globan_settings']['override_page_lang'] = [
+    '#type' => 'select',
+    '#title' => t('Override page language'),
+    '#options' => $lang_options,
+    '#empty_value' => NULL,
+    '#empty_option' => t('No, use language of current page'),
+    '#description' => t('ONLY use this option if you want to display a language, different from current page! The Global Banner displays in the language of the current page. It supports all 24 EU languages, as well as these non-EU languages.'),
+    '#default_value' => $config->get('override_page_lang') ?? NULL,
+  ];
+
+  $form['#submit'][] = 'oe_webtools_globan_form_system_site_information_settings_submit';
+}
+
+/**
+ * The submit handler.
+ */
+function oe_webtools_globan_form_system_site_information_settings_submit($form, FormStateInterface $form_state) {
+  /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+  $config = \Drupal::service('config.factory')->getEditable('oe_webtools_globan.settings');
+  $config->set('display_eu_flag', $form_state->getValue('display_eu_flag'))
+    ->set('background_theme', $form_state->getValue('background_theme'))
+    ->set('eu_institutions_links', $form_state->getValue('eu_institutions_links'))
+    ->set('override_page_lang', $form_state->getValue('override_page_lang'));
+  $config->save();
+  \Drupal::service('library.discovery')->clearCachedDefinitions();
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function oe_webtools_globan_js_alter(&$javascript, AttachedAssetsInterface $assets) {
+  if (!\Drupal::service('router.admin_context')->isAdminRoute() && isset($javascript['//europa.eu/webtools/load.js'])) {
+    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+    $config = \Drupal::service('config.factory')->getEditable('oe_webtools_globan.settings');
+
+    $globan_param = $config->get('display_eu_flag') ?? '1';
+    $globan_param .= $config->get('background_theme') ?? '1';
+    $globan_param .= $config->get('eu_institutions_links') ?? '1';
+
+    $lang = '';
+    if ($config->get('override_page_lang')) {
+      $lang = '&lang=' . $config->get('override_page_lang');
+    }
+
+    $javascript['//europa.eu/webtools/load.js']['data'] .= '?globan=' . $globan_param . $lang;
+  }
+}
