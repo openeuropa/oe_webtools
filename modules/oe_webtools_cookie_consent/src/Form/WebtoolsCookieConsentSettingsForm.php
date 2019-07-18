@@ -18,15 +18,10 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
   const CONFIG_NAME = 'oe_webtools_cookie_consent.settings';
 
   /**
-   * Machine name of the form.
-   */
-  const FORM_NAME = 'oe_webtools_cookie_consent_configure_form';
-
-  /**
    * {@inheritdoc}
    */
   public function getFormId(): string {
-    return static::FORM_NAME;
+    return 'oe_webtools_cookie_consent_configure_form';
   }
 
   /**
@@ -55,7 +50,7 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config(static::CONFIG_NAME)
-      ->set('banner_popup', $form_state->getValue('banner popup'))
+      ->set('banner_popup', $form_state->getValue('banner_popup'))
       ->set('video_popup', $form_state->getValue('video_popup'))
       ->save();
     parent::submitForm($form, $form_state);
