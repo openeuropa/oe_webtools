@@ -1,4 +1,4 @@
-# OpenEuropa Webtools Cookie consent
+# OpenEuropa Webtools Cookie Consent
 
 This component provides the integration with the Webtools Cookie Consent Kit (CCK).
 
@@ -6,8 +6,10 @@ This component provides the integration with the Webtools Cookie Consent Kit (CC
 The `oe_webtools_cookie_consent` module performs 3 different tasks:
 * Provides a banner that allows the user whether to accept or refuse tickets from the website.
 * Preprocesses the media_oembed iframes and alters the URL to go through the EC cookie consent service.
-* (soon) Preprocesses iframes provided by the video_embed_field or the video_embed_wysiwyg modules and also redirects
-the source through the EC cookie consent service.
+* Preprocesses iframes provided by the video_embed_field or the video_embed_wysiwyg modules and also redirects
+the source through the EC cookie consent service. (the source through the EC cookie consent service.
+[In Progress in the issue #78](https://github.com/openeuropa/oe_webtools/issues/78)
+
 
 For more information see [here](https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Cookie+Consent+Kit).
 

@@ -9,7 +9,7 @@ use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Event fired when a page is displayed, in order to handle Cookie consent data.
+ * Event fired when a page is displayed, in order to handle Cookie Consent data.
  *
  * @see oe_webtools_cookie_consent_page_attachments()
  */
@@ -18,7 +18,7 @@ class ConfigBannerPopupEvent extends Event implements RefinableCacheableDependen
   use RefinableCacheableDependencyTrait;
 
   /**
-   * This event allows you to set the Cookie consent variable.
+   * This event allows you to set the Cookie Consent variable.
    *
    * @Event Drupal\oe_webtools_cookie_consent\Event\WebtoolsImportDataEvent
    */

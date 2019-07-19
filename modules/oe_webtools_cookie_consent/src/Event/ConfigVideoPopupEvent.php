@@ -18,7 +18,7 @@ class ConfigVideoPopupEvent extends Event implements RefinableCacheableDependenc
   use RefinableCacheableDependencyTrait;
 
   /**
-   * This event allows you to set the Cookie consent variable.
+   * This event allows you to set the Cookie Consent variable.
    *
    * @Event Drupal\oe_webtools_cookie_consent\Event\WebtoolsImportDataEvent
    */

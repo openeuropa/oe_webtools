@@ -8,7 +8,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * The form for the configuration of the Webtools Cookie consent module.
+ * The form for the configuration of the Webtools Cookie Consent module.
  */
 class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
 
