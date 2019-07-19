@@ -39,7 +39,7 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Enable CCK video banner for the supported video elements.'),
       '#default_value' => $this->config(static::CONFIG_NAME)->get('video_popup'),
-      '#description' => $this->t('If checked, CCK will alter the URL to go through the EC cookie consent service.'),
+      '#description' => $this->t('If checked, CCK will alter the URL to go through the EC Cookie Consent service.'),
     ];
 
     return parent::buildForm($form, $form_state);

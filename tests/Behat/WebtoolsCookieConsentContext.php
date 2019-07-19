@@ -91,7 +91,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   /**
    * Checks that an OEmbed iframe url uses CCK service.
    *
-   * @Then I should see the oEmbed video iframe with cookie consent
+   * @Then I should see the oEmbed video iframe with Cookie Consent
    */
   public function assertOembedIframeWithCckUsage(): void {
     $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');
@@ -102,7 +102,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   /**
    * Checks that an OEmbed iframe url doesn't use CCK service.
    *
-   * @Then I should not see the oEmbed video iframe with cookie consent
+   * @Then I should not see the oEmbed video iframe with Cookie Consent
    */
   public function assertNoOembedIframeWithCckUsage(): void {
     $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');
