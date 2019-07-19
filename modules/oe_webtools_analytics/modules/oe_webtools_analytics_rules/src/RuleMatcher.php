@@ -139,7 +139,7 @@ class RuleMatcher implements RuleMatcherInterface {
    * @param string $path
    *   The path for which to refresh the cache.
    *
-   * @return \stdClass
+   * @return object
    *   The cache entry that was generated.
    */
   protected function populateCache(string $path): \stdClass {

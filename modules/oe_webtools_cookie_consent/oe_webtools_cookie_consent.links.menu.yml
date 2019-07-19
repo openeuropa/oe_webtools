@@ -1,0 +1,5 @@
+oe_webtools_cookie_consent.settings:
+  title: Webtools Cookie Consent
+  description: 'Configure Webtools Cookie Consent.'
+  route_name: oe_webtools_cookie_consent.settings
+  parent: system.admin_config_system

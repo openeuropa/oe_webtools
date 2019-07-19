@@ -2,25 +2,61 @@
 
 /**
  * @file
- * OpenEuropa Webtools cookie consent module.
+ * OpenEuropa Webtools Cookie Consent module.
  */
 
 declare(strict_types = 1);
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\media\IFrameMarkup;
+use Drupal\oe_webtools_cookie_consent\Event\ConfigBannerPopupEvent;
+use Drupal\oe_webtools_cookie_consent\Event\ConfigVideoPopupEvent;
+
+define('OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL', '//europa.eu/webtools/crs/iframe/');
 
 /**
- * Implements template_preprocess_media_oembed_iframe().
+ * Implements hook_page_attachments().
+ */
+function oe_webtools_cookie_consent_page_attachments(array &$attachments) {
+  $event = new ConfigBannerPopupEvent();
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(ConfigBannerPopupEvent::NAME, $event);
+
+  $event_cache = CacheableMetadata::createFromObject($event);
+  $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
+
+  $cache = $event_cache->merge($existing_cache);
+  $cache->applyTo($attachments);
+  if ($event->isBannerPopup()) {
+    $attachments['#attached']['library'][] = 'oe_webtools_cookie_consent/oe_webtools_cookie_consent.cck';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
  *
  * Because the oEmbed format comes with the actual HTML iframe,
  * we have to change its "src" attribute value
  * with the URL of the Cookie Consent service, passing the original URL to it.
  */
 function oe_webtools_cookie_consent_preprocess_media_oembed_iframe(array &$variables): void {
+  $event = new ConfigVideoPopupEvent();
+  $event_dispatcher = \Drupal::service('event_dispatcher');
+  $event_dispatcher->dispatch(ConfigVideoPopupEvent::NAME, $event);
+
+  // Add the cache tag, so that the output gets invalidated when the config is
+  // saved.
+  \Drupal::service('renderer')->addCacheableDependency($variables, $event);
+
+  if (!$event->isVideoPopup()) {
+    return;
+  }
+
   if ($variables['media'] instanceof IFrameMarkup) {
     preg_match('/<iframe.*src=["\']+([^"\']*)["\']+[^<>]*><\/iframe>/', $variables['media']->__toString(), $matches);
     if (!empty($matches[1])) {
-      $new_iframe = str_replace($matches[1], '//ec.europa.eu/cookie-consent/iframe?oriurl=' . $matches[1] . '&lang=' . \Drupal::languageManager()->getCurrentLanguage()->getId(), $variables['media']);
+      $new_url = OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . '?oriurl=' . $matches[1] . '&lang=' . \Drupal::languageManager()->getCurrentLanguage()->getId();
+      $new_iframe = str_replace($matches[1], $new_url, $variables['media']);
       $variables['media'] = IFrameMarkup::create($new_iframe);
     }
   }

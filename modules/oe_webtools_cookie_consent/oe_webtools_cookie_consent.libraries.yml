@@ -1,0 +1,5 @@
+oe_webtools_cookie_consent.cck:
+  version: 1.x
+  header: true
+  js:
+    //europa.eu/wel/cookie-consent/consent.js: { type: external, minified: false }

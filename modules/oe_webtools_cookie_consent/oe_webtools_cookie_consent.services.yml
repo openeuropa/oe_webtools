@@ -1,0 +1,6 @@
+services:
+  oe_webtools_cookie_consent.event_subscriber:
+    class: Drupal\oe_webtools_cookie_consent\EventSubscriber\WebtoolsCookieConsentEventSubscriber
+    arguments: ['@config.factory']
+    tags:
+      - { name: event_subscriber }

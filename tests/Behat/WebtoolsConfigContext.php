@@ -49,23 +49,6 @@ class WebtoolsConfigContext extends RawDrupalContext {
   }
 
   /**
-   * Backup configs that need to be reverted in AfterScenario.
-   *
-   * We don't actually want to change the values,
-   * we're just ensuring existing values will be restored after scenario is run.
-   *
-   * @BeforeScenario @BackupLacoConfigs
-   */
-  public function backupLacoConfigs() {
-    $name = 'oe_webtools_laco_widget.settings';
-
-    $configs = $this->getDriver()->getCore()->configGet($name);
-    foreach ($configs as $key => $value) {
-      $this->configContext->setConfig($name, $key, $value);
-    }
-  }
-
-  /**
    * Add aliases for Behat tests.
    *
    * @param string $path
@@ -84,12 +67,42 @@ class WebtoolsConfigContext extends RawDrupalContext {
   }
 
   /**
+   * Backup configs that need to be reverted in AfterScenario.
+   *
+   * We don't actually want to change the values,
+   * we're just ensuring existing values will be restored after scenario is run.
+   *
+   * @BeforeScenario @BackupLacoConfigs
+   */
+  public function backupLacoConfigs() {
+    $this->backupConfigs('oe_webtools_laco_widget.settings');
+  }
+
+  /**
    * Backup configs that need to be reverted in AfterScenario by ConfigContext.
    *
    * @BeforeScenario @BackupAnalyticsConfigs
    */
   public function backupAnalyticsConfigs() {
-    $name = 'oe_webtools_analytics.settings';
+    $this->backupConfigs('oe_webtools_analytics.settings');
+  }
+
+  /**
+   * Backup configs that need to be reverted in AfterScenario by ConfigContext.
+   *
+   * @BeforeScenario @BackupCookieConsentConfigs
+   */
+  public function backupCookieConsentConfigs() {
+    $this->backupConfigs('oe_webtools_cookie_consent.settings');
+  }
+
+  /**
+   * Backup configs that need to be reverted in AfterScenario by ConfigContext.
+   *
+   * @param string $name
+   *   Name of the configuration.
+   */
+  protected function backupConfigs(string $name) {
     $configs = $this->getDriver()->getCore()->configGet($name);
     foreach ($configs as $key => $value) {
       $this->configContext->setConfig($name, $key, $value);
