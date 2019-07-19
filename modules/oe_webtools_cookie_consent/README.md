@@ -4,7 +4,7 @@ This component provides the integration with the Webtools Cookie Consent Kit (CC
 
 ## What it does
 The `oe_webtools_cookie_consent` module performs 3 different tasks:
-* Provides a banner that allows the user whether to accept or refuse tickets from the website.
+* Provides a banner that allows the user whether to accept or refuse cookies from the website.
 * Preprocesses the media_oembed iframes and alters the URL to go through the EC Cookie Consent service.
 * Preprocesses iframes provided by the video_embed_field or the video_embed_wysiwyg modules and also redirects
 the source through the EC Cookie Consent service. (the source through the EC Cookie Consent service.
