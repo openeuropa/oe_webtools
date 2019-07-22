@@ -32,20 +32,20 @@ class ConfigurationTest extends BrowserTestBase {
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
-      ->set('display_eu_flag', '0')
-      ->set('background_theme', '0')
-      ->set('eu_institutions_links', '2')
+      ->set('display_eu_flag', FALSE)
+      ->set('background_theme', FALSE)
+      ->set('eu_institutions_links', FALSE)
       ->set('override_page_lang', '');
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=002" defer></script>');
+    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=000" defer></script>');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
-      ->set('display_eu_flag', '0')
-      ->set('background_theme', '1')
-      ->set('eu_institutions_links', '1')
+      ->set('display_eu_flag', FALSE)
+      ->set('background_theme', TRUE)
+      ->set('eu_institutions_links', TRUE)
       ->set('override_page_lang', 'it');
     $config->save();
 

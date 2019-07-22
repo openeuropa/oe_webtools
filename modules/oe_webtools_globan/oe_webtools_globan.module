@@ -7,8 +7,10 @@
 
 declare(strict_types = 1);
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Asset\AttachedAssetsInterface;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_page_attachments().
@@ -21,7 +23,7 @@ function oe_webtools_globan_page_attachments(array &$attachments): void {
   }
 
   /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
-  $config = \Drupal::service('config.factory')->getEditable('oe_webtools_globan.settings');
+  $config = \Drupal::service('config.factory')->get('oe_webtools_globan.settings');
 
   $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
   $config_cache = CacheableMetadata::createFromObject($config);
@@ -35,18 +37,21 @@ function oe_webtools_globan_page_attachments(array &$attachments): void {
  */
 function oe_webtools_globan_js_alter(&$javascript, AttachedAssetsInterface $assets) {
   if (!\Drupal::service('router.admin_context')->isAdminRoute() && isset($javascript['//europa.eu/webtools/load.js'])) {
+    $new_url = UrlHelper::parse($javascript['//europa.eu/webtools/load.js']['data']);
+
     /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
-    $config = \Drupal::service('config.factory')->getEditable('oe_webtools_globan.settings');
+    $config = \Drupal::service('config.factory')->get('oe_webtools_globan.settings');
 
-    $globan_param = $config->get('display_eu_flag') ?? '1';
-    $globan_param .= $config->get('background_theme') ?? '1';
-    $globan_param .= $config->get('eu_institutions_links') ?? '1';
+    $globan_param = empty($config->get('display_eu_flag')) ? '0' : '1';
+    $globan_param .= empty($config->get('background_theme')) ? '0' : '1';
+    $globan_param .= empty($config->get('eu_institutions_links')) ? '0' : '1';
 
-    $lang = '';
+    $new_url['query']['globan'] = $globan_param;
+
     if ($config->get('override_page_lang')) {
-      $lang = '&lang=' . $config->get('override_page_lang');
+      $new_url['query']['lang'] = $config->get('override_page_lang');
     }
 
-    $javascript['//europa.eu/webtools/load.js']['data'] .= '?globan=' . $globan_param . $lang;
+    $javascript['//europa.eu/webtools/load.js']['data'] = Url::fromUri($new_url['path'], ['query' => $new_url['query']])->toString();
   }
 }

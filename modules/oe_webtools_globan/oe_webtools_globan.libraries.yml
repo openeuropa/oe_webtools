@@ -1,6 +1,0 @@
-globan.demo:
-  version: 1.x
-  js:
-    js/globan-livepreview.js: { preprocess: false }
-  dependencies:
-    - oe_webtools/drupal.webtools-smartloader

@@ -1,4 +1,4 @@
-display_eu_flag: '1'
-background_theme: '1'
-eu_institutions_links: '1'
+display_eu_flag: true
+background_theme: true
+eu_institutions_links: true
 override_page_lang: ''

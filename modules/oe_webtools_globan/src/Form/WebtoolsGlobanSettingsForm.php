@@ -62,41 +62,35 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#type' => 'fieldset',
       '#title' => $this->t('Global banner settings'),
     ];
-    $form['globan_settings']['livepreview'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Check appearance'),
-      '#markup' => '<div id="globan-preview"></div>',
-      '#description' => $this->t('Link for testing appearance of global banner.'),
-    ];
     $form['globan_settings']['display_eu_flag'] = [
       '#type' => 'select',
       '#title' => $this->t('Display EU flag'),
       '#options' => [
-        '0' => $this->t('No - hide flag'),
-        '1' => $this->t('Yes - display flag'),
+        0 => $this->t('No - hide flag'),
+        1 => $this->t('Yes - display flag'),
       ],
       '#description' => $this->t('Enable or disable the EU flag icon in the Global Banner.'),
-      '#default_value' => $config->get('display_eu_flag') ?? '1',
+      '#default_value' => empty($config->get('display_eu_flag')) ? '0' : '1',
     ];
     $form['globan_settings']['background_theme'] = [
       '#type' => 'select',
       '#title' => $this->t('Background theme'),
       '#options' => [
-        '0' => $this->t('Light'),
-        '1' => $this->t('Dark'),
+        0 => $this->t('Light'),
+        1 => $this->t('Dark'),
       ],
       '#description' => $this->t("Select whether the Global Banner theme is light or dark, in order to correspond to your site's design."),
-      '#default_value' => $config->get('background_theme') ?? '1',
+      '#default_value' => empty($config->get('background_theme')) ? '0' : '1',
     ];
     $form['globan_settings']['eu_institutions_links'] = [
       '#type' => 'select',
       '#title' => $this->t('See all EU Institutions and bodies'),
       '#options' => [
-        '1' => $this->t('Yes - show link'),
-        '0' => $this->t('No - hide link'),
+        0 => $this->t('No - hide link'),
+        1 => $this->t('Yes - show link'),
       ],
       '#description' => $this->t('Show or hide a link to all EU institutions and Bodies, which can assist visitors with navigation.'),
-      '#default_value' => $config->get('eu_institutions_links') ?? '1',
+      '#default_value' => empty($config->get('eu_institutions_links')) ? '0' : '1',
     ];
     $lang_options = [];
     foreach ($this->languageManager->getLanguages() as $language) {
@@ -120,9 +114,9 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config('oe_webtools_globan.settings')
-      ->set('display_eu_flag', $form_state->getValue('display_eu_flag'))
-      ->set('background_theme', $form_state->getValue('background_theme'))
-      ->set('eu_institutions_links', $form_state->getValue('eu_institutions_links'))
+      ->set('display_eu_flag', (bool) $form_state->getValue('display_eu_flag'))
+      ->set('background_theme', (bool) $form_state->getValue('background_theme'))
+      ->set('eu_institutions_links', (bool) $form_state->getValue('eu_institutions_links'))
       ->set('override_page_lang', $form_state->getValue('override_page_lang'))
       ->save();
     parent::submitForm($form, $form_state);
