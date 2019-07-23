@@ -11,7 +11,7 @@ use Drupal\Core\Language\LanguageManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * The form for managing the configuration of the Webtools Globan module.
+ * Configures the Webtools Global banner.
  */
 class WebtoolsGlobanSettingsForm extends ConfigFormBase {
 
@@ -64,12 +64,12 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
     ];
     $form['globan_settings']['display_eu_flag'] = [
       '#type' => 'select',
-      '#title' => $this->t('Display EU flag'),
+      '#title' => $this->t('Display the EU flag'),
       '#options' => [
-        0 => $this->t('No - hide flag'),
-        1 => $this->t('Yes - display flag'),
+        0 => $this->t('No'),
+        1 => $this->t('Yes'),
       ],
-      '#description' => $this->t('Enable or disable the EU flag icon in the Global Banner.'),
+      '#description' => $this->t('Hide or show the EU flag icon in the Global Banner.'),
       '#default_value' => empty($config->get('display_eu_flag')) ? '0' : '1',
     ];
     $form['globan_settings']['background_theme'] = [
@@ -79,17 +79,17 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         0 => $this->t('Light'),
         1 => $this->t('Dark'),
       ],
-      '#description' => $this->t("Select whether the Global Banner theme is light or dark, in order to correspond to your site's design."),
+      '#description' => $this->t('Whether to show the banner in light or black background'),
       '#default_value' => empty($config->get('background_theme')) ? '0' : '1',
     ];
     $form['globan_settings']['eu_institutions_links'] = [
       '#type' => 'select',
-      '#title' => $this->t('See all EU Institutions and bodies'),
+      '#title' => $this->t('Link to all EU Institutions and bodies'),
       '#options' => [
-        0 => $this->t('No - hide link'),
-        1 => $this->t('Yes - show link'),
+        0 => $this->t('No'),
+        1 => $this->t('Yes'),
       ],
-      '#description' => $this->t('Show or hide a link to all EU institutions and Bodies, which can assist visitors with navigation.'),
+      '#description' => $this->t('Hide or show a link to all EU institutions and bodies.'),
       '#default_value' => empty($config->get('eu_institutions_links')) ? '0' : '1',
     ];
     $lang_options = [];
@@ -102,7 +102,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#options' => $lang_options,
       '#empty_value' => NULL,
       '#empty_option' => $this->t('No, use language of current page'),
-      '#description' => $this->t('ONLY use this option if you want to display a language, different from current page! The Global Banner displays in the language of the current page. It supports all 24 EU languages, as well as these non-EU languages.'),
+      '#description' => $this->t('ONLY use this option if you want to display a language, different from current page! The global banner displays in the language of the current page. It supports all 24 EU languages, as well as these non-EU languages.'),
       '#default_value' => $config->get('override_page_lang') ?? NULL,
     ];
 

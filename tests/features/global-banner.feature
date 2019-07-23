@@ -1,6 +1,6 @@
 @api
 Feature: Webtools Global Banner
-  In order to provide global banner appearance
+  In order to provide a global banner
   As privileged user
   I need to be able to configure the settings of global banner
 

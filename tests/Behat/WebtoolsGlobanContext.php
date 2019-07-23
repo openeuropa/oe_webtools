@@ -46,7 +46,7 @@ class WebtoolsGlobanContext extends RawDrupalContext {
   }
 
   /**
-   * Make sure that load.js with correct parameters.
+   * Make sure that load.js has the correct query parameters.
    *
    * @param string $globan_option
    *   The globan option value.

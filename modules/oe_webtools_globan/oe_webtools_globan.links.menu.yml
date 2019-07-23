@@ -1,5 +1,5 @@
 oe_webtools_globan.settings:
   title: Webtools Globan
-  description: 'Configure Webtools Globan.'
+  description: 'Configure Webtools Global Banner.'
   route_name: oe_webtools_globan.settings
   parent: system.admin_config_system

@@ -10,7 +10,7 @@ use Drupal\Core\Config\ConfigEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
- * A subscriber invalidating cache tags when globan config objects are saved.
+ * Invalidates cache tags whenever configuration for the global banner changes.
  */
 class GlobanConfigCacheInvalidator implements EventSubscriberInterface {
 
