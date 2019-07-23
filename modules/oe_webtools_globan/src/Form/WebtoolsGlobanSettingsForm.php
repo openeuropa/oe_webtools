@@ -70,19 +70,19 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         1 => $this->t('Yes'),
       ],
       '#description' => $this->t('Hide or show the EU flag icon in the Global Banner.'),
-      '#default_value' => empty($config->get('display_eu_flag')) ? '0' : '1',
+      '#default_value' => empty($config->get('display_eu_flag')) ? 0 : 1,
     ];
     $form['globan_settings']['background_theme'] = [
       '#type' => 'select',
       '#title' => $this->t('Background theme'),
       '#options' => [
-        0 => $this->t('Light'),
-        1 => $this->t('Dark'),
+        'light' => $this->t('Light'),
+        'dark' => $this->t('Dark'),
       ],
       '#description' => $this->t('Whether to show the banner in light or black background'),
-      '#default_value' => empty($config->get('background_theme')) ? '0' : '1',
+      '#default_value' => empty($config->get('background_theme')) ?? 'dark',
     ];
-    $form['globan_settings']['eu_institutions_links'] = [
+    $form['globan_settings']['display_eu_institutions_links'] = [
       '#type' => 'select',
       '#title' => $this->t('Link to all EU Institutions and bodies'),
       '#options' => [
@@ -90,7 +90,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         1 => $this->t('Yes'),
       ],
       '#description' => $this->t('Hide or show a link to all EU institutions and bodies.'),
-      '#default_value' => empty($config->get('eu_institutions_links')) ? '0' : '1',
+      '#default_value' => empty($config->get('display_eu_institutions_links')) ? '0' : '1',
     ];
     $lang_options = [];
     foreach ($this->languageManager->getLanguages() as $language) {
@@ -115,8 +115,8 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->config('oe_webtools_globan.settings')
       ->set('display_eu_flag', (bool) $form_state->getValue('display_eu_flag'))
-      ->set('background_theme', (bool) $form_state->getValue('background_theme'))
-      ->set('eu_institutions_links', (bool) $form_state->getValue('eu_institutions_links'))
+      ->set('background_theme', $form_state->getValue('background_theme'))
+      ->set('display_eu_institutions_links', (bool) $form_state->getValue('display_eu_institutions_links'))
       ->set('override_page_lang', $form_state->getValue('override_page_lang'))
       ->save();
     parent::submitForm($form, $form_state);

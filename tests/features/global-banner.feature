@@ -8,9 +8,9 @@ Feature: Webtools Global Banner
   Scenario: Privileged user can change Global Banner settings.
     Given I am logged in as a user with the "administer webtools globan, access administration pages" permission
     When I am on "the Webtools Globan configuration page"
-    And I select "Yes - display flag" from "Display EU flag"
+    And I select "Yes" from "Display the EU flag"
     And I select "Dark" from "Background theme"
-    And I select "Yes - show link" from "See all EU Institutions and bodies"
+    And I select "Yes" from "Link to all EU Institutions and bodies"
     And I press "Save"
     And I log out
     And I am on homepage
@@ -18,9 +18,9 @@ Feature: Webtools Global Banner
 
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
-    And I select "No - hide flag" from "Display EU flag"
+    And I select "No" from "Display the EU flag"
     And I select "Light" from "Background theme"
-    And I select "No - hide link" from "See all EU Institutions and bodies"
+    And I select "No" from "Link to all EU Institutions and bodies"
     And I press "Save"
     And I log out
     And I am on homepage

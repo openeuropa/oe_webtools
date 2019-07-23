@@ -33,8 +33,8 @@ class ConfigurationTest extends BrowserTestBase {
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
       ->set('display_eu_flag', FALSE)
-      ->set('background_theme', FALSE)
-      ->set('eu_institutions_links', FALSE)
+      ->set('background_theme', 'light')
+      ->set('display_eu_institutions_links', FALSE)
       ->set('override_page_lang', '');
     $config->save();
 
@@ -44,8 +44,8 @@ class ConfigurationTest extends BrowserTestBase {
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
       ->set('display_eu_flag', FALSE)
-      ->set('background_theme', TRUE)
-      ->set('eu_institutions_links', TRUE)
+      ->set('background_theme', 'dark')
+      ->set('display_eu_institutions_links', TRUE)
       ->set('override_page_lang', 'it');
     $config->save();
 

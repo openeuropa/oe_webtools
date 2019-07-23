@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal hooks.
+ * The Webtools Global Banner module file.
  */
 
 declare(strict_types = 1);
@@ -43,8 +43,21 @@ function oe_webtools_globan_js_alter(&$javascript, AttachedAssetsInterface $asse
     $config = \Drupal::service('config.factory')->get('oe_webtools_globan.settings');
 
     $globan_param = empty($config->get('display_eu_flag')) ? '0' : '1';
-    $globan_param .= empty($config->get('background_theme')) ? '0' : '1';
-    $globan_param .= empty($config->get('eu_institutions_links')) ? '0' : '1';
+
+    switch ($config->get('background_theme')) {
+      case 'light':
+        $globan_param .= '0';
+        break;
+
+      case 'dark':
+        $globan_param .= '1';
+        break;
+
+      default:
+        $globan_param .= '1';
+    }
+
+    $globan_param .= empty($config->get('display_eu_institutions_links')) ? '0' : '1';
 
     $new_url['query']['globan'] = $globan_param;
 
