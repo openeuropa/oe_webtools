@@ -10,7 +10,7 @@ declare(strict_types = 1);
 /**
  * Set default config.
  */
-function oe_webtools_cookie_consent_post_update_8100_set_default_config(): void {
+function oe_webtools_cookie_consent_post_update_8101_set_default_config(): void {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable('oe_webtools_cookie_consent.settings');
 
