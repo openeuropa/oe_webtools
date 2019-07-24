@@ -80,7 +80,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         'dark' => $this->t('Dark'),
       ],
       '#description' => $this->t('Whether to show the banner in light or black background'),
-      '#default_value' => empty($config->get('background_theme')) ?? 'dark',
+      '#default_value' => $config->get('background_theme') ?? 'dark',
     ];
     $form['globan_settings']['display_eu_institutions_links'] = [
       '#type' => 'select',
@@ -90,7 +90,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         1 => $this->t('Yes'),
       ],
       '#description' => $this->t('Hide or show a link to all EU institutions and bodies.'),
-      '#default_value' => empty($config->get('display_eu_institutions_links')) ? '0' : '1',
+      '#default_value' => empty($config->get('display_eu_institutions_links')) ? 0 : 1,
     ];
     $lang_options = [];
     foreach ($this->languageManager->getLanguages() as $language) {
