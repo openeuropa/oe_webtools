@@ -25,10 +25,12 @@ function oe_webtools_globan_page_attachments(array &$attachments): void {
   /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
   $config = \Drupal::service('config.factory')->get('oe_webtools_globan.settings');
 
+  // Add cache dependency on the globan settings config so that page cache is
+  // invalidated properly.
   $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
-  $config_cache = CacheableMetadata::createFromObject($config);
-  $cache = $existing_cache->merge($config_cache);
-  $cache->applyTo($attachments);
+  $existing_cache->addCacheableDependency($config);
+  $existing_cache->applyTo($attachments);
+
   $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
 }
 
