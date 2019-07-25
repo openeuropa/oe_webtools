@@ -79,7 +79,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         'light' => $this->t('Light'),
         'dark' => $this->t('Dark'),
       ],
-      '#description' => $this->t('Whether to show the banner in light or black background'),
+      '#description' => $this->t('Whether to show the banner in light or black background.'),
       '#default_value' => $config->get('background_theme') ?? 'dark',
     ];
     $form['globan_settings']['display_eu_institutions_links'] = [

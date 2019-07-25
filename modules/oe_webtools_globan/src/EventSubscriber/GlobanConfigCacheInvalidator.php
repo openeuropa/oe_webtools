@@ -35,7 +35,7 @@ class GlobanConfigCacheInvalidator implements EventSubscriberInterface {
    * Invalidate cache tags when globan config object changes.
    *
    * @param \Drupal\Core\Config\ConfigCrudEvent $event
-   *   The Event to process.
+   *   The event to process.
    */
   public function onChange(ConfigCrudEvent $event) {
     if ($event->getConfig()->getName() === 'oe_webtools_globan.settings') {
