@@ -53,10 +53,8 @@ class WebtoolsGlobanContext extends RawDrupalContext {
    * @param string|null $globan_lang
    *   The globan language option value.
    *
-   * @throws \Behat\Mink\Exception\ElementNotFoundException
-   *
-   * @Then Webtools javascript loaded with globan option :globan_option
-   * @Then Webtools javascript loaded with globan option :globan_option and language option :globan_lang
+   * @Then the Webtools javascript is loaded with the globan options :globan_option
+   * @Then the Webtools javascript is loaded with the globan options :globan_option and language :globan_lang
    */
   public function assertJsGlobanOption(string $globan_option, $globan_lang = NULL): void {
     $lang_option = $globan_lang ? '&lang=' . $globan_lang : '';

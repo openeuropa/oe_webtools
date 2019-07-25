@@ -14,7 +14,7 @@ Feature: Webtools Global Banner
     And I press "Save"
     And I log out
     And I am on homepage
-    Then Webtools javascript loaded with globan option "111"
+    Then the Webtools javascript is loaded with the globan options "111"
 
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
@@ -24,7 +24,7 @@ Feature: Webtools Global Banner
     And I press "Save"
     And I log out
     And I am on homepage
-    Then Webtools javascript loaded with globan option "000"
+    Then the Webtools javascript is loaded with the globan options "000"
 
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
@@ -32,4 +32,4 @@ Feature: Webtools Global Banner
     And I press "Save"
     And I log out
     And I am on homepage
-    Then Webtools javascript loaded with globan option "000" and language option "en"
+    Then the Webtools javascript is loaded with the globan options "000" and language "en"
