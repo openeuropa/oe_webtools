@@ -1,6 +1,16 @@
 # Change Log
 
-## [1.1.0](https://github.com/openeuropa/oe_webtools/tree/1.1.0) (2019-06-17)
+## [1.2.0](https://github.com/openeuropa/oe_webtools/tree/1.2.0) (2019-07-25)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.1.0...1.2.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-0000: Renumber again the post update. [\#80](https://github.com/openeuropa/oe_webtools/pull/80) ([brummbar](https://github.com/brummbar))
+- OPENEUROPA-2089: Fix typo for post_update. [\#79](https://github.com/openeuropa/oe_webtools/pull/79) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-2044: Integrate global banner from webtools. [\#76](https://github.com/openeuropa/oe_webtools/pull/76) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2043: Integrate cookie consent kit. [\#74](https://github.com/openeuropa/oe_webtools/pull/74) ([voidtek](https://github.com/voidtek))
+
+## [1.1.0](https://github.com/openeuropa/oe_webtools/tree/1.1.0) (2019-06-18)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.0.0...1.1.0)
 
 **Implemented enhancements:**
@@ -9,6 +19,7 @@
 
 **Merged pull requests:**
 
+- OPENEUROPA-1835: Prepare 1.1.0 release. [\#72](https://github.com/openeuropa/oe_webtools/pull/72) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - Add smartloader to analytics. [\#71](https://github.com/openeuropa/oe_webtools/pull/71) ([sandervd](https://github.com/sandervd))
 - OPENEUROPA-1835: Add latest webtools location updates. [\#70](https://github.com/openeuropa/oe_webtools/pull/70) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - OPENEUROPA-1897: Remove permission related steps from drone. [\#65](https://github.com/openeuropa/oe_webtools/pull/65) ([dxvargas](https://github.com/dxvargas))
