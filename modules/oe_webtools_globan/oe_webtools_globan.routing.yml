@@ -1,0 +1,7 @@
+oe_webtools_globan.settings:
+  path: '/admin/config/system/oe_webtools_globan'
+  defaults:
+    _form: 'Drupal\oe_webtools_globan\Form\WebtoolsGlobanSettingsForm'
+    _title: 'Webtools Global Banner settings'
+  requirements:
+    _permission: 'administer webtools globan'

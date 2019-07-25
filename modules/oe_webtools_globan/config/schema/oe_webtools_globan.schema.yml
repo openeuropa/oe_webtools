@@ -1,0 +1,20 @@
+oe_webtools_globan.settings:
+  type: config_object
+  label: 'Webtools Globan settings'
+  mapping:
+    display_eu_flag:
+      type: boolean
+      label: 'Display EU flag'
+      description: 'Enable or disable the EU flag icon in the Global Banner.'
+    background_theme:
+      type: string
+      label: 'Background theme'
+      description: 'Select whether the Global Banner theme is light or dark.'
+    display_eu_institutions_links:
+      type: boolean
+      label: 'See all EU Institutions and bodies'
+      description: 'Show or hide a link to all EU institutions and Bodies.'
+    override_page_lang:
+      type: string
+      label: 'Override page language'
+      description: 'Use this option if you want to display in a language that is different from current page language.'

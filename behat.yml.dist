@@ -12,6 +12,7 @@ default:
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
         - OpenEuropa\Behat\TransformationContext:
             pages:
               Webtools Analytics configuration: '/admin/config/system/oe_webtools_analytics'
@@ -19,6 +20,7 @@ default:
               Webtools Analytics rule creation: 'admin/structure/webtools_analytics_rule/add'
               Webtools Analytics rule: 'admin/structure/webtools_analytics_rule'
               Webtools Cookie Consent configuration: '/admin/config/system/oe_webtools_cookie_consent'
+              Webtools Globan configuration: 'admin/config/system/oe_webtools_globan'
       filters:
         tags: "~@static"
   extensions:

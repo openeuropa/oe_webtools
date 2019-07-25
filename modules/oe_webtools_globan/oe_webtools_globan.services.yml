@@ -1,0 +1,6 @@
+services:
+  oe_webtools_goban.config_cache_invalidator:
+    class: Drupal\oe_webtools_globan\EventSubscriber\GlobanConfigCacheInvalidator
+    arguments: ['@cache_tags.invalidator']
+    tags:
+      - { name: event_subscriber }
