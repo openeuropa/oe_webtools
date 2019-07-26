@@ -1,12 +1,20 @@
 # Change Log
 
+## [1.2.1](https://github.com/openeuropa/oe_webtools/tree/1.2.1) (2019-07-26)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.0...1.2.1)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2084: Fix url of CCK. [\#82](https://github.com/openeuropa/oe_webtools/pull/82) ([voidtek](https://github.com/voidtek))
+
 ## [1.2.0](https://github.com/openeuropa/oe_webtools/tree/1.2.0) (2019-07-25)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.1.0...1.2.0)
 
 **Merged pull requests:**
 
+- Release-1.2.0: Update changelog. [\#81](https://github.com/openeuropa/oe_webtools/pull/81) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-0000: Renumber again the post update. [\#80](https://github.com/openeuropa/oe_webtools/pull/80) ([brummbar](https://github.com/brummbar))
-- OPENEUROPA-2089: Fix typo for post_update. [\#79](https://github.com/openeuropa/oe_webtools/pull/79) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-2089: Fix typo for post\_update. [\#79](https://github.com/openeuropa/oe_webtools/pull/79) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-2044: Integrate global banner from webtools. [\#76](https://github.com/openeuropa/oe_webtools/pull/76) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2043: Integrate cookie consent kit. [\#74](https://github.com/openeuropa/oe_webtools/pull/74) ([voidtek](https://github.com/voidtek))
 
