@@ -11,7 +11,7 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\media\Entity\Media;
 
 define('OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL', '//europa.eu/webtools/crs/iframe/');
-define('OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL', '//europa.eu/wel/cookie-consent/consent.js');
+define('OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL', '//ec.europa.eu/wel/cookie-consent/consent.js');
 
 /**
  * Behat step definitions related to the oe_webtools_cookie_consent module.
