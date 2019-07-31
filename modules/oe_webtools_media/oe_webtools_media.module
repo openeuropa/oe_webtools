@@ -6,16 +6,3 @@
  */
 
 declare(strict_types = 1);
-
-/**
- * Implements hook_theme().
- */
-function oe_webtools_media_theme($existing, $type, $theme, $path) {
-  return [
-    'oe_webtools_media_snippet' => [
-      'variables' => [
-        'snippet' => NULL,
-      ],
-    ],
-  ];
-}

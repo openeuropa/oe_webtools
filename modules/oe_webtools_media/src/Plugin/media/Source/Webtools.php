@@ -55,9 +55,9 @@ class Webtools extends MediaSourceBase implements MediaSourceFieldConstraintsInt
       '#type' => 'select',
       '#title' => $this->t('Widget type'),
       '#options' => [
-        'chart' => t('Chart'),
-        'map' => t('Map'),
-        'social_feeds' => t('Social feeds'),
+        'chart' => $this->t('Chart'),
+        'map' => $this->t('Map'),
+        'social_feeds' => $this->t('Social feeds'),
       ],
       '#default_value' => $this->configuration['widget_type'],
       '#description' => $this->t('Select the webtools widget type.'),
