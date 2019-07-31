@@ -1,0 +1,7 @@
+media.source.webtools:
+  type: media.source.field_aware
+  label: 'Webtools media source configuration'
+  mapping:
+    widget_type:
+      type: string
+      label: 'Widget type'
