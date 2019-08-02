@@ -1,6 +1,6 @@
 name: OpenEuropa Webtools Media
 description: Provids Webtools Widgets as supported media providers.
-package: Media
+package: OpenEuropa Webtools
 type: module
 core: 8.x
 dependecies:
