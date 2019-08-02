@@ -11,7 +11,7 @@ use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 /**
  * Tests the webtools media source.
  *
- * @group webtools
+ * @group oe_webtools_media
  */
 class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
@@ -93,7 +93,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
     // Load the media and check that all fields are properly populated.
     $media = Media::load(1);
-    $this->assertSame('World map', $media->getName());
+    $this->assertSame('Valid world map', $media->getName());
     $this->assertSame('{"service": "map"}', $media->get('field_media_webtools')->value);
 
     // Create a webtools map media item with invalid webtools map snippet.
