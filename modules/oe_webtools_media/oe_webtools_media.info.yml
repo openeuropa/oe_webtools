@@ -3,7 +3,7 @@ description: Provids Webtools Widgets as supported media providers.
 package: OpenEuropa Webtools
 type: module
 core: 8.x
-dependecies:
+dependencies:
   - drupal:media
   - json_field:json_field
   - oe_webtools:oe_webtools
