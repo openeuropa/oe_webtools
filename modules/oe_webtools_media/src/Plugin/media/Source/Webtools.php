@@ -85,7 +85,7 @@ class Webtools extends MediaSourceBase implements MediaSourceFieldConstraintsInt
     ]);
     return parent::createSourceField($type)
       ->set('label', $label)
-      ->set('description', t('HTML tags will be stripped.'));
+      ->set('description', $this->t('HTML tags will be stripped.'));
   }
 
   /**
