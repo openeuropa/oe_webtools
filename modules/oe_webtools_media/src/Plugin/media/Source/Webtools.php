@@ -11,7 +11,7 @@ use Drupal\media\MediaSourceFieldConstraintsInterface;
 use Drupal\media\MediaTypeInterface;
 
 /**
- * Webtools.
+ * Provides a media source plugin for Webtools resources.
  *
  * @see \Drupal\file\FileInterface
  *
