@@ -83,7 +83,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     // Create a webtools map media item with valid webtools map snippet.
     $this->drupalGet("media/add/{$media_type_id}");
     $assert_session->fieldExists('Name')->setValue('Valid world map');
-    $assert_session->fieldExists('Webtools map snippet')->setValue('{"service": "map"}');
+    $assert_session->fieldExists('Webtools Map snippet')->setValue('{"service": "map"}');
     $page->pressButton('Save');
 
     $assert_session->addressEquals('admin/content/media');
@@ -99,7 +99,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     // Create a webtools map media item with invalid webtools map snippet.
     $this->drupalGet("media/add/{$media_type_id}");
     $assert_session->fieldExists('Name')->setValue('Invalid world map');
-    $assert_session->fieldExists('Webtools map snippet')->setValue('{"service": "nap"}');
+    $assert_session->fieldExists('Webtools Map snippet')->setValue('{"service": "nap"}');
     $page->pressButton('Save');
 
     $assert_session->pageTextContains('Invalid webtools map snippet.');

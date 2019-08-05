@@ -7,7 +7,7 @@ namespace Drupal\oe_webtools_media\Plugin\Validation\Constraint;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Drupal\Component\Serialization\Json;
-use Drupal\media\MediaSourceInterface;
+use Drupal\oe_webtools_media\Plugin\media\Source\WebtoolsInterface;
 
 /**
  * Validates the webtools media constraint.
@@ -21,16 +21,22 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator {
     /** @var \Drupal\media\MediaInterface $media */
     $media = $value->getEntity();
 
-    /** @var \Drupal\media\MediaSourceInterface $source */
+    /** @var \Drupal\oe_webtools_media\Plugin\media\Source\WebtoolsInterface $source */
     $source = $media->getSource();
 
-    if (!($source instanceof MediaSourceInterface)) {
-      throw new \LogicException('Media source must implement ' . MediaSourceInterface::class);
+    if (!($source instanceof WebtoolsInterface)) {
+      throw new \LogicException('Media source must implement ' . WebtoolsInterface::class);
     }
 
+    // Get widget types.
+    $widget_types = $source->getWidgetTypes();
+
+    // Decode the snippet.
     $snippet = Json::decode($source->getSourceFieldValue($media));
-    if (!isset($snippet['service']) || $snippet['service'] !== $constraint->widgetType) {
-      $this->context->addViolation($constraint->message, ['%widgetType' => $constraint->widgetType]);
+
+    // Add violation in case incorrect services.
+    if (!isset($snippet['service']) || $snippet['service'] !== $widget_types[$constraint->widgetType]['service']) {
+      $this->context->addViolation($constraint->message, ['%widgetType' => $widget_types[$constraint->widgetType]['name']]);
     }
   }
 

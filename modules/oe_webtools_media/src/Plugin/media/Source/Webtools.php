@@ -7,7 +7,6 @@ namespace Drupal\oe_webtools_media\Plugin\media\Source;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\MediaSourceBase;
-use Drupal\media\MediaSourceFieldConstraintsInterface;
 use Drupal\media\MediaTypeInterface;
 
 /**
@@ -22,7 +21,7 @@ use Drupal\media\MediaTypeInterface;
  *   allowed_field_types = {"json"}
  * )
  */
-class Webtools extends MediaSourceBase implements MediaSourceFieldConstraintsInterface {
+class Webtools extends MediaSourceBase implements WebtoolsInterface {
 
   /**
    * {@inheritdoc}
@@ -54,11 +53,7 @@ class Webtools extends MediaSourceBase implements MediaSourceFieldConstraintsInt
     $form['widget_type'] = [
       '#type' => 'select',
       '#title' => $this->t('Widget type'),
-      '#options' => [
-        'chart' => $this->t('Chart'),
-        'map' => $this->t('Map'),
-        'social_feeds' => $this->t('Social feeds'),
-      ],
+      '#options' => array_combine(array_keys($this->getWidgetTypes()), array_column($this->getWidgetTypes(), 'name')),
       '#default_value' => $this->configuration['widget_type'],
       '#description' => $this->t('Select the webtools widget type.'),
       '#required' => TRUE,
@@ -80,8 +75,8 @@ class Webtools extends MediaSourceBase implements MediaSourceFieldConstraintsInt
    * {@inheritdoc}
    */
   public function createSourceField(MediaTypeInterface $type) {
-    $label = (string) $this->t('Webtools @widget_type snippet', [
-      '@widget_type' => $this->configuration['widget_type'],
+    $label = (string) $this->t('Webtools @widget_type_name snippet', [
+      '@widget_type_name' => $this->getWidgetTypes()[$this->configuration['widget_type']]['name'],
     ]);
     return parent::createSourceField($type)
       ->set('label', $label);
@@ -94,6 +89,26 @@ class Webtools extends MediaSourceBase implements MediaSourceFieldConstraintsInt
     $display->setComponent($this->getSourceFieldDefinition($type)->getName(), [
       'type' => 'webtools_snippet',
     ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getWidgetTypes() {
+    return [
+      'chart' => [
+        'name' => $this->t('Chart'),
+        'service' => 'charts',
+      ],
+      'map' => [
+        'name' => $this->t('Map'),
+        'service' => 'map',
+      ],
+      'social_feeds' => [
+        'name' => $this->t('Social feeds'),
+        'service' => 'smk',
+      ],
+    ];
   }
 
 }
