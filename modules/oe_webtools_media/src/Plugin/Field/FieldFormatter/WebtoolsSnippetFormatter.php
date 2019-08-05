@@ -15,9 +15,6 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   label = @Translation("Webtools snippet"),
  *   field_types = {
  *     "json",
- *   },
- *   quickedit = {
- *     "editor" = "plain_text"
  *   }
  * )
  */
