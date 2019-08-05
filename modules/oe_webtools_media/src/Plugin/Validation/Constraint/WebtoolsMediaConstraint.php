@@ -22,7 +22,7 @@ class WebtoolsMediaConstraint extends Constraint {
    *
    * @var string
    */
-  public $message = 'Invalid webtools %widgetType snippet.';
+  public $message = 'Invalid webtools %widget_type_name snippet.';
 
   /**
    * The webtools widget type this constraint is checking for.
