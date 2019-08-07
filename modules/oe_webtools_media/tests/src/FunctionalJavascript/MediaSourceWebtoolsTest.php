@@ -63,6 +63,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     // need to make sure we have updated information before proceeding with the
     // actions on the UI.
     \Drupal::service('entity_type.bundle.info')->clearCachedBundles();
+    \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
 
     return MediaType::load($media_type_id);
   }
