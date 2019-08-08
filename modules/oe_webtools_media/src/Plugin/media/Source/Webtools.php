@@ -79,7 +79,8 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
       '@widget_type_name' => $this->getWidgetTypes()[$this->configuration['widget_type']]['name'],
     ]);
     return parent::createSourceField($type)
-      ->set('label', $label);
+      ->set('label', $label)
+      ->set('description', $this->t('Enter the snippet without the script tag.'));
   }
 
   /**
