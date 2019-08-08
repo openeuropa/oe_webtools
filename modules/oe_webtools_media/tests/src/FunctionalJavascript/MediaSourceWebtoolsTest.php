@@ -33,7 +33,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   /**
    * Tests the webtools media source.
    */
-  public function doTestCreateWebtoolsMediaType($media_type_id, $widget_type) {
+  public function createWebtoolsMediaType($media_type_id, $widget_type) {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -59,6 +59,18 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $this->drupalGet('admin/structure/media');
     $assert_session->pageTextContains($media_type_id);
 
+    // Create the description custom field.
+    $fields = [
+      'field_media_webtools_description' => 'string_long',
+    ];
+    $this->createMediaTypeFields($fields, $media_type_id);
+
+    // Set the fields map.
+    $this->drupalGet("admin/structure/media/manage/$media_type_id");
+    $assert_session->selectExists('field_map[description]')->setValue('field_media_webtools_description');
+    $assert_session->selectExists('field_map[title]')->setValue('name');
+    $assert_session->buttonExists('Save')->press();
+
     // Bundle definitions are statically cached in the context of the test, we
     // need to make sure we have updated information before proceeding with the
     // actions on the UI.
@@ -79,7 +91,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $assert_session = $this->assertSession();
 
     // Create webtools map media type.
-    $this->doTestCreateWebtoolsMediaType($media_type_id, 'map');
+    $this->createWebtoolsMediaType($media_type_id, 'map');
 
     // Create a webtools map media item with valid webtools map snippet.
     $this->drupalGet("media/add/{$media_type_id}");
@@ -88,9 +100,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $page->pressButton('Save');
 
     $assert_session->addressEquals('admin/content/media');
-
-    // Get the media entity view URL from the creation message.
-    $this->drupalGet($this->assertLinkToCreatedMedia());
 
     // Load the media and check that all fields are properly populated.
     $media = Media::load(1);
