@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_webtools_media\FunctionalJavascript;
 
 use Drupal\media\Entity\Media;
 use Drupal\media\Entity\MediaType;
+use Drupal\media\MediaTypeInterface;
 use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 
 /**
@@ -32,8 +33,65 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
   /**
    * Tests the webtools media source.
+   *
+   * @param string $widget_type
+   *   The widget type.
+   * @param string $widget_name
+   *   The widget human name.
+   * @param string $service
+   *   The webtools service associated with the widget.
+   *
+   * @dataProvider providerTestMediaWebtoolsSource
    */
-  public function createWebtoolsMediaType($media_type_id, $widget_type) {
+  public function testMediaWebtoolsSource(string $widget_type, string $widget_name, string $service): void {
+    $media_type_id = 'test_media_webtools_type';
+
+    $session = $this->getSession();
+    $page = $session->getPage();
+    $assert_session = $this->assertSession();
+
+    // Create webtools map media type.
+    $this->createWebtoolsMediaType($media_type_id, $widget_type);
+
+    // Create a webtools media item with valid webtools snippet.
+    $this->drupalGet("media/add/{$media_type_id}");
+    $assert_session->fieldExists('Name')->setValue("Valid webtools $widget_name item");
+    $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
+    $page->pressButton('Save');
+    $assert_session->addressEquals('admin/content/media');
+
+    // Load the media and check that all fields are properly populated.
+    $media = Media::load(1);
+    $this->assertSame("Valid webtools $widget_name item", $media->getName());
+    $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
+
+    // Create a webtools media item with invalid webtools snippet.
+    $this->drupalGet("media/add/{$media_type_id}");
+    $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
+    $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . $widget_type . '"}');
+    $page->pressButton('Save');
+
+    $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+  }
+
+  /**
+   * Provides data to self::testMediaWebtoolsMapSource().
+   *
+   * @return array
+   *   An array of widget types data.
+   */
+  public function providerTestMediaWebtoolsSource(): array {
+    return [
+      ['chart', 'Chart', 'charts'],
+      ['map', 'Map', 'map'],
+      ['social_feeds', 'Social feeds', 'smk'],
+    ];
+  }
+
+  /**
+   * Creates webtools media type.
+   */
+  public function createWebtoolsMediaType(string $media_type_id, string $widget_type): MediaTypeInterface {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -51,6 +109,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $page->selectFieldOption('Media source', $source_id);
     $result = $assert_session->waitForElementVisible('css', 'fieldset[data-drupal-selector="edit-source-configuration"]');
     $this->assertNotEmpty($result);
+    $assert_session->optionExists('Widget type', $widget_type);
     $page->selectFieldOption('Widget type', $widget_type);
 
     // Save the form to create the type.
@@ -78,41 +137,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
 
     return MediaType::load($media_type_id);
-  }
-
-  /**
-   * Tests the webtools media map source.
-   */
-  public function testMediaWebtoolsMapSource() {
-    $media_type_id = 'test_media_webtools_type';
-
-    $session = $this->getSession();
-    $page = $session->getPage();
-    $assert_session = $this->assertSession();
-
-    // Create webtools map media type.
-    $this->createWebtoolsMediaType($media_type_id, 'map');
-
-    // Create a webtools map media item with valid webtools map snippet.
-    $this->drupalGet("media/add/{$media_type_id}");
-    $assert_session->fieldExists('Name')->setValue('Valid world map');
-    $assert_session->fieldExists('Webtools Map snippet')->setValue('{"service": "map"}');
-    $page->pressButton('Save');
-
-    $assert_session->addressEquals('admin/content/media');
-
-    // Load the media and check that all fields are properly populated.
-    $media = Media::load(1);
-    $this->assertSame('Valid world map', $media->getName());
-    $this->assertSame('{"service": "map"}', $media->get('field_media_webtools')->value);
-
-    // Create a webtools map media item with invalid webtools map snippet.
-    $this->drupalGet("media/add/{$media_type_id}");
-    $assert_session->fieldExists('Name')->setValue('Invalid world map');
-    $assert_session->fieldExists('Webtools Map snippet')->setValue('{"service": "nap"}');
-    $page->pressButton('Save');
-
-    $assert_session->pageTextContains('Invalid webtools map snippet.');
   }
 
 }
