@@ -90,6 +90,14 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
   /**
    * Creates webtools media type.
+   *
+   * @param string $media_type_id
+   *   The media type id.
+   * @param string $widget_type
+   *   The widget type.
+   *
+   * @return \Drupal\media\MediaTypeInterface
+   *   Returns created the media type.
    */
   public function createWebtoolsMediaType(string $media_type_id, string $widget_type): MediaTypeInterface {
     $session = $this->getSession();
