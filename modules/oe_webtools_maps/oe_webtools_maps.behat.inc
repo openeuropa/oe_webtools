@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains \OpenEuropaWebtoolsMapsSubContext.
+ * Contains \OeWebtoolsMapsSubContext.
  */
 
 declare(strict_types = 1);
@@ -13,7 +13,7 @@ use PHPUnit\Framework\Assert;
 /**
  * Behat step definitions for testing Webtools Maps.
  */
-class OpenEuropaWebtoolsMapsSubContext extends DrupalSubContextBase {
+class OeWebtoolsMapsSubContext extends DrupalSubContextBase {
 
   /**
    * Checks that a map centered on the given coordinates is present in the page.
