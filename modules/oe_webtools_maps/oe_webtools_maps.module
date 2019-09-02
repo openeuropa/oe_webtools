@@ -6,18 +6,3 @@
  */
 
 declare(strict_types = 1);
-
-/**
- * Implements hook_theme().
- */
-function oe_webtools_maps_theme($existing, $type, $theme, $path) {
-  return [
-    'oe_webtools_maps_map' => [
-      'variables' => [
-        'zoom_level' => NULL,
-        'longitude' => NULL,
-        'latitude' => NULL,
-      ],
-    ],
-  ];
-}
