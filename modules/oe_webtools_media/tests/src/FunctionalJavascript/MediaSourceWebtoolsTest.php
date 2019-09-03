@@ -132,12 +132,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     ];
     $this->createMediaTypeFields($fields, $media_type_id);
 
-    // Set the fields map.
-    $this->drupalGet("admin/structure/media/manage/$media_type_id");
-    $assert_session->selectExists('field_map[description]')->setValue('field_media_webtools_description');
-    $assert_session->selectExists('field_map[title]')->setValue('name');
-    $assert_session->buttonExists('Save')->press();
-
     // Bundle definitions are statically cached in the context of the test, we
     // need to make sure we have updated information before proceeding with the
     // actions on the UI.

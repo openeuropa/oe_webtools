@@ -27,10 +27,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    * {@inheritdoc}
    */
   public function getMetadataAttributes() {
-    return [
-      'title' => $this->t('Title'),
-      'description' => $this->t('Description'),
-    ];
+    return [];
   }
 
   /**
