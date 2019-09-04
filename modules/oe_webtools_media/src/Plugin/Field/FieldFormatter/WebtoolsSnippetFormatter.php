@@ -6,6 +6,7 @@ namespace Drupal\oe_webtools_media\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\json_field\JsonMarkup;
 
 /**
  * Plugin implementation of the 'webtools_snippet' formatter.
@@ -30,7 +31,7 @@ class WebtoolsSnippetFormatter extends FormatterBase {
       $element[$delta] = [
         '#type' => 'html_tag',
         '#tag' => 'script',
-        '#value' => $item->get('value')->getValue(),
+        '#value' => JsonMarkup::create(Json::encode(Json::decode($item->get('value')->getValue()))),
         '#attributes' => ['type' => 'application/json'],
       ];
     }
