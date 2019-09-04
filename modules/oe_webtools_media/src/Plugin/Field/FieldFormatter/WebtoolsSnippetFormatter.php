@@ -6,6 +6,7 @@ namespace Drupal\oe_webtools_media\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Component\Serialization\Json;
 use Drupal\json_field\JsonMarkup;
 
 /**
