@@ -1,8 +1,0 @@
-<?php
-
-/**
- * @file
- * OpenEuropa Webtools Media module.
- */
-
-declare(strict_types = 1);

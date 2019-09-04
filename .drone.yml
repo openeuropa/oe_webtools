@@ -62,7 +62,7 @@ pipeline:
     group: test
     image: fpfis/httpd-php-ci:7.1
     commands:
-      - ./vendor/bin/phpunit --verbose
+      - ./vendor/bin/phpunit
 
   test-behat:
     group: test
