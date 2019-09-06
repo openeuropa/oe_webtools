@@ -18,6 +18,12 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($value, Constraint $constraint) {
+    /** @var \Drupal\Core\Field\FieldItemListInterface $value */
+    // Bail out if the source field is empty.
+    if ($value->isEmpty()) {
+      return;
+    }
+
     /** @var \Drupal\media\MediaInterface $media */
     $media = $value->getEntity();
 
@@ -32,7 +38,12 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator {
     $widget_types = $source->getWidgetTypes();
 
     // Decode the snippet.
-    $snippet = Json::decode($source->getSourceFieldValue($media));
+    $snippet = Json::decode($value->first()->value);
+    if ($snippet === NULL) {
+      // The JSON is invalid, the json_field module has already shown a
+      // validation error.
+      return;
+    }
 
     // Add violation in case incorrect services.
     if (!isset($snippet['service']) || $snippet['service'] !== $widget_types[$constraint->widgetType]['service']) {
