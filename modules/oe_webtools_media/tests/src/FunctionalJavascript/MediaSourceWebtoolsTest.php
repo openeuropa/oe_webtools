@@ -84,7 +84,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     return [
       ['chart', 'Chart', 'charts'],
       ['map', 'Map', 'map'],
-      ['social_feeds', 'Social feeds', 'smk'],
+      ['social_feed', 'Social feed', 'smk'],
     ];
   }
 

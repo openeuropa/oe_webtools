@@ -102,8 +102,8 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'name' => $this->t('Map'),
         'service' => 'map',
       ],
-      'social_feeds' => [
-        'name' => $this->t('Social feeds'),
+      'social_feed' => [
+        'name' => $this->t('Social feed'),
         'service' => 'smk',
       ],
     ];
