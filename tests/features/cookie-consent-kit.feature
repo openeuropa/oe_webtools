@@ -1,4 +1,4 @@
-@api @BackupCookieConsentConfigs
+@api @install:oe_webtools_cookie_consent @BackupCookieConsentConfigs
 Feature: Cookie Consent kit.
   In order to show usage of Cookie Consent kit on the website
   As a anonymous user

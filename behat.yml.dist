@@ -12,6 +12,7 @@ default:
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsExtentionsContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
         - OpenEuropa\Behat\TransformationContext:
             pages:

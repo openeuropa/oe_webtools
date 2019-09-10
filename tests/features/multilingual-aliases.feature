@@ -1,4 +1,4 @@
-@api
+@api @install:oe_webtools_analytics_rules
 Feature: Webtools Analytics multilingual aliases
   In order to identify separate sections of my website
   As the site manager

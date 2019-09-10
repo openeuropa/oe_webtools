@@ -1,4 +1,4 @@
-@api
+@api @install:oe_webtools_laco_widget
 Feature: Webtools LACO Widget
   In order to provide LACO service
   As the site manager

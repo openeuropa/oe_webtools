@@ -1,4 +1,4 @@
-@api
+@api @install:oe_webtools_analytics_rules @aruls
 Feature: Webtools Analytics Site Section
   In order to identify separate sections of my website
   As the site manager
