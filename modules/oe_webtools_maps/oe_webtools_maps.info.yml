@@ -5,6 +5,6 @@ package: OpenEuropa Webtools
 type: module
 core: 8.x
 
-dependecies:
-- geofield:geofield
-- oe_webtools:oe_webtools
+dependencies:
+  - geofield:geofield
+  - oe_webtools:oe_webtools

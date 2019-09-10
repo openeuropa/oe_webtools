@@ -41,8 +41,6 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   public static $modules = [
     'config',
     'system',
-    'oe_webtools',
-    'oe_webtools_analytics',
     'oe_webtools_analytics_rules',
   ];
 

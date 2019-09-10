@@ -7,8 +7,8 @@
 
 declare(strict_types = 1);
 
-use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 
 /**
  * Implements hook_page_attachments().
