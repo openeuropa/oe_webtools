@@ -1,4 +1,4 @@
-@static
+@static @install:oe_webtools_maps
 Feature: Step definitions to check presence of maps
   In order to define user scenarios involving maps
   As a UI designer
