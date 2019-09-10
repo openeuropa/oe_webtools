@@ -69,12 +69,14 @@ pipeline:
     image: fpfis/httpd-php-ci:7.1
     commands:
       - ./vendor/bin/behat --strict
-
-  test-behat-static:
-    group: test
-    image: fpfis/httpd-php-dev:7.1
-    commands:
       - ./vendor/bin/behat --strict --profile=static
+
+  debug:
+    image: fpfis/httpd-php-ci:7.1
+    commands:
+      - ./vendor/bin/drush ws --count 500
+    when:
+      status: failure
 
 matrix:
   COMPOSER_BOUNDARY:
