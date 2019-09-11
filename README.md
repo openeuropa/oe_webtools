@@ -81,6 +81,15 @@ The Webtools module contains a submodule that provides a service for providing
 Cookie Consent Kit. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_cookie_consent/README.md).
 
+### OpenEuropa Webtools Media
+
+The Webtools module contains a submodule that provides webtools widgets as
+supported media providers.
+
+#### Requirements for Webtools Media
+
+* [drupal/json_field 1.x-rc3](https://www.drupal.org/project/json_field)
+
 ## Development setup
 
 You can build the test site by running the following steps.
