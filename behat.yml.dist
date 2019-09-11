@@ -64,6 +64,7 @@ static:
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsExtentionsContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsMapsContext
       filters:
         tags: "@static"
   extensions:
