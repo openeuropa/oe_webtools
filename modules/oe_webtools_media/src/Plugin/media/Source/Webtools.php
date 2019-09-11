@@ -6,6 +6,8 @@ namespace Drupal\oe_webtools_media\Plugin\media\Source;
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaTypeInterface;
 
@@ -77,7 +79,8 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
     ]);
     return parent::createSourceField($type)
       ->set('label', $label)
-      ->set('description', $this->t('Enter the snippet without the script tag.'));
+      ->set('description', $this->t('Enter the snippet without the script tag. Snippets can be generated in @generator_link.',
+        ['@generator_link' => Link::fromTextAndUrl($this->t('Webtools wizzard'), Url::fromUri('https://europa.eu/webtools/mgmt/wizard/'))->toString()]));
   }
 
   /**
