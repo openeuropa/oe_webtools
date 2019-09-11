@@ -32,7 +32,6 @@ class WebtoolsExtentionsContext extends RawDrupalContext {
   public static function collectEnabledModules(BeforeFeatureScope $scope): void {
     // Reset the module list at the beginning of each feature.
     self::$modules = [];
-
     self::$modules = self::getModulesToInstall($scope->getFeature());
   }
 
