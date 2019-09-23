@@ -14,6 +14,8 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\json_field\JsonMarkup;
 
 /**
+ * Test the webtools snippet formatter.
+ *
  * @coversDefaultClass \Drupal\oe_webtools_media\Plugin\Field\FieldFormatter\WebtoolsSnippetFormatter
  *
  * @group oe_webtools_media
@@ -117,8 +119,6 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
    *   The media webtools field value.
    *
    * @dataProvider providerFormatter
-   *
-   * @throws \Exception
    */
   public function testFormatter($data) {
     $entity = EntityTest::create([
@@ -132,8 +132,8 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
     // Assert correct format.
     $this->assertContains('<script type="application/json">' . JsonMarkup::create(Json::encode(Json::decode($data))) . '</script>', $output);
 
-    // Assert the output is Xss filtered.
-    $this->assertTrue($output === Xss::filter($output, ['script', 'div']), 'The output is Xss filtered');
+    // Assert the output is XSS filtered.
+    $this->assertTrue($output === Xss::filter($output, ['script', 'div']), 'The output is XSS filtered');
 
     // Assert the script tags were escaped.
     $this->assertTrue(substr_count($output, '</script') === 1, 'Script tags were escaped');
