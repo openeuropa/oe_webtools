@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_geocoding\Plugin\Geocoder\Provider;
 
-use Drupal\geocoder\ProviderUsingHandlerWithAdapterBase;
+use Drupal\geocoder\ConfigurableProviderUsingHandlerWithAdapterBase;
 
 /**
  * Webtools Geocoding provider for the Geocoder module.
@@ -13,6 +13,9 @@ use Drupal\geocoder\ProviderUsingHandlerWithAdapterBase;
  *   id = "webtools_geocoding",
  *   name = "Webtools Geocoding",
  *   handler = "\OpenEuropa\Provider\WebtoolsGeocoding\WebtoolsGeocoding",
+ *   arguments = {
+ *     "referer" = ""
+ *   }
  * )
  */
-class WebtoolsGeocoding extends ProviderUsingHandlerWithAdapterBase {}
+class WebtoolsGeocoding extends ConfigurableProviderUsingHandlerWithAdapterBase {}
