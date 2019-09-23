@@ -1,3 +1,9 @@
 geocoder_provider.configuration.webtools_geocoding:
   type: geocoder_provider_configuration
   label: 'Webtools Geocoding configuration'
+  mapping:
+    referer:
+      type: string
+      label: 'Referer'
+      description: 'Value of the Referer header'
+      nullable: true
