@@ -59,7 +59,7 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $this->installEntitySchema('user');
@@ -98,7 +98,7 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
   /**
    * Tests that the formatter contains the necessary library.
    */
-  public function testFormatterLibrary() {
+  public function testFormatterLibrary(): void {
     $data = '{"service":"map","map":{"background":["osmec"]},"version":"2.0"}';
     $entity = EntityTest::create([
       'test_field_media_webtools' => $data,
@@ -120,7 +120,7 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
    *
    * @dataProvider providerFormatter
    */
-  public function testFormatter($data) {
+  public function testFormatter(string $data): void {
     $entity = EntityTest::create([
       'test_field_media_webtools' => $data,
     ]);
@@ -150,7 +150,7 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
    * @return array
    *   Data provider for the webtools snippet field.
    */
-  public function providerFormatter() {
+  public function providerFormatter(): array {
     return [
       ['{"service":"map","map":{"background":["osmec"]},"version":"2.0"}'],
       ['{"service":"map","<!--map":{"background":["osmec"]},"version":"2.0"}'],
