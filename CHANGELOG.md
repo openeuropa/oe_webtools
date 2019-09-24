@@ -1,10 +1,27 @@
 # Change Log
 
+## [1.3.0](https://github.com/openeuropa/oe_webtools/tree/1.3.0) (2019-09-24)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.1...1.3.0)
+
+**Closed issues:**
+
+- oe\_webtools\_maps - PHPCS issue in master [\#89](https://github.com/openeuropa/oe_webtools/issues/89)
+- Make the package consistent for all submodules [\#85](https://github.com/openeuropa/oe_webtools/issues/85)
+
+**Merged pull requests:**
+
+- OPENEUROPA-0000: Remove locked version of Mink related packages. [\#99](https://github.com/openeuropa/oe_webtools/pull/99) ([brummbar](https://github.com/brummbar))
+- OPENEUROPA-2259: Fix behat/mink-selenium2-driver missing branch by aliasing. [\#91](https://github.com/openeuropa/oe_webtools/pull/91) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- Issue \#89: Fix PHPCS issue in master. [\#90](https://github.com/openeuropa/oe_webtools/pull/90) ([vever001](https://github.com/vever001))
+- Issue \#85: Make the package consistent for all submodules. [\#86](https://github.com/openeuropa/oe_webtools/pull/86) ([msnassar](https://github.com/msnassar))
+- OPENEUROPA-2130: Add new component oe webtools media. [\#84](https://github.com/openeuropa/oe_webtools/pull/84) ([msnassar](https://github.com/msnassar))
+
 ## [1.2.1](https://github.com/openeuropa/oe_webtools/tree/1.2.1) (2019-07-26)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.0...1.2.1)
 
 **Merged pull requests:**
 
+- OPENEUROPA-1766: Update the changelog for the release 1.2.1. [\#83](https://github.com/openeuropa/oe_webtools/pull/83) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-2084: Fix url of CCK. [\#82](https://github.com/openeuropa/oe_webtools/pull/82) ([voidtek](https://github.com/voidtek))
 
 ## [1.2.0](https://github.com/openeuropa/oe_webtools/tree/1.2.0) (2019-07-25)
