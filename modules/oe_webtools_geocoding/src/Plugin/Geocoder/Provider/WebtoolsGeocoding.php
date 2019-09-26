@@ -14,8 +14,8 @@ use Drupal\geocoder\ConfigurableProviderUsingHandlerWithAdapterBase;
  *   name = "Webtools Geocoding",
  *   handler = "\OpenEuropa\Provider\WebtoolsGeocoding\WebtoolsGeocoding",
  *   arguments = {
- *     "referer" = ""
- *   }
+ *     "referer" = NULL,
+ *   },
  * )
  */
 class WebtoolsGeocoding extends ConfigurableProviderUsingHandlerWithAdapterBase {}
