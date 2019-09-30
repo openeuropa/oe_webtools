@@ -1,5 +1,6 @@
 # Third-party library (CDN).
 drupal.webtools-smartloader:
   version: 1.x
+  header: true
   js:
     https://europa.eu/webtools/load.js: { type: external, attributes: { defer: true } }
