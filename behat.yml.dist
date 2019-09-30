@@ -13,6 +13,7 @@ default:
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
+        - FeatureContext
         - OpenEuropa\Behat\TransformationContext:
             pages:
               Webtools Analytics configuration: '/admin/config/system/oe_webtools_analytics'

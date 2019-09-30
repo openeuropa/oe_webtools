@@ -44,7 +44,10 @@
     "autoload": {
         "psr-4": {
             "Drupal\\oe_webtools\\": "./src/"
-        }
+        },
+        "classmap": [
+          "tests/features"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
