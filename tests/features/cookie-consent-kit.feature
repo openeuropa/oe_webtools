@@ -26,13 +26,14 @@ Feature: Cookie Consent kit.
     When I am on homepage
     Then the CCK javascript is not loaded on the head section of the page
 
-  @remote-video @cleanup:media
+  @remote-video
   Scenario: Remote videos should use Cookie Consent kit service.
     # Check that the oEmbed video iframe with Cookie Consent.
     Given I am an anonymous user
-    When I visit the remote video entity page:
+    Given the following remote video entity:
       | url                                         | title                  | path         |
       | https://www.youtube.com/watch?v=1-g73ty9v04 | Energy, let's save it! | /media/test  |
+    When I visit the remote video entity page "Energy, let's save it!"
     Then I should see the oEmbed video iframe with Cookie Consent
 
     # Change the configuration.

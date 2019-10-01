@@ -19,6 +19,13 @@ define('OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL', '//ec.europa.eu/wel/cooki
 class WebtoolsCookieConsentContext extends RawDrupalContext {
 
   /**
+   * An array of media entities created during a scenario.
+   *
+   * @var \Drupal\media\MediaInterface[]
+   */
+  protected $media = [];
+
+  /**
    * The config context.
    *
    * @var \Drupal\DrupalExtension\Context\ConfigContext
@@ -66,15 +73,23 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Create remote video entity and go to detail page of media.
+   * Creates a remote video media entity using the provided data.
    *
-   * @param \Behat\Gherkin\Node\TableNode $mediasTable
-   *   Table of media data.
+   * Table format:
+   * | url                     | title                  | path         |
+   * | http://www.yt.com/vg734 | Energy, let's save it! | /media/test  |
    *
-   * @Given I visit the remote video entity page:
+   * @param \Behat\Gherkin\Node\TableNode $media_data
+   *   Table of remote video media data.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   *   Thrown when one of the remote video media entities can not be saved.
+   *
+   * @Given the following remote video entity:
+   * @Given the following remote video entities:
    */
-  public function iVisitTheRemoteVideoEntityPage(TableNode $mediasTable): void {
-    $hash = $mediasTable->getColumnsHash();
+  public function createRemoteVideoEntities(TableNode $media_data): void {
+    $hash = $media_data->getColumnsHash();
     $media_data = reset($hash);
     if ($media_data) {
       $media = Media::create([
@@ -84,8 +99,37 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
         'path' => $media_data['path'],
       ]);
       $media->save();
-      $this->visitPath($media_data['path']);
+      $this->media[] = $media;
     }
+  }
+
+  /**
+   * Goes to the detail page of a media entity.
+   *
+   * @param string $title
+   *   The title of the media entity to visit.
+   *
+   * @throws \Exception
+   *   Thrown when the entity cannot be loaded.
+   *
+   * @Given I visit the remote video entity page :title
+   */
+  public function iVisitTheRemoteVideoEntityPage(string $title): void {
+    $entity_manager = \Drupal::entityTypeManager();
+    $storage = $entity_manager->getStorage('media');
+
+    $query = $storage->getQuery()
+      ->condition('name', $title)
+      ->range(0, 1);
+    $results = $query->execute();
+
+    if (empty($results)) {
+      throw new \Exception("Media entity with title '$title' was not found.'");
+    }
+    $result = reset($results);
+    /** @var \Drupal\media\MediaInterface $entity */
+    $entity = $storage->load($result);
+    $this->visitPath($entity->get('path')->value);
   }
 
   /**
@@ -126,6 +170,17 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    */
   public function assertNoCckJsLoaded(): void {
     $this->assertSession()->elementNotExists('css', "head > script[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL . "']");
+  }
+
+  /**
+   * Cleans up entities created during a scenario.
+   *
+   * @AfterScenario
+   */
+  public function clean(AfterScenarioScope $scope) {
+    foreach ($this->media as $media) {
+      $media->delete();
+    }
   }
 
 }
