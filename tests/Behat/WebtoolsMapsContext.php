@@ -62,7 +62,7 @@ class WebtoolsMapsContext extends RawDrupalContext {
       Assert::assertCount($count, $maps);
     }
     else {
-      Assert::assertNotEmpty($this->getWebtoolsMaps());
+      Assert::assertNotEmpty($maps);
     }
   }
 
