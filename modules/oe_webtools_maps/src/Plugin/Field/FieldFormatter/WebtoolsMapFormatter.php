@@ -7,6 +7,7 @@ namespace Drupal\oe_webtools_maps\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\oe_webtools_maps\Component\Render\JsonEncoded;
 
 /**
  * Displays a Geofield as a map using the Webtools Maps service.
@@ -64,10 +65,17 @@ class WebtoolsMapFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $element[$delta] = [
-        '#theme' => 'oe_webtools_maps_map',
-        '#latitude' => $item->get('lat')->getValue(),
-        '#longitude' => $item->get('lon')->getValue(),
-        '#zoom_level' => $this->getSetting('zoom_level'),
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#value' => new JsonEncoded([
+          'service' => 'map',
+          'version' => '2.0',
+          'map' => [
+            'zoom' => $this->getSetting('zoom_level'),
+            'center' => [$item->get('lat')->getValue(), $item->get('lon')->getValue()],
+          ],
+        ]),
+        '#attributes' => ['type' => 'application/json'],
       ];
     }
 
