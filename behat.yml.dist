@@ -12,6 +12,7 @@ default:
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsExtensionsContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
         - OpenEuropa\Behat\TransformationContext:
             pages:
@@ -62,6 +63,8 @@ static:
         - %paths.base%/tests/features
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsExtensionsContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsMapsContext
       filters:
         tags: "@static"
   extensions:

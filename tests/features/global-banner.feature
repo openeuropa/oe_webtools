@@ -1,4 +1,4 @@
-@api
+@api @install:oe_webtools_globan
 Feature: Webtools Global Banner
   In order to provide a global banner
   As privileged user

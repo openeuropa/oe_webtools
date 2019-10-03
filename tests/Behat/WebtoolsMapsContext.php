@@ -1,25 +1,16 @@
 <?php
 
-/**
- * @file
- * Contains \OeWebtoolsMapsSubContext.
- */
-
 declare(strict_types = 1);
 
-use Drupal\DrupalExtension\Context\DrupalSubContextBase;
+namespace Drupal\Tests\oe_webtools\Behat;
+
+use Drupal\DrupalExtension\Context\RawDrupalContext;
 use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions for testing Webtools Maps.
- *
- * @deprecated Sub-contexts are deprecated in Drupal Behat Extension 4.0.0 and
- * will be removed in 4.1.0. Class OeWebtoolsMapsSubContext is a subcontext.
- * This logic should be moved to a normal Behat context and
- * loaded via behat.yml.
- * @see \Drupal\Tests\oe_webtools\Behat\WebtoolsMapsContext
  */
-class OeWebtoolsMapsSubContext extends DrupalSubContextBase {
+class WebtoolsMapsContext extends RawDrupalContext {
 
   /**
    * Checks that a map centered on the given coordinates is present in the page.
@@ -71,7 +62,7 @@ class OeWebtoolsMapsSubContext extends DrupalSubContextBase {
       Assert::assertCount($count, $maps);
     }
     else {
-      Assert::assertNotEmpty($this->getWebtoolsMaps());
+      Assert::assertNotEmpty($maps);
     }
   }
 

@@ -19,7 +19,6 @@ class ConfigurationTest extends BrowserTestBase {
   protected static $modules = [
     'config',
     'system',
-    'oe_webtools',
     'oe_webtools_globan',
   ];
 

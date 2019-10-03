@@ -10,7 +10,6 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\media\Entity\Media;
 
-define('OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL', '//europa.eu/webtools/crs/iframe/');
 define('OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL', '//ec.europa.eu/wel/cookie-consent/consent.js');
 
 /**
@@ -39,7 +38,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Enables the Media module.
+   * Enables the Media and the Path modules.
    *
    * @param \Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
    *   The scope.
@@ -47,14 +46,14 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @beforeScenario @remote-video
    */
   public function enableModule(BeforeScenarioScope $scope): void {
-    \Drupal::service('module_installer')->install(['oe_media']);
+    \Drupal::service('module_installer')->install(['oe_media', 'path']);
 
     $this->configContext->setConfig('media.settings', 'standalone_url', TRUE);
     \Drupal::service('router.builder')->rebuild();
   }
 
   /**
-   * Disables the Media module.
+   * Disables the Media module and the Path modules.
    *
    * @param \Behat\Behat\Hook\Scope\AfterScenarioScope $scope
    *   The scope.
@@ -62,7 +61,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @afterScenario @remote-video
    */
   public function disableModule(AfterScenarioScope $scope): void {
-    \Drupal::service('module_installer')->uninstall(['oe_media']);
+    \Drupal::service('module_installer')->uninstall(['oe_media', 'path']);
   }
 
   /**

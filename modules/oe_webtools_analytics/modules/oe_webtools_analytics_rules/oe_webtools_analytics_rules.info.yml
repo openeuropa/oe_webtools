@@ -3,6 +3,7 @@ description: Provides rules for customizing the behavior of the Webtools Analyti
 package: OpenEuropa Webtools
 type: module
 core: 8.x
+
 dependencies:
   - oe_webtools_analytics:oe_webtools_analytics
   - drupal:path
