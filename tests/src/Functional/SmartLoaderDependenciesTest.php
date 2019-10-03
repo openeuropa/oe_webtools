@@ -8,7 +8,7 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Tests that the configured settings are correctly output in the page.
+ * Tests that the configured settings are correctly outputted in the page.
  *
  * @group oe_webtools
  */
@@ -23,7 +23,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
   ];
 
   /**
-   * Tests if Webtools library is present on the page, on module install.
+   * Tests if Webtools library is present on the page during module install.
    *
    * @param string $module
    *   The module name.

@@ -12,10 +12,10 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 /**
  * Context to handle extension dependencies of each Behat feature.
  */
-class WebtoolsExtentionsContext extends RawDrupalContext {
+class WebtoolsExtensionsContext extends RawDrupalContext {
 
   /**
-   * The modules list used for particular .
+   * The modules list used for a particular test.
    *
    * @var array
    */
