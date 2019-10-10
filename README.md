@@ -73,7 +73,6 @@ with the maps service.
 
 #### Requirements for Webtools Maps
 
-* [drupal/geocoder 3.x](https://www.drupal.org/project/geocoder)
 * [drupal/geofield 1.x](https://www.drupal.org/project/geofield)
 
 ### OpenEuropa Webtools Cookie Consent
