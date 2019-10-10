@@ -9,6 +9,7 @@ Webtools are interactive services available to integrate in a website.
 **Table of contents:**
 
 - [Installation](#installation)
+- [Submodules](#submodules)
 - [Development setup](#development-setup)
 - [Contributing](#contributing)
 - [Versioning](#versioning)
@@ -29,36 +30,38 @@ In order to enable the module in your project run:
 ./vendor/bin/drush en oe_webtools
 ```
 
-## OpenEuropa Webtools Analytics
+## Submodules
+
+### OpenEuropa Webtools Analytics
 
 The Webtools module contains a submodule that provides a service for providing
 analytics information. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_analytics/README.md).
 
-## OpenEuropa Webtools Laco Service
+### OpenEuropa Webtools Laco Service
 
 The Webtools module contains a submodule that provides a service for retrieving
 information about language coverage of entity resources. For more information on
 how to use and test this module, check out the module [README](modules/oe_webtools_laco_service/README.md).
 
-## OpenEuropa Webtools Laco Widget
+### OpenEuropa Webtools Laco Widget
 
 The Webtools module contains a submodule that provides a widget which integrates
 with the Laco service. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_laco_widget/README.md).
 
-## OpenEuropa Webtools Geocoding
+### OpenEuropa Webtools Geocoding
 
 The Webtools module contains a submodule that provides a widget which integrates
 with the Geocoding service.
 
-### Requirements for Webtools Geocoding
+#### Requirements for Webtools Geocoding
 
 * [geocoder-php/geocoder 4.x](https://github.com/geocoder-php/Geocoder)
 * [drupal/geocoder 3.x](https://www.drupal.org/project/geocoder)
 * [openeuropa/webtools-geocoding-provider](https://github.com/openeuropa/webtools-geocoding-provider)
 
-### Webtools Geocoding Usage
+#### Webtools Geocoding Usage
 
 If you want to use the Webtools Geocoding service, enable the submodule:
 
@@ -66,48 +69,48 @@ If you want to use the Webtools Geocoding service, enable the submodule:
 drush en oe_webtools_geocoding
 ```
 
-## OpenEuropa Webtools Maps
+### OpenEuropa Webtools Maps
 
 The Webtools module contains a submodule that provides a widget which integrates
 with the maps service.
 
-### Requirements for Webtools Maps
+#### Requirements for Webtools Maps
 
 * [drupal/geofield 1.x](https://www.drupal.org/project/geofield)
 
-### Webtools Maps Usage
+#### Webtools Maps Usage
 
 ```bash
 drush en oe_webtools_maps
 ```
 
-## OpenEuropa Webtools Cookie Consent
+### OpenEuropa Webtools Cookie Consent
 
 The Webtools module contains a submodule that provides a service for providing
 Cookie Consent Kit. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_cookie_consent/README.md).
 
-## OpenEuropa Webtools Media
+### OpenEuropa Webtools Media
 
 The Webtools module contains a submodule that provides webtools widgets as
 supported media providers.
 
-### Requirements for Webtools Media
+#### Requirements for Webtools Media
 
 * [drupal/json_field 1.x-rc3](https://www.drupal.org/project/json_field)
 
-### Webtools Media Usage
+#### Webtools Media Usage
 
 ```bash
 drush en oe_webtools_media
 ```
 
-## OpenEuropa Webtools Social Share
+### OpenEuropa Webtools Social Share
 
 The Webtools module contains a submodule that provides the Social Share block
 with buttons for Twitter, Facebook, LinkedIn and E-mail.
 
-### Webtools Social Share Usage
+#### Webtools Social Share Usage
 
 ```bash
 drush en oe_webtools_social_share
@@ -116,12 +119,12 @@ drush en oe_webtools_social_share
 After enabling the module, go to "admin/structure/block" and place the block in a certain region
 (e.g. Content region).
 
-## OpenEuropa Webtools Global Banner
+### OpenEuropa Webtools Global Banner
 
 The Webtools module contains a submodule that provides a Global Banner with
 the EU flag and a link to all EU institutions.
 
-### Webtools Global Banner Usage
+#### Webtools Global Banner Usage
 
 ```bash
 drush en oe_webtools_globan
