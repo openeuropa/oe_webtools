@@ -31,6 +31,10 @@
         "phpunit/phpunit": "~6.0",
         "symfony/dom-crawler": "~3.0"
     },
+    "_readme": [
+        "We explicitly require consolidation/robo to allow lower 'composer update --prefer-lowest' to complete successfully.",
+        "We explicitly require consolidation/annotated-command to allow lower 'composer update --prefer-lowest' to complete successfully."
+    ],
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
     },
