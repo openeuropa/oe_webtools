@@ -1,5 +1,19 @@
 # Change Log
 
+## [1.4.0](https://github.com/openeuropa/oe_webtools/tree/1.4.0) (2019-10-16)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.3.0...1.4.0)
+
+**Closed issues:**
+
+- oe\_webtools\_maps - Allow alteration of "Webtools Map" formatter [\#87](https://github.com/openeuropa/oe_webtools/issues/87)
+- Typo in oe\_webtools\_maps.info.yml and missing dependency in composer.json [\#73](https://github.com/openeuropa/oe_webtools/issues/73)
+
+**Merged pull requests:**
+
+- OPENEUROPA-0000: Update README for Webtools Maps requirements. [\#106](https://github.com/openeuropa/oe_webtools/pull/106) ([22Alexandra](https://github.com/22Alexandra))
+- OPENEUROPA-1999: \[oe\_webtools\] Improve test coverage for oe\_webtools loader library. [\#94](https://github.com/openeuropa/oe_webtools/pull/94) ([sergepavle](https://github.com/sergepavle))
+- Issue \#87: Allow alteration of "Webtools Map" formatter [\#88](https://github.com/openeuropa/oe_webtools/pull/88) ([vever001](https://github.com/vever001))
+
 ## [1.3.0](https://github.com/openeuropa/oe_webtools/tree/1.3.0) (2019-09-24)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.1...1.3.0)
 
@@ -11,6 +25,7 @@
 **Merged pull requests:**
 
 - OPENEUROPA-0000: Remove locked version of Mink related packages. [\#99](https://github.com/openeuropa/oe_webtools/pull/99) ([brummbar](https://github.com/brummbar))
+- OPENEUROPA-0000: Update changelog for release 1.3.0. [\#98](https://github.com/openeuropa/oe_webtools/pull/98) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2259: Fix behat/mink-selenium2-driver missing branch by aliasing. [\#91](https://github.com/openeuropa/oe_webtools/pull/91) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - Issue \#89: Fix PHPCS issue in master. [\#90](https://github.com/openeuropa/oe_webtools/pull/90) ([vever001](https://github.com/vever001))
 - Issue \#85: Make the package consistent for all submodules. [\#86](https://github.com/openeuropa/oe_webtools/pull/86) ([msnassar](https://github.com/msnassar))
