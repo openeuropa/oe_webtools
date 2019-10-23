@@ -6,3 +6,7 @@ core: 8.x
 
 dependencies:
   - oe_webtools:oe_webtools
+
+'interface translation project': oe_webtools_social_share
+# The path to the actual translations is defined in
+# oe_webtools_social_share_locale_translation_projects_alter().

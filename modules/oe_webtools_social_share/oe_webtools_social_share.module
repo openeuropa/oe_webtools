@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * The OpenEuropa Webtools Social Share module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_locale_translation_projects_alter().
+ */
+function oe_webtools_social_share_locale_translation_projects_alter(&$projects) {
+  $projects['oe_webtools_social_share']['info']['interface translation server pattern'] = \Drupal::service('extension.list.module')->getPath('oe_webtools_social_share') . '/translations/%project-%language.po';
+}

@@ -1,0 +1,5 @@
+msgid ""
+msgstr ""
+
+msgid "Share this page"
+msgstr "Seite weiterempfehlen"
