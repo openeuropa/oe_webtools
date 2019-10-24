@@ -1,3 +1,8 @@
 name: OpenEuropa Webtools Social Share Demo
-core: 8.x
+description: Provide demo for webtools social share module.
+package: OpenEuropa Webtools
 type: module
+core: 8.x
+
+dependencies:
+  - oe_webtools:oe_webtools_social_share
