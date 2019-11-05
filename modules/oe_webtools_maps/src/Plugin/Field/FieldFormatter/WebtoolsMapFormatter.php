@@ -61,7 +61,7 @@ class WebtoolsMapFormatter extends FormatterBase {
   public function settingsSummary() {
     $summary[] = $this->t('Zoom level: @zoom_level, Show markers: @show_marker', [
       '@zoom_level' => $this->getSetting('zoom_level'),
-      '@show_marker' => $this->getSetting('show_marker') ? 'Yes' : 'No',
+      '@show_marker' => $this->getSetting('show_marker') ? $this->t('Yes') : $this->t('No'),
     ]);
     return $summary;
   }
@@ -76,7 +76,6 @@ class WebtoolsMapFormatter extends FormatterBase {
       $data_array = [
         'service' => 'map',
         'version' => '2.0',
-        'render' => TRUE,
         'map' => [
           'zoom' => $this->getSetting('zoom_level'),
           'center' => [$item->get('lat')->getValue(), $item->get('lon')->getValue()],
@@ -92,8 +91,8 @@ class WebtoolsMapFormatter extends FormatterBase {
                 [
                   'type' => 'Feature',
                   'properties' => [
-                    'name' => t('Coordinates'),
-                    'description' => t('Longitude: @lon, Latitude: @lat', [
+                    'name' => $this->t('Coordinates'),
+                    'description' => $this->t('Longitude: @lon, Latitude: @lat', [
                       '@lon' => $item->get('lon')->getValue(),
                       '@lat' => $item->get('lat')->getValue(),
                     ]),
