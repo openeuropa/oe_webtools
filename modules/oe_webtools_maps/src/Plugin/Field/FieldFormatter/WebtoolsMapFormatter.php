@@ -91,6 +91,13 @@ class WebtoolsMapFormatter extends FormatterBase {
               'features' => [
                 [
                   'type' => 'Feature',
+                  'properties' => [
+                    'name' => t('Coordinates'),
+                    'description' => t('Longitude: @lon, Latitude: @lat', [
+                      '@lon' => $item->get('lon')->getValue(),
+                      '@lat' => $item->get('lat')->getValue(),
+                    ]),
+                  ],
                   'geometry' => [
                     'type' => 'Point',
                     'coordinates' => [
