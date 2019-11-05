@@ -27,6 +27,7 @@ class WebtoolsMapFormatter extends FormatterBase {
    */
   public static function defaultSettings() {
     return [
+      'show_marker' => FALSE,
       'zoom_level' => 4,
     ] + parent::defaultSettings();
   }
@@ -35,6 +36,13 @@ class WebtoolsMapFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
+    $elements['show_marker'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Show marker'),
+      '#description' => $this->t('Show the marker according to the coordinates provided.'),
+      '#default_value' => $this->getSetting('show_marker'),
+    ];
+
     $elements['zoom_level'] = [
       '#type' => 'range',
       '#title' => $this->t('Zoom level'),
@@ -51,8 +59,9 @@ class WebtoolsMapFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary[] = $this->t('Zoom level: @zoom_level', [
+    $summary[] = $this->t('Zoom level: @zoom_level, Show markers: @show_marker', [
       '@zoom_level' => $this->getSetting('zoom_level'),
+      '@show_marker' => $this->getSetting('show_marker') ? 'Yes' : 'No',
     ]);
     return $summary;
   }
@@ -64,20 +73,45 @@ class WebtoolsMapFormatter extends FormatterBase {
     $element = [];
 
     foreach ($items as $delta => $item) {
+      $data_array = [
+        'service' => 'map',
+        'version' => '2.0',
+        'render' => TRUE,
+        'map' => [
+          'zoom' => $this->getSetting('zoom_level'),
+          'center' => [$item->get('lat')->getValue(), $item->get('lon')->getValue()],
+        ],
+      ];
+
+      if ($this->getSetting('show_marker')) {
+        $data_array['layers'] = [
+          [
+            'markers' => [
+              'type' => 'FeatureCollection',
+              'features' => [
+                [
+                  'type' => 'Feature',
+                  'geometry' => [
+                    'type' => 'Point',
+                    'coordinates' => [
+                      // Even though in other places the Latitude (lat) comes
+                      // first and the Longitude (lon) second, this array
+                      // requires these values to be reversed.
+                      $item->get('lon')->getValue(),
+                      $item->get('lat')->getValue(),
+                    ],
+                  ],
+                ],
+              ],
+            ],
+          ],
+        ];
+      }
+
       $element[$delta] = [
         '#type' => 'html_tag',
         '#tag' => 'script',
-        '#value' => new JsonEncoded([
-          'service' => 'map',
-          'version' => '2.0',
-          'map' => [
-            'zoom' => $this->getSetting('zoom_level'),
-            'center' => [
-              $item->get('lat')->getValue(),
-              $item->get('lon')->getValue(),
-            ],
-          ],
-        ]),
+        '#value' => new JsonEncoded($data_array),
         '#attributes' => ['type' => 'application/json'],
       ];
     }
