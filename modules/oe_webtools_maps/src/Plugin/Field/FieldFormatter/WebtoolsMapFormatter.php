@@ -39,7 +39,7 @@ class WebtoolsMapFormatter extends FormatterBase {
     $elements['show_marker'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Show marker'),
-      '#description' => $this->t('Show the marker according to the coordinates provided.'),
+      '#description' => $this->t('Show a marker at the provided coordinates.'),
       '#default_value' => $this->getSetting('show_marker'),
     ];
 
