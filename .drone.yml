@@ -71,7 +71,7 @@ pipeline:
       - ./vendor/bin/behat --strict
       - ./vendor/bin/behat --strict --profile=static
       # Check that the deprecated subcontext in webtools_maps is identical to the new context.
-      - diff <(tail -n $(($(wc -l ./tests/Behat/WebtoolsMapsContext.php | cut -d ' ' -f1) - $(grep -n '^class WebtoolsMapsContext' ./tests/Behat/WebtoolsMapsContext.php | cut -d : -f1))) ./tests/Behat/WebtoolsMapsContext.php) <(tail -n $(($(wc -l ./tests/Behat/WebtoolsMapsContext.php | cut -d ' ' -f1) - $(grep -n '^class WebtoolsMapsContext' ./tests/Behat/WebtoolsMapsContext.php | cut -d : -f1))) ./modules/oe_webtools_maps/oe_webtools_maps.behat.inc)
+      - ./tests/scripts/validate-subcontext-integrity.sh
 
   debug:
     image: fpfis/httpd-php-ci:7.1
