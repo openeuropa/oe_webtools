@@ -10,6 +10,8 @@ use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions for testing Webtools Maps.
+ *
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 class WebtoolsMapsContext extends RawDrupalContext {
 
