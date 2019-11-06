@@ -7,15 +7,15 @@
 
 declare(strict_types = 1);
 
-use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 
 /**
  * Implements hook_page_attachments().
  *
  * Collects the Analytics settings and sets them as a JSON snippet.
  */
-function oe_webtools_analytics_page_attachments(array &$attachments) {
+function oe_webtools_analytics_page_attachments(array &$attachments): void {
   $event = new AnalyticsEvent();
   $event_dispatcher = \Drupal::service('event_dispatcher');
   $event_dispatcher->dispatch(AnalyticsEvent::NAME, $event);
@@ -42,4 +42,5 @@ function oe_webtools_analytics_page_attachments(array &$attachments) {
     // A key, to make it possible to recognize this when altering.
     'oe_webtools_analytics',
   ];
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
 }

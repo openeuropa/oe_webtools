@@ -2,12 +2,6 @@
 
 declare(strict_types = 1);
 
-/**
- * Webtools AnalyticsEvent Event.
- *
- * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
- */
-
 namespace Drupal\oe_webtools_analytics\Event;
 
 use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
@@ -18,9 +12,10 @@ use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class WebtoolsImportDataEvent.
+ * Event fired when a page is displayed, in order to handle analytics data.
  *
- * @package Drupal\oe_webtools_analytics\Event
+ * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
+ * @see oe_webtools_analytics_page_attachments()
  */
 class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface {
 
@@ -38,42 +33,42 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    *
    * @var string
    */
-  private $siteId;
+  protected $siteId;
 
   /**
    * A specific section or a subwebsite of main site.
    *
    * @var string
    */
-  private $siteSection;
+  protected $siteSection;
 
   /**
    * Allows you to define the root path of your website.
    *
    * @var string[]
    */
-  private $sitePath;
+  protected $sitePath;
 
   /**
    * Set this variable to true on your 404 page.
    *
    * @var bool
    */
-  private $is404Page;
+  protected $is404Page;
 
   /**
    * Set this variable to true on your 403 page.
    *
    * @var bool
    */
-  private $is403Page;
+  protected $is403Page;
 
   /**
    * Allows to override or set the language of the current page (optional).
    *
    * @var string
    */
-  private $langCode;
+  protected $langCode;
 
   /**
    * Allows to switch between these instances (optional).
@@ -84,14 +79,14 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    *
    * @var string
    */
-  private $instance;
+  protected $instance;
 
   /**
    * The Search result in json format.
    *
    * @var \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    */
-  private $search;
+  protected $search;
 
   /**
    * The analytic parameter.
@@ -99,7 +94,7 @@ class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventIn
    * @var string
    *   A string which by default it sets to "piwik".
    */
-  private $utility;
+  protected $utility;
 
   /**
    * AnalyticsEvent constructor.

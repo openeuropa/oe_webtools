@@ -1,0 +1,7 @@
+oe_webtools_cookie_consent.settings:
+  path: '/admin/config/system/oe_webtools_cookie_consent'
+  defaults:
+    _form: 'Drupal\oe_webtools_cookie_consent\Form\WebtoolsCookieConsentSettingsForm'
+    _title: 'Webtools Cookie Consent settings'
+  requirements:
+    _permission: 'administer webtools cookie consent'

@@ -12,7 +12,7 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 /**
  * Implements hook_requirements().
  */
-function oe_webtools_analytics_requirements($phase) {
+function oe_webtools_analytics_requirements($phase): array {
   $requirements = [];
 
   if ($phase !== 'runtime') {
@@ -38,7 +38,7 @@ function oe_webtools_analytics_requirements($phase) {
  *
  * Set default config.
  */
-function oe_webtools_analytics_update_8001() {
+function oe_webtools_analytics_update_8001(): void {
   $config_factory = \Drupal::configFactory();
   $config = $config_factory->getEditable(AnalyticsEventInterface::CONFIG_NAME);
   if (is_null($config->get('siteID'))) {

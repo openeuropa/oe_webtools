@@ -1,0 +1,12 @@
+oe_webtools_cookie_consent.settings:
+  type: config_object
+  label: 'Webtools Cookie Consent settings'
+  mapping:
+    banner_popup:
+      type: boolean
+      label: 'CCK banner'
+      description: 'Enable the banner.'
+    video_popup:
+      type: boolean
+      label: 'CCK banner'
+      description: 'Enable CCK video banner for the supported video elements.'

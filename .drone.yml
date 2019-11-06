@@ -4,18 +4,27 @@ workspace:
 
 services:
   web:
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     environment:
       - DOCUMENT_ROOT=/test/oe_webtools
   mysql:
     image: percona/percona-server:5.6
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+  selenium:
+    # Newer Selenium Chrome images are not supported at the moment by behat/mink-selenium2-driver.
+    image: selenium/standalone-chrome-debug:3.141.59-oxygen
+    shm_size: 2g
+    environment:
+      - DISPLAY=:99
+      - SE_OPTS=-debug
+      - SCREEN_WIDTH=1280
+      - SCREEN_HEIGHT=800
 
 pipeline:
   composer-install-lowest:
     group: prepare
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     volumes:
       - /cache:/cache
     commands:
@@ -29,7 +38,7 @@ pipeline:
 
   composer-install-highest:
     group: prepare
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     volumes:
       - /cache:/cache
     commands:
@@ -39,35 +48,35 @@ pipeline:
         COMPOSER_BOUNDARY: highest
 
   site-install:
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     commands:
       - ./vendor/bin/run drupal:site-install
 
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     commands:
       - ./vendor/bin/grumphp run
 
   test-phpunit:
     group: test
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     commands:
-      # Reset permission since installation runs as root. @todo Fix this.
-      - chown -R 500:500 *
-      - chmod -R 777 build/sites
-      - su - www-data -s /bin/sh -c "cd /test/oe_webtools && ./vendor/bin/phpunit"
+      - ./vendor/bin/phpunit
 
   test-behat:
     group: test
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-ci:7.1
     commands:
-      # Reset permission since installation runs as root. @todo Fix this on drone.
-      - chmod -R 777 build
-      - ./vendor/bin/drush -y config-set system.performance css.preprocess 0
-      - ./vendor/bin/drush -y config-set system.performance js.preprocess 0
-      # Run behat tests.
       - ./vendor/bin/behat --strict
+      - ./vendor/bin/behat --strict --profile=static
+
+  debug:
+    image: fpfis/httpd-php-ci:7.1
+    commands:
+      - ./vendor/bin/drush ws --count 500
+    when:
+      status: failure
 
 matrix:
   COMPOSER_BOUNDARY:

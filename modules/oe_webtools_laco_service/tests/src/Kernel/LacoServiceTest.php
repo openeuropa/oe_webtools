@@ -63,6 +63,15 @@ class LacoServiceTest extends KernelTestBase {
     ConfigurableLanguage::createFromLangcode('nl')->save();
 
     $this->enableTranslation();
+
+    // Call the install hook of the User module which creates the Anonymous user
+    // and User 1. This is needed because the Anonymous user is loaded to
+    // provide the current User context which is needed in places like route
+    // enhancers.
+    // @see CurrentUserContext::getRuntimeContexts().
+    // @see EntityConverter::convert().
+    module_load_include('install', 'user');
+    user_install();
   }
 
   /**
@@ -157,7 +166,6 @@ class LacoServiceTest extends KernelTestBase {
     drupal_static_reset();
     $this->container->get('entity_type.manager')->clearCachedDefinitions();
     $this->container->get('router.builder')->rebuild();
-    $this->container->get('entity.definition_update_manager')->applyUpdates();
   }
 
   /**

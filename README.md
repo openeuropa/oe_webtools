@@ -47,6 +47,49 @@ The Webtools module contains a submodule that provides a widget which integrates
 with the Laco service. For more information on how to use and configure this module, 
 check out the module [README](modules/oe_webtools_laco_widget/README.md).
 
+### OpenEuropa Webtools Geocoding
+
+The Webtools module contains a submodule that provides a widget which integrates
+with the Geocoding service.
+
+#### Requirements for Webtools Geocoding
+
+* [geocoder-php/geocoder 4.x](https://github.com/geocoder-php/Geocoder)
+* [drupal/geocoder 3.x](https://www.drupal.org/project/geocoder)
+* [openeuropa/webtools-geocoding-provider](https://github.com/openeuropa/webtools-geocoding-provider)
+
+#### Webtools Geocoding Usage
+
+If you want to use the Webtools Geocoding service, enable the submodule:
+
+```bash
+drush en oe_webtools_geocoding
+```
+
+### OpenEuropa Webtools Maps
+
+The Webtools module contains a submodule that provides a widget which integrates
+with the maps service.
+
+#### Requirements for Webtools Maps
+
+* [drupal/geofield 1.x](https://www.drupal.org/project/geofield)
+
+### OpenEuropa Webtools Cookie Consent
+
+The Webtools module contains a submodule that provides a service for providing
+Cookie Consent Kit. For more information on how to use and configure this module,
+check out the module [README](modules/oe_webtools_cookie_consent/README.md).
+
+### OpenEuropa Webtools Media
+
+The Webtools module contains a submodule that provides webtools widgets as
+supported media providers.
+
+#### Requirements for Webtools Media
+
+* [drupal/json_field 1.x-rc3](https://www.drupal.org/project/json_field)
+
 ## Development setup
 
 You can build the test site by running the following steps.
@@ -60,7 +103,13 @@ composer install
 * Customize build settings by copying `runner.yml.dist` to `runner.yml` and
 changing relevant values, like your database credentials.
 
-* Install test site by running:
+* Generate configuration files:
+
+```bash
+./vendor/bin/run drupal:site-setup
+```
+
+* Install the site:
 
 ```bash
 ./vendor/bin/run drupal:site-install

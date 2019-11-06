@@ -5,5 +5,6 @@ type: module
 version: 1.0
 core: 8.x
 configure: oe_webtools_analytics.settings
+
 dependencies:
-  - oe_webtools
+  - oe_webtools:oe_webtools

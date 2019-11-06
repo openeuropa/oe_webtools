@@ -1,0 +1,10 @@
+name: OpenEuropa Webtools Maps
+description: Allows to use Webtools Maps in sites built on the OpenEuropa platform.
+package: OpenEuropa Webtools
+
+type: module
+core: 8.x
+
+dependencies:
+  - geofield:geofield
+  - oe_webtools:oe_webtools
