@@ -21,9 +21,8 @@ drupal:
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
     # Enable the modules.
     - "./vendor/bin/drush en language -y"
+    - "./vendor/bin/drush en oe_webtools_social_share -y"
     - "./vendor/bin/drush en oe_multilingual -y"
-    - "./vendor/bin/drush en oe_webtools oe_webtools_analytics_rules oe_webtools_laco_service oe_webtools_laco_widget oe_webtools_cookie_consent oe_webtools_social_share oe_webtools_geocoding oe_webtools_maps oe_webtools_globan -y"
-    - "./vendor/bin/drush en oe_webtools_social_share_demo -y"
     - "./vendor/bin/drush oe-multilingual:import-local-translations"
     - "./vendor/bin/drush cr"
   settings:
