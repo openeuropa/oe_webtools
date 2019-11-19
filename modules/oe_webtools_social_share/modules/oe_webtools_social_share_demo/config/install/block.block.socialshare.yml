@@ -1,11 +1,8 @@
-uuid: d9795930-a094-486d-9a21-338699ed070c
 langcode: en
 status: true
 dependencies:
   module:
-    - oe_webtools_social_share
-  theme:
-    - bartik
+    - oe_webtools_social_share_demo
 id: socialshare
 theme: bartik
 region: content
