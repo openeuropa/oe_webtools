@@ -8,11 +8,6 @@ Feature: Webtools Analytics multilingual aliases
   Scenario: Create Webtools Analytics Rule with supporting multilingual aliases
     Given I am logged in as a user with the "administer webtools analytics, access administration pages" permission
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
-    And the following languages are available:
-      | languages |
-      | en        |
-      | fr        |
-      | nl        |
     And aliases available for the path "/admin/config":
       | languages | url        |
       | en        | /news      |
@@ -41,10 +36,6 @@ Feature: Webtools Analytics multilingual aliases
   Scenario: Make sure that Webtools Analytics rules work without matching the alias in the site default language
     Given I am logged in as a user with the "administer webtools analytics, access administration pages" permission
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
-    And the following languages are available:
-      | languages |
-      | en        |
-      | fr        |
     And aliases available for the path "/admin/config":
       | languages | url        |
       | en        | /news      |

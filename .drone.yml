@@ -68,9 +68,8 @@ pipeline:
     group: test
     image: fpfis/httpd-php-ci:7.1
     commands:
-      - ./vendor/bin/behat --strict
       - ./vendor/bin/behat --strict --profile=static
-
+      - ./vendor/bin/behat --strict
   debug:
     image: fpfis/httpd-php-ci:7.1
     commands:

@@ -16,6 +16,7 @@ default:
         - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
         - OpenEuropa\Behat\TransformationContext:
             pages:
+              home: '/'
               Webtools Analytics configuration: 'en/admin/config/system/oe_webtools_analytics'
               Webtools Laco Widget configuration: 'en/admin/config/regional/oe_webtools_laco_widget'
               Webtools Analytics rule creation: 'en/admin/structure/webtools_analytics_rule/add'
