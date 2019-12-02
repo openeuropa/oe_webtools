@@ -20,6 +20,13 @@ class SocialShareBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
+  public function defaultConfiguration() {
+    return ['label_display' => FALSE];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     $social_share_json = [
       'service' => 'share',
@@ -35,6 +42,11 @@ class SocialShareBlock extends BlockBase {
       'stats' => TRUE,
     ];
     return [
+      'title' => [
+        '#type' => 'html_tag',
+        '#tag' => 'h2',
+        '#value' => $this->t('Share this page'),
+      ],
       'script' => [
         '#type' => 'html_tag',
         '#tag' => 'script',

@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - oe_webtools_social_share_demo
+id: socialshare
+theme: bartik
+region: content
+weight: 0
+provider: null
+plugin: social_share
+settings:
+  id: social_share
+  label: 'Social Share'
+  provider: oe_webtools_social_share
+  label_display: '0'
+visibility: {  }

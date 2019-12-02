@@ -20,7 +20,7 @@ drupal:
     - "./vendor/bin/drush config-set system.theme admin seven -y"
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
     # Enable the modules.
-    - "./vendor/bin/drush en language -y"
+    - "./vendor/bin/drush en oe_multilingual -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:
