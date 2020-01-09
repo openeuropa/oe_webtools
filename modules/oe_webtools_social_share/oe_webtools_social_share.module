@@ -20,7 +20,7 @@ function oe_webtools_social_share_locale_translation_projects_alter(&$projects) 
 function oe_webtools_social_share_theme() {
   return [
     'oe_webtools_social_share' => [
-      'variables' => ['title' => NULL, 'icons_json' => NULL]
-    ]
+      'variables' => ['title' => NULL, 'icons_json' => NULL],
+    ],
   ];
 }
