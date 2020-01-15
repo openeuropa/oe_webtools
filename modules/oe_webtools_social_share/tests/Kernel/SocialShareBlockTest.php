@@ -45,7 +45,7 @@ class SocialShareBlockTest extends KernelTestBase {
     $plugin = $this->container->get('plugin.manager.block')->createInstance('social_share', $config);
     $render = $plugin->build();
     // Make sure the block has the required loaders.
-    $this->assertEquals(['oe_webtools/drupal.webtools-smartloader'], $render['script']['#attached']['library']);
+    $this->assertEquals(['oe_webtools/drupal.webtools-smartloader'], $render['#attached']['library']);
     $html = (string) $this->container->get('renderer')->renderRoot($render);
     $crawler = new Crawler($html);
     // Make sure that social share block is present.
