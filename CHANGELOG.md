@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.5.0](https://github.com/openeuropa/oe_webtools/tree/1.5.0) (2020-02-05)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.4.0...1.5.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2558: Add social share block template. [\#115](https://github.com/openeuropa/oe_webtools/pull/115) ([22Alexandra](https://github.com/22Alexandra))
+- OPENEUROPA-2258: Undo use of PHP 7.2. [\#110](https://github.com/openeuropa/oe_webtools/pull/110) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-2357: Add "Share this page" heading to social media share block [\#109](https://github.com/openeuropa/oe_webtools/pull/109) ([msnassar](https://github.com/msnassar))
+- OPENEUROPA-2258: Use PHP 7.2 in drone and docker image. [\#95](https://github.com/openeuropa/oe_webtools/pull/95) ([dxvargas](https://github.com/dxvargas))
+
 ## [1.4.0](https://github.com/openeuropa/oe_webtools/tree/1.4.0) (2019-10-16)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.3.0...1.4.0)
 
@@ -10,6 +20,7 @@
 
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Update changelog for release 1.4.0. [\#108](https://github.com/openeuropa/oe_webtools/pull/108) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-0000: Update README for Webtools Maps requirements. [\#106](https://github.com/openeuropa/oe_webtools/pull/106) ([22Alexandra](https://github.com/22Alexandra))
 - OPENEUROPA-1999: \[oe\_webtools\] Improve test coverage for oe\_webtools loader library. [\#94](https://github.com/openeuropa/oe_webtools/pull/94) ([sergepavle](https://github.com/sergepavle))
 - Issue \#87: Allow alteration of "Webtools Map" formatter [\#88](https://github.com/openeuropa/oe_webtools/pull/88) ([vever001](https://github.com/vever001))
