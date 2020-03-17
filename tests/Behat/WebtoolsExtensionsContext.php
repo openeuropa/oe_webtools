@@ -15,23 +15,20 @@ use Drupal\DrupalExtension\Context\RawDrupalContext;
 class WebtoolsExtensionsContext extends RawDrupalContext {
 
   /**
-   * The modules list used for a particular test.
-   *
-   * @var array
-   */
-  protected static $modules = [];
-
-  /**
-   * Collect the module names enabled for feature execution.
+   * Install the modules needed for this feature.
    *
    * @param \Behat\Behat\Hook\Scope\BeforeFeatureScope $scope
    *   The feature scope.
    *
    * @BeforeFeature
    */
-  public static function collectEnabledModules(BeforeFeatureScope $scope): void {
-    // Reset the module list at the beginning of each feature.
-    self::$modules = self::getModulesToInstall($scope->getFeature());
+  public static function installModules(BeforeFeatureScope $scope): void {
+    $modules = self::getModulesToInstall($scope->getFeature());
+    if (!$modules) {
+      return;
+    }
+
+    \Drupal::service('module_installer')->install($modules);
   }
 
   /**
@@ -44,15 +41,14 @@ class WebtoolsExtensionsContext extends RawDrupalContext {
    *   A list of module names marked for install.
    */
   protected static function getModulesToInstall(FeatureNode $feature): array {
-    $modules_initially_enabled = array_keys(\Drupal::service('module_handler')->getModuleList());
+    $modules = [];
     foreach ($feature->getTags() as $tag) {
       if (strpos($tag, 'install:') === 0) {
-        \Drupal::service('module_installer')->install(array_map('trim', explode(',', substr($tag, 8))));
+        $modules[] = substr($tag, 8);
       }
     }
 
-    $modules_enabled = array_keys(\Drupal::service('module_handler')->getModuleList());
-    return array_diff($modules_enabled, $modules_initially_enabled);
+    return $modules;
   }
 
   /**
@@ -63,10 +59,13 @@ class WebtoolsExtensionsContext extends RawDrupalContext {
    *
    * @AfterFeature
    */
-  public static function uninstallEnabledModules(AfterFeatureScope $scope): void {
-    if (self::$modules) {
-      \Drupal::service('module_installer')->uninstall(self::$modules);
+  public static function uninstallModules(AfterFeatureScope $scope): void {
+    $modules = self::getModulesToInstall($scope->getFeature());
+    if (!$modules) {
+      return;
     }
+
+    \Drupal::service('module_installer')->uninstall($modules);
   }
 
 }
