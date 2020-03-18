@@ -60,6 +60,13 @@ class WebtoolsCleanupContext extends RawDrupalContext {
    * @beforeScenario @cleanup-aliases
    */
   public function collectExistingUrlAliases(BeforeScenarioScope $scope): void {
+    if (\Drupal::entityTypeManager()->hasDefinition('path_alias')) {
+      // If we are running a Drupal version (8.8) on which path aliases are
+      // entities, we do not collect them separately here anymore but rely on
+      // the generic entity cleanup collection.
+      // @todo remove this entire approach when we depend on Drupal 8.8.
+      return;
+    }
     // Reset the alias list at the beginning of each scenario.
     $this->existingAliases = [];
     // Executing database query, as AliasStorage->load() returns only one alias.
@@ -119,7 +126,12 @@ class WebtoolsCleanupContext extends RawDrupalContext {
 
     foreach ($scenario->getTags() as $tag) {
       if (strpos($tag, 'cleanup:') === 0) {
-        $entity_types[] = substr($tag, 8);
+        $entity_type = substr($tag, 8);
+        // @todo remove this when Drupal 8.8 becomes a dependency.
+        if (!\Drupal::entityTypeManager()->hasDefinition($entity_type)) {
+          continue;
+        }
+        $entity_types[] = $entity_type;
       }
     }
 
