@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: fpfis/httpd-php-dev:7.3
+    image: fpfis/httpd-php-ci:7.3
     working_dir: /var/www/html
     ports:
       - 8080:8080
@@ -27,7 +27,7 @@ services:
   # @link https://github.com/elgalu/docker-selenium/issues/20
   selenium:
     # Newer Selenium Chrome images are not supported at the moment by behat/mink-selenium2-driver.
-    image: selenium/standalone-chrome-debug:3.141.59-oxygen
+    image: selenium/standalone-chrome:3.11
     environment:
     - DISPLAY=:99
     - SE_OPTS=-debug
