@@ -13,7 +13,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   selenium:
     # Newer Selenium Chrome images are not supported at the moment by behat/mink-selenium2-driver.
-    image: selenium/standalone-chrome:3.11
+    image: selenium/standalone-chrome:3.141.5
     pull: true
     shm_size: 2g
     environment:

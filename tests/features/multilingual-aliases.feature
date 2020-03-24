@@ -21,8 +21,6 @@ Feature: Webtools Analytics multilingual aliases
     And I fill in "Regular expression" with "|^/news/?$|"
     Then I press "Save"
     # Check the rule applies
-    # @TODO remove this clearing of cache, if possible to reproduce outside drone.
-    And the cache has been cleared
     When I am on "/admin/config"
     Then the page analytics json should contain the parameter "siteSection" with the value "news_overview"
     When I am on "/news"

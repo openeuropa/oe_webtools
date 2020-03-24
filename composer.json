@@ -8,7 +8,7 @@
     "require": {
         "drupal/core": "^8.8",
         "ext-json": "*",
-        "php": "~7.2.0 || ~7.3.0"
+        "php": ">=7.2"
     },
     "require-dev": {
         "composer/installers": "~1.5",
