@@ -18,3 +18,13 @@ oe_webtools_globan.settings:
       type: string
       label: 'Override page language'
       description: 'Use this option if you want to display in a language that is different from current page language.'
+    visibility:
+      type: mapping
+      label: Visibility
+      mapping:
+        action:
+          type: string
+          label: Action
+        pages:
+          type: string
+          label: Pages
