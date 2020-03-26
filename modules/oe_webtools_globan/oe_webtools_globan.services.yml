@@ -4,3 +4,6 @@ services:
     arguments: ['@cache_tags.invalidator']
     tags:
       - { name: event_subscriber }
+  oe_webtools_goban.visibility:
+    class: Drupal\oe_webtools_globan\GlobanVisibility
+    arguments: ['@router.admin_context', '@config.factory', '@plugin.manager.condition']
