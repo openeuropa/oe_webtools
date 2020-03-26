@@ -58,11 +58,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $config = $this->config('oe_webtools_globan.settings');
 
-    $form['globan_settings'] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Global banner settings'),
-    ];
-    $form['globan_settings']['display_eu_flag'] = [
+    $form['display_eu_flag'] = [
       '#type' => 'select',
       '#title' => $this->t('Display the EU flag'),
       '#options' => [
@@ -72,7 +68,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Hide or show the EU flag icon in the Global Banner.'),
       '#default_value' => empty($config->get('display_eu_flag')) ? 0 : 1,
     ];
-    $form['globan_settings']['background_theme'] = [
+    $form['background_theme'] = [
       '#type' => 'select',
       '#title' => $this->t('Background theme'),
       '#options' => [
@@ -82,7 +78,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Whether to show the banner in light or black background.'),
       '#default_value' => $config->get('background_theme') ?? 'dark',
     ];
-    $form['globan_settings']['display_eu_institutions_links'] = [
+    $form['display_eu_institutions_links'] = [
       '#type' => 'select',
       '#title' => $this->t('Link to all EU Institutions and bodies'),
       '#options' => [
@@ -96,7 +92,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
     foreach ($this->languageManager->getLanguages() as $language) {
       $lang_options[$language->getId()] = $language->getName();
     }
-    $form['globan_settings']['override_page_lang'] = [
+    $form['override_page_lang'] = [
       '#type' => 'select',
       '#title' => $this->t('Override page language'),
       '#options' => $lang_options,
@@ -104,6 +100,24 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#empty_option' => $this->t('No, use language of current page'),
       '#description' => $this->t('ONLY use this option if you want to display a language, different from current page! The global banner displays in the language of the current page. It supports all 24 EU languages, as well as these non-EU languages.'),
       '#default_value' => $config->get('override_page_lang') ?? NULL,
+    ];
+    $form['visibility'] = [
+      '#type' => 'fieldset',
+      '#tree' => TRUE,
+      '#title' => $this->t('Banner visibility'),
+    ];
+    $form['visibility']['action'] = [
+      '#type' => 'radios',
+      '#options' => [
+        'show' => $this->t('Show for the listed pages'),
+        'hide' => $this->t('Hide for the listed pages'),
+      ],
+      '#default_value' => $config->get('visibility.action'),
+    ];
+    $form['visibility']['pages'] = [
+      '#type' => 'textarea',
+      '#description' => $this->t("Specify pages by using their paths. Enter one path per line. The '*' character is a wildcard. An example path is /user/* for every user page. <front> is the front page. Note that the banner cannot be displayed on administrative pages regardless of this configuration."),
+      '#default_value' => $config->get('visibility.pages'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -118,6 +132,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       ->set('background_theme', $form_state->getValue('background_theme'))
       ->set('display_eu_institutions_links', (bool) $form_state->getValue('display_eu_institutions_links'))
       ->set('override_page_lang', $form_state->getValue('override_page_lang'))
+      ->set('visibility', $form_state->getValue('visibility'))
       ->save();
     parent::submitForm($form, $form_state);
   }
