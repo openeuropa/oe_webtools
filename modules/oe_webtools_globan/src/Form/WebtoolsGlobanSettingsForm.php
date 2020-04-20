@@ -113,7 +113,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         0 => $this->t('No'),
         1 => $this->t('Yes'),
       ],
-      '#description' => $this->t('Make the Global Banner sticky on top of the page.'),
+      '#description' => $this->t('Whether to make the banner sticky on top of the page or not.'),
       '#default_value' => empty($config->get('sticky')) ? 0 : 1,
     ];
 
