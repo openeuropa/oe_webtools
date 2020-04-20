@@ -24,7 +24,8 @@ function oe_webtools_media_install() {
 
   $files = $file_system->scanDirectory($source, '/.*\.(svg|png|jpg|jpeg|gif)$/');
   foreach ($files as $file) {
-    // When reinstalling the OE Webtools media module we don't want to copy the icons when
+    // When reinstalling the OE Webtools media module we don't want to copy
+    // the icons when
     // they already exist. The icons could be replaced (by a contrib module or
     // manually), so we don't want to replace the existing files. Removing the
     // files when we uninstall could also be a problem if the files are
