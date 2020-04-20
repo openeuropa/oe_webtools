@@ -1,0 +1,10 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+<rect x=".46363" y=".46363" width="63.073" height="63.073" rx=".91429" ry=".91429" fill="none" stroke="#037" stroke-linecap="round" stroke-linejoin="round" stroke-width=".92709"/>
+<rect transform="scale(-1)" x="-14.104" y="-40.058" width="4.3858" height="30.351" fill="#037" stroke="#037" stroke-linejoin="round" stroke-width="1.1315"/>
+<rect transform="scale(-1)" x="-41.583" y="-40.06" width="4.5981" height="18.757" fill="#037" stroke="#037" stroke-linejoin="round" stroke-width=".91083"/>
+<rect transform="scale(-1)" x="-32.399" y="-40.06" width="4.4756" height="25.039" fill="#037" stroke="#037" stroke-linejoin="round" stroke-width="1.0382"/>
+<rect transform="scale(-1)" x="-23.413" y="-40.062" width="4.7536" height="12.28" fill="#037" stroke="#037" stroke-linejoin="round" stroke-width=".74933"/>
+<path d="m8.2376 44.804h34.725" fill="#037" stroke="#037" stroke-linecap="round" stroke-width="1.8208px"/>
+<path d="m59.828 52.691v1.7048l-6.4 3.1576v-1.784l4.512-2.2265-4.512-2.232v-1.7784zm-12.8 3.0784-4.512-2.2265 4.512-2.232v-1.7784l-6.4 3.1583v1.7048l6.4 3.1576zm5.6377-8.6265h-1.6624l-3.2088 12.8h1.6584z" fill="#037" stroke="#037" stroke-width=".8"/>
+</svg>
+
