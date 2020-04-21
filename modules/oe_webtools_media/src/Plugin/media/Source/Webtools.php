@@ -110,17 +110,17 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
       'chart' => [
         'name' => $this->t('Chart'),
         'service' => 'charts',
-        'default_thumbnail' => 'charts-embed-no-bg.svg',
+        'default_thumbnail' => 'charts-embed-no-bg.png',
       ],
       'map' => [
         'name' => $this->t('Map'),
         'service' => 'map',
-        'default_thumbnail' => 'maps-embed-no-bg.svg',
+        'default_thumbnail' => 'maps-embed-no-bg.png',
       ],
       'social_feed' => [
         'name' => $this->t('Social feed'),
         'service' => 'smk',
-        'default_thumbnail' => 'twitter-embed-no-bg.svg',
+        'default_thumbnail' => 'twitter-embed-no-bg.png',
       ],
     ];
   }
@@ -129,9 +129,9 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    * Gets the thumbnail image URI based on widget type.
    *
    * @return string
-   *   URI of the thumbnail svg or NULL if there is no specific icon.
+   *   URI of the thumbnail or NULL if there is no specific icon.
    */
-  protected function getThumbnail() {
+  protected function getThumbnail(): ?string {
     $icon_base = $this->configFactory->get('media.settings')->get('icon_base_uri');
     if (!empty($this->getWidgetTypes()[$this->configuration['widget_type']]['default_thumbnail'])) {
       return $icon_base . '/' . $this->getWidgetTypes()[$this->configuration['widget_type']]['default_thumbnail'];

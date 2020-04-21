@@ -88,9 +88,9 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    */
   public function providerTestMediaWebtoolsSource(): array {
     return [
-      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.svg'],
-      ['map', 'Map', 'map', '/maps-embed-no-bg.svg'],
-      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.svg'],
+      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png'],
+      ['map', 'Map', 'map', '/maps-embed-no-bg.png'],
+      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.png'],
     ];
   }
 

@@ -11,7 +11,7 @@ use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
 
 /**
- * Move svg files for webtools media types into the public folder.
+ * Move png files for webtools media types into the public folder.
  *
  * @see \media_install()
  */
