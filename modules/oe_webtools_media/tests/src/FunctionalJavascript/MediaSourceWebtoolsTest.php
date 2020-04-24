@@ -40,12 +40,12 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    *   The widget human name.
    * @param string $service
    *   The webtools service associated with the widget.
-   * @param string $svg_filename
-   *   The filename of svg.
+   * @param string $thumbnail_filename
+   *   The filename of thumbnail.
    *
    * @dataProvider providerTestMediaWebtoolsSource
    */
-  public function testMediaWebtoolsSource(string $widget_type, string $widget_name, string $service, string $svg_filename): void {
+  public function testMediaWebtoolsSource(string $widget_type, string $widget_name, string $service, string $thumbnail_filename): void {
     $media_type_id = 'test_media_webtools_type';
 
     $session = $this->getSession();
@@ -64,7 +64,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
     $this->drupalGet('/media/1');
     $img_src = $page->find('css', '.field--name-thumbnail .field__item img')->getAttribute('src');
-    $this->assertContains($svg_filename, $img_src);
+    $this->assertContains($thumbnail_filename, $img_src);
 
     // Load the media and check that all fields are properly populated.
     $media = Media::load(1);
