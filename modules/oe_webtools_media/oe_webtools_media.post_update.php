@@ -22,7 +22,7 @@ function oe_webtools_media_post_update_00001(): void {
   $file_system = \Drupal::service('file_system');
   $file_system->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
 
-  $files = $file_system->scanDirectory($source, '/.*\.(svg|png|jpg|jpeg|gif)$/');
+  $files = $file_system->scanDirectory($source, '/.*\.(png)$/');
   foreach ($files as $file) {
     if (!file_exists($destination . DIRECTORY_SEPARATOR . $file->filename)) {
       try {
