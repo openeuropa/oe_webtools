@@ -138,14 +138,12 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     ];
     $this->createMediaTypeFields($fields, $media_type_id);
 
-    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $display_repository */
-    $display_repository = \Drupal::service('entity_display.repository');
-
     // Use the default formatter and settings for image.
     $component = \Drupal::service('plugin.manager.field.formatter')
       ->prepareConfiguration('image', []);
 
-    $entity_display = $display_repository->getViewDisplay('media', $media_type_id);
+    $entity_display = \Drupal::entityTypeManager()
+      ->getStorage('entity_view_display')->load('media.' . $media_type_id . '.default');
     $entity_display->setComponent('thumbnail', $component)
       ->save();
 
