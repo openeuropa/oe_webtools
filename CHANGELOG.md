@@ -1,16 +1,29 @@
-# Change Log
+# Changelog
+
+## [1.6.0](https://github.com/openeuropa/oe_webtools/tree/1.6.0) (2020-04-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.5.0...1.6.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2868: Add description about submodule in main README file. [\#126](https://github.com/openeuropa/oe_webtools/pull/126) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-0000: Use drupal/core instead of drupal/core-recommended. [\#121](https://github.com/openeuropa/oe_webtools/pull/121) ([22Alexandra](https://github.com/22Alexandra))
+- OPENEUROPA-2604: Drupal 8 recommended project. [\#119](https://github.com/openeuropa/oe_webtools/pull/119) ([upchuk](https://github.com/upchuk))
 
 ## [1.5.0](https://github.com/openeuropa/oe_webtools/tree/1.5.0) (2020-02-05)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.4.0...1.5.0)
 
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Update changelog for release 1.5.0. [\#116](https://github.com/openeuropa/oe_webtools/pull/116) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2558: Add social share block template. [\#115](https://github.com/openeuropa/oe_webtools/pull/115) ([22Alexandra](https://github.com/22Alexandra))
 - OPENEUROPA-2258: Undo use of PHP 7.2. [\#110](https://github.com/openeuropa/oe_webtools/pull/110) ([dxvargas](https://github.com/dxvargas))
 - OPENEUROPA-2357: Add "Share this page" heading to social media share block [\#109](https://github.com/openeuropa/oe_webtools/pull/109) ([msnassar](https://github.com/msnassar))
 - OPENEUROPA-2258: Use PHP 7.2 in drone and docker image. [\#95](https://github.com/openeuropa/oe_webtools/pull/95) ([dxvargas](https://github.com/dxvargas))
 
 ## [1.4.0](https://github.com/openeuropa/oe_webtools/tree/1.4.0) (2019-10-16)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.3.0...1.4.0)
 
 **Closed issues:**
@@ -26,6 +39,7 @@
 - Issue \#87: Allow alteration of "Webtools Map" formatter [\#88](https://github.com/openeuropa/oe_webtools/pull/88) ([vever001](https://github.com/vever001))
 
 ## [1.3.0](https://github.com/openeuropa/oe_webtools/tree/1.3.0) (2019-09-24)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.1...1.3.0)
 
 **Closed issues:**
@@ -43,6 +57,7 @@
 - OPENEUROPA-2130: Add new component oe webtools media. [\#84](https://github.com/openeuropa/oe_webtools/pull/84) ([msnassar](https://github.com/msnassar))
 
 ## [1.2.1](https://github.com/openeuropa/oe_webtools/tree/1.2.1) (2019-07-26)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.0...1.2.1)
 
 **Merged pull requests:**
@@ -51,6 +66,7 @@
 - OPENEUROPA-2084: Fix url of CCK. [\#82](https://github.com/openeuropa/oe_webtools/pull/82) ([voidtek](https://github.com/voidtek))
 
 ## [1.2.0](https://github.com/openeuropa/oe_webtools/tree/1.2.0) (2019-07-25)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.1.0...1.2.0)
 
 **Merged pull requests:**
@@ -62,6 +78,7 @@
 - OPENEUROPA-2043: Integrate cookie consent kit. [\#74](https://github.com/openeuropa/oe_webtools/pull/74) ([voidtek](https://github.com/voidtek))
 
 ## [1.1.0](https://github.com/openeuropa/oe_webtools/tree/1.1.0) (2019-06-18)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.0.0...1.1.0)
 
 **Implemented enhancements:**
@@ -82,6 +99,7 @@
 - OPENEUROPA-1864: Fix dependencies from oe\_media. [\#58](https://github.com/openeuropa/oe_webtools/pull/58) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.0.0](https://github.com/openeuropa/oe_webtools/tree/1.0.0) (2019-05-15)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.5.0...1.0.0)
 
 **Closed issues:**
@@ -93,6 +111,7 @@
 - Update CHANGELOG.md for release 1.0.0. [\#57](https://github.com/openeuropa/oe_webtools/pull/57) ([richardcanoe](https://github.com/richardcanoe))
 
 ## [0.5.0](https://github.com/openeuropa/oe_webtools/tree/0.5.0) (2019-05-07)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.1...0.5.0)
 
 **Merged pull requests:**
@@ -101,6 +120,7 @@
 - OPENEUROPA-1813: Upgrade to 8.7. [\#52](https://github.com/openeuropa/oe_webtools/pull/52) ([upchuk](https://github.com/upchuk))
 
 ## [0.4.1](https://github.com/openeuropa/oe_webtools/tree/0.4.1) (2019-05-07)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.0...0.4.1)
 
 **Merged pull requests:**
@@ -111,6 +131,7 @@
 - OPENEUROPA-1874: Fixing tests. [\#50](https://github.com/openeuropa/oe_webtools/pull/50) ([upchuk](https://github.com/upchuk))
 
 ## [0.4.0](https://github.com/openeuropa/oe_webtools/tree/0.4.0) (2019-04-25)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.3.0...0.4.0)
 
 **Fixed bugs:**
@@ -145,6 +166,7 @@
 - OPENEUROPA-1465: Add instance parameter to webtools analytics [\#20](https://github.com/openeuropa/oe_webtools/pull/20) ([imanoleguskiza](https://github.com/imanoleguskiza))
 
 ## [0.3.0](https://github.com/openeuropa/oe_webtools/tree/0.3.0) (2018-12-03)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.2.0...0.3.0)
 
 **Merged pull requests:**
@@ -156,6 +178,7 @@
 - OPENEUROPA-1247: Cleanup and minor fixes for Analytics. [\#15](https://github.com/openeuropa/oe_webtools/pull/15) ([dxvargas](https://github.com/dxvargas))
 
 ## [0.2.0](https://github.com/openeuropa/oe_webtools/tree/0.2.0) (2018-09-27)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.1.0...0.2.0)
 
 **Merged pull requests:**
@@ -163,7 +186,7 @@
 - OPENEUROPA-1241: Update CHANGELOG.md. [\#14](https://github.com/openeuropa/oe_webtools/pull/14) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-785: Make sure component dependencies are as relaxed as possible. [\#13](https://github.com/openeuropa/oe_webtools/pull/13) ([aritomelo](https://github.com/aritomelo))
 - OPENEUROPA-1126: Use logger factory as a service. [\#12](https://github.com/openeuropa/oe_webtools/pull/12) ([aritomelo](https://github.com/aritomelo))
-- OPENEUROPA-768: Add oe drupal core require dev. [\#11](https://github.com/openeuropa/oe_webtools/pull/11) ([Medi4tor](https://github.com/Medi4tor))
+- OPENEUROPA-768: Add oe drupal core require dev. [\#11](https://github.com/openeuropa/oe_webtools/pull/11) ([ku-enza](https://github.com/ku-enza))
 - OPENEUROPA-1165: Create a docker-compose.yml.dist file on oe\_webtools [\#10](https://github.com/openeuropa/oe_webtools/pull/10) ([upchuk](https://github.com/upchuk))
 - OPENEUROPA-1107: Include the widget of webtools for Laco [\#9](https://github.com/openeuropa/oe_webtools/pull/9) ([richardcanoe](https://github.com/richardcanoe))
 - OPENEUROPA-1108: Module to send the availability of the language for one content [\#8](https://github.com/openeuropa/oe_webtools/pull/8) ([upchuk](https://github.com/upchuk))
@@ -173,6 +196,9 @@
 - OPENEUROPA-582: Update images on docker-compose and drone file. [\#4](https://github.com/openeuropa/oe_webtools/pull/4) ([voidtek](https://github.com/voidtek))
 
 ## [0.1.0](https://github.com/openeuropa/oe_webtools/tree/0.1.0) (2018-06-14)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/8c91cab6434ab1bff9a77b3dadd83393804a6c5c...0.1.0)
+
 **Merged pull requests:**
 
 - Update CHANGELOG.md for 0.1.0 release. [\#3](https://github.com/openeuropa/oe_webtools/pull/3) ([ademarco](https://github.com/ademarco))
@@ -180,4 +206,4 @@
 
 
 
-\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
