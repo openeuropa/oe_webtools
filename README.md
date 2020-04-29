@@ -90,6 +90,10 @@ supported media providers.
 
 * [drupal/json_field 1.x-rc3](https://www.drupal.org/project/json_field)
 
+### OpenEuropa Webtools Social Share
+
+The Webtools module contains a submodule that provides social sharing functionality for a site.
+
 ## Development setup
 
 You can build the test site by running the following steps.
