@@ -40,6 +40,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
     if ($attribute_name === 'thumbnail_uri') {
       return $this->getThumbnail() ?: parent::getMetadata($media, $attribute_name);
     }
+    return parent::getMetadata($media, $attribute_name);
   }
 
   /**
@@ -129,14 +130,12 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    * Gets the thumbnail image URI based on widget type.
    *
    * @return string
-   *   URI of the thumbnail or NULL if there is no specific icon.
+   *   URI of the thumbnail.
    */
-  protected function getThumbnail(): ?string {
+  protected function getThumbnail(): string {
     $icon_base = $this->configFactory->get('media.settings')->get('icon_base_uri');
-    if (!empty($this->getWidgetTypes()[$this->configuration['widget_type']]['default_thumbnail'])) {
-      return $icon_base . '/' . $this->getWidgetTypes()[$this->configuration['widget_type']]['default_thumbnail'];
-    }
-    return NULL;
+    $widget_type = $this->configuration['widget_type'];
+    return $icon_base . '/' . $this->getWidgetTypes()[$widget_type]['default_thumbnail'];
   }
 
 }

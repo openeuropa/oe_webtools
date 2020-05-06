@@ -139,13 +139,10 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $this->createMediaTypeFields($fields, $media_type_id);
 
     // Use the default formatter and settings for image.
-    $component = \Drupal::service('plugin.manager.field.formatter')
-      ->prepareConfiguration('image', []);
+    $component = \Drupal::service('plugin.manager.field.formatter')->prepareConfiguration('image', []);
 
-    $entity_display = \Drupal::entityTypeManager()
-      ->getStorage('entity_view_display')->load('media.' . $media_type_id . '.default');
-    $entity_display->setComponent('thumbnail', $component)
-      ->save();
+    $entity_display = \Drupal::entityTypeManager()->getStorage('entity_view_display')->load('media.' . $media_type_id . '.default');
+    $entity_display->setComponent('thumbnail', $component)->save();
 
     // Bundle definitions are statically cached in the context of the test, we
     // need to make sure we have updated information before proceeding with the
