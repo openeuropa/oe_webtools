@@ -114,7 +114,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
         1 => $this->t('Yes'),
       ],
       '#description' => $this->t('Whether to make the banner sticky on top of the page or not.'),
-      '#default_value' => empty($config->get('sticky')) ? 0 : 1,
+      '#default_value' => $config->get('sticky') ? 1 : 0,
     ];
 
     return parent::buildForm($form, $form_state);
@@ -129,7 +129,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       ->set('background_theme', $form_state->getValue('background_theme'))
       ->set('display_eu_institutions_links', (bool) $form_state->getValue('display_eu_institutions_links'))
       ->set('override_page_lang', $form_state->getValue('override_page_lang'))
-      ->set('sticky', $form_state->getValue('sticky'))
+      ->set('sticky', (bool) $form_state->getValue('sticky'))
       ->save();
     parent::submitForm($form, $form_state);
   }
