@@ -40,10 +40,12 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    *   The widget human name.
    * @param string $service
    *   The webtools service associated with the widget.
+   * @param string $thumbnail_filename
+   *   The filename of thumbnail.
    *
    * @dataProvider providerTestMediaWebtoolsSource
    */
-  public function testMediaWebtoolsSource(string $widget_type, string $widget_name, string $service): void {
+  public function testMediaWebtoolsSource(string $widget_type, string $widget_name, string $service, string $thumbnail_filename): void {
     $media_type_id = 'test_media_webtools_type';
 
     $session = $this->getSession();
@@ -59,6 +61,10 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
     $page->pressButton('Save');
     $assert_session->addressEquals('admin/content/media');
+
+    $this->drupalGet('/media/1');
+    $img_src = $page->find('css', '.field--name-thumbnail .field__item img')->getAttribute('src');
+    $this->assertContains($thumbnail_filename, $img_src);
 
     // Load the media and check that all fields are properly populated.
     $media = Media::load(1);
@@ -82,9 +88,9 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    */
   public function providerTestMediaWebtoolsSource(): array {
     return [
-      ['chart', 'Chart', 'charts'],
-      ['map', 'Map', 'map'],
-      ['social_feed', 'Social feed', 'smk'],
+      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png'],
+      ['map', 'Map', 'map', '/maps-embed-no-bg.png'],
+      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.png'],
     ];
   }
 
@@ -131,6 +137,12 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       'field_media_webtools_description' => 'string_long',
     ];
     $this->createMediaTypeFields($fields, $media_type_id);
+
+    // Use the default formatter and settings for image.
+    $component = \Drupal::service('plugin.manager.field.formatter')->prepareConfiguration('image', []);
+
+    $entity_display = \Drupal::entityTypeManager()->getStorage('entity_view_display')->load('media.' . $media_type_id . '.default');
+    $entity_display->setComponent('thumbnail', $component)->save();
 
     // Bundle definitions are statically cached in the context of the test, we
     // need to make sure we have updated information before proceeding with the

@@ -8,6 +8,7 @@ use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\media\MediaInterface;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaTypeInterface;
 
@@ -30,6 +31,16 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    */
   public function getMetadataAttributes() {
     return [];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMetadata(MediaInterface $media, $attribute_name) {
+    if ($attribute_name === 'thumbnail_uri') {
+      return $this->getThumbnail() ?: parent::getMetadata($media, $attribute_name);
+    }
+    return parent::getMetadata($media, $attribute_name);
   }
 
   /**
@@ -100,16 +111,31 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
       'chart' => [
         'name' => $this->t('Chart'),
         'service' => 'charts',
+        'default_thumbnail' => 'charts-embed-no-bg.png',
       ],
       'map' => [
         'name' => $this->t('Map'),
         'service' => 'map',
+        'default_thumbnail' => 'maps-embed-no-bg.png',
       ],
       'social_feed' => [
         'name' => $this->t('Social feed'),
         'service' => 'smk',
+        'default_thumbnail' => 'twitter-embed-no-bg.png',
       ],
     ];
+  }
+
+  /**
+   * Gets the thumbnail image URI based on widget type.
+   *
+   * @return string
+   *   URI of the thumbnail.
+   */
+  protected function getThumbnail(): string {
+    $icon_base = $this->configFactory->get('media.settings')->get('icon_base_uri');
+    $widget_type = $this->configuration['widget_type'];
+    return $icon_base . '/' . $this->getWidgetTypes()[$widget_type]['default_thumbnail'];
   }
 
 }
