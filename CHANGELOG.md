@@ -1,17 +1,23 @@
-# Changelog
+# Change Log
+
+## [1.7.0](https://github.com/openeuropa/oe_webtools/tree/1.7.0) (2020-05-08)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.6.0...1.7.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2660: Default thumbnails for certain media types \(map, chart, social media feed\) [\#125](https://github.com/openeuropa/oe_webtools/pull/125) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.6.0](https://github.com/openeuropa/oe_webtools/tree/1.6.0) (2020-04-29)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.5.0...1.6.0)
 
 **Merged pull requests:**
 
+- OPENEUROPA-0000: Prepare release 1.6.0. [\#127](https://github.com/openeuropa/oe_webtools/pull/127) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - OPENEUROPA-2868: Add description about submodule in main README file. [\#126](https://github.com/openeuropa/oe_webtools/pull/126) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-0000: Use drupal/core instead of drupal/core-recommended. [\#121](https://github.com/openeuropa/oe_webtools/pull/121) ([22Alexandra](https://github.com/22Alexandra))
 - OPENEUROPA-2604: Drupal 8 recommended project. [\#119](https://github.com/openeuropa/oe_webtools/pull/119) ([upchuk](https://github.com/upchuk))
 
 ## [1.5.0](https://github.com/openeuropa/oe_webtools/tree/1.5.0) (2020-02-05)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.4.0...1.5.0)
 
 **Merged pull requests:**
