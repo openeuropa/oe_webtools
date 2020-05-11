@@ -27,29 +27,31 @@ class ConfigurationTest extends BrowserTestBase {
    */
   public function testLibraryLoading(): void {
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=111" defer></script>');
+    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=1110" defer></script>');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
       ->set('display_eu_flag', FALSE)
       ->set('background_theme', 'light')
       ->set('display_eu_institutions_links', FALSE)
-      ->set('override_page_lang', '');
+      ->set('override_page_lang', '')
+      ->set('sticky', FALSE);
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=000" defer></script>');
+    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=0000" defer></script>');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
       ->set('display_eu_flag', FALSE)
       ->set('background_theme', 'dark')
       ->set('display_eu_institutions_links', TRUE)
-      ->set('override_page_lang', 'it');
+      ->set('override_page_lang', 'it')
+      ->set('sticky', TRUE);
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=011&amp;lang=it" defer></script>');
+    $this->assertSession()->responseContains('<script src="//europa.eu/webtools/load.js?globan=0111&amp;lang=it" defer></script>');
   }
 
 }

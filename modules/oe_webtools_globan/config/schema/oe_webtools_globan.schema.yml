@@ -18,3 +18,7 @@ oe_webtools_globan.settings:
       type: string
       label: 'Override page language'
       description: 'Use this option if you want to display in a language that is different from current page language.'
+    sticky:
+      type: boolean
+      label: 'Sticky'
+      description: 'Use this option if you want the Global Banner sticky on top.'

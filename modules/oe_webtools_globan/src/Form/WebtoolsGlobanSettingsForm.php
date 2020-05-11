@@ -106,6 +106,17 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('override_page_lang') ?? NULL,
     ];
 
+    $form['globan_settings']['sticky'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Sticky'),
+      '#options' => [
+        0 => $this->t('No'),
+        1 => $this->t('Yes'),
+      ],
+      '#description' => $this->t('Whether to make the banner sticky on top of the page or not.'),
+      '#default_value' => $config->get('sticky') ? 1 : 0,
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -118,6 +129,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       ->set('background_theme', $form_state->getValue('background_theme'))
       ->set('display_eu_institutions_links', (bool) $form_state->getValue('display_eu_institutions_links'))
       ->set('override_page_lang', $form_state->getValue('override_page_lang'))
+      ->set('sticky', (bool) $form_state->getValue('sticky'))
       ->save();
     parent::submitForm($form, $form_state);
   }

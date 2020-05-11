@@ -11,20 +11,22 @@ Feature: Webtools Global Banner
     And I select "Yes" from "Display the EU flag"
     And I select "Dark" from "Background theme"
     And I select "Yes" from "Link to all EU Institutions and bodies"
+    And I select "Yes" from "Sticky"
     And I press "Save"
     And I log out
     And I am on homepage
-    Then the Webtools javascript is loaded with the globan options "111"
+    Then the Webtools javascript is loaded with the globan options "1111"
 
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
     And I select "No" from "Display the EU flag"
     And I select "Light" from "Background theme"
     And I select "No" from "Link to all EU Institutions and bodies"
+    And I select "No" from "Sticky"
     And I press "Save"
     And I log out
     And I am on homepage
-    Then the Webtools javascript is loaded with the globan options "000"
+    Then the Webtools javascript is loaded with the globan options "0000"
 
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
@@ -32,4 +34,4 @@ Feature: Webtools Global Banner
     And I press "Save"
     And I log out
     And I am on homepage
-    Then the Webtools javascript is loaded with the globan options "000" and language "en"
+    Then the Webtools javascript is loaded with the globan options "0000" and language "en"
