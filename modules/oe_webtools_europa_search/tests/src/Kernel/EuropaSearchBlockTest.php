@@ -33,7 +33,6 @@ class EuropaSearchBlockTest extends KernelTestBase {
     $this->installSchema('system', 'sequences');
     $this->installConfig(['system']);
     ConfigurableLanguage::createFromLangcode('fr')->save();
-    ConfigurableLanguage::createFromLangcode('pt_pt')->save();
   }
 
   /**
@@ -47,7 +46,7 @@ class EuropaSearchBlockTest extends KernelTestBase {
       'provider' => 'oe_webtools_europa_search',
       'label_display' => '0',
     ];
-    foreach (['fr', 'pt_pt','en'] as $langcode) {
+    foreach (['fr', 'en'] as $langcode) {
       \Drupal::configFactory()->getEditable('system.site')->set('default_langcode', $langcode)->save();
       \Drupal::service('kernel')->rebuildContainer();
       $plugin = $this->container->get('plugin.manager.block')
