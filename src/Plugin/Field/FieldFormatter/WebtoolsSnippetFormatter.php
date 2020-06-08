@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\oe_webtools_media\Plugin\Field\FieldFormatter;
+namespace Drupal\oe_webtools\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
 use Drupal\json_field\JsonMarkup;
 
 /**
@@ -17,7 +17,7 @@ use Drupal\json_field\JsonMarkup;
  *   label = @Translation("Webtools snippet"),
  *   field_types = {
  *     "json",
- *   }
+ *   },
  * )
  */
 class WebtoolsSnippetFormatter extends FormatterBase {
