@@ -7,7 +7,7 @@ namespace Drupal\oe_webtools\Plugin\Field\FieldFormatter;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\json_field\JsonMarkup;
+use Drupal\Core\Render\Markup;
 
 /**
  * Plugin implementation of the 'webtools_snippet' formatter.
@@ -35,7 +35,7 @@ class WebtoolsSnippetFormatter extends FormatterBase {
         // We need to properly escape the json content before outputting in the
         // page. We cannot use twig escaping mechanism as it will use html
         // entities. Json::encode takes care of it.
-        '#value' => JsonMarkup::create(Json::encode(Json::decode($item->get('value')->getValue()))),
+        '#value' => Markup::create(Json::encode(Json::decode($item->get('value')->getValue()))),
         '#attributes' => ['type' => 'application/json'],
       ];
     }
