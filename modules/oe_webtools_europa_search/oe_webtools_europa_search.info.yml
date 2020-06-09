@@ -1,5 +1,5 @@
 name: OpenEuropa Webtools Europa Search
-description: Provides a block that places the europa search script.
+description: Provides a block that displays the Europa Search widget.
 package: OpenEuropa Webtools
 type: module
 core_version_requirement: ^8 || ^9

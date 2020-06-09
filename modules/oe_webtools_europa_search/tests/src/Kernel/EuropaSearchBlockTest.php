@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_europa_search\Kernel;
 
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Symfony\Component\DomCrawler\Crawler;
@@ -36,13 +37,13 @@ class EuropaSearchBlockTest extends KernelTestBase {
   }
 
   /**
-   * Test europa search block rendering.
+   * Test Europa Search block rendering.
    */
-  public function testSocialShareBlockRendering(): void {
+  public function testEuropaSearchBlockRendering(): void {
     // Setup and render europa search block.
     $config = [
-      'id' => 'europa_search',
-      'label' => 'OpenEuropa social share',
+      'id' => 'oe_webtools_europa_search',
+      'label' => 'OpenEuropa Webtools Europa Search',
       'provider' => 'oe_webtools_europa_search',
       'label_display' => '0',
     ];
@@ -50,10 +51,14 @@ class EuropaSearchBlockTest extends KernelTestBase {
       \Drupal::configFactory()->getEditable('system.site')->set('default_langcode', $langcode)->save();
       \Drupal::service('kernel')->rebuildContainer();
       $plugin = $this->container->get('plugin.manager.block')
-        ->createInstance('europa_search', $config);
+        ->createInstance('oe_webtools_europa_search', $config);
       $render = $plugin->build();
       // Make sure the block has the required loaders.
       $this->assertEquals(['oe_webtools/drupal.webtools-smartloader'], $render['content']['#attached']['library']);
+      $this->assertEqual($render['#cache']['contexts'], [
+        'languages:' . LanguageInterface::TYPE_INTERFACE,
+      ]
+      );
       $html = (string) $this->container->get('renderer')->renderRoot($render);
       $crawler = new Crawler($html);
       // Make sure that the europa search json is present.

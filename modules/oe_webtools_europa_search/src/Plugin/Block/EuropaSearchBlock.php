@@ -13,11 +13,11 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides an europa search webtools widget.
+ * Provides a block that renders/displays the Europa Search Webtools widget.
  *
  * @Block(
- *   id = "europa_search",
- *   admin_label = @Translation("Europa Search"),
+ *   id = "oe_webtools_europa_search",
+ *   admin_label = @Translation("OpenEuropa Webtools Europa Search"),
  *   category = @Translation("Webtools")
  * )
  */
@@ -31,7 +31,7 @@ class EuropaSearchBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $languageManager;
 
   /**
-   * Creates a LocalActionsBlock instance.
+   * Creates a EuropaSearchBlock instance.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
