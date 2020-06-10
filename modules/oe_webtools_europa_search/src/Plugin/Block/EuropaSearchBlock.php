@@ -6,14 +6,13 @@ namespace Drupal\oe_webtools_europa_search\Plugin\Block;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a block that renders/displays the Europa Search Webtools widget.
+ * Provides a block that displays the Europa Search Webtools widget.
  *
  * @Block(
  *   id = "oe_webtools_europa_search",
@@ -68,6 +67,11 @@ class EuropaSearchBlock extends BlockBase implements ContainerFactoryPluginInter
       'lang' => $this->languageManager->getCurrentLanguage()->getId(),
       'results' => 'out',
     ];
+    $build = [
+      '#cache' => [
+        'contexts' => ['languages:' . LanguageInterface::TYPE_INTERFACE],
+      ],
+    ];
     $build['content'] = [
       '#attached' => ['library' => ['oe_webtools/drupal.webtools-smartloader']],
       '#type' => 'html_tag',
@@ -75,8 +79,6 @@ class EuropaSearchBlock extends BlockBase implements ContainerFactoryPluginInter
       '#value' => Json::encode($search_widget_json),
       '#attributes' => ['type' => 'application/json'],
     ];
-
-    (new CacheableMetadata())->setCacheContexts(['languages:' . LanguageInterface::TYPE_INTERFACE])->applyTo($build);
 
     return $build;
   }

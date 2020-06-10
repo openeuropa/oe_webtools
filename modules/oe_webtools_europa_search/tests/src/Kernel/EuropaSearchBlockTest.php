@@ -55,10 +55,9 @@ class EuropaSearchBlockTest extends KernelTestBase {
       $render = $plugin->build();
       // Make sure the block has the required loaders.
       $this->assertEquals(['oe_webtools/drupal.webtools-smartloader'], $render['content']['#attached']['library']);
-      $this->assertEqual($render['#cache']['contexts'], [
+      $this->assertEquals([
         'languages:' . LanguageInterface::TYPE_INTERFACE,
-      ]
-      );
+      ], $render['#cache']['contexts']);
       $html = (string) $this->container->get('renderer')->renderRoot($render);
       $crawler = new Crawler($html);
       // Make sure that the europa search json is present.
