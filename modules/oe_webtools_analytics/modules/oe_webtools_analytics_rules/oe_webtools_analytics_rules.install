@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for OpenEuropa Webtools Analytics Rules.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Cache\Cache;
+
+/**
+ * Implements hook_install().
+ */
+function oe_webtools_analytics_rules_install() {
+  // Because the OpenEuropa Webtools Analytics Rules module contains
+  // event subscriber which use cache context 'url.path', we must invalidate
+  // all cached HTML output.
+  \Drupal::service('twig')->invalidate();
+}
