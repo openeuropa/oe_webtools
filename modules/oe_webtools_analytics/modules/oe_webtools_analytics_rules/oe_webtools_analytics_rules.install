@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains install and update functions for OpenEuropa Webtools Analytics Rules.
+ * Contains install and update functions of OpenEuropa Webtools Analytics Rules.
  */
 
 declare(strict_types = 1);
@@ -16,5 +16,6 @@ function oe_webtools_analytics_rules_install() {
   // Because the OpenEuropa Webtools Analytics Rules module contains
   // event subscriber which use cache context 'url.path', we must invalidate
   // all cached HTML output.
+  Cache::invalidateTags(['rendered']);
   \Drupal::service('twig')->invalidate();
 }
