@@ -1,13 +1,18 @@
-# Change Log
+# Changelog
 
-## [1.7.0](https://github.com/openeuropa/oe_webtools/tree/1.7.0) (2020-05-08)
+## [1.7.0](https://github.com/openeuropa/oe_webtools/tree/1.7.0) (2020-06-22)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.6.0...1.7.0)
 
 **Merged pull requests:**
 
-- OPENEUROPA-2660: Default thumbnails for certain media types \(map, chart, social media feed\) [\#125](https://github.com/openeuropa/oe_webtools/pull/125) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-0000: Remove dependency on json\_field from main module. [\#132](https://github.com/openeuropa/oe_webtools/pull/132) ([brummbar](https://github.com/brummbar))
+- OPENEUROPA-3278: Expose Europa Search as block. [\#131](https://github.com/openeuropa/oe_webtools/pull/131) ([sergepavle](https://github.com/sergepavle))
+- ISAICP-5979: Move 'webtools\_snippet' formatter in 'oe\_webtools' module [\#129](https://github.com/openeuropa/oe_webtools/pull/129) ([claudiu-cristea](https://github.com/claudiu-cristea))
+- OPENEUROPA-2264: Add sticky flag for globan. [\#124](https://github.com/openeuropa/oe_webtools/pull/124) ([nagyad](https://github.com/nagyad))
 
 ## [1.6.0](https://github.com/openeuropa/oe_webtools/tree/1.6.0) (2020-04-29)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.5.0...1.6.0)
 
 **Merged pull requests:**
@@ -18,10 +23,12 @@
 - OPENEUROPA-2604: Drupal 8 recommended project. [\#119](https://github.com/openeuropa/oe_webtools/pull/119) ([upchuk](https://github.com/upchuk))
 
 ## [1.5.0](https://github.com/openeuropa/oe_webtools/tree/1.5.0) (2020-02-05)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.4.0...1.5.0)
 
 **Merged pull requests:**
 
+- OPENEUROPA-2660: Default thumbnails for certain media types \(map, chart, social media feed\) [\#125](https://github.com/openeuropa/oe_webtools/pull/125) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-0000: Update changelog for release 1.5.0. [\#116](https://github.com/openeuropa/oe_webtools/pull/116) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2558: Add social share block template. [\#115](https://github.com/openeuropa/oe_webtools/pull/115) ([22Alexandra](https://github.com/22Alexandra))
 - OPENEUROPA-2258: Undo use of PHP 7.2. [\#110](https://github.com/openeuropa/oe_webtools/pull/110) ([dxvargas](https://github.com/dxvargas))
