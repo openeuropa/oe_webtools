@@ -21,6 +21,7 @@ drupal:
     - "./vendor/bin/drush config-set node.settings use_admin_theme 1 -y"
     # Enable the modules.
     - "./vendor/bin/drush en oe_multilingual -y"
+    - "./vendor/bin/drush en oe_webtools_analytics -y"
     - "./vendor/bin/drush cr"
   settings:
     settings:
