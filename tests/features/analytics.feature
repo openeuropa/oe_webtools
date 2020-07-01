@@ -1,4 +1,4 @@
-@api
+@api @install:oe_webtools_analytics
 Feature: Webtools Analytics
   In order to provide analytics
   As the site manager
