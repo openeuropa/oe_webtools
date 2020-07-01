@@ -8,7 +8,7 @@
     "require": {
         "drupal/core": "^8.8",
         "ext-json": "*",
-        "php": "^7.1"
+        "php": ">=7.2"
     },
     "require-dev": {
         "composer/installers": "~1.5",
@@ -22,6 +22,7 @@
         "drupal/geofield": "^1.0",
         "drupal/json_field": "^1.0@RC",
         "drush/drush": "~9.0",
+        "guzzlehttp/guzzle": "~6.3",
         "nikic/php-parser": "^3.1.5",
         "openeuropa/behat-transformation-context": "~0.1",
         "openeuropa/code-review": "~1.0@beta",
