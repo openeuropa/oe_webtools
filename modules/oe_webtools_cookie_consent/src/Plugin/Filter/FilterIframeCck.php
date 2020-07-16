@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Drupal\oe_webtools_cookie_consent\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\filter\FilterProcessResult;
@@ -14,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Provides a filter to prepend Cookie Consent Kit on iframe elements.
  *
  * @Filter(
- *   id = "filter_inframe_cck",
+ *   id = "filter_iframe_cck",
  *   title = @Translation("Iframe with cookie consent kit"),
  *   description = @Translation("Prepends the cookie consent kit before the source of the iframes."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
