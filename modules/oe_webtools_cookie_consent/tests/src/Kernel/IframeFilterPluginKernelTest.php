@@ -27,13 +27,6 @@ class IframeFilterPluginKernelTest extends KernelTestBase {
   ];
 
   /**
-   * Filter.
-   *
-   * @var \Drupal\filter\Plugin\FilterInterface[]
-   */
-  protected $filter;
-
-  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -41,26 +34,26 @@ class IframeFilterPluginKernelTest extends KernelTestBase {
     $this->installConfig(['system', 'language']);
 
     ConfigurableLanguage::createFromLangcode('hu')->save();
-
-    $manager = $this->container->get('plugin.manager.filter');
-    $bag = new FilterPluginCollection($manager, []);
-    $this->filter = $bag->get('filter_iframe_cck');
   }
 
   /**
    * Tests the iframe with cookie consent kit filter.
    */
   public function testIframeFilter() {
-    $input = '<p><iframe src="https://example.com" style="width: 400px; height: 200px;"></iframe></p>';
+    $manager = $this->container->get('plugin.manager.filter');
+    $filters = new FilterPluginCollection($manager, []);
+    $cck_filter = $filters->get('filter_iframe_cck');
+
+    $input = '<p><iframe src="https://example.com?q=a+b&p=1" style="width: 400px; height: 200px;"></iframe></p>';
 
     // The default language is English.
-    $expected = '<p><iframe src="//europa.eu/webtools/crs/iframe/?oriurl=https://example.com&amp;lang=en" style="width: 400px; height: 200px;"></iframe></p>';
-    $this->assertEquals($expected, $this->filter->process($input, LanguageInterface::LANGCODE_NOT_SPECIFIED)->getProcessedText());
+    $expected = '<p><iframe src="//europa.eu/webtools/crs/iframe/?oriurl=https%3A//example.com%3Fq%3Da%2Bb%26p%3D1&amp;lang=en" style="width: 400px; height: 200px;"></iframe></p>';
+    $this->assertEquals($expected, $cck_filter->process($input, LanguageInterface::LANGCODE_NOT_SPECIFIED)->getProcessedText());
 
     // Test with a different language.
     $this->config('system.site')->set('default_langcode', 'hu')->save();
-    $expected = '<p><iframe src="//europa.eu/webtools/crs/iframe/?oriurl=https://example.com&amp;lang=hu" style="width: 400px; height: 200px;"></iframe></p>';
-    $this->assertEquals($expected, $this->filter->process($input, LanguageInterface::LANGCODE_NOT_SPECIFIED)->getProcessedText());
+    $expected = '<p><iframe src="//europa.eu/webtools/crs/iframe/?oriurl=https%3A//example.com%3Fq%3Da%2Bb%26p%3D1&amp;lang=hu" style="width: 400px; height: 200px;"></iframe></p>';
+    $this->assertEquals($expected, $cck_filter->process($input, LanguageInterface::LANGCODE_NOT_SPECIFIED)->getProcessedText());
   }
 
 }
