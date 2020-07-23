@@ -7,6 +7,7 @@ namespace Drupal\oe_webtools_cookie_consent\Plugin\Filter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Url;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -16,8 +17,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @Filter(
  *   id = "filter_iframe_cck",
- *   title = @Translation("Iframe with cookie consent kit"),
- *   description = @Translation("Prepends the cookie consent kit before the source of the iframes."),
+ *   title = @Translation("Apply cookie consent to iframes"),
+ *   description = @Translation("Alters the src attribute of iframes to add the Webtools Cookie Consent Kit."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
  * )
  */
@@ -71,11 +72,18 @@ class FilterIframeCck extends FilterBase implements ContainerFactoryPluginInterf
       foreach ($xpath->query('//iframe[@src]') as $node) {
         $src = $node->getAttribute('src');
         // Prepend the cookie consent kit before the source url.
-        $new_src = OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . '?oriurl=' . $src . '&lang=' . $this->languageManager->getCurrentLanguage()->getId();
-        $node->setAttribute('src', $new_src);
+        $url = Url::fromUri(OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL, [
+          'query' => [
+            'oriurl' => $src,
+            'lang' => $this->languageManager->getCurrentLanguage()->getId(),
+          ],
+        ]);
+        $node->setAttribute('src', $url->toString());
       }
       $result->setProcessedText(Html::serialize($dom));
     }
+
+    $result->addCacheTags(['LanguageInterface::TYPE_INTERFACE']);
 
     return $result;
   }
