@@ -19,7 +19,7 @@ class IframeFilterPluginKernelTest extends KernelTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'filter',
     'language',

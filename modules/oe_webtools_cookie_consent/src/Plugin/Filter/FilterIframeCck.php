@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @Filter(
  *   id = "filter_iframe_cck",
  *   title = @Translation("Apply cookie consent to iframes"),
- *   description = @Translation("Alters the src attribute of iframes to add the Webtools Cookie Consent Kit."),
+ *   description = @Translation("Alters the <code>src</code> attribute of iframes to add the Webtools Cookie Consent Kit."),
  *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE
  * )
  */
