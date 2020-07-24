@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_cookie_consent\Plugin\Filter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
@@ -81,9 +82,8 @@ class FilterIframeCck extends FilterBase implements ContainerFactoryPluginInterf
         $node->setAttribute('src', $url->toString());
       }
       $result->setProcessedText(Html::serialize($dom));
+      $result->addCacheContexts(['languages:' . LanguageInterface::TYPE_INTERFACE]);
     }
-
-    $result->addCacheTags(['LanguageInterface::TYPE_INTERFACE']);
 
     return $result;
   }
