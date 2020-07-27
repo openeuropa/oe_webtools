@@ -57,7 +57,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Drupal\\Tests\\oe_webtools\\": "tests"
+            "Drupal\\Tests\\oe_webtools\\": "./tests/"
         }
     },
     "extra": {
