@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.8.0](https://github.com/openeuropa/oe_webtools/tree/1.8.0) (2020-08-04)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.7.0...1.8.0)
+
+**Merged pull requests:**
+
+- EWPP-83: Add filter plugin for iframes. [\#133](https://github.com/openeuropa/oe_webtools/pull/133) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-3216: Remove drupal-coder version. [\#130](https://github.com/openeuropa/oe_webtools/pull/130) ([nagyad](https://github.com/nagyad))
+- OPENEUROPA-2943: Upgrade to PHP 7.3. [\#120](https://github.com/openeuropa/oe_webtools/pull/120) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.7.0](https://github.com/openeuropa/oe_webtools/tree/1.7.0) (2020-06-22)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.6.0...1.7.0)
@@ -9,6 +19,8 @@
 - OPENEUROPA-0000: Remove dependency on json\_field from main module. [\#132](https://github.com/openeuropa/oe_webtools/pull/132) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-3278: Expose Europa Search as block. [\#131](https://github.com/openeuropa/oe_webtools/pull/131) ([sergepavle](https://github.com/sergepavle))
 - ISAICP-5979: Move 'webtools\_snippet' formatter in 'oe\_webtools' module [\#129](https://github.com/openeuropa/oe_webtools/pull/129) ([claudiu-cristea](https://github.com/claudiu-cristea))
+- Update CHANGELOG.md for 1.7.0 release. [\#128](https://github.com/openeuropa/oe_webtools/pull/128) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2660: Default thumbnails for certain media types \(map, chart, social media feed\) [\#125](https://github.com/openeuropa/oe_webtools/pull/125) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-2264: Add sticky flag for globan. [\#124](https://github.com/openeuropa/oe_webtools/pull/124) ([nagyad](https://github.com/nagyad))
 
 ## [1.6.0](https://github.com/openeuropa/oe_webtools/tree/1.6.0) (2020-04-29)
