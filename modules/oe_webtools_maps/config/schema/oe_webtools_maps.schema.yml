@@ -2,6 +2,9 @@ field.formatter.settings.oe_webtools_maps_map:
   type: mapping
   label: Webtools Map formatter settings
   mapping:
+    show_marker:
+      type: boolean
+      label: 'Show marker'
     zoom_level:
       type: integer
       label: 'Zoom level'

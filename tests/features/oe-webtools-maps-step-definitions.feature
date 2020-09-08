@@ -19,3 +19,8 @@ Scenario: Try out the different step definitions for detecting maps
   And I should see a map centered on latitude 2.34994 and longitude 48.85295
   And I should see a map on the page
   And I should see 2 maps on the page
+  And I should see the following marker on the map:
+    | name        | Digit HQ                           |
+    | description | Rue Belliard 28, Brussels, Belgium |
+    | latitude    | 50.842156                          |
+    | longitude   | 4.370375                           |
