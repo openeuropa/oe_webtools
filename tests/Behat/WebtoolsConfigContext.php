@@ -9,7 +9,7 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
- * Class WebtoolsConfigContext.
+ * Provides the webtools behat assertions.
  */
 class WebtoolsConfigContext extends RawDrupalContext {
 
