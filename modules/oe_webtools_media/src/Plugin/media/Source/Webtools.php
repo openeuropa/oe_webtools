@@ -92,7 +92,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
       ->set('label', $label)
       ->set('description', $this->t('Enter the snippet without the script tag. Snippets can be generated in @generator_link.', [
         '@generator_link' => Link::fromTextAndUrl(
-          $this->t('Webtools wizzard'),
+          $this->t('Webtools wizard'),
           Url::fromUri('https://europa.eu/webtools/mgmt/wizard/')
         )->toString(),
       ]));
