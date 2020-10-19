@@ -8,7 +8,6 @@ use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\oe_webtools_analytics\Search\SearchParameters;
 use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
-use JsonSerializable;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -17,7 +16,7 @@ use Symfony\Component\EventDispatcher\Event;
  * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
  * @see oe_webtools_analytics_page_attachments()
  */
-class AnalyticsEvent extends Event implements JsonSerializable, AnalyticsEventInterface {
+class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventInterface {
 
   use RefinableCacheableDependencyTrait;
 

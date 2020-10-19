@@ -2,16 +2,12 @@
 
 declare(strict_types = 1);
 
-/**
- * Contains the class that will represent the search field on Event listener.
- *
- * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
- */
-
 namespace Drupal\oe_webtools_analytics\Search;
 
 /**
- * Class SearchParameters.
+ * Provides the search parameters.
+ *
+ * @see https://webgate.ec.europa.eu/fpfis/wikis/pages/viewpage.action?spaceKey=webtools&title=Piwik
  *
  * @package Drupal\oe_webtools_analytics\Search
  */
