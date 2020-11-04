@@ -10,8 +10,6 @@ use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\media\Entity\Media;
 
-define('OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL', '//ec.europa.eu/wel/cookie-consent/consent.js');
-
 /**
  * Behat step definitions related to the oe_webtools_cookie_consent module.
  */
@@ -110,21 +108,41 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Checks that the CCK is loaded on the <HEAD> section of the page.
+   * Checks that the CCK is loaded.
    *
    * @Then the CCK javascript is loaded on the head section of the page
    */
   public function assertCckJsLoaded(): void {
-    $this->assertSession()->elementExists('css', "head > script[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL . "']");
+    if (!$this->findCookieConsentJson()) {
+      throw new \Exception(sprintf('No cookie consent json found.'));
+    }
   }
 
   /**
-   * Checks that the CCK is not loaded on the <HEAD> section of the page.
+   * Checks that the CCK is not loaded.
    *
    * @Then the CCK javascript is not loaded on the head section of the page
    */
   public function assertNoCckJsLoaded(): void {
-    $this->assertSession()->elementNotExists('css', "head > script[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL . "']");
+    if ($this->findCookieConsentJson()) {
+      throw new \Exception(sprintf('Cookie consent json found.'));
+    }
+  }
+
+  /**
+   * Find the cookie consent kit JSON code.
+   */
+  protected function findCookieConsentJson(): ?array {
+    $scripts = $this->getSession()->getPage()->findAll("css", "script[type=\"application/json\"]");
+    /** @var \Behat\Mink\Element\NodeElement $script */
+    foreach ($scripts as $script) {
+      $json_value = json_decode($script->getText(), TRUE);
+      if (isset($json_value['utility']) && $json_value['utility'] == 'cck') {
+        return $json_value;
+      }
+    }
+
+    return NULL;
   }
 
 }
