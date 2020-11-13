@@ -108,22 +108,22 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Checks that the CCK is loaded.
+   * Checks that the CCK JSON is present on the <HEAD> section of the page.
    *
-   * @Then the CCK javascript is loaded on the head section of the page
+   * @Then the CCK JSON is present on the head section of the page
    */
-  public function assertCckJsLoaded(): void {
+  public function assertCckJsonExists(): void {
     if (!$this->findCookieConsentJson()) {
       throw new \Exception(sprintf('No cookie consent json found.'));
     }
   }
 
   /**
-   * Checks that the CCK is not loaded.
+   * Checks that the CCK JSON is NOT present on the <HEAD> section of the page.
    *
-   * @Then the CCK javascript is not loaded on the head section of the page
+   * @Then the CCK JSON is not present on the head section of the page
    */
-  public function assertNoCckJsLoaded(): void {
+  public function assertNoCckJsonExists(): void {
     if ($this->findCookieConsentJson()) {
       throw new \Exception(sprintf('Cookie consent json found.'));
     }

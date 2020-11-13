@@ -68,6 +68,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
         'random/path',
         'configureWebtoolsAnalytics',
       ],
+      ['oe_webtools_cookie_consent', 'random/path'],
       ['oe_webtools_globan', 'random/path'],
       // @todo Fix oe_webtools_maps module and add test coverage to this test class.
       ['oe_webtools_laco_widget', 'random/path'],
