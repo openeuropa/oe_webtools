@@ -136,9 +136,8 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
     $scripts = $this->getSession()->getPage()->findAll("css", "script[type=\"application/json\"]");
     /** @var \Behat\Mink\Element\NodeElement $script */
     foreach ($scripts as $script) {
-      $json_value = json_decode($script->getText(), TRUE);
-      if (isset($json_value['utility']) && $json_value['utility'] == 'cck') {
-        return $json_value;
+      if ($script->getText() === '{"utility":"cck"}') {
+        return json_decode($script->getText(), TRUE);
       }
     }
 
