@@ -20,6 +20,7 @@
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "^1.0@RC",
+        "drupaltest/behat-traits": "~0.1",
         "drush/drush": "~9.0",
         "guzzlehttp/guzzle": "~6.3",
         "nikic/php-parser": "^3.1.5",
