@@ -8,7 +8,7 @@ Feature: Cookie Consent kit.
     # Check that CCK javascript is loaded for the anonymous user.
     Given I am an anonymous user
     When I am on homepage
-    Then the CCK JSON is present on the head section of the page
+    Then the CCK JSON is available on the page
 
     # Change the configuration.
     Given I am logged in as a user with the "administer webtools cookie consent" permission
@@ -24,7 +24,7 @@ Feature: Cookie Consent kit.
     # Check that CCK javascript is not loaded for the anonymous user after change.
     Given I am an anonymous user
     When I am on homepage
-    Then the CCK JSON is not present on the head section of the page
+    Then the CCK JSON is not available on the page
 
   @remote-video @cleanup:media
   Scenario: Remote videos should use Cookie Consent kit service.
