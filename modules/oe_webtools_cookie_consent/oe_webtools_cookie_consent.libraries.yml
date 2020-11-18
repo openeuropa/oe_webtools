@@ -1,4 +1,4 @@
-# Deprecated and should be removed in the next major version of the oe_webtools component.
+# Deprecated and it will be removed in the next major version of the oe_webtools component.
 oe_webtools_cookie_consent.cck:
   version: 1.x
   header: true

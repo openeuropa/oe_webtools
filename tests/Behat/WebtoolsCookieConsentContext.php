@@ -111,37 +111,37 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Checks that the CCK JSON is present on the <HEAD> section of the page.
+   * Asserts that the CCK JSON is available on the page.
    *
-   * @Then the CCK JSON is present on the head section of the page
+   * @Then the CCK JSON is available on the page
    */
   public function assertCckJsonExists(): void {
-    if (!$this->cookieConsentJsonExists('{"utility":"cck"}')) {
-      throw new \Exception(sprintf('No cookie consent json found.'));
+    if (!$this->webtoolsJsonSnippetExists('{"utility":"cck"}')) {
+      throw new \Exception(sprintf('No cookie consent kit JSON found and it should be available.'));
     }
   }
 
   /**
-   * Checks that the CCK JSON is NOT present on the <HEAD> section of the page.
+   * Asserts that the CCK JSON is NOT available on the page.
    *
-   * @Then the CCK JSON is not present on the head section of the page
+   * @Then the CCK JSON is not available on the page
    */
   public function assertNoCckJsonExists(): void {
-    if ($this->cookieConsentJsonExists('{"utility":"cck"}')) {
-      throw new \Exception(sprintf('Cookie consent json found.'));
+    if ($this->webtoolsJsonSnippetExists('{"utility":"cck"}')) {
+      throw new \Exception(sprintf('Cookie consent kit JSON found and it should not be available.'));
     }
   }
 
   /**
-   * Check that the cookie consent kit JSON code present on page.
+   * Checks webtools snippet presence on the page.
    *
    * @param string $snippet
    *   String with encoded JSON.
    *
    * @return bool
-   *   Is webtools JSON snippet present on page.
+   *   Whether webtools JSON snippet is present or not.
    */
-  protected function cookieConsentJsonExists(string $snippet): bool {
+  protected function webtoolsJsonSnippetExists(string $snippet): bool {
     $xpath_query = "//script[@type='application/json'][.='" . addcslashes($snippet, '\\\'') . "']";
     // Assert presence of webtools JSON with enabled javascript.
     if (!$this->browserSupportsJavaScript()) {
