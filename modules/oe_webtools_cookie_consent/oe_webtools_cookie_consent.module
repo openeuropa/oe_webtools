@@ -7,6 +7,7 @@
 
 declare(strict_types = 1);
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Url;
 use Drupal\media\IFrameMarkup;
@@ -29,7 +30,21 @@ function oe_webtools_cookie_consent_page_attachments(array &$attachments) {
   $cache = $event_cache->merge($existing_cache);
   $cache->applyTo($attachments);
   if ($event->isBannerPopup()) {
-    $attachments['#attached']['library'][] = 'oe_webtools_cookie_consent/oe_webtools_cookie_consent.cck';
+    $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+    $cck_attachment = [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => Json::encode([
+        'utility' => 'cck',
+      ]),
+      '#attributes' => ['type' => 'application/json'],
+    ];
+
+    $event_cache->applyTo($attachments);
+    $attachments['#attached']['html_head'][] = [
+      $cck_attachment,
+      'oe_webtools_cookie_consent',
+    ];
   }
 }
 

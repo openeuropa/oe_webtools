@@ -9,13 +9,14 @@ use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\media\Entity\Media;
-
-define('OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL', '//ec.europa.eu/wel/cookie-consent/consent.js');
+use DrupalTest\BehatTraits\Traits\BrowserCapabilityDetectionTrait;
 
 /**
  * Behat step definitions related to the oe_webtools_cookie_consent module.
  */
 class WebtoolsCookieConsentContext extends RawDrupalContext {
+
+  use BrowserCapabilityDetectionTrait;
 
   /**
    * The config context.
@@ -110,21 +111,65 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   }
 
   /**
-   * Checks that the CCK is loaded on the <HEAD> section of the page.
+   * Asserts that the CCK JSON is available on the page.
    *
-   * @Then the CCK javascript is loaded on the head section of the page
+   * @Then the CCK JSON is available on the page
    */
-  public function assertCckJsLoaded(): void {
-    $this->assertSession()->elementExists('css', "head > script[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL . "']");
+  public function assertCckJsonExists(): void {
+    if (!$this->webtoolsJsonSnippetExists('{"utility":"cck"}')) {
+      throw new \Exception(sprintf('No cookie consent kit JSON found and it should be available.'));
+    }
   }
 
   /**
-   * Checks that the CCK is not loaded on the <HEAD> section of the page.
+   * Asserts that the CCK JSON is NOT available on the page.
    *
-   * @Then the CCK javascript is not loaded on the head section of the page
+   * @Then the CCK JSON is not available on the page
    */
-  public function assertNoCckJsLoaded(): void {
-    $this->assertSession()->elementNotExists('css', "head > script[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_BANNER_COOKIE_URL . "']");
+  public function assertNoCckJsonExists(): void {
+    if ($this->webtoolsJsonSnippetExists('{"utility":"cck"}')) {
+      throw new \Exception(sprintf('Cookie consent kit JSON found and it should not be available.'));
+    }
+  }
+
+  /**
+   * Checks webtools snippet presence on the page.
+   *
+   * @param string $snippet
+   *   String with encoded JSON.
+   *
+   * @return bool
+   *   Whether webtools JSON snippet is present or not.
+   */
+  protected function webtoolsJsonSnippetExists(string $snippet): bool {
+    $xpath_query = "//script[@type='application/json'][.='" . addcslashes($snippet, '\\\'') . "']";
+    // Assert presence of webtools JSON with enabled javascript.
+    if (!$this->browserSupportsJavaScript()) {
+      return count($this->getSession()->getPage()->findAll('xpath', $xpath_query)) === 1;
+    }
+    else {
+      // Retrieve the unprocessed page HTML with AJAX.
+      // JS-enabled drivers execute scripts that might modify the markup.
+      // In order to retrieve the unprocessed HTML, reload the page with AJAX,
+      // so all the cookies are passed. Note that this works
+      // only for pages loaded with GET.
+      $script = <<<JS
+        (function(window) {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', window.location.href, false);
+          xhr.send();
+          return xhr.responseText;
+        })(window)
+JS;
+
+      $raw_html = $this->getSession()->evaluateScript($script);
+      $doc = new \DOMDocument();
+      @$doc->loadHTML($raw_html);
+      $xpath = new \DOMXpath($doc);
+      return count($xpath->query($xpath_query)) === 1;
+    }
+
+    return FALSE;
   }
 
 }

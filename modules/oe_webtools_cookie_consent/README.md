@@ -33,3 +33,7 @@ $config['oe_webtools_cookie_consent.settings']['banner_popup'] = true;
 $config['oe_webtools_cookie_consent.settings']['video_popup'] = true;
 
 ```
+
+## Upgrade to CCK v2
+
+Cookie Consent Kit v2 requires the smartloader library which is declared in oe_webtools module. This new dependency will be applied by running the post_update_00002 for existing installations.
