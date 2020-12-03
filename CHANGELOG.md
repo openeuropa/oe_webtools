@@ -1,11 +1,23 @@
 # Changelog
 
-## [1.8.0](https://github.com/openeuropa/oe_webtools/tree/1.8.0) (2020-08-04)
+## [1.9.0](https://github.com/openeuropa/oe_webtools/tree/1.9.0) (2020-12-03)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.8.0...1.9.0)
+
+**Merged pull requests:**
+
+- Update README.md [\#141](https://github.com/openeuropa/oe_webtools/pull/141) ([kugta](https://github.com/kugta))
+- EWPP-516: Update docker images. [\#138](https://github.com/openeuropa/oe_webtools/pull/138) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-414: Update CCK module to use version 2. [\#137](https://github.com/openeuropa/oe_webtools/pull/137) ([sergepavle](https://github.com/sergepavle))
+- EWPP-427: Do not create a log entry for each page load if site ID is missing [\#136](https://github.com/openeuropa/oe_webtools/pull/136) ([brummbar](https://github.com/brummbar))
+
+## [1.8.0](https://github.com/openeuropa/oe_webtools/tree/1.8.0) (2020-08-06)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.7.0...1.8.0)
 
 **Merged pull requests:**
 
+- Release-1.8.0: Update changelog. [\#134](https://github.com/openeuropa/oe_webtools/pull/134) ([nagyad](https://github.com/nagyad))
 - EWPP-83: Add filter plugin for iframes. [\#133](https://github.com/openeuropa/oe_webtools/pull/133) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-3216: Remove drupal-coder version. [\#130](https://github.com/openeuropa/oe_webtools/pull/130) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-2943: Upgrade to PHP 7.3. [\#120](https://github.com/openeuropa/oe_webtools/pull/120) ([sergepavle](https://github.com/sergepavle))
@@ -40,7 +52,6 @@
 
 **Merged pull requests:**
 
-- OPENEUROPA-2660: Default thumbnails for certain media types \(map, chart, social media feed\) [\#125](https://github.com/openeuropa/oe_webtools/pull/125) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-0000: Update changelog for release 1.5.0. [\#116](https://github.com/openeuropa/oe_webtools/pull/116) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2558: Add social share block template. [\#115](https://github.com/openeuropa/oe_webtools/pull/115) ([22Alexandra](https://github.com/22Alexandra))
 - OPENEUROPA-2258: Undo use of PHP 7.2. [\#110](https://github.com/openeuropa/oe_webtools/pull/110) ([dxvargas](https://github.com/dxvargas))
