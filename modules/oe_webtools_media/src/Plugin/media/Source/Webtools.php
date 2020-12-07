@@ -88,13 +88,23 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
     $label = (string) $this->t('Webtools @widget_type_name snippet', [
       '@widget_type_name' => $this->getWidgetTypes()[$this->configuration['widget_type']]['name'],
     ]);
+
+    $generator_link = Link::fromTextAndUrl(
+      $this->t('Webtools wizard'),
+      Url::fromUri('https://europa.eu/webtools/mgmt/wizard/')
+    )->toString();
+    // The opwidget type has to be created on the op website.
+    if ($this->configuration['widget_type'] === 'opwidget') {
+      $generator_link = Link::fromTextAndUrl(
+        $this->t('OP Website'),
+        Url::fromUri('https://op.europa.eu/en/my-widgets')
+      )->toString();
+    }
+
     return parent::createSourceField($type)
       ->set('label', $label)
       ->set('description', $this->t('Enter the snippet without the script tag. Snippets can be generated in @generator_link.', [
-        '@generator_link' => Link::fromTextAndUrl(
-          $this->t('Webtools wizard'),
-          Url::fromUri('https://europa.eu/webtools/mgmt/wizard/')
-        )->toString(),
+        '@generator_link' => $generator_link,
       ]));
   }
 
@@ -126,6 +136,11 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'name' => $this->t('Social feed'),
         'service' => 'smk',
         'default_thumbnail' => 'twitter-embed-no-bg.png',
+      ],
+      'opwidget' => [
+        'name' => $this->t('OP Publication list'),
+        'service' => 'opwidget',
+        'default_thumbnail' => 'generic.png',
       ],
     ];
   }
