@@ -138,7 +138,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'default_thumbnail' => 'twitter-embed-no-bg.png',
       ],
       'opwidget' => [
-        'name' => $this->t('OP Publication lists'),
+        'name' => $this->t('OP Publication list'),
         'service' => 'opwidget',
         'default_thumbnail' => 'generic.png',
       ],
