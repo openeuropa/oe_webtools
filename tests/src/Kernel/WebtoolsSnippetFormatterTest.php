@@ -2,11 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\Tests\oe_webtools_media\Kernel;
+namespace Drupal\Tests\oe_webtools\Kernel;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Component\Utility\Xss;
-use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\entity_test\Entity\EntityTest;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -16,18 +15,15 @@ use Drupal\json_field\JsonMarkup;
 /**
  * Test the webtools snippet formatter.
  *
- * @coversDefaultClass \Drupal\oe_webtools_media\Plugin\Field\FieldFormatter\WebtoolsSnippetFormatter
- *
- * @group oe_webtools_media
+ * @coversDefaultClass \Drupal\oe_webtools\Plugin\Field\FieldFormatter\WebtoolsSnippetFormatter
  */
 class WebtoolsSnippetFormatterTest extends KernelTestBase {
 
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'oe_webtools',
-    'oe_webtools_media',
     'json_field',
     'field',
     'user',
@@ -57,6 +53,13 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
   protected $display;
 
   /**
+   * The field name.
+   *
+   * @var \Drupal\Core\Entity\Display\EntityViewDisplayInterface
+   */
+  protected $fieldName = 'test_field_media_webtools';
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -71,7 +74,7 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
     $this->bundle = $this->entityType;
 
     $field_storage = FieldStorageConfig::create([
-      'field_name' => 'test_field_media_webtools',
+      'field_name' => $this->fieldName,
       'entity_type' => $this->entityType,
       'type' => 'json',
     ]);
@@ -83,25 +86,23 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
     ]);
     $field->save();
 
-    // The display mode.
-    $this->display = EntityViewDisplay::create([
-      'targetEntityType' => $this->entityType,
-      'bundle' => $this->bundle,
-      'mode' => 'default',
-    ]);
-    $this->display->setComponent('test_field_media_webtools', [
+    /** @var \Drupal\Core\Entity\EntityDisplayRepositoryInterface $display_repository */
+    $display_repository = \Drupal::service('entity_display.repository');
+
+    // Create a display for the default view mode.
+    $this->display = $display_repository->getViewDisplay($this->entityType, $this->bundle);
+    $this->display->setComponent($this->fieldName, [
       'type' => 'webtools_snippet',
-    ]);
-    $this->display->save();
+    ])->save();
   }
 
   /**
-   * Tests that the formatter contains the necessary library.
+   * Assert presence of 'Smart loader' with formatter.
    */
   public function testFormatterLibrary(): void {
     $data = '{"service":"map","map":{"background":["osmec"]},"version":"2.0"}';
     $entity = EntityTest::create([
-      'test_field_media_webtools' => $data,
+      $this->fieldName => $data,
     ]);
     $entity->save();
 
@@ -122,7 +123,7 @@ class WebtoolsSnippetFormatterTest extends KernelTestBase {
    */
   public function testFormatter(string $data): void {
     $entity = EntityTest::create([
-      'test_field_media_webtools' => $data,
+      $this->fieldName => $data,
     ]);
     $entity->save();
 
