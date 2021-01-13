@@ -14,7 +14,7 @@
         "composer/installers": "~1.5",
         "consolidation/robo": "~1.4",
         "consolidation/annotated-command": "^2.8.2",
-        "drupal-composer/drupal-scaffold": "^2.5.2",
+        "drupal/core-composer-scaffold": "^8.8",
         "drupal/config_devel": "~1.2",
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
@@ -69,6 +69,11 @@
             "build/profiles/contrib/{$name}": ["type:drupal-profile"],
             "build/modules/contrib/{$name}": ["type:drupal-module"],
             "build/themes/contrib/{$name}": ["type:drupal-theme"]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "./build"
+            }
         }
     },
     "config": {
