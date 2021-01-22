@@ -6,21 +6,27 @@ namespace Drupal\oe_webtools_etrans\Plugin\Block;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a block that displays the Webtools ETrans button.
+ * Provides a block that displays the Webtools eTrans link.
  *
  * @Block(
  *   id = "oe_webtools_etrans",
- *   admin_label = @Translation("OpenEuropa Webtools ETrans"),
+ *   admin_label = @Translation("OpenEuropa Webtools eTrans"),
  *   category = @Translation("Webtools")
  * )
  */
 class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The various ways the eTrans link can be rendered.
+   */
+  protected const RENDER_OPTIONS = ['button', 'icon', 'link'];
 
   /**
    * The language manager.
@@ -62,16 +68,14 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function build() {
+    $render_as_options = array_fill_keys(self::RENDER_OPTIONS, FALSE);
+    $render_as_options[$this->configuration['render_as']] = TRUE;
     $json = [
       'service' => 'etrans',
       'languages' => [
         'exclude' => [$this->languageManager->getCurrentLanguage()->getId()],
       ],
-      'renderAs' => [
-        'button' => FALSE,
-        'icon' => FALSE,
-        'link' => TRUE,
-      ],
+      'renderAs' => $render_as_options,
     ];
     $build = [
       '#cache' => [
@@ -87,6 +91,42 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     ];
 
     return $build;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return parent::defaultConfiguration() + [
+        'render_as' => 'button',
+      ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = parent::buildConfigurationForm($form, $form_state);
+    $form['render_as'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Render as'),
+      '#options' => [
+        'button' => $this->t('Button'),
+        'icon' => $this->t('Icon'),
+        'link' => $this->t('Link'),
+      ],
+      '#default_value' => $this->configuration['render_as'],
+    ];
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
+
+    $this->configuration['render_as'] = $form_state->getValue('render_as');
   }
 
 }
