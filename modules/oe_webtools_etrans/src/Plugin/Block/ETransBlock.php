@@ -26,7 +26,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * The various ways the eTrans link can be rendered.
    */
-  protected const RENDER_OPTIONS = ['button', 'icon', 'link'];
+  public const RENDER_OPTIONS = ['button', 'icon', 'link'];
 
   /**
    * The language manager.
