@@ -1,11 +1,21 @@
 # Changelog
 
+## [1.10.0](https://github.com/openeuropa/oe_webtools/tree/1.10.0) (2021-01-22)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.9.0...1.10.0)
+
+**Merged pull requests:**
+
+- EWPP-529: Replace scaffold library. [\#144](https://github.com/openeuropa/oe_webtools/pull/144) ([sergepavle](https://github.com/sergepavle))
+- EWPP-416: Add new opwidget webtools media source. [\#142](https://github.com/openeuropa/oe_webtools/pull/142) ([22Alexandra](https://github.com/22Alexandra))
+
 ## [1.9.0](https://github.com/openeuropa/oe_webtools/tree/1.9.0) (2020-12-03)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.8.0...1.9.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.9.0. [\#143](https://github.com/openeuropa/oe_webtools/pull/143) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - Update README.md [\#141](https://github.com/openeuropa/oe_webtools/pull/141) ([kugta](https://github.com/kugta))
 - EWPP-516: Update docker images. [\#138](https://github.com/openeuropa/oe_webtools/pull/138) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-414: Update CCK module to use version 2. [\#137](https://github.com/openeuropa/oe_webtools/pull/137) ([sergepavle](https://github.com/sergepavle))
@@ -89,7 +99,6 @@
 - OPENEUROPA-0000: Update changelog for release 1.3.0. [\#98](https://github.com/openeuropa/oe_webtools/pull/98) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2259: Fix behat/mink-selenium2-driver missing branch by aliasing. [\#91](https://github.com/openeuropa/oe_webtools/pull/91) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - Issue \#89: Fix PHPCS issue in master. [\#90](https://github.com/openeuropa/oe_webtools/pull/90) ([vever001](https://github.com/vever001))
-- Issue \#85: Make the package consistent for all submodules. [\#86](https://github.com/openeuropa/oe_webtools/pull/86) ([msnassar](https://github.com/msnassar))
 - OPENEUROPA-2130: Add new component oe webtools media. [\#84](https://github.com/openeuropa/oe_webtools/pull/84) ([msnassar](https://github.com/msnassar))
 
 ## [1.2.1](https://github.com/openeuropa/oe_webtools/tree/1.2.1) (2019-07-26)
@@ -107,6 +116,7 @@
 
 **Merged pull requests:**
 
+- Issue \#85: Make the package consistent for all submodules. [\#86](https://github.com/openeuropa/oe_webtools/pull/86) ([msnassar](https://github.com/msnassar))
 - Release-1.2.0: Update changelog. [\#81](https://github.com/openeuropa/oe_webtools/pull/81) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-0000: Renumber again the post update. [\#80](https://github.com/openeuropa/oe_webtools/pull/80) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2089: Fix typo for post\_update. [\#79](https://github.com/openeuropa/oe_webtools/pull/79) ([voidtek](https://github.com/voidtek))
@@ -194,7 +204,6 @@
 - OPENEUROPA-1533: Add --strict flag for Behat tests executions. [\#31](https://github.com/openeuropa/oe_webtools/pull/31) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1538: Adjust Behat tests for OE Webtools Analytics rules. [\#30](https://github.com/openeuropa/oe_webtools/pull/30) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1522: Make sure we don't use Drupal paths in Behat scenarios. [\#29](https://github.com/openeuropa/oe_webtools/pull/29) ([sergepavle](https://github.com/sergepavle))
-- OPENEUROPA-1414: Add support for multilingual aliases on Webtools Analytics rules. [\#27](https://github.com/openeuropa/oe_webtools/pull/27) ([sergepavle](https://github.com/sergepavle))
 - OPENEUROPA-1516: Add cache metadata to analytics event. [\#26](https://github.com/openeuropa/oe_webtools/pull/26) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - OPENEUROPA-1500: Create configuration UI for Webtools Analytics module [\#24](https://github.com/openeuropa/oe_webtools/pull/24) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-1499: Add admin page for LACO Widget configurations. [\#23](https://github.com/openeuropa/oe_webtools/pull/23) ([dxvargas](https://github.com/dxvargas))
@@ -207,6 +216,7 @@
 
 **Merged pull requests:**
 
+- OPENEUROPA-1414: Add support for multilingual aliases on Webtools Analytics rules. [\#27](https://github.com/openeuropa/oe_webtools/pull/27) ([sergepavle](https://github.com/sergepavle))
 - Update CHANGELOG.md for 0.3.0 release. [\#19](https://github.com/openeuropa/oe_webtools/pull/19) ([ademarco](https://github.com/ademarco))
 - OPENEUROPA-1322: Use the proper Docker way of overriding docker-composer.yml file. [\#18](https://github.com/openeuropa/oe_webtools/pull/18) ([drupol](https://github.com/drupol))
 - OPENEUROPA-665: Add section rules to Webtool Analytics. [\#17](https://github.com/openeuropa/oe_webtools/pull/17) ([imanoleguskiza](https://github.com/imanoleguskiza))
