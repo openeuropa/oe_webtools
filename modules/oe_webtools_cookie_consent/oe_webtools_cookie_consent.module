@@ -7,7 +7,9 @@
 
 declare(strict_types = 1);
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Url;
 use Drupal\media\IFrameMarkup;
 use Drupal\oe_webtools_cookie_consent\Event\ConfigBannerPopupEvent;
 use Drupal\oe_webtools_cookie_consent\Event\ConfigVideoPopupEvent;
@@ -28,7 +30,21 @@ function oe_webtools_cookie_consent_page_attachments(array &$attachments) {
   $cache = $event_cache->merge($existing_cache);
   $cache->applyTo($attachments);
   if ($event->isBannerPopup()) {
-    $attachments['#attached']['library'][] = 'oe_webtools_cookie_consent/oe_webtools_cookie_consent.cck';
+    $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+    $cck_attachment = [
+      '#type' => 'html_tag',
+      '#tag' => 'script',
+      '#value' => Json::encode([
+        'utility' => 'cck',
+      ]),
+      '#attributes' => ['type' => 'application/json'],
+    ];
+
+    $event_cache->applyTo($attachments);
+    $attachments['#attached']['html_head'][] = [
+      $cck_attachment,
+      'oe_webtools_cookie_consent',
+    ];
   }
 }
 
@@ -55,8 +71,13 @@ function oe_webtools_cookie_consent_preprocess_media_oembed_iframe(array &$varia
   if ($variables['media'] instanceof IFrameMarkup) {
     preg_match('/<iframe.*src=["\']+([^"\']*)["\']+[^<>]*><\/iframe>/', $variables['media']->__toString(), $matches);
     if (!empty($matches[1])) {
-      $new_url = OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . '?oriurl=' . $matches[1] . '&lang=' . \Drupal::languageManager()->getCurrentLanguage()->getId();
-      $new_iframe = str_replace($matches[1], $new_url, $variables['media']);
+      $url = Url::fromUri(OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL, [
+        'query' => [
+          'oriurl' => $matches[1],
+          'lang' => \Drupal::languageManager()->getCurrentLanguage()->getId(),
+        ],
+      ]);
+      $new_iframe = str_replace($matches[1], $url->toString(), $variables['media']);
       $variables['media'] = IFrameMarkup::create($new_iframe);
     }
   }

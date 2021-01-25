@@ -4,7 +4,7 @@ This component provides the integration with the Webtools Cookie Consent Kit (CC
 
 ## What it does
 The `oe_webtools_cookie_consent` module performs 3 different tasks:
-* Provides a banner that allows the user whether to accept or refuse cookies from the website.
+* Provides a banner that allows the end-user to accept all 1st-party cookies or only those that are technically required.
 * Preprocesses the media_oembed iframes and alters the URL to go through the EC Cookie Consent service.
 * Preprocesses iframes provided by the video_embed_field or the video_embed_wysiwyg modules and also redirects
 the source through the EC Cookie Consent service. (the source through the EC Cookie Consent service.
@@ -33,3 +33,7 @@ $config['oe_webtools_cookie_consent.settings']['banner_popup'] = true;
 $config['oe_webtools_cookie_consent.settings']['video_popup'] = true;
 
 ```
+
+## Upgrade to CCK v2
+
+Cookie Consent Kit v2 requires the smartloader library which is declared in oe_webtools module. This new dependency will be applied by running the post_update_00002 for existing installations.

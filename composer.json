@@ -8,23 +8,24 @@
     "require": {
         "drupal/core": "^8.8",
         "ext-json": "*",
-        "php": "^7.1"
+        "php": ">=7.2"
     },
     "require-dev": {
         "composer/installers": "~1.5",
         "consolidation/robo": "~1.4",
         "consolidation/annotated-command": "^2.8.2",
-        "drupal-composer/drupal-scaffold": "^2.5.2",
-        "drupal/coder": "8.3.8",
+        "drupal/core-composer-scaffold": "^8.8",
         "drupal/config_devel": "~1.2",
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "^1.0@RC",
+        "drupaltest/behat-traits": "~0.1",
         "drush/drush": "~9.0",
+        "guzzlehttp/guzzle": "~6.3",
         "nikic/php-parser": "^3.1.5",
         "openeuropa/behat-transformation-context": "~0.1",
-        "openeuropa/code-review": "~1.0@beta",
+        "openeuropa/code-review": "~1.5.0",
         "openeuropa/drupal-core-require-dev": "^8.7",
         "openeuropa/oe_media": "^1.0@beta",
         "openeuropa/oe_multilingual": "~1.2",
@@ -34,7 +35,6 @@
         "symfony/dom-crawler": "~3.4"
     },
     "_readme": [
-        "We explicitly require drupal/coder 8.3.8 or else Drupal coding standards will not be picked up by GrumPHP.",
         "We explicitly require consolidation/robo to allow lower 'composer update --prefer-lowest' to complete successfully.",
         "We explicitly require consolidation/annotated-command to allow lower 'composer update --prefer-lowest' to complete successfully."
     ],
@@ -58,7 +58,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Drupal\\Tests\\oe_webtools\\": "tests"
+            "Drupal\\Tests\\oe_webtools\\": "./tests/"
         }
     },
     "extra": {
@@ -69,6 +69,11 @@
             "build/profiles/contrib/{$name}": ["type:drupal-profile"],
             "build/modules/contrib/{$name}": ["type:drupal-module"],
             "build/themes/contrib/{$name}": ["type:drupal-theme"]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "./build"
+            }
         }
     },
     "config": {

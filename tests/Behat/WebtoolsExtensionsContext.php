@@ -29,6 +29,7 @@ class WebtoolsExtensionsContext extends RawDrupalContext {
     }
 
     \Drupal::service('module_installer')->install($modules);
+    drupal_flush_all_caches();
   }
 
   /**

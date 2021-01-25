@@ -71,7 +71,6 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     // SiteID must exist and be an integer.
     $site_id = $config->get(AnalyticsEventInterface::SITE_ID);
     if (!is_numeric($site_id)) {
-      $this->getLogger()->warning('The setting "' . AnalyticsEventInterface::SITE_ID . '" is missing from settings file.');
       return;
     }
 

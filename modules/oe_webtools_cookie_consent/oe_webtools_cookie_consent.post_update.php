@@ -24,3 +24,10 @@ function oe_webtools_cookie_consent_post_update_00001_set_default_config(): void
 
   $config->save(TRUE);
 }
+
+/**
+ * Add additional new dependency from OpenEuropa Webtools module.
+ */
+function oe_webtools_cookie_consent_post_update_00002(): void {
+  \Drupal::service('module_installer')->install(['oe_webtools']);
+}
