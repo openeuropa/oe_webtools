@@ -2,4 +2,4 @@
 drupal.webtools-smartloader:
   version: 1.x
   js:
-    "https://europa.eu/webtools/load.js": { external: true, attributes: { defer: true } }
+    https://europa.eu/webtools/load.js: { type: external, attributes: { defer: true } }
