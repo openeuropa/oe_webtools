@@ -1,0 +1,7 @@
+block.settings.oe_webtools_etrans:
+  type: block_settings
+  label: 'Webtools eTrans block'
+  mapping:
+    render_as:
+      type: string
+      label: 'Render as'
