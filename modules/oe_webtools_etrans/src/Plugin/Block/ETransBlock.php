@@ -97,9 +97,9 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
    * {@inheritdoc}
    */
   public function defaultConfiguration(): array {
-    return parent::defaultConfiguration() + [
+    return [
       'render_as' => 'button',
-    ];
+    ] + parent::defaultConfiguration();
   }
 
   /**
