@@ -36,6 +36,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     'render_as' => 'button',
     'render_to' => '',
     'domain' => 'gen',
+    'delay' => 0,
   ];
 
   /**
@@ -87,6 +88,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       ],
       'renderAs' => $render_as_options,
       'domain' => $this->configuration['domain'],
+      'delay' => (int) $this->configuration['delay'],
     ];
     if (!empty($this->configuration['render_to'])) {
       $json['renderTo'] = Html::cleanCssIdentifier($this->configuration['render_to']);
@@ -152,6 +154,15 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#default_value' => $this->configuration['domain'],
     ];
 
+    // Delay.
+    $form['delay'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Delay'),
+      '#min' => 0,
+      '#description' => $this->t('The time in milliseconds to delay rendering the translation. Use this on dynamic pages if the HTML element that contains the translation is not immediately available.'),
+      '#default_value' => $this->configuration['delay'],
+    ];
+
     return $form;
   }
 
@@ -174,6 +185,8 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     foreach (array_keys(self::DEFAULT_CONFIGURATION) as $key) {
       $this->configuration[$key] = $form_state->getValue($key);
     }
+
+    $this->configuration['delay'] = (int) $form_state->getValue('delay');
   }
 
 }
