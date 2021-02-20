@@ -5,3 +5,6 @@ block.settings.oe_webtools_etrans:
     render_as:
       type: string
       label: 'Render as'
+    render_to:
+      type: string
+      label: 'Render to'
