@@ -2,6 +2,12 @@ block.settings.oe_webtools_etrans:
   type: block_settings
   label: 'Webtools eTrans block'
   mapping:
+    delay:
+      type: integer
+      label: 'Delay'
+    domain:
+      type: string
+      label: 'Domain'
     render_as:
       type: string
       label: 'Render as'
