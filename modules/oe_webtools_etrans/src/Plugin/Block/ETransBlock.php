@@ -35,6 +35,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
   protected const DEFAULT_CONFIGURATION = [
     'render_as' => 'button',
     'render_to' => '',
+    'domain' => 'gen',
   ];
 
   /**
@@ -85,6 +86,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
         'exclude' => [$this->languageManager->getCurrentLanguage()->getId()],
       ],
       'renderAs' => $render_as_options,
+      'domain' => $this->configuration['domain'],
     ];
     if (!empty($this->configuration['render_to'])) {
       $json['renderTo'] = Html::cleanCssIdentifier($this->configuration['render_to']);
@@ -137,6 +139,17 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#description' => $this->t('The ID of a HTML element in which the eTrans component will be rendered. If omitted the component will be rendered inside the block.'),
       '#maxlength' => 64,
       '#default_value' => (string) $this->configuration['render_to'],
+    ];
+
+    // Domain.
+    $form['domain'] = [
+      '#type' => 'radios',
+      '#title' => $this->t('Domain'),
+      '#options' => [
+        'gen' => $this->t('General text'),
+        'spd' => $this->t('EU formal language'),
+      ],
+      '#default_value' => $this->configuration['domain'],
     ];
 
     return $form;
