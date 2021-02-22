@@ -37,6 +37,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     'render_to' => '',
     'domain' => 'gen',
     'delay' => 0,
+    'include' => '',
   ];
 
   /**
@@ -90,9 +91,19 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       'domain' => $this->configuration['domain'],
       'delay' => (int) $this->configuration['delay'],
     ];
+
     if (!empty($this->configuration['render_to'])) {
       $json['renderTo'] = Html::cleanCssIdentifier($this->configuration['render_to']);
     }
+
+    if (!empty($this->configuration['include'])) {
+      $selectors = [];
+      foreach (explode("\n", $this->configuration['include']) as $selector) {
+        $selectors[] = trim($selector);
+      }
+      $json['include'] = implode(',', $selectors);
+    }
+
     $build = [
       '#cache' => [
         'contexts' => ['languages:' . LanguageInterface::TYPE_INTERFACE],
@@ -161,6 +172,14 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#min' => 0,
       '#description' => $this->t('The time in milliseconds to delay rendering the translation. Use this on dynamic pages if the HTML element that contains the translation is not immediately available.'),
       '#default_value' => $this->configuration['delay'],
+    ];
+
+    // Include.
+    $form['include'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Include'),
+      '#description' => $this->t('A list of CSS selectors indicating the page elements to be translated, one selector per line. If omitted the entire page will be translated.'),
+      '#default_value' => (string) $this->configuration['include'],
     ];
 
     return $form;
