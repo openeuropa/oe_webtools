@@ -59,7 +59,7 @@ class ETransBlockTest extends KernelTestBase {
    *   The render_to option.
    * @param string $domain
    *   The domain option.
-   * @param int $delay.
+   * @param int $delay
    *   The delay option.
    * @param string $langcode
    *   The language code to set as the active language.
