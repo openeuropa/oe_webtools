@@ -99,9 +99,13 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     if (!empty($this->configuration['include'])) {
       $selectors = [];
       foreach (explode("\n", $this->configuration['include']) as $selector) {
-        $selectors[] = trim($selector);
+        if ($selector = trim($selector)) {
+          $selectors[] = $selector;
+        }
       }
-      $json['include'] = implode(',', $selectors);
+      if (!empty($selectors)) {
+        $json['include'] = implode(',', $selectors);
+      }
     }
 
     $build = [
