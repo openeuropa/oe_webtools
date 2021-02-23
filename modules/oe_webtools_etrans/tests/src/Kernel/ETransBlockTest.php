@@ -113,6 +113,7 @@ class ETransBlockTest extends KernelTestBase {
    *   - The include option.
    *   - The exclude option.
    *   - The language to render.
+   *   - The expected rendered block content.
    *
    * @see ::testBlockRendering()
    */
