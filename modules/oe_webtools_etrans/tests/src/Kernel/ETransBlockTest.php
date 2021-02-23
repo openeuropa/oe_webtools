@@ -61,12 +61,16 @@ class ETransBlockTest extends KernelTestBase {
    *   The domain option.
    * @param int $delay
    *   The delay option.
+   * @param string $include
+   *   The include option.
    * @param string $langcode
    *   The language code to set as the active language.
+   * @param string $expected_html
+   *   The expected rendered block content.
    *
    * @dataProvider blockRenderingTestProvider
    */
-  public function testBlockRendering(string $render_as, string $render_to, string $domain, int $delay, string $langcode): void {
+  public function testBlockRendering(string $render_as, string $render_to, string $domain, int $delay, string $include, string $langcode, string $expected_html): void {
     // Set the current language, so that we can test that the current language
     // is correctly excluded from the list of available translation languages.
     $language = ConfigurableLanguage::createFromLangcode($langcode);
@@ -84,20 +88,12 @@ class ETransBlockTest extends KernelTestBase {
       'render_to' => $render_to,
       'domain' => $domain,
       'delay' => $delay,
+      'include' => $include,
     ];
     $plugin = $this->container->get('plugin.manager.block')->createInstance('oe_webtools_etrans', $config);
 
     $render_array = $plugin->build();
     $rendered_html = (string) $this->container->get('renderer')->renderRoot($render_array);
-
-    // Check that the output of the block is correct.
-    $render_as_options = array_map(function (string $render_option) use ($render_as) {
-      $value = $render_option === $render_as ? 'true' : 'false';
-      return "\"$render_option\":$value";
-    }, ETransBlock::RENDER_OPTIONS);
-    $render_as = implode(',', $render_as_options);
-    $render_to = !empty($render_to) ? ",\"renderTo\":\"$render_to\"" : '';
-    $expected_html = "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"$langcode\"]},\"renderAs\":{{$render_as}},\"domain\":\"$domain\",\"delay\":$delay$render_to}</script>\n";
 
     $this->assertEquals($expected_html, $rendered_html);
   }
@@ -111,15 +107,47 @@ class ETransBlockTest extends KernelTestBase {
    *   - The render_to option.
    *   - The domain option.
    *   - The delay option.
+   *   - The include option.
    *   - The language to render.
    *
    * @see ::testBlockRendering()
    */
   public function blockRenderingTestProvider(): array {
     return [
-      ['button', '', 'gen', 0, 'en'],
-      ['icon', 'main-content', 'gen', 100, 'fr'],
-      ['link', '', 'spd', 500, 'es'],
+      [
+        'button',
+        '',
+        'gen',
+        0,
+        "
+          h1.page__title
+          #main-content
+        ",
+        'en',
+        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"en\"]},\"renderAs\":{\"button\":true,\"icon\":false,\"link\":false},\"domain\":\"gen\",\"delay\":0,\"include\":\"h1.page__title,#main-content\"}</script>\n",
+      ],
+      [
+        'icon',
+        'main-content',
+        'gen',
+        100,
+        "",
+        'fr',
+        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"fr\"]},\"renderAs\":{\"button\":false,\"icon\":true,\"link\":false},\"domain\":\"gen\",\"delay\":100,\"renderTo\":\"main-content\"}</script>\n",
+      ],
+      [
+        'link',
+        '',
+        'spd',
+        500,
+        "
+          #content-block div.main > p
+
+          h1,h2,h3
+        ",
+        'es',
+        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"es\"]},\"renderAs\":{\"button\":false,\"icon\":false,\"link\":true},\"domain\":\"spd\",\"delay\":500,\"include\":\"#content-block div.main \u003E p,h1,h2,h3\"}</script>\n",
+      ],
     ];
   }
 
