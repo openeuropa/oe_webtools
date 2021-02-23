@@ -38,6 +38,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     'domain' => 'gen',
     'delay' => 0,
     'include' => '',
+    'exclude' => '',
   ];
 
   /**
@@ -96,15 +97,17 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       $json['renderTo'] = Html::cleanCssIdentifier($this->configuration['render_to']);
     }
 
-    if (!empty($this->configuration['include'])) {
-      $selectors = [];
-      foreach (explode("\n", $this->configuration['include']) as $selector) {
-        if ($selector = trim($selector)) {
-          $selectors[] = $selector;
+    foreach (['include', 'exclude'] as $option) {
+      if (!empty($this->configuration[$option])) {
+        $selectors = [];
+        foreach (explode("\n", $this->configuration[$option]) as $selector) {
+          if ($selector = trim($selector)) {
+            $selectors[] = $selector;
+          }
         }
-      }
-      if (!empty($selectors)) {
-        $json['include'] = implode(',', $selectors);
+        if (!empty($selectors)) {
+          $json[$option] = implode(',', $selectors);
+        }
       }
     }
 
@@ -184,6 +187,14 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Include'),
       '#description' => $this->t('A list of CSS selectors indicating the page elements to be translated, one selector per line. If omitted the entire page will be translated.'),
       '#default_value' => (string) $this->configuration['include'],
+    ];
+
+    // Exclude.
+    $form['exclude'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Exclude'),
+      '#description' => $this->t('A list of CSS selectors indicating page elements to be excluded from the translation even if they are inside an "include" element. One selector per line.'),
+      '#default_value' => (string) $this->configuration['exclude'],
     ];
 
     return $form;
