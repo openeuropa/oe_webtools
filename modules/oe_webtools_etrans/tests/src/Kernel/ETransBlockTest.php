@@ -63,6 +63,8 @@ class ETransBlockTest extends KernelTestBase {
    *   The delay option.
    * @param string $include
    *   The include option.
+   * @param string $exclude
+   *   The exclude option.
    * @param string $langcode
    *   The language code to set as the active language.
    * @param string $expected_html
@@ -70,7 +72,7 @@ class ETransBlockTest extends KernelTestBase {
    *
    * @dataProvider blockRenderingTestProvider
    */
-  public function testBlockRendering(string $render_as, string $render_to, string $domain, int $delay, string $include, string $langcode, string $expected_html): void {
+  public function testBlockRendering(string $render_as, string $render_to, string $domain, int $delay, string $include, string $exclude, string $langcode, string $expected_html): void {
     // Set the current language, so that we can test that the current language
     // is correctly excluded from the list of available translation languages.
     $language = ConfigurableLanguage::createFromLangcode($langcode);
@@ -89,6 +91,7 @@ class ETransBlockTest extends KernelTestBase {
       'domain' => $domain,
       'delay' => $delay,
       'include' => $include,
+      'exclude' => $exclude,
     ];
     $plugin = $this->container->get('plugin.manager.block')->createInstance('oe_webtools_etrans', $config);
 
@@ -108,6 +111,7 @@ class ETransBlockTest extends KernelTestBase {
    *   - The domain option.
    *   - The delay option.
    *   - The include option.
+   *   - The exclude option.
    *   - The language to render.
    *
    * @see ::testBlockRendering()
@@ -123,6 +127,9 @@ class ETransBlockTest extends KernelTestBase {
           h1.page__title
           #main-content
         ",
+        "
+
+        ",
         'en',
         "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"en\"]},\"renderAs\":{\"button\":true,\"icon\":false,\"link\":false},\"domain\":\"gen\",\"delay\":0,\"include\":\"h1.page__title,#main-content\"}</script>\n",
       ],
@@ -132,8 +139,11 @@ class ETransBlockTest extends KernelTestBase {
         'gen',
         100,
         "",
+        "
+          div.comment-wrapper
+        ",
         'fr',
-        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"fr\"]},\"renderAs\":{\"button\":false,\"icon\":true,\"link\":false},\"domain\":\"gen\",\"delay\":100,\"renderTo\":\"main-content\"}</script>\n",
+        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"fr\"]},\"renderAs\":{\"button\":false,\"icon\":true,\"link\":false},\"domain\":\"gen\",\"delay\":100,\"renderTo\":\"main-content\",\"exclude\":\"div.comment-wrapper\"}</script>\n",
       ],
       [
         'link',
@@ -145,8 +155,14 @@ class ETransBlockTest extends KernelTestBase {
 
           h1,h2,h3
         ",
+        "
+
+          aside
+          #nav > a.pager
+
+        ",
         'es',
-        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"es\"]},\"renderAs\":{\"button\":false,\"icon\":false,\"link\":true},\"domain\":\"spd\",\"delay\":500,\"include\":\"#content-block div.main \u003E p,h1,h2,h3\"}</script>\n",
+        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"es\"]},\"renderAs\":{\"button\":false,\"icon\":false,\"link\":true},\"domain\":\"spd\",\"delay\":500,\"include\":\"#content-block div.main \u003E p,h1,h2,h3\",\"exclude\":\"aside,#nav \u003E a.pager\"}</script>\n",
       ],
     ];
   }
