@@ -203,7 +203,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
   /**
    * {@inheritdoc}
    */
-  public function blockValidate($form, FormStateInterface $form_state) {
+  public function blockValidate($form, FormStateInterface $form_state): void {
     $render_to_value = $form_state->getValue('render_to');
     if (!empty($render_to_value) && $render_to_value !== Html::cleanCssIdentifier($render_to_value)) {
       $form_state->setErrorByName('render_to', $this->t('Please provide a valid HTML ID.'));
