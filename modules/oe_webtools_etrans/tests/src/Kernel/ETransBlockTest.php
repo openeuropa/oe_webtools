@@ -6,7 +6,6 @@ namespace Drupal\Tests\oe_webtools_etrans\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
-use Drupal\oe_webtools_etrans\Plugin\Block\ETransBlock;
 
 /**
  * Tests the block that displays the Webtools eTrans link.
