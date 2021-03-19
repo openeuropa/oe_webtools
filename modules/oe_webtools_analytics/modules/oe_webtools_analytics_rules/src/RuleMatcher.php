@@ -10,7 +10,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule;
 use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
@@ -24,7 +24,7 @@ class RuleMatcher implements RuleMatcherInterface {
   /**
    * The alias manager service.
    *
-   * @var \Drupal\Core\Path\AliasManagerInterface
+   * @var \Drupal\path_alias\AliasManagerInterface
    */
   protected $aliasManager;
 
@@ -66,7 +66,7 @@ class RuleMatcher implements RuleMatcherInterface {
   /**
    * Constructs a RuleMatcher service.
    *
-   * @param \Drupal\Core\Path\AliasManagerInterface $aliasManager
+   * @param \Drupal\path_alias\AliasManagerInterface $aliasManager
    *   The alias manager service.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache
    *   A cache backend used to store webtools rules for uris.

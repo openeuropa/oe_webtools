@@ -3,7 +3,7 @@ description: Provides the configuration settings for webtools global banner inte
 package: OpenEuropa Webtools
 type: module
 version: 1.0
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 configure: oe_webtools_globan.settings
 dependencies:
   - oe_webtools:oe_webtools
