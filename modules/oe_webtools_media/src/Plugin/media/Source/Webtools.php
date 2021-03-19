@@ -124,21 +124,29 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
     return [
       'chart' => [
         'name' => $this->t('Chart'),
+        // @deprecated Use services key instead.
+        'service' => 'charts',
         'services' => ['charts', 'chart', 'racing'],
         'default_thumbnail' => 'charts-embed-no-bg.png',
       ],
       'map' => [
         'name' => $this->t('Map'),
+        // @deprecated Use services key instead.
+        'service' => '',
         'services' => ['map'],
         'default_thumbnail' => 'maps-embed-no-bg.png',
       ],
       'social_feed' => [
         'name' => $this->t('Social feed'),
+        // @deprecated Use services key instead.
+        'service' => '',
         'services' => ['smk'],
         'default_thumbnail' => 'twitter-embed-no-bg.png',
       ],
       'opwidget' => [
         'name' => $this->t('OP Publication list'),
+        // @deprecated Use services key instead.
+        'service' => '',
         'services' => ['opwidget'],
         'default_thumbnail' => 'generic.png',
       ],

@@ -46,7 +46,8 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator {
     }
 
     // Add violation in case incorrect services.
-    if (!isset($snippet['service']) || !in_array($snippet['service'], $widget_types[$constraint->widgetType]['services'])) {
+    $services = $widget_types[$constraint->widgetType]['services'] ?? [$widget_types[$constraint->widgetType]['service']];
+    if (!in_array($snippet['service'], $services)) {
       $this->context->addViolation($constraint->message, ['%widget_type_name' => $widget_types[$constraint->widgetType]['name']]);
     }
   }
