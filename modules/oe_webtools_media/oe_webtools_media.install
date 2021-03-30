@@ -23,7 +23,7 @@ function oe_webtools_media_install() {
   $file_system->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
 
   // @TODO Replace after canceling backward compatibility with core 8.7.
-  $files = file_scan_directory($source, '/.*\.(png)$/');
+  $files = \Drupal::service('file_system')->scanDirectory($source, '/.*\.(png)$/');
   foreach ($files as $file) {
     // When reinstalling the OE Webtools media module we don't want to copy
     // the icons when
