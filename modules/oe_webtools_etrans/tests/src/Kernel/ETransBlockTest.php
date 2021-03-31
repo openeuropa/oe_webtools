@@ -45,7 +45,8 @@ class ETransBlockTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installSchema('system', 'sequences');
     $this->installConfig(['system']);
-    $this->languageManager = \Drupal::service('language_manager');
+    $this->languageManager = $this->container->get('language_manager');
+    $this->languageDefault = $this->container->get('language.default');
     $this->languageDefault = \Drupal::service('language.default');
   }
 
