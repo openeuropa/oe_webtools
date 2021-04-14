@@ -71,7 +71,7 @@ class OeWebtoolsMapsSubContext extends DrupalSubContextBase {
       Assert::assertCount($count, $maps);
     }
     else {
-      Assert::assertNotEmpty($this->getWebtoolsMaps());
+      Assert::assertNotEmpty($maps);
     }
   }
 

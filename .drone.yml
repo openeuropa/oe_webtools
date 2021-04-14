@@ -81,6 +81,8 @@ pipeline:
     commands:
       - ./vendor/bin/behat --strict
       - ./vendor/bin/behat --strict --profile=static
+      # Check that the deprecated subcontext in webtools_maps is identical to the new context.
+      - ./tests/scripts/validate-subcontext-integrity.sh
 
   debug:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
