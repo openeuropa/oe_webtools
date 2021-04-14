@@ -9,6 +9,7 @@ Webtools are interactive services available to integrate in a website.
 **Table of contents:**
 
 - [Installation](#installation)
+- [Submodules](#submodules)
 - [Development setup](#development-setup)
 - [Contributing](#contributing)
 - [Versioning](#versioning)
@@ -29,6 +30,8 @@ In order to enable the module in your project run:
 ./vendor/bin/drush en oe_webtools
 ```
 
+## Submodules
+
 ### OpenEuropa Webtools Analytics
 
 The Webtools module contains a submodule that provides a service for providing
@@ -38,13 +41,13 @@ check out the module [README](modules/oe_webtools_analytics/README.md).
 ### OpenEuropa Webtools Laco Service
 
 The Webtools module contains a submodule that provides a service for retrieving
-information about language coverage of entity resources. For more information on 
+information about language coverage of entity resources. For more information on
 how to use and test this module, check out the module [README](modules/oe_webtools_laco_service/README.md).
 
 ### OpenEuropa Webtools Laco Widget
 
 The Webtools module contains a submodule that provides a widget which integrates
-with the Laco service. For more information on how to use and configure this module, 
+with the Laco service. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_laco_widget/README.md).
 
 ### OpenEuropa Webtools Geocoding
@@ -75,6 +78,12 @@ with the maps service.
 
 * [drupal/geofield 1.x](https://www.drupal.org/project/geofield)
 
+#### Webtools Maps Usage
+
+```bash
+drush en oe_webtools_maps
+```
+
 ### OpenEuropa Webtools Cookie Consent
 
 The Webtools module contains a submodule that provides a service for providing
@@ -90,9 +99,38 @@ supported media providers.
 
 * [drupal/json_field 1.x-rc3](https://www.drupal.org/project/json_field)
 
+#### Webtools Media Usage
+
+```bash
+drush en oe_webtools_media
+```
+
 ### OpenEuropa Webtools Social Share
 
-The Webtools module contains a submodule that provides social sharing functionality for a site.
+The Webtools module contains a submodule that provides the Social Share block
+with buttons for Twitter, Facebook, LinkedIn and E-mail.
+
+#### Webtools Social Share Usage
+
+```bash
+drush en oe_webtools_social_share
+```
+
+After enabling the module, go to "admin/structure/block" and place the block in a certain region
+(e.g. Content region).
+
+### OpenEuropa Webtools Global Banner
+
+The Webtools module contains a submodule that provides a Global Banner with
+the EU flag and a link to all EU institutions.
+
+#### Webtools Global Banner Usage
+
+```bash
+drush en oe_webtools_globan
+```
+
+After enabling the module, the configuration can be modified here "admin/config/system/oe_webtools_globan".
 
 ## Development setup
 
@@ -123,10 +161,10 @@ Your test site will be available at `./build`.
 
 ### Using Docker Compose
 
-Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and 
+Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and
 [Docker Compose](https://docs.docker.com/compose/) with the provided configuration.
 
-Docker provides the necessary services and tools such as a web server and a database server to get the site running, 
+Docker provides the necessary services and tools such as a web server and a database server to get the site running,
 regardless of your local host configuration.
 
 #### Requirements:
@@ -138,7 +176,7 @@ regardless of your local host configuration.
 
 By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file.
 By convention, the `docker-compose.yml` contains your base configuration and it's provided by default.
-The override file, as its name implies, can contain configuration overrides for existing services or entirely new 
+The override file, as its name implies, can contain configuration overrides for existing services or entirely new
 services.
 If a service is defined in both files, Docker Compose merges the configurations.
 
