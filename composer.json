@@ -29,7 +29,7 @@
         "openeuropa/drupal-core-require-dev": "^8.7",
         "openeuropa/oe_media": "^1.0@beta",
         "openeuropa/oe_multilingual": "~1.2",
-        "openeuropa/task-runner": "~1.0.0-beta5",
+        "openeuropa/task-runner-drupal-project-symlink": "dev-EWPP-964",
         "openeuropa/webtools-geocoding-provider": "~0.1",
         "phpunit/phpunit": "~6.0",
         "symfony/dom-crawler": "~3.4"
@@ -49,6 +49,10 @@
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        "task-runner-drupal-project-symlink": {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/task-runner-drupal-project-symlink"
         }
     },
     "autoload": {
