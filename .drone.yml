@@ -43,6 +43,7 @@ pipeline:
       # @link https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1234
       - composer install --ansi --no-suggest --no-progress
       - composer update --prefer-lowest --prefer-stable --ansi --no-suggest --no-progress
+      - composer dump-autoload
     when:
       matrix:
         COMPOSER_BOUNDARY: lowest
