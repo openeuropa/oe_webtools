@@ -59,27 +59,15 @@ class WebtoolsConfigContext extends RawDrupalContext {
    * @Given aliases available for the path :path:
    */
   public function aliasesAvailableForPath(string $path, TableNode $aliasesTable): void {
-    if (\Drupal::entityTypeManager()->hasDefinition('path_alias')) {
-      // If we have the Path Alias entity type, we use that for the aliases.
-      // @todo make this approach the default when we depend on Drupal 8.8.
-      $path_alias_storage = \Drupal::entityTypeManager()->getStorage('path_alias');
-      foreach ($aliasesTable->getHash() as $row) {
-        $alias = $path_alias_storage->create([
-          'path' => $path,
-          'alias' => $row['url'],
-          'langcode' => $row['languages'],
-        ]);
-
-        $alias->save();
-      }
-
-      return;
-    }
-
-    /** @var \Drupal\Core\Path\AliasStorageInterface $path_alias_storage */
-    $path_alias_storage = \Drupal::service('path.alias_storage');
+    $path_alias_storage = \Drupal::entityTypeManager()->getStorage('path_alias');
     foreach ($aliasesTable->getHash() as $row) {
-      $path_alias_storage->save($path, $row['url'], $row['languages']);
+      $alias = $path_alias_storage->create([
+        'path' => $path,
+        'alias' => $row['url'],
+        'langcode' => $row['languages'],
+      ]);
+
+      $alias->save();
     }
   }
 

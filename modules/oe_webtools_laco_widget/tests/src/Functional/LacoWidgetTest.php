@@ -19,6 +19,11 @@ class LacoWidgetTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Test that the Laco widget JSON script loads on the page.
    */
   public function testLacoScriptLoading():void {

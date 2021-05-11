@@ -20,7 +20,13 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
   public static $modules = [
     'config',
     'system',
+    'path_alias',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
 
   /**
    * Tests if Webtools library is present on the page during module install.
@@ -60,7 +66,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
   /**
    * Data provider for testLibraryLoading.
    */
-  public function getProvidedData() {
+  public function getProvidedData(): array {
     return [
       ['oe_webtools_analytics', 'random/path', 'configureWebtoolsAnalytics'],
       [

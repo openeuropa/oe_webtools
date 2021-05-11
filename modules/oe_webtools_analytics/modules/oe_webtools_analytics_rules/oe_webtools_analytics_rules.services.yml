@@ -6,7 +6,7 @@ services:
       - { name: event_subscriber }
   oe_webtools_analytics_rules.rule_matcher:
     class: Drupal\oe_webtools_analytics_rules\RuleMatcher
-    arguments: ['@path.alias_manager', '@cache.webtools_analytics_rules', '@config.factory', '@path.current', '@entity_type.manager', '@request_stack']
+    arguments: ['@path_alias.manager', '@cache.webtools_analytics_rules', '@config.factory', '@path.current', '@entity_type.manager', '@request_stack']
   cache.webtools_analytics_rules:
     class: Drupal\Core\Cache\CacheBackendInterface
     tags:

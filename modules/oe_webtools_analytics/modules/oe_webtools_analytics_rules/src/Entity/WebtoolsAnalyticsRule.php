@@ -37,6 +37,13 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "id" = "id",
  *     "weight" = "weight"
  *   },
+ *   config_export = {
+ *     "id",
+ *     "section",
+ *     "match_on_site_default_language",
+ *     "regex",
+ *     "weight",
+ *   },
  *   links = {
  *     "canonical" = "/admin/structure/webtools_analytics_rule/{webtools_analytics_rule}",
  *     "add-form" = "/admin/structure/webtools_analytics_rule/add",
