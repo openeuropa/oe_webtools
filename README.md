@@ -38,13 +38,13 @@ check out the module [README](modules/oe_webtools_analytics/README.md).
 ### OpenEuropa Webtools Laco Service
 
 The Webtools module contains a submodule that provides a service for retrieving
-information about language coverage of entity resources. For more information on 
+information about language coverage of entity resources. For more information on
 how to use and test this module, check out the module [README](modules/oe_webtools_laco_service/README.md).
 
 ### OpenEuropa Webtools Laco Widget
 
 The Webtools module contains a submodule that provides a widget which integrates
-with the Laco service. For more information on how to use and configure this module, 
+with the Laco service. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_laco_widget/README.md).
 
 ### OpenEuropa Webtools Geocoding
@@ -104,13 +104,27 @@ You can build the test site by running the following steps.
 composer install
 ```
 
-* Customize build settings by copying `runner.yml.dist` to `runner.yml` and
-changing relevant values, like your database credentials.
+This will build a fully functional Drupal test site in the `./build` directory that can be used to develop and showcase
+the module's functionality.
 
-* Generate configuration files:
+Before setting up and installing the site make sure to customize default configuration values by copying [runner.yml.dist](runner.yml.dist)
+to `./runner.yml` and overriding relevant properties.
 
-```bash
-./vendor/bin/run drupal:site-setup
+This will also:
+- Symlink the theme in  `./build/modules/custom/media_avportal` so that it's available for the test site
+- Setup Drush and Drupal's settings using values from `./runner.yml.dist`. This includes adding parameters for EULogin
+- Setup PHPUnit and Behat configuration files using values from `./runner.yml.dist`
+
+**Please note:** project files and directories are symlinked within the test site by using the
+[OpenEuropa Task Runner's Drupal project symlink](https://github.com/openeuropa/task-runner-drupal-project-symlink) command.
+
+If you add a new file or directory in the root of the project, you need to re-run `drupal:site-setup` in order to make
+sure they are be correctly symlinked.
+
+If you don't want to re-run a full site setup for that, you can simply run:
+
+```
+$ ./vendor/bin/run drupal:symlink-project
 ```
 
 * Install the site:
@@ -123,10 +137,10 @@ Your test site will be available at `./build`.
 
 ### Using Docker Compose
 
-Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and 
+Alternatively, you can build a development site using [Docker](https://www.docker.com/get-docker) and
 [Docker Compose](https://docs.docker.com/compose/) with the provided configuration.
 
-Docker provides the necessary services and tools such as a web server and a database server to get the site running, 
+Docker provides the necessary services and tools such as a web server and a database server to get the site running,
 regardless of your local host configuration.
 
 #### Requirements:
@@ -138,7 +152,7 @@ regardless of your local host configuration.
 
 By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file.
 By convention, the `docker-compose.yml` contains your base configuration and it's provided by default.
-The override file, as its name implies, can contain configuration overrides for existing services or entirely new 
+The override file, as its name implies, can contain configuration overrides for existing services or entirely new
 services.
 If a service is defined in both files, Docker Compose merges the configurations.
 

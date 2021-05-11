@@ -117,7 +117,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
 
     // Use the mock alias manager in the container.
     $this->aliasManager = new MockAliasManager();
-    $this->container->set('path.alias_manager', $this->aliasManager);
+    $this->container->set('path_alias.manager', $this->aliasManager);
 
     $this->eventSubscriber = $this->container->get('oe_webtools_analytics_rules.event_subscriber');
     $this->entityTypeManager = $this->container->get('entity_type.manager');

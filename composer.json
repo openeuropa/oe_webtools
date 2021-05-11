@@ -6,38 +6,33 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "drupal/core": "^8.8",
+        "drupal/core": "^8.9 || ^9",
         "ext-json": "*",
-        "php": ">=7.2"
+        "php": ">=7.3"
     },
     "require-dev": {
         "composer/installers": "~1.5",
-        "consolidation/robo": "~1.4",
-        "consolidation/annotated-command": "^2.8.2",
-        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-composer-scaffold": "^8.9 || ^9",
         "drupal/config_devel": "~1.2",
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "^1.0@RC",
-        "drupaltest/behat-traits": "~0.1",
-        "drush/drush": "~9.0",
+        "drush/drush": "~10.3",
         "guzzlehttp/guzzle": "~6.3",
         "nikic/php-parser": "^3.1.5",
+        "drupaltest/behat-traits": "dev-GH-6",
         "openeuropa/behat-transformation-context": "~0.1",
-        "openeuropa/code-review": "~1.5.0",
-        "openeuropa/drupal-core-require-dev": "^8.7",
-        "openeuropa/oe_media": "^1.0@beta",
-        "openeuropa/oe_multilingual": "~1.2",
+        "openeuropa/code-review": "~1.6",
+        "openeuropa/drupal-core-require-dev": "^8.9 || ^9",
+        "openeuropa/oe_media": "dev-EWPP-912",
+        "openeuropa/oe_multilingual": "dev-EWPP-919",
         "openeuropa/task-runner": "~1.0.0-beta5",
         "openeuropa/webtools-geocoding-provider": "~0.1",
-        "phpunit/phpunit": "~6.0",
-        "symfony/dom-crawler": "~3.4"
+        "openeuropa/task-runner-drupal-project-symlink": "^1.0",
+        "phpunit/phpunit": "^7 || ^8",
+        "symfony/dom-crawler": "~3.4 || 4.4"
     },
-    "_readme": [
-        "We explicitly require consolidation/robo to allow lower 'composer update --prefer-lowest' to complete successfully.",
-        "We explicitly require consolidation/annotated-command to allow lower 'composer update --prefer-lowest' to complete successfully."
-    ],
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
     },
@@ -46,6 +41,10 @@
         "post-update-cmd": "./vendor/bin/run drupal:site-setup"
     },
     "repositories": {
+        "media_avportal": {
+            "type": "vcs",
+            "url": "https://github.com/openeuropa/media_avportal"
+        },
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
