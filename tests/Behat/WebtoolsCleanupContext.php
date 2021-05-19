@@ -7,8 +7,6 @@ namespace Drupal\Tests\oe_webtools\Behat;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\ScenarioInterface;
-use Drupal\Core\Cache\Cache;
-use Drupal\Core\Path\AliasStorage;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
@@ -22,13 +20,6 @@ class WebtoolsCleanupContext extends RawDrupalContext {
    * @var array
    */
   protected $existing = [];
-
-  /**
-   * The PIDs of the existing url aliases.
-   *
-   * @var array
-   */
-  protected $existingAliases = [];
 
   /**
    * Collect the IDs of entities existing before the execution of the scenario.
@@ -49,47 +40,6 @@ class WebtoolsCleanupContext extends RawDrupalContext {
     foreach ($entity_types as $entity_type) {
       $this->existing[$entity_type] = $this->getAllEntityIdsOfType($entity_type);
     }
-  }
-
-  /**
-   * Collect the PIDs of aliases existing before the execution of the scenario.
-   *
-   * @param \Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
-   *   The scenario scope.
-   *
-   * @beforeScenario @cleanup-aliases
-   */
-  public function collectExistingUrlAliases(BeforeScenarioScope $scope): void {
-    if (\Drupal::entityTypeManager()->hasDefinition('path_alias')) {
-      // If we are running a Drupal version (8.8) on which path aliases are
-      // entities, we do not collect them separately here anymore but rely on
-      // the generic entity cleanup collection.
-      // @todo remove this entire approach when we depend on Drupal 8.8.
-      return;
-    }
-    // Reset the alias list at the beginning of each scenario.
-    $this->existingAliases = [];
-    // Executing database query, as AliasStorage->load() returns only one alias.
-    $query = \Drupal::database()->select(AliasStorage::TABLE, 'ua');
-    $query->fields('ua', ['pid']);
-    $this->existingAliases = $query->execute()->fetchAllKeyed(0, 0);
-  }
-
-  /**
-   * Deletes url aliases created though the scenario.
-   *
-   * @param \Behat\Behat\Hook\Scope\AfterScenarioScope $scope
-   *   The scenario scope.
-   *
-   * @afterScenario @cleanup-aliases
-   */
-  public function cleanupCreatedUrlAliases(AfterScenarioScope $scope): void {
-    $query = \Drupal::database()->delete(AliasStorage::TABLE);
-    if ($this->existingAliases) {
-      $query->condition('pid', $this->existingAliases, 'NOT IN');
-    }
-    $query->execute();
-    Cache::invalidateTags(['route_match']);
   }
 
   /**
@@ -127,10 +77,6 @@ class WebtoolsCleanupContext extends RawDrupalContext {
     foreach ($scenario->getTags() as $tag) {
       if (strpos($tag, 'cleanup:') === 0) {
         $entity_type = substr($tag, 8);
-        // @todo remove this when Drupal 8.8 becomes a dependency.
-        if (!\Drupal::entityTypeManager()->hasDefinition($entity_type)) {
-          continue;
-        }
         $entity_types[] = $entity_type;
       }
     }

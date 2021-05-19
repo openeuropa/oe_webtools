@@ -23,6 +23,11 @@ class ConfigurationTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Tests if the configuration for the Webtools library is present on the page.
    */
   public function testLibraryLoading(): void {

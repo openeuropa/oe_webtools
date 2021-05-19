@@ -24,6 +24,11 @@ class SectionRulesTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'classy';
+
+  /**
    * Test that sections for different rules are correctly rendered.
    */
   public function testSectionRender(): void {
@@ -34,8 +39,7 @@ class SectionRulesTest extends BrowserTestBase {
       ->set("sitePath", "ec.europa.eu");
     $config->save();
 
-    $analytic_rules_storage = $this->container->get('entity_type.manager')
-      ->getStorage('webtools_analytics_rule');
+    $analytic_rules_storage = \Drupal::entityTypeManager()->getStorage('webtools_analytics_rule');
 
     // Create first rule under the main administration page.
     $analytic_rules_storage

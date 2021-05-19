@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_media\FunctionalJavascript;
 
-use Drupal\media\Entity\Media;
 use Drupal\media\Entity\MediaType;
+use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
 use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 
@@ -32,52 +32,56 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   ];
 
   /**
-   * Tests the webtools media source.
-   *
-   * @param string $widget_type
-   *   The widget type.
-   * @param string $widget_name
-   *   The widget human name.
-   * @param string $service
-   *   The webtools service associated with the widget.
-   * @param string $thumbnail_filename
-   *   The filename of thumbnail.
-   *
-   * @dataProvider providerTestMediaWebtoolsSource
+   * {@inheritdoc}
    */
-  public function testMediaWebtoolsSource(string $widget_type, string $widget_name, string $service, string $thumbnail_filename): void {
-    $media_type_id = 'test_media_webtools_type';
+  protected $defaultTheme = 'classy';
 
+  /**
+   * Tests the webtools media source.
+   */
+  public function testMediaWebtoolsSource(): void {
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
 
-    // Create webtools map media type.
-    $this->createWebtoolsMediaType($media_type_id, $widget_type);
+    foreach ($this->getTestMediaWebtoolsSourceData() as $data) {
+      $widget_type = $data[0];
+      $widget_name = $data[1];
+      $service = $data[2];
+      $thumbnail_filename = $data[3];
 
-    // Create a webtools media item with valid webtools snippet.
-    $this->drupalGet("media/add/{$media_type_id}");
-    $assert_session->fieldExists('Name')->setValue("Valid webtools $widget_name item");
-    $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
-    $page->pressButton('Save');
-    $assert_session->addressEquals('admin/content/media');
+      $media_type_id = 'test_media_webtools_type';
 
-    $this->drupalGet('/media/1');
-    $img_src = $page->find('css', '.field--name-thumbnail .field__item img')->getAttribute('src');
-    $this->assertContains($thumbnail_filename, $img_src);
+      // Create webtools map media type.
+      $media_type = $this->createWebtoolsMediaType($media_type_id, $widget_type);
 
-    // Load the media and check that all fields are properly populated.
-    $media = Media::load(1);
-    $this->assertSame("Valid webtools $widget_name item", $media->getName());
-    $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
+      // Create a webtools media item with valid webtools snippet.
+      $this->drupalGet("media/add/{$media_type_id}");
+      $name = "Valid webtools $widget_name item";
+      $assert_session->fieldExists('Name')->setValue($name);
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
+      $page->pressButton('Save');
+      $assert_session->addressEquals('admin/content/media');
 
-    // Create a webtools media item with invalid webtools snippet.
-    $this->drupalGet("media/add/{$media_type_id}");
-    $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
-    $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . $widget_type . '"}');
-    $page->pressButton('Save');
+      $media = $this->getMediaByName($name);
+      $this->drupalGet('/media/' . $media->id());
+      $img_src = $page->find('css', '.field--name-thumbnail .field__item img')->getAttribute('src');
+      $this->assertContains($thumbnail_filename, $img_src);
 
-    $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+      // Check that all fields are properly populated.
+      $this->assertSame("Valid webtools $widget_name item", $media->getName());
+      $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
+
+      // Create a webtools media item with invalid webtools snippet.
+      $this->drupalGet("media/add/{$media_type_id}");
+      $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . $widget_type . '"}');
+      $page->pressButton('Save');
+
+      $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+      $media_type->delete();
+      $media->delete();
+    }
   }
 
   /**
@@ -86,7 +90,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    * @return array
    *   An array of widget types data.
    */
-  public function providerTestMediaWebtoolsSource(): array {
+  public function getTestMediaWebtoolsSourceData(): array {
     return [
       ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png'],
       ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png'],
@@ -154,6 +158,24 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     \Drupal::service('entity_field.manager')->clearCachedFieldDefinitions();
 
     return MediaType::load($media_type_id);
+  }
+
+  /**
+   * Loads and returns a Media entity by name.
+   *
+   * @param string $name
+   *   The media name.
+   *
+   * @return \Drupal\media\MediaInterface
+   *   The media.
+   */
+  protected function getMediaByName(string $name): MediaInterface {
+    $entities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['name' => $name]);
+    if (!$entities) {
+      throw new \Exception(sprintf('The media with the name %s does not exist.', $name));
+    }
+
+    return reset($entities);
   }
 
 }

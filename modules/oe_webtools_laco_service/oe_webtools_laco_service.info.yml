@@ -1,6 +1,5 @@
-name: OpenEuropa Webtools Laco Service
-description: Provides the Webtools Language Coverage (LACO) service.
-package: OpenEuropa Webtools
+name: 'OpenEuropa Webtools Laco Service'
+description: 'Provides the Webtools Language Coverage (LACO) service.'
+package: 'OpenEuropa Webtools'
 type: module
-version: 1.0
-core: 8.x
+core_version_requirement: ^8.9 || ^9

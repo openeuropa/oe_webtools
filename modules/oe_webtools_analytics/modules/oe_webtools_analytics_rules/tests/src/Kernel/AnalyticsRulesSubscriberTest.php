@@ -42,6 +42,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
     'config',
     'system',
     'oe_webtools_analytics_rules',
+    'path_alias',
   ];
 
   /**
@@ -114,10 +115,11 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
     parent::setUp();
 
     $this->installConfig(['system']);
+    $this->installEntitySchema('path_alias');
 
     // Use the mock alias manager in the container.
     $this->aliasManager = new MockAliasManager();
-    $this->container->set('path.alias_manager', $this->aliasManager);
+    $this->container->set('path_alias.manager', $this->aliasManager);
 
     $this->eventSubscriber = $this->container->get('oe_webtools_analytics_rules.event_subscriber');
     $this->entityTypeManager = $this->container->get('entity_type.manager');
