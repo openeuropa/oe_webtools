@@ -24,7 +24,7 @@
         "openeuropa/behat-transformation-context": "~0.1",
         "openeuropa/code-review": "~1.6",
         "openeuropa/drupal-core-require-dev": "^8.9 || ^9",
-        "openeuropa/oe_media": "dev-EWPP-912",
+        "openeuropa/oe_media": "dev-master",
         "openeuropa/oe_multilingual": "dev-master",
         "openeuropa/webtools-geocoding-provider": "~0.1",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
@@ -55,8 +55,7 @@
         }
     },
     "_readme": [
-        "We use the drupaltest/behat-traits feature branch until it gets merged and the package is ready for Drupal 9.",
-        "We use the openeuropa/oe_media feature branch until it gets merged and the package is ready for Drupal 9."
+        "We use the drupaltest/behat-traits feature branch until it gets merged and the package is ready for Drupal 9."
     ],
     "extra": {
         "composer-exit-on-patch-failure": true,
