@@ -94,7 +94,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @Then I should see the oEmbed video iframe with Cookie Consent
    */
   public function assertOembedIframeWithCckUsage(): void {
-    $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');
+    $iframe_url = $this->getSession()->getPage()->find('css', 'div.ecl-media-container__media iframe')->getAttribute('src');
     $this->visitPath(str_replace(rtrim($this->getDrupalParameter('drupal')['drupal_root'], '/'), '', $iframe_url));
     $this->assertSession()->elementExists('css', "iframe[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . "?oriurl=']");
   }
@@ -105,7 +105,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @Then I should not see the oEmbed video iframe with Cookie Consent
    */
   public function assertNoOembedIframeWithCckUsage(): void {
-    $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');
+    $iframe_url = $this->getSession()->getPage()->find('css', 'div.ecl-media-container__media iframe')->getAttribute('src');
     $this->visitPath(str_replace(rtrim($this->getDrupalParameter('drupal')['drupal_root'], '/'), '', $iframe_url));
     $this->assertSession()->elementNotExists('css', "iframe[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . "?oriurl=']");
   }
