@@ -26,6 +26,23 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   protected $configContext;
 
   /**
+   * A list of css selectors needed by this context, keyed by name.
+   *
+   * @var array
+   */
+  protected $selectors = [];
+
+  /**
+   * WebtoolsCookieConsentContext constructor.
+   *
+   * @param array $selectors
+   *   An array of css selectors, keyed by name.
+   */
+  public function __construct(array $selectors) {
+    $this->selectors = $selectors;
+  }
+
+  /**
    * Gathers some other contexts.
    *
    * @param \Behat\Behat\Hook\Scope\BeforeScenarioScope $scope
@@ -94,7 +111,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @Then I should see the oEmbed video iframe with Cookie Consent
    */
   public function assertOembedIframeWithCckUsage(): void {
-    $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');
+    $iframe_url = $this->getSession()->getPage()->find('css', $this->getSelector('oembed_video'))->getAttribute('src');
     $this->visitPath(str_replace(rtrim($this->getDrupalParameter('drupal')['drupal_root'], '/'), '', $iframe_url));
     $this->assertSession()->elementExists('css', "iframe[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . "?oriurl=']");
   }
@@ -105,7 +122,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    * @Then I should not see the oEmbed video iframe with Cookie Consent
    */
   public function assertNoOembedIframeWithCckUsage(): void {
-    $iframe_url = $this->getSession()->getPage()->find('css', 'iframe')->getAttribute('src');
+    $iframe_url = $this->getSession()->getPage()->find('css', $this->getSelector('oembed_video'))->getAttribute('src');
     $this->visitPath(str_replace(rtrim($this->getDrupalParameter('drupal')['drupal_root'], '/'), '', $iframe_url));
     $this->assertSession()->elementNotExists('css', "iframe[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . "?oriurl=']");
   }
@@ -170,6 +187,26 @@ JS;
     }
 
     return FALSE;
+  }
+
+  /**
+   * Returns a css selector from the context configuration.
+   *
+   * @param string $name
+   *   The selector name.
+   *
+   * @return string
+   *   The css selector.
+   *
+   * @throws \Exception
+   *   Thrown when the selector is not found.
+   */
+  protected function getSelector(string $name): string {
+    if (!array_key_exists($name, $this->selectors)) {
+      throw new \Exception(sprintf('Missing selector "%s".', $name));
+    }
+
+    return $this->selectors[$name];
   }
 
 }

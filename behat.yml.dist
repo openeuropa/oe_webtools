@@ -10,7 +10,9 @@ default:
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
-        - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext:
+            selectors:
+              oembed_video: 'iframe'
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsExtensionsContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
