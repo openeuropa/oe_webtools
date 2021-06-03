@@ -64,6 +64,7 @@ static:
         - %paths.base%/tests/features
       contexts:
         - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsETransContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsExtensionsContext
       filters:
         tags: "@static"
