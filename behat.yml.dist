@@ -14,6 +14,7 @@ default:
             selectors:
               oembed_video: 'iframe'
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCleanupContext
+        - Drupal\Tests\oe_webtools\Behat\WebtoolsETransContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsExtensionsContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsGlobanContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsMapsContext
