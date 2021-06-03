@@ -28,9 +28,9 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should see a Webtools eTrans element
    * @Then I should see the Webtools eTrans :type
    */
-  public function assertETransPresent(?string $type = ''): void {
+  public function assertElementPresent(?string $type = ''): void {
     assert(empty($type) || in_array($type, ETransBlock::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
-    foreach ($this->getWebtoolsETransElements() as $data) {
+    foreach ($this->getElements() as $data) {
       $types_to_check = $type ? [$type] : ETransBlock::RENDER_OPTIONS;
       foreach ($types_to_check as $type_to_check) {
         if ($data->renderAs->$type_to_check ?? FALSE) {
@@ -57,9 +57,9 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should not see the Webtools eTrans :type
    * @Then I should not see any Webtools eTrans elements
    */
-  public function assertNoETransPresent(?string $type = ''): void {
+  public function assertNoElementPresent(?string $type = ''): void {
     assert(empty($type) || in_array($type, ETransBlock::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
-    foreach ($this->getWebtoolsETransElements() as $data) {
+    foreach ($this->getElements() as $data) {
       $types_to_check = $type ? [$type] : ETransBlock::RENDER_OPTIONS;
       foreach ($types_to_check as $type) {
         if ($data->renderAs->$type ?? FALSE) {
@@ -75,7 +75,7 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @return object[]
    *   The JSON data representing Webtools eTrans elements.
    */
-  protected function getWebtoolsETransElements(): array {
+  protected function getElements(): array {
     $elements = [];
 
     $xpath = '//div[contains(concat(" ", normalize-space(@class), " "), " block-oe-webtools-etrans ")]/script[@type="application/json"]';
