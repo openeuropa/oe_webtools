@@ -5,7 +5,6 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_webtools\Behat;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
-use Drupal\oe_webtools_etrans\Plugin\Block\ETransBlock;
 
 /**
  * Behat step definitions for testing Webtools eTrans.
@@ -13,6 +12,11 @@ use Drupal\oe_webtools_etrans\Plugin\Block\ETransBlock;
  * @SuppressWarnings(PHPMD.CyclomaticComplexity)
  */
 class WebtoolsETransContext extends RawDrupalContext {
+
+  /**
+   * The various ways the eTrans link can be rendered.
+   */
+  protected const RENDER_OPTIONS = ['button', 'icon', 'link'];
 
   /**
    * Checks that an eTrans element is present on the page.
@@ -29,9 +33,9 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should see the Webtools eTrans :type
    */
   public function assertElementPresent(?string $type = ''): void {
-    assert(empty($type) || in_array($type, ETransBlock::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
+    assert(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
     foreach ($this->getElements() as $data) {
-      $types_to_check = $type ? [$type] : ETransBlock::RENDER_OPTIONS;
+      $types_to_check = $type ? [$type] : self::RENDER_OPTIONS;
       foreach ($types_to_check as $type_to_check) {
         if ($data->renderAs->$type_to_check ?? FALSE) {
           // The element is found.
@@ -58,9 +62,9 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should not see any Webtools eTrans elements
    */
   public function assertNoElementPresent(?string $type = ''): void {
-    assert(empty($type) || in_array($type, ETransBlock::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
+    assert(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
     foreach ($this->getElements() as $data) {
-      $types_to_check = $type ? [$type] : ETransBlock::RENDER_OPTIONS;
+      $types_to_check = $type ? [$type] : self::RENDER_OPTIONS;
       foreach ($types_to_check as $type) {
         if ($data->renderAs->$type ?? FALSE) {
           throw new \RuntimeException("Webtools eTrans $type was unexpectedly found in the page.");
