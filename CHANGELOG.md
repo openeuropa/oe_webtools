@@ -1,10 +1,27 @@
 # Change Log
 
-## [1.11.0](https://github.com/openeuropa/oe_webtools/tree/1.11.0) (2021-03-11)
-[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.10.0...1.11.0)
+## [1.12.0](https://github.com/openeuropa/oe_webtools/tree/1.12.0) (2021-06-15)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.11.0...1.12.0)
 
 **Merged pull requests:**
 
+- EWPP-1168: Allow to specify the selector to target embedded video iframes in Behat tests. [\#162](https://github.com/openeuropa/oe_webtools/pull/162) ([sergepavle](https://github.com/sergepavle))
+- EWPP-916: Fixing oe\_media version. [\#159](https://github.com/openeuropa/oe_webtools/pull/159) ([upchuk](https://github.com/upchuk))
+- EWPP-916: Drupal 9 compatibility fixes [\#156](https://github.com/openeuropa/oe_webtools/pull/156) ([yenyasinn](https://github.com/yenyasinn))
+- EWPP-842: Allow chart and racing services for webtols chart widget. [\#152](https://github.com/openeuropa/oe_webtools/pull/152) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-721: Update xdebug configuration. [\#150](https://github.com/openeuropa/oe_webtools/pull/150) ([22Alexandra](https://github.com/22Alexandra))
+
+## [1.11.0](https://github.com/openeuropa/oe_webtools/tree/1.11.0) (2021-03-11)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.10.0...1.11.0)
+
+**Closed issues:**
+
+- Load the webtools script over HTTPS [\#148](https://github.com/openeuropa/oe_webtools/issues/148)
+- No way to setup Europa Analytics SiteSections [\#145](https://github.com/openeuropa/oe_webtools/issues/145)
+
+**Merged pull requests:**
+
+- EWPP-0000: Prepare changelog for release. [\#151](https://github.com/openeuropa/oe_webtools/pull/151) ([22Alexandra](https://github.com/22Alexandra))
 - ISAICP-6273: Avoid CORS issues by requesting the Webtools Smartloader script over HTTPS [\#149](https://github.com/openeuropa/oe_webtools/pull/149) ([pfrenssen](https://github.com/pfrenssen))
 
 ## [1.10.0](https://github.com/openeuropa/oe_webtools/tree/1.10.0) (2021-01-25)
@@ -12,11 +29,11 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.10.0. [\#147](https://github.com/openeuropa/oe_webtools/pull/147) ([sergepavle](https://github.com/sergepavle))
 - EWPP-529: Replace scaffold library. [\#144](https://github.com/openeuropa/oe_webtools/pull/144) ([sergepavle](https://github.com/sergepavle))
 - EWPP-416: Add new opwidget webtools media source. [\#142](https://github.com/openeuropa/oe_webtools/pull/142) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.9.0](https://github.com/openeuropa/oe_webtools/tree/1.9.0) (2020-12-03)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.8.0...1.9.0)
 
 **Merged pull requests:**
