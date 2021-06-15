@@ -32,7 +32,7 @@ class ConfigurationTest extends BrowserTestBase {
    */
   public function testLibraryLoading(): void {
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="https://europa.eu/webtools/load.js?globan=1110" defer></script>');
+    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"dark","logo":true,"link":true,"mode":false}</script>');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
@@ -44,7 +44,7 @@ class ConfigurationTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="https://europa.eu/webtools/load.js?globan=0000" defer></script>');
+    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"light","logo":false,"link":false,"mode":false}</script>');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
@@ -56,7 +56,7 @@ class ConfigurationTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script src="https://europa.eu/webtools/load.js?globan=0111&amp;lang=it" defer></script>');
+    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"dark","logo":false,"link":true,"mode":true,"lang":"it"}</script>');
   }
 
 }
