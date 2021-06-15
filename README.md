@@ -35,6 +35,12 @@ The Webtools module contains a submodule that provides a service for providing
 analytics information. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_analytics/README.md).
 
+### OpenEuropa Webtools eTrans
+
+The Webtools eTrans module provides a block that will show a link to the machine
+translation service of the European Commission. Visitors can click this link to
+have the current page translated in their preferred language.
+
 ### OpenEuropa Webtools Laco Service
 
 The Webtools module contains a submodule that provides a service for retrieving
