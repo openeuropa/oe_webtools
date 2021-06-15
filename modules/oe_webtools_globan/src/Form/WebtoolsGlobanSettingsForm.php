@@ -117,6 +117,13 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('sticky') ? 1 : 0,
     ];
 
+    $form['globan_settings']['zindex'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Z-index'),
+      '#description' => $this->t('Makes the banner z-index value depending on your layout design. Default is 40.'),
+      '#default_value' => $config->get('zindex'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -130,6 +137,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
       ->set('display_eu_institutions_links', (bool) $form_state->getValue('display_eu_institutions_links'))
       ->set('override_page_lang', $form_state->getValue('override_page_lang'))
       ->set('sticky', (bool) $form_state->getValue('sticky'))
+      ->set('zindex', $form_state->getValue('zindex'))
       ->save();
     parent::submitForm($form, $form_state);
   }
