@@ -40,7 +40,7 @@ function oe_webtools_globan_page_top(array &$page_top): void {
   if ($config->get('override_page_lang')) {
     $configuration['lang'] = $config->get('override_page_lang');
   }
-  if ($config->get('zindex')) {
+  if (is_int($config->get('zindex'))) {
     $configuration['zindex'] = $config->get('zindex');
   }
 
