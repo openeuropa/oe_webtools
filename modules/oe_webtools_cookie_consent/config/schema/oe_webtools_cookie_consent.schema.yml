@@ -10,3 +10,8 @@ oe_webtools_cookie_consent.settings:
       type: boolean
       label: 'CCK banner'
       description: 'Enable CCK video banner for the supported video elements.'
+    cookie_notice_url:
+      # We use label so it gets exposed to the config translation form.
+      type: label
+      label: 'Cookie Notice Page URL'
+      description: 'A custom URL for the cookie notice page.'
