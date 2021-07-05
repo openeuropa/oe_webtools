@@ -42,6 +42,13 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
       '#description' => $this->t('If checked, CCK will alter the URL to go through the EC Cookie Consent service.'),
     ];
 
+    $form['cookie_notice_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Cookie Notice Page URL'),
+      '#default_value' => $this->config(static::CONFIG_NAME)->get('cookie_notice_url'),
+      '#description' => $this->t('The URL to the cookie notice page. The "{lang}" part of the URL will be automatically replaced by Webtools with the current language.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -52,6 +59,7 @@ class WebtoolsCookieConsentSettingsForm extends ConfigFormBase {
     $this->config(static::CONFIG_NAME)
       ->set('banner_popup', $form_state->getValue('banner_popup'))
       ->set('video_popup', $form_state->getValue('video_popup'))
+      ->set('cookie_notice_url', $form_state->getValue('cookie_notice_url'))
       ->save();
     parent::submitForm($form, $form_state);
   }

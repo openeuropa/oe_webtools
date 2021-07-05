@@ -4,28 +4,6 @@ Feature: Cookie Consent kit.
   As a anonymous user
   I want to give an explicit confirmation for cookies in a website
 
-  Scenario: Create Webtools Cookie Consent settings
-    # Check that CCK javascript is loaded for the anonymous user.
-    Given I am an anonymous user
-    When I am on homepage
-    Then the CCK JSON is available on the page
-
-    # Change the configuration.
-    Given I am logged in as a user with the "administer webtools cookie consent" permission
-    When I am on "the Webtools Cookie Consent configuration page"
-    Then I should see "Webtools Cookie Consent settings"
-    And the "Enable the CCK banner." checkbox should be checked
-
-    When I uncheck "Enable the CCK banner."
-    And I press "Save configuration"
-    Then I should see the message "The configuration options have been saved."
-    And the "Enable the CCK banner." checkbox should not be checked
-
-    # Check that CCK javascript is not loaded for the anonymous user after change.
-    Given I am an anonymous user
-    When I am on homepage
-    Then the CCK JSON is not available on the page
-
   @remote-video @cleanup:media
   Scenario: Remote videos should use Cookie Consent kit service.
     # Check that the oEmbed video iframe with Cookie Consent.
