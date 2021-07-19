@@ -13,7 +13,9 @@ use Drupal\Core\Cache\CacheableMetadata;
 /**
  * Implements hook_page_top().
  *
- * Attach smart loader with appropriate JSON snippet for the global banner.
+ * We inject the globan JSON snippet in the page top area because the banner
+ * markup is injected in the same HTML element that contains the JSON.
+ * Because of this, we cannot place the JSON in the page head element.
  */
 function oe_webtools_globan_page_top(array &$page_top): void {
   if (\Drupal::service('router.admin_context')->isAdminRoute()) {

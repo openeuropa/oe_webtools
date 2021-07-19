@@ -120,7 +120,7 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
     $form['globan_settings']['zindex'] = [
       '#type' => 'number',
       '#title' => $this->t('Z-index'),
-      '#description' => $this->t('Makes the banner z-index value depending on your layout design. Default is 40.'),
+      '#description' => $this->t('Adapt the banner z-index value depending on your layout design. Default is 40.'),
       '#default_value' => $config->get('zindex'),
     ];
 
