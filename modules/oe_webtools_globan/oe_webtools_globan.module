@@ -7,68 +7,49 @@
 
 declare(strict_types = 1);
 
-use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Cache\CacheableMetadata;
-use Drupal\Core\Url;
 
 /**
- * Implements hook_page_attachments().
+ * Implements hook_page_top().
  *
- * Attach smart loader.
+ * We inject the globan JSON snippet in the page top area because the banner
+ * markup is injected in the same HTML element that contains the JSON.
+ * Because of this, we cannot place the JSON in the page head element.
  */
-function oe_webtools_globan_page_attachments(array &$attachments): void {
+function oe_webtools_globan_page_top(array &$page_top): void {
   if (\Drupal::service('router.admin_context')->isAdminRoute()) {
     return;
   }
 
   /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
-  $config = \Drupal::service('config.factory')->get('oe_webtools_globan.settings');
+  $config = \Drupal::config('oe_webtools_globan.settings');
 
   // Add cache dependency on the globan settings config so that page cache is
   // invalidated properly.
-  $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
+  $existing_cache = CacheableMetadata::createFromRenderArray($page_top);
   $existing_cache->addCacheableDependency($config);
-  $existing_cache->applyTo($attachments);
+  $existing_cache->applyTo($page_top);
 
-  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
-}
-
-/**
- * Implements hook_js_alter().
- */
-function oe_webtools_globan_js_alter(&$javascript, AttachedAssetsInterface $assets) {
-  if (!\Drupal::service('router.admin_context')->isAdminRoute() && isset($javascript['https://europa.eu/webtools/load.js'])) {
-    $new_url = UrlHelper::parse($javascript['https://europa.eu/webtools/load.js']['data']);
-
-    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
-    $config = \Drupal::service('config.factory')->get('oe_webtools_globan.settings');
-
-    $globan_param = empty($config->get('display_eu_flag')) ? '0' : '1';
-
-    switch ($config->get('background_theme')) {
-      case 'light':
-        $globan_param .= '0';
-        break;
-
-      case 'dark':
-        $globan_param .= '1';
-        break;
-
-      default:
-        $globan_param .= '1';
-    }
-
-    $globan_param .= empty($config->get('display_eu_institutions_links')) ? '0' : '1';
-
-    $globan_param .= $config->get('sticky') ? '1' : '0';
-
-    $new_url['query']['globan'] = $globan_param;
-
-    if ($config->get('override_page_lang')) {
-      $new_url['query']['lang'] = $config->get('override_page_lang');
-    }
-
-    $javascript['https://europa.eu/webtools/load.js']['data'] = Url::fromUri($new_url['path'], ['query' => $new_url['query']])->toString();
+  $page_top['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+  $configuration = [
+    'utility' => 'globan',
+    'theme' => $config->get('background_theme') ?? 'light',
+    'logo' => $config->get('display_eu_flag') ?? TRUE,
+    'link' => $config->get('display_eu_institutions_links') ?? TRUE,
+    'mode' => $config->get('sticky') ?? FALSE,
+  ];
+  if ($config->get('override_page_lang')) {
+    $configuration['lang'] = $config->get('override_page_lang');
   }
+  if (is_int($config->get('zindex'))) {
+    $configuration['zindex'] = $config->get('zindex');
+  }
+
+  $page_top['globan'] = [
+    '#type' => 'html_tag',
+    '#tag' => 'script',
+    '#value' => Json::encode($configuration),
+    '#attributes' => ['type' => 'application/json'],
+  ];
 }

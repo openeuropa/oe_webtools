@@ -22,3 +22,7 @@ oe_webtools_globan.settings:
       type: boolean
       label: 'Sticky'
       description: 'Use this option if you want the Global Banner sticky on top.'
+    zindex:
+      type: integer
+      label: 'z-index'
+      description: 'Use this option if you want adapt the z-index value depending on your layout design.'
