@@ -25,4 +25,4 @@ oe_webtools_globan.settings:
     zindex:
       type: integer
       label: 'z-index'
-      description: 'Use this option if you want adapt the z-index value depending of your layout design.'
+      description: 'Use this option if you want adapt the z-index value depending on your layout design.'
