@@ -45,7 +45,10 @@ class CookieConsentTest extends BrowserTestBase {
     $this->assertSession()->responseContains('{"utility":"cck"}');
 
     // Configure the widget.
-    $user = $this->createUser(['administer webtools cookie consent', 'translate configuration']);
+    $user = $this->createUser([
+      'administer webtools cookie consent',
+      'translate configuration',
+    ]);
     $this->drupalLogin($user);
     $this->drupalGet('/admin/config/system/oe_webtools_cookie_consent');
     $this->assertSession()->pageTextContains('Webtools Cookie Consent settings');
