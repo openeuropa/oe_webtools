@@ -14,6 +14,7 @@ workspace:
 
 services:
   web:
+    pull: true
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment:
       - DOCUMENT_ROOT=/test/oe_webtools
