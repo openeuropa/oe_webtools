@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.13.0](https://github.com/openeuropa/oe_webtools/tree/1.13.0) (2021-08-12)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.12.0...1.13.0)
+
+**Merged pull requests:**
+
+- EWPP-490: Cookie consent page URL. [\#165](https://github.com/openeuropa/oe_webtools/pull/165) ([upchuk](https://github.com/upchuk))
+
 ## [1.12.0](https://github.com/openeuropa/oe_webtools/tree/1.12.0) (2021-06-15)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.11.0...1.12.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.12.0. [\#163](https://github.com/openeuropa/oe_webtools/pull/163) ([brummbar](https://github.com/brummbar))
 - EWPP-1168: Allow to specify the selector to target embedded video iframes in Behat tests. [\#162](https://github.com/openeuropa/oe_webtools/pull/162) ([sergepavle](https://github.com/sergepavle))
 - EWPP-916: Fixing oe\_media version. [\#159](https://github.com/openeuropa/oe_webtools/pull/159) ([upchuk](https://github.com/upchuk))
 - EWPP-916: Drupal 9 compatibility fixes [\#156](https://github.com/openeuropa/oe_webtools/pull/156) ([yenyasinn](https://github.com/yenyasinn))
