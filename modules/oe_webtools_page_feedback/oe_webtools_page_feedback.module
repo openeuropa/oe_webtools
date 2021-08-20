@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * The Webtools Page Feedback module file.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Cache\CacheableMetadata;
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attach smart loader.
+ */
+function oe_webtools_page_feedback_page_attachments(array &$attachments): void {
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
+    return;
+  }
+
+  /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+  $config = \Drupal::service('config.factory')->get('oe_webtools_page_feedback.settings');
+
+  // Add cache dependency on the page feedback form settings config so that
+  // page cache is invalidated properly.
+  $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
+  $existing_cache->addCacheableDependency($config);
+  $existing_cache->applyTo($attachments);
+
+  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+}
