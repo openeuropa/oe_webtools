@@ -1,6 +1,0 @@
-services:
-  oe_webtools_page_feedback.config_cache_invalidator:
-    class: Drupal\oe_webtools_page_feedback\EventSubscriber\PageFeedbackConfigCacheInvalidator
-    arguments: ['@cache_tags.invalidator']
-    tags:
-      - { name: event_subscriber }

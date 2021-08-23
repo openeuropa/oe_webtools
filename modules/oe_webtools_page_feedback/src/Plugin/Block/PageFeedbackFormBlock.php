@@ -7,6 +7,7 @@ namespace Drupal\oe_webtools_page_feedback\Plugin\Block;
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -88,13 +89,16 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build(): array {
+    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+    $config = $this->configFactory->get('oe_webtools_page_feedback.settings');
     $feedback_form_json = [
       'service' => 'dff',
-      'id' => $this->configFactory->get('oe_webtools_page_feedback.settings')->get('feedback_form_id'),
-      'lang' => $this->languageManager->getCurrentLanguage()->getId(),
+      'id' => $config->get('feedback_form_id'),
+      'lang' => $this->languageManager->getCurrentLanguage()->getId() === 'pt-pt' ? 'pt' : $this->languageManager->getCurrentLanguage()->getId(),
     ];
     $build = [
       '#cache' => [
+        'tags' => $config->getCacheTags(),
         'contexts' => ['languages:' . LanguageInterface::TYPE_INTERFACE],
       ],
     ];
@@ -114,11 +118,13 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
    */
   protected function blockAccess(AccountInterface $account) {
     $config = $this->configFactory->get('oe_webtools_page_feedback.settings');
+    $cache = CacheableMetadata::createFromObject($config);
+    $cache->addCacheContexts(['route']);
     if (!$config->get('enabled') || $this->routeMatch->getRouteName() !== 'entity.node.canonical') {
-      return AccessResult::forbidden();
+      return AccessResult::forbidden()->addCacheableDependency($cache);
     }
 
-    return AccessResult::allowed();
+    return AccessResult::allowed()->addCacheableDependency($cache);
   }
 
 }

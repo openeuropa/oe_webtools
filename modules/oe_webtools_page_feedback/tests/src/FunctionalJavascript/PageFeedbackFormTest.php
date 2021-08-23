@@ -8,7 +8,7 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
- * Tests the configuration form of the Page Feedback Form webtools widget.
+ * Tests the Page Feedback Form webtools widget.
  */
 class PageFeedbackFormTest extends WebDriverTestBase {
 
@@ -36,7 +36,7 @@ class PageFeedbackFormTest extends WebDriverTestBase {
     $this->drupalPlaceBlock('oe_webtools_page_feedback_form');
     $this->drupalPlaceBlock('page_title_block');
     $this->drupalCreateContentType(['type' => 'page', 'name' => 'Basic page']);
-    ConfigurableLanguage::createFromLangcode('pt')->save();
+    ConfigurableLanguage::createFromLangcode('pt-pt')->save();
   }
 
   /**
@@ -73,13 +73,17 @@ class PageFeedbackFormTest extends WebDriverTestBase {
 
     // Assert the block is rendered only on node pages following the interface
     // language.
+    $this->drupalLogout();
     $this->drupalGet('/node/1');
     $this->assertSession()->pageTextContains('Page node');
     $this->assertSession()->responseContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"en"}</script>');
     $this->drupalGet('<front>');
     $this->assertSession()->responseNotContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"en"}</script>');
-    $this->drupalGet('/pt/node/1');
+    $this->drupalGet('/pt-pt/node/1');
     $this->assertSession()->responseContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"pt"}</script>');
+    $page_feedback_config->set('feedback_form_id', 12345)->save();
+    $this->drupalGet('/pt-pt/node/1');
+    $this->assertSession()->responseContains('<script type="application/json" data-process="true">{"service":"dff","id":12345,"lang":"pt"}</script>');
 
     // Disable the block and assert the block is not rendered and the cache was
     // properly invalidated.
@@ -91,7 +95,7 @@ class PageFeedbackFormTest extends WebDriverTestBase {
     $this->drupalLogout();
     $this->drupalGet('/node/1');
     $this->assertSession()->pageTextContains('Page node');
-    $this->assertSession()->responseNotContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"en"}</script>');
+    $this->assertSession()->responseNotContains('<script type="application/json" data-process="true">{"service":"dff"');
   }
 
 }
