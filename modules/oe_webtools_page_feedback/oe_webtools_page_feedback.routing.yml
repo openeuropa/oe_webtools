@@ -1,0 +1,7 @@
+oe_webtools_page_feedback.settings:
+  path: '/admin/config/system/oe_webtools_page_feedback'
+  defaults:
+    _form: 'Drupal\oe_webtools_page_feedback\Form\WebtoolsPageFeedbackSettingsForm'
+    _title: 'Webtools Page Feedback Form settings'
+  requirements:
+    _permission: 'administer webtools page feedback form'
