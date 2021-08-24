@@ -78,7 +78,7 @@ class PageFeedbackFormTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains('Page node');
     $this->assertSession()->responseContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"en"}</script>');
     $this->drupalGet('<front>');
-    $this->assertSession()->responseNotContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"en"}</script>');
+    $this->assertSession()->responseNotContains('"service":"dff"');
     $this->drupalGet('/pt-pt/node/1');
     $this->assertSession()->responseContains('<script type="application/json" data-process="true">{"service":"dff","id":1234,"lang":"pt"}</script>');
     $page_feedback_config->set('feedback_form_id', 12345)->save();
@@ -95,7 +95,7 @@ class PageFeedbackFormTest extends WebDriverTestBase {
     $this->drupalLogout();
     $this->drupalGet('/node/1');
     $this->assertSession()->pageTextContains('Page node');
-    $this->assertSession()->responseNotContains('<script type="application/json" data-process="true">{"service":"dff"');
+    $this->assertSession()->responseNotContains('"service":"dff"');
   }
 
 }

@@ -91,10 +91,16 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
   public function build(): array {
     /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
     $config = $this->configFactory->get('oe_webtools_page_feedback.settings');
+    // Use language mapping config from core for handling first of
+    // all pt_pt language.
+    $language_mappings = $this->configFactory->get('language.mappings')->get('map') ?? [];
+    $langcode = array_search($this->languageManager->getCurrentLanguage()->getId(), $language_mappings);
+    $current_langcode = $langcode ?: $this->languageManager->getCurrentLanguage()->getId();
+
     $feedback_form_json = [
       'service' => 'dff',
       'id' => $config->get('feedback_form_id'),
-      'lang' => $this->languageManager->getCurrentLanguage()->getId() === 'pt-pt' ? 'pt' : $this->languageManager->getCurrentLanguage()->getId(),
+      'lang' => $current_langcode,
     ];
     $build = [
       '#cache' => [
