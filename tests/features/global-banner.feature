@@ -15,8 +15,7 @@ Feature: Webtools Global Banner
     And I press "Save"
     And I log out
     And I am on homepage
-    Then the Webtools javascript is loaded with the globan options "1111"
-
+    Then the page should have globan json snippet '{"utility":"globan","theme":"dark","logo":true,"link":true,"mode":true}'
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
     And I select "No" from "Display the EU flag"
@@ -26,12 +25,13 @@ Feature: Webtools Global Banner
     And I press "Save"
     And I log out
     And I am on homepage
-    Then the Webtools javascript is loaded with the globan options "0000"
+    Then the page should have globan json snippet '{"utility":"globan","theme":"light","logo":false,"link":false,"mode":false}'
 
     When I am logged in as a user with the "administer webtools globan, access administration pages" permission
     And I am on "the Webtools Globan configuration page"
     And I select "English" from "Override page language"
+    And I fill in "Z-index" with "41"
     And I press "Save"
     And I log out
     And I am on homepage
-    Then the Webtools javascript is loaded with the globan options "0000" and language "en"
+    Then the page should have globan json snippet '{"utility":"globan","theme":"light","logo":false,"link":false,"mode":false,"lang":"en","zindex":41}'
