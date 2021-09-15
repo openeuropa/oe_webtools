@@ -6,6 +6,7 @@ namespace Drupal\Tests\oe_webtools\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
+use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions related to the oe_webtools_globan module.
@@ -46,19 +47,19 @@ class WebtoolsGlobanContext extends RawDrupalContext {
   }
 
   /**
-   * Make sure that load.js has the correct query parameters.
+   * Asserts the Webtools Globan JSON snippet on the page.
    *
-   * @param string $globan_option
-   *   The globan option value.
-   * @param string|null $globan_lang
-   *   The globan language option value.
+   * @param string $value
+   *   The expected JSON string.
    *
-   * @Then the Webtools javascript is loaded with the globan options :globan_option
-   * @Then the Webtools javascript is loaded with the globan options :globan_option and language :globan_lang
+   * @throws \Exception
+   *
+   * @Then the page should have globan json snippet :value
    */
-  public function assertJsGlobanOption(string $globan_option, $globan_lang = NULL): void {
-    $lang_option = $globan_lang ? '&lang=' . $globan_lang : '';
-    $this->assertSession()->elementExists('css', 'script[src$="load.js?globan=' . $globan_option . $lang_option . '"]');
+  public function globanJsonContainsParameter(string $value): void {
+    $xpath_query = "//script[@type='application/json'][text() = '" . addcslashes($value, '\\\'') . "']";
+    $elements = $this->getSession()->getPage()->findAll('xpath', $xpath_query);
+    Assert::assertCount(1, $elements);
   }
 
 }
