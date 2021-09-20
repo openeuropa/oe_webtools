@@ -33,7 +33,7 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should see the Webtools eTrans :type
    */
   public function assertElementPresent(?string $type = ''): void {
-    assert(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
+    assert(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link".');
     foreach ($this->getElements() as $data) {
       $types_to_check = $type ? [$type] : self::RENDER_OPTIONS;
       foreach ($types_to_check as $type_to_check) {
