@@ -86,7 +86,12 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     $json = [
       'service' => 'etrans',
       'languages' => [
-        'exclude' => [$this->languageManager->getCurrentLanguage()->getId()],
+        // Only pass the first two characters of the language code. The eTrans
+        // documentation is not clear on the standard used for language codes
+        // but all examples are showing two letters which seems to indicate
+        // ISO 639-1:2002. Drupal uses the IETF BCP 47 standard which uses more
+        // characters. For example this will convert 'pt-pt' to 'pt'.
+        'exclude' => [substr($this->languageManager->getCurrentLanguage()->getId(), 0, 2)],
       ],
       'renderAs' => $render_as_options,
       'domain' => $this->configuration['domain'],
