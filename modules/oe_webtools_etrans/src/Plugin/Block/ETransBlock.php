@@ -91,7 +91,9 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
         // but all examples are showing two letters which seems to indicate
         // ISO 639-1:2002. Drupal uses the IETF BCP 47 standard which uses more
         // characters. For example this will convert 'pt-pt' to 'pt'.
-        'exclude' => [substr($this->languageManager->getCurrentLanguage()->getId(), 0, 2)],
+        'exclude' => [
+          substr($this->languageManager->getCurrentLanguage()->getId(), 0, 2),
+        ],
       ],
       'renderAs' => $render_as_options,
       'domain' => $this->configuration['domain'],
