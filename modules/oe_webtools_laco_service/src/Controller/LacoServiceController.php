@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_laco_service\Controller;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -42,11 +43,14 @@ class LacoServiceController extends ControllerBase {
    *   The current route match.
    * @param \Drupal\Core\Language\LanguageManagerInterface $languageManager
    *   The language manager.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $routeMatch, LanguageManagerInterface $languageManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, RouteMatchInterface $routeMatch, LanguageManagerInterface $languageManager, ConfigFactoryInterface $configFactory) {
     $this->entityTypeManager = $entityTypeManager;
     $this->routeMatch = $routeMatch;
     $this->languageManager = $languageManager;
+    $this->configFactory = $configFactory;
   }
 
   /**
@@ -56,7 +60,8 @@ class LacoServiceController extends ControllerBase {
     return new static(
       $container->get('entity_type.manager'),
       $container->get('current_route_match'),
-      $container->get('language_manager')
+      $container->get('language_manager'),
+      $container->get('config.factory')
     );
   }
 
@@ -77,7 +82,7 @@ class LacoServiceController extends ControllerBase {
 
     // By this point it's guaranteed we have a Laco language requested.
     $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
-    return $this->responseFromAvailability($entity->hasTranslation($language));
+    return $this->responseFromAvailability($entity->hasTranslation($this->mapLacoLanguageToDrupalLanguage($language)));
   }
 
   /**
@@ -92,7 +97,7 @@ class LacoServiceController extends ControllerBase {
   public function getDefaultLacoLanguage(Request $request): Response {
     $language = $request->headers->get(LacoServiceHeaders::HTTP_HEADER_LANGUAGE_NAME);
 
-    return $this->responseFromAvailability($this->languageManager->getLanguage($language) !== NULL);
+    return $this->responseFromAvailability($this->languageManager->getLanguage($this->mapLacoLanguageToDrupalLanguage($language)) !== NULL);
   }
 
   /**
@@ -121,6 +126,24 @@ class LacoServiceController extends ControllerBase {
     $response = new Response();
     $response->setStatusCode($status);
     return $response;
+  }
+
+  /**
+   * Given a langcode from LACO, map it to what the Drupal langcode is.
+   *
+   * @param string $language
+   *   The LACO language code.
+   *
+   * @return string
+   *   The Drupal language code.
+   */
+  protected function mapLacoLanguageToDrupalLanguage(string $language): string {
+    $map = $this->configFactory->get('language.mappings')->get('map') ?? [];
+    if (!isset($map[$language])) {
+      return $language;
+    }
+
+    return $map[$language];
   }
 
 }

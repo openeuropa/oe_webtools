@@ -61,6 +61,7 @@ class LacoServiceTest extends KernelTestBase {
     // Set up some languages.
     ConfigurableLanguage::createFromLangcode('fr')->save();
     ConfigurableLanguage::createFromLangcode('nl')->save();
+    ConfigurableLanguage::createFromLangcode('pt-pt')->save();
 
     $this->enableTranslation();
 
@@ -180,7 +181,9 @@ class LacoServiceTest extends KernelTestBase {
     $entity_two->addTranslation('fr', ['name' => 'entity two fr']);
     $entity_two->save();
     $entity_three = $this->createTestMultilingualEntity('entity three');
-    $entity_three->addTranslation('nl', ['name' => 'entity two nl']);
+    $entity_three->addTranslation('nl', ['name' => 'entity three nl']);
+    // The PT Drupal langcode is pt-pt but LACO will request it as pt.
+    $entity_three->addTranslation('pt-pt', ['name' => 'entity three pt']);
     $entity_three->save();
 
     $requests = [];
@@ -203,6 +206,12 @@ class LacoServiceTest extends KernelTestBase {
     ];
 
     $requests[] = [
+      $this->createRequestForUrlAndLanguage($entity_one->toUrl()->toString(), 'pt'),
+      '404',
+      'entity one in pt',
+    ];
+
+    $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'en'),
       '200',
       'entity two in en',
@@ -221,6 +230,12 @@ class LacoServiceTest extends KernelTestBase {
     ];
 
     $requests[] = [
+      $this->createRequestForUrlAndLanguage($entity_two->toUrl()->toString(), 'pt'),
+      '404',
+      'entity two in pt',
+    ];
+
+    $requests[] = [
       $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'en'),
       '200',
       'entity three in en',
@@ -236,6 +251,12 @@ class LacoServiceTest extends KernelTestBase {
       $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'nl'),
       '200',
       'entity three in nl',
+    ];
+
+    $requests[] = [
+      $this->createRequestForUrlAndLanguage($entity_three->toUrl()->toString(), 'pt'),
+      '200',
+      'entity three in pt',
     ];
 
     return $requests;
@@ -260,6 +281,11 @@ class LacoServiceTest extends KernelTestBase {
       $this->createRequestForUrlAndLanguage('/admin', 'nl'),
       '200',
       'homepage in nl',
+    ];
+    $requests[] = [
+      $this->createRequestForUrlAndLanguage('/admin', 'pt'),
+      '200',
+      'homepage in pt',
     ];
     $requests[] = [
       $this->createRequestForUrlAndLanguage('/admin', 'de'),
