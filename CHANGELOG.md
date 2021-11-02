@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.14.1](https://github.com/openeuropa/oe_webtools/tree/1.14.1) (2021-11-02)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.14.0...1.14.1)
+
+**Merged pull requests:**
+
+- EWPP-1648: Ensuring LACO works with mapped languages. [\#175](https://github.com/openeuropa/oe_webtools/pull/175) ([upchuk](https://github.com/upchuk))
+
 ## [1.14.0](https://github.com/openeuropa/oe_webtools/tree/1.14.0) (2021-09-27)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.13.0...1.14.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.14.0. [\#174](https://github.com/openeuropa/oe_webtools/pull/174) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - Update EWPP-1424 Page feedback form [\#173](https://github.com/openeuropa/oe_webtools/pull/173) ([upchuk](https://github.com/upchuk))
 - EWPP-1424: Page feedback form [\#172](https://github.com/openeuropa/oe_webtools/pull/172) ([upchuk](https://github.com/upchuk))
 - EWPP-1465: Enable non-eu languages: nb, is. [\#171](https://github.com/openeuropa/oe_webtools/pull/171) ([yenyasinn](https://github.com/yenyasinn))
