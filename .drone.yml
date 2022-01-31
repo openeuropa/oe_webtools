@@ -18,6 +18,7 @@ services:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment:
       - DOCUMENT_ROOT=/test/oe_webtools
+      - COMPOSERVER=--2
   mysql:
     image: registry.fpfis.eu/fpfis/sql:percona-5.7
     command: --innodb-log-file-size=1G --max_allowed_packet=1G --innodb-buffer-pool-size=512M --wait_timeout=3000 --net_write_timeout=3000 --log_error_verbosity=3
@@ -42,10 +43,8 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
-      # @todo remove "composer install" step once the following issue is fixed.
-      # @link https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-1234
-      - composer install --ansi --no-suggest --no-progress
-      - composer update --prefer-lowest --prefer-stable --ansi --no-suggest --no-progress
+      - composer self-update --2
+      - composer update --prefer-lowest --prefer-stable --ansi --no-progress
     when:
       matrix:
         COMPOSER_BOUNDARY: lowest
@@ -56,6 +55,7 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
+      - composer self-update --2
       - composer install --ansi --no-suggest --no-progress
     when:
       matrix:
