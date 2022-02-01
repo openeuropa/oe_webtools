@@ -84,7 +84,7 @@ function oe_webtools_cookie_consent_preprocess_media_oembed_iframe(array &$varia
           'lang' => \Drupal::languageManager()->getCurrentLanguage()->getId(),
         ],
       ]);
-      $new_iframe = str_replace($matches[1], $url->toString(), $variables['media']);
+      $new_iframe = str_replace($matches[1], $url->toString(), $variables['media']->__toString());
       $variables['media'] = IFrameMarkup::create($new_iframe);
     }
   }
