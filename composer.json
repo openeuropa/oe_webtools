@@ -8,9 +8,14 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
-        "drupal/core": "^9.2"
+        "drupal/core": "^9.2",
+        "drupal/ctools": "^3.7",
+        "drupal/file_link": "2.0.4",
+        "drupal/pathauto": "^1.8",
+        "drupal/token": "^1.10"
     },
     "require-dev": {
+        "behat/behat": "^3.10",
         "composer/installers": "~1.5",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
@@ -20,6 +25,7 @@
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.0-rc4",
         "drush/drush": "~10.3",
+        "egulias/email-validator": "^2.1.22 || ^3.0",
         "nikic/php-parser": "^4.12.0",
         "drupaltest/behat-traits": "dev-GH-10",
         "openeuropa/behat-transformation-context": "~0.1",
@@ -56,6 +62,12 @@
         }
     },
     "_readme": [
+        "Explicit requirement of token module due to PHP8 compatbility.",
+        "Explicit requirement of behat module due to PHP8 compatibility.",
+        "Explicit lower version requirement of drupal/ctools due to Drupal core 9.2 compatibility.",
+        "Explicit lower version requirement of drupal/file_link due to Drupal core 9.2 compatibility.",
+        "Explicit lower version requirement of drupal/pathauto due to Drupal core 9.2 compatibility.",
+        "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped.",
         "We use the drupaltest/behat-traits feature branch until it gets merged and the package is ready for Drupal 9.",
         "We use the dev-master branch of openeuropa/oe_media because it requires this module and one of the two needs to be released first. It will be fixed to point to ^1.13 in the next release."
     ],

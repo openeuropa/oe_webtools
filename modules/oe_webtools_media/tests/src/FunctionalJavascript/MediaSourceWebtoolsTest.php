@@ -66,7 +66,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $media = $this->getMediaByName($name);
       $this->drupalGet('/media/' . $media->id());
       $img_src = $page->find('css', '.field--name-thumbnail .field__item img')->getAttribute('src');
-      $this->assertContains($thumbnail_filename, $img_src);
+      $this->assertStringContainsString($thumbnail_filename, $img_src);
 
       // Check that all fields are properly populated.
       $this->assertSame("Valid webtools $widget_name item", $media->getName());
