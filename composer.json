@@ -7,35 +7,33 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.4",
-        "ext-json": "*",
         "drupal/core": "^9.2",
-        "drupal/ctools": "^3.7",
-        "drupal/file_link": "2.0.4",
-        "drupal/pathauto": "^1.8",
-        "drupal/token": "^1.10"
+        "ext-json": "*"
     },
     "require-dev": {
         "behat/behat": "^3.10",
         "composer/installers": "~1.5",
+        "drupal/config_devel": "~1.2",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-dev": "^9.2",
-        "drupal/config_devel": "~1.2",
+        "drupal/ctools": "^3.7",
         "drupal/drupal-extension": "^4.0",
+        "drupal/file_link": "^2.0.4",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.0-rc4",
+        "drupal/token": "^1.10",
+        "drupaltest/behat-traits": "^0.3",
         "drush/drush": "~10.3",
         "egulias/email-validator": "^2.1.22 || ^3.0",
         "nikic/php-parser": "^4.12.0",
-        "drupaltest/behat-traits": "dev-GH-10",
         "openeuropa/behat-transformation-context": "~0.1",
         "openeuropa/code-review": "^2.0",
-        "openeuropa/oe_media": "^1.14",
-        "openeuropa/oe_multilingual": "^1.8",
-        "openeuropa/webtools-geocoding-provider": "dev-EWPP-1910",
+        "openeuropa/oe_media": "dev-EWPP-1911",
+        "openeuropa/oe_multilingual": "^1.10",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
+        "openeuropa/webtools-geocoding-provider": "dev-EWPP-1910",
         "phpspec/prophecy-phpunit": "^2",
-        "phpunit/phpunit": "^9.4",
         "symfony/dom-crawler": "^4.4.12"
     },
     "conflict": {
@@ -46,6 +44,10 @@
         "post-update-cmd": "./vendor/bin/run drupal:site-setup"
     },
     "repositories": {
+        "media_avportal": {
+            "type": "vcs",
+            "url": "https://git.drupalcode.org/project/media_avportal.git"
+        },
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
@@ -61,16 +63,6 @@
             "Drupal\\Tests\\oe_webtools\\": "./tests/"
         }
     },
-    "_readme": [
-        "Explicit requirement of token module due to PHP8 compatbility.",
-        "Explicit requirement of behat module due to PHP8 compatibility.",
-        "Explicit lower version requirement of drupal/ctools due to Drupal core 9.2 compatibility.",
-        "Explicit lower version requirement of drupal/file_link due to Drupal core 9.2 compatibility.",
-        "Explicit lower version requirement of drupal/pathauto due to Drupal core 9.2 compatibility.",
-        "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped.",
-        "We use the drupaltest/behat-traits feature branch until it gets merged and the package is ready for Drupal 9.",
-        "We use the dev-master branch of openeuropa/oe_media because it requires this module and one of the two needs to be released first. It will be fixed to point to ^1.13 in the next release."
-    ],
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
@@ -84,7 +76,15 @@
             "locations": {
                 "web-root": "./build"
             }
-        }
+        },
+        "_readme": [
+            "Explicit requirement of drupal/token module due to PHP8 compatbility.",
+            "Explicit requirement of behat module due to PHP8 compatibility.",
+            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.2 compatibility.",
+            "Explicit lower version requirement of drupal/file_link due to Drupal core 9.2 compatibility.",
+            "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped.",
+            "We use the dev branch of openeuropa/oe_media because it requires this module and one of the two needs to be released first. It will be fixed to point to ^1.13 in the next release."
+        ]
     },
     "config": {
         "sort-packages": true,
