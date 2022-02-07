@@ -18,7 +18,6 @@
         "drupal/core-dev": "^9.2",
         "drupal/ctools": "^3.7",
         "drupal/drupal-extension": "^4.0",
-        "drupal/file_link": "^2.0.4",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.0-rc4",
@@ -29,10 +28,10 @@
         "nikic/php-parser": "^4.12.0",
         "openeuropa/behat-transformation-context": "~0.1",
         "openeuropa/code-review": "^2.0",
-        "openeuropa/oe_media": "dev-EWPP-1911",
+        "openeuropa/oe_media": "^1.15",
         "openeuropa/oe_multilingual": "^1.10",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
-        "openeuropa/webtools-geocoding-provider": "dev-EWPP-1910",
+        "openeuropa/webtools-geocoding-provider": "^0.2",
         "phpspec/prophecy-phpunit": "^2",
         "symfony/dom-crawler": "^4.4.12"
     },
@@ -44,10 +43,6 @@
         "post-update-cmd": "./vendor/bin/run drupal:site-setup"
     },
     "repositories": {
-        "media_avportal": {
-            "type": "vcs",
-            "url": "https://git.drupalcode.org/project/media_avportal.git"
-        },
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
@@ -81,9 +76,7 @@
             "Explicit requirement of drupal/token module due to PHP8 compatbility.",
             "Explicit requirement of behat module due to PHP8 compatibility.",
             "Explicit lower version requirement of drupal/ctools due to Drupal core 9.2 compatibility.",
-            "Explicit lower version requirement of drupal/file_link due to Drupal core 9.2 compatibility.",
-            "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped.",
-            "We use the dev branch of openeuropa/oe_media because it requires this module and one of the two needs to be released first. It will be fixed to point to ^1.13 in the next release."
+            "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped."
         ]
     },
     "config": {
