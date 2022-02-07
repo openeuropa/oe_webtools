@@ -2,7 +2,7 @@ name: 'OpenEuropa Webtools Page Feedback'
 description: 'Provides the configuration settings for Webtools Default Feedback Form widget integration.'
 package: 'OpenEuropa Webtools'
 type: module
-core_version_requirement: ^8.9 || ^9
+core_version_requirement: ^9.2
 configure: oe_webtools_page_feedback.settings
 dependencies:
   - oe_webtools:oe_webtools

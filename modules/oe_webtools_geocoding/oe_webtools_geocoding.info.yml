@@ -3,7 +3,7 @@ description: 'Allows to use the Webtools Geocoder service in sites built on the 
 package: 'OpenEuropa Webtools'
 
 type: module
-core_version_requirement: ^8.9 || ^9
+core_version_requirement: ^9.2
 
 dependencies:
   - geocoder:geocoder

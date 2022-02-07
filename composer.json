@@ -6,30 +6,34 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.3",
-        "ext-json": "*",
-        "drupal/core": "^8.9 || ^9"
+        "php": ">=7.4",
+        "drupal/core": "^9.2",
+        "ext-json": "*"
     },
     "require-dev": {
+        "behat/behat": "^3.10",
         "composer/installers": "~1.5",
-        "drupal/core-composer-scaffold": "^8.9 || ^9",
         "drupal/config_devel": "~1.2",
+        "drupal/core-composer-scaffold": "^9.2",
+        "drupal/core-dev": "^9.2",
+        "drupal/ctools": "^3.7",
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.0-rc4",
+        "drupal/token": "^1.10",
+        "drupaltest/behat-traits": "^0.3",
         "drush/drush": "~10.3",
-        "nikic/php-parser": "^3.1.5",
-        "drupaltest/behat-traits": "dev-GH-6",
+        "egulias/email-validator": "^2.1.22 || ^3.0",
+        "nikic/php-parser": "^4.12.0",
         "openeuropa/behat-transformation-context": "~0.1",
-        "openeuropa/code-review": "~1.6",
-        "openeuropa/drupal-core-require-dev": "^8.9 || ^9",
-        "openeuropa/oe_media": "^1.14",
-        "openeuropa/oe_multilingual": "^1.8",
-        "openeuropa/webtools-geocoding-provider": "~0.1",
-        "openeuropa/task-runner-drupal-project-symlink": "^1.0",
-        "phpunit/phpunit": "^7 || ^8",
-        "symfony/dom-crawler": "~3.4 || 4.4"
+        "openeuropa/code-review": "^2.0",
+        "openeuropa/oe_media": "^1.15",
+        "openeuropa/oe_multilingual": "^1.10",
+        "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
+        "openeuropa/webtools-geocoding-provider": "^0.2",
+        "phpspec/prophecy-phpunit": "^2",
+        "symfony/dom-crawler": "^4.4.12"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
@@ -54,10 +58,6 @@
             "Drupal\\Tests\\oe_webtools\\": "./tests/"
         }
     },
-    "_readme": [
-        "We use the drupaltest/behat-traits feature branch until it gets merged and the package is ready for Drupal 9.",
-        "We use the dev-master branch of openeuropa/oe_media because it requires this module and one of the two needs to be released first. It will be fixed to point to ^1.13 in the next release."
-    ],
     "extra": {
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
@@ -71,9 +71,22 @@
             "locations": {
                 "web-root": "./build"
             }
-        }
+        },
+        "_readme": [
+            "Explicit requirement of drupal/token module due to PHP8 compatbility.",
+            "Explicit requirement of behat module due to PHP8 compatibility.",
+            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.2 compatibility.",
+            "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped."
+        ]
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpro/grumphp": true
+        }
     }
 }
