@@ -49,6 +49,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $widget_name = $data[1];
       $service = $data[2];
       $thumbnail_filename = $data[3];
+      $invalid_service = $data[4];
 
       $media_type_id = 'test_media_webtools_type';
 
@@ -75,7 +76,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       // Create a webtools media item with invalid webtools snippet.
       $this->drupalGet("media/add/{$media_type_id}");
       $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
-      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . $widget_type . '"}');
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $invalid_service . '"}');
       $page->pressButton('Save');
 
       $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
@@ -92,12 +93,20 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    */
   public function getTestMediaWebtoolsSourceData(): array {
     return [
-      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png'],
-      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png'],
-      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png'],
-      ['map', 'Map', 'map', '/maps-embed-no-bg.png'],
-      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.png'],
-      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png'],
+      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png', 'smk'],
+      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png', 'smk'],
+      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png', 'smk'],
+      ['map', 'Map', 'map', '/maps-embed-no-bg.png', 'smk'],
+      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.png', 'map'],
+      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png', 'smk'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'charts'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'chart'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'racing'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'map'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'smk'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'opwidget'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'cdown'],
+      ['generic', 'Generic', 'captcha', '/generic.png', 'etrans'],
     ];
   }
 
