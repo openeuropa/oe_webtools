@@ -89,7 +89,12 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    * Provides data to self::testMediaWebtoolsMapSource().
    *
    * @return array
-   *   An array of widget types data.
+   *   An array of widget types data in the format:
+   *   - widget type
+   *   - widget name
+   *   - service name that is used by widget
+   *   - thumbnail filename of the widget
+   *   - service name that isn't allowed or is in the blacklist.
    */
   public function getTestMediaWebtoolsSourceData(): array {
     return [
