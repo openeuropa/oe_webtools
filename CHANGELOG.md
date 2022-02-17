@@ -1,11 +1,21 @@
 # Changelog
 
+## [1.15.0](https://github.com/openeuropa/oe_webtools/tree/1.15.0) (2022-02-17)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.14.1...1.15.0)
+
+**Merged pull requests:**
+
+- EWPP-0000: Fixing broken page feedback form test. [\#181](https://github.com/openeuropa/oe_webtools/pull/181) ([hernani](https://github.com/hernani))
+- EWPP-1910: Update to PHP7.4/8.0 [\#177](https://github.com/openeuropa/oe_webtools/pull/177) ([hernani](https://github.com/hernani))
+
 ## [1.14.1](https://github.com/openeuropa/oe_webtools/tree/1.14.1) (2021-11-02)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.14.0...1.14.1)
 
 **Merged pull requests:**
 
+- Prepare release 1.14.1. [\#176](https://github.com/openeuropa/oe_webtools/pull/176) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-1648: Ensuring LACO works with mapped languages. [\#175](https://github.com/openeuropa/oe_webtools/pull/175) ([upchuk](https://github.com/upchuk))
 
 ## [1.14.0](https://github.com/openeuropa/oe_webtools/tree/1.14.0) (2021-09-27)
