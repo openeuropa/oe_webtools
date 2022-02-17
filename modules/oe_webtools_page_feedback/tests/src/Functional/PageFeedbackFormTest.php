@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_page_feedback\FunctionalJavascript;
 
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests the Page Feedback Form webtools widget.
  */
-class PageFeedbackFormTest extends WebDriverTestBase {
+class PageFeedbackFormTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
