@@ -240,6 +240,7 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
   /**
    * {@inheritdoc}
    */
+  #[\ReturnTypeWillChange]
   public function jsonSerialize() {
     $data = [
       self::UTILITY => $this->getUtility(),
