@@ -102,6 +102,7 @@ class SearchParameters implements SearchParametersInterface {
   /**
    * {@inheritdoc}
    */
+  #[\ReturnTypeWillChange]
   public function jsonSerialize() {
     return array_filter([
       'keyword' => $this->getKeyword(),
