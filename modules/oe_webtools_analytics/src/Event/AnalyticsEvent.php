@@ -46,7 +46,7 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
    *
    * @var string[]
    */
-  protected $sitePath;
+  protected $sitePath = [];
 
   /**
    * Set this variable to true on your 404 page.
