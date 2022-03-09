@@ -25,6 +25,13 @@ class WebtoolsMediaConstraint extends Constraint {
   public $message = 'Invalid Webtools %widget_type_name snippet.';
 
   /**
+   * The blacklist violation message.
+   *
+   * @var string
+   */
+  public $blacklistMessage = 'Service from the snippet is in the blacklist of %widget_type_name widget.';
+
+  /**
    * The webtools widget type this constraint is checking for.
    *
    * @var string

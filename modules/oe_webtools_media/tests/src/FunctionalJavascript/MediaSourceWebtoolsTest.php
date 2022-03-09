@@ -50,6 +50,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $service = $data[2];
       $thumbnail_filename = $data[3];
       $invalid_service = $data[4];
+      $blacklisted_service = $data[5];
 
       $media_type_id = 'test_media_webtools_type';
 
@@ -74,12 +75,23 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
 
       // Create a webtools media item with invalid webtools snippet.
-      $this->drupalGet("media/add/{$media_type_id}");
-      $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
-      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $invalid_service . '"}');
-      $page->pressButton('Save');
+      if ($invalid_service) {
+        $this->drupalGet("media/add/{$media_type_id}");
+        $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
+        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $invalid_service . '"}');
+        $page->pressButton('Save');
+        $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+      }
 
-      $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+      // Create a webtools media item with service from the blacklist.
+      if ($blacklisted_service) {
+        $this->drupalGet("media/add/{$media_type_id}");
+        $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
+        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $blacklisted_service . '"}');
+        $page->pressButton('Save');
+        $assert_session->pageTextContains("Service from the snippet is in the blacklist of {$widget_name} widget.");
+      }
+
       $media_type->delete();
       $media->delete();
     }
@@ -94,24 +106,32 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    *   - widget name
    *   - service name that is used by widget
    *   - thumbnail filename of the widget
-   *   - service name that isn't allowed or is in the blacklist.
+   *   - service name that is not allowed.
+   *   - service name that is in the blacklist.
    */
   public function getTestMediaWebtoolsSourceData(): array {
     return [
-      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png', 'smk'],
-      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png', 'smk'],
-      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png', 'smk'],
-      ['map', 'Map', 'map', '/maps-embed-no-bg.png', 'smk'],
-      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.png', 'map'],
-      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png', 'smk'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'charts'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'chart'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'racing'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'map'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'smk'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'opwidget'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'cdown'],
-      ['generic', 'Generic', 'captcha', '/generic.png', 'etrans'],
+      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png', 'smk', ''],
+      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png', 'smk', ''],
+      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png', 'smk', ''],
+      ['map', 'Map', 'map', '/maps-embed-no-bg.png', 'smk', ''],
+      [
+        'social_feed',
+        'Social feed',
+        'smk',
+        '/twitter-embed-no-bg.png',
+        'map',
+        '',
+      ],
+      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png', 'smk', ''],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'charts'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'chart'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'racing'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'map'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'smk'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'opwidget'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'cdown'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'etrans'],
     ];
   }
 
