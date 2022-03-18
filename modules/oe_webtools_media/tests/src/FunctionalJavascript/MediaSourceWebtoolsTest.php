@@ -57,10 +57,15 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       // Create webtools map media type.
       $media_type = $this->createWebtoolsMediaType($media_type_id, $widget_type);
 
-      // Create a webtools media item with valid webtools snippet.
+      // Create a webtools media item with invalid webtools snippet.
       $this->drupalGet("media/add/{$media_type_id}");
       $name = "Valid webtools $widget_name item";
       $assert_session->fieldExists('Name')->setValue($name);
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"utility": "' . $service . '"}');
+      $page->pressButton('Save');
+      $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+
+      // Create a webtools media item with valid webtools snippet.
       $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
       $page->pressButton('Save');
       $assert_session->addressEquals('admin/content/media');
