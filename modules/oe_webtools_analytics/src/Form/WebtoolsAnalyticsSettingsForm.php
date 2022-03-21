@@ -29,10 +29,10 @@ class WebtoolsAnalyticsSettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['siteID'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => $this->t('Site ID'),
       '#default_value' => $this->config(static::CONFIG_NAME)->get('siteID'),
-      '#description' => $this->t('The site unique numeric identifier.'),
+      '#description' => $this->t('The site unique alpha numeric identifier.'),
     ];
     $form['sitePath'] = [
       '#type' => 'textfield',
