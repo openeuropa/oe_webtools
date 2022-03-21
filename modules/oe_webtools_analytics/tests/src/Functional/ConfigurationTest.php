@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Drupal\Tests\oe_webtools_analytics\Functional;
 
-use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -32,13 +31,16 @@ class ConfigurationTest extends BrowserTestBase {
    * Tests if the configuration for the Webtools library is present on the page.
    */
   public function testLibraryLoading(): void {
-    $config = \Drupal::configFactory()
-      ->getEditable(AnalyticsEventInterface::CONFIG_NAME)
-      ->set('siteID', '123')
-      ->set('sitePath', 'ec.europa.eu')
-      ->set('instance', 'testing');
-    $config->save();
+    $user = $this->createUser(['administer webtools analytics']);
+    $this->drupalLogin($user);
+    $this->drupalGet('admin/config/system/oe_webtools_analytics');
+    $page = $this->getSession()->getPage();
+    $page->fillField('Site ID', '123');
+    $page->fillField('Site path', 'ec.europa.eu');
+    $page->fillField('Instance', 'testing');
+    $page->pressButton('Save configuration');
 
+    $this->drupalLogout();
     $this->drupalGet('<front>');
     $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
 
@@ -49,13 +51,14 @@ class ConfigurationTest extends BrowserTestBase {
     $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}</script>');
 
     // Test the cache invalidation.
-    $config = \Drupal::configFactory()
-      ->getEditable(AnalyticsEventInterface::CONFIG_NAME)
-      ->set("siteID", "1234");
-    $config->save();
+    $this->drupalLogin($user);
+    $this->drupalGet('admin/config/system/oe_webtools_analytics');
+    $this->getSession()->getPage()->fillField('Site ID', '123e4567-e89b-12d3-a456-426614174000');
+    $this->getSession()->getPage()->pressButton('Save configuration');
 
+    $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"1234","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
+    $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123e4567-e89b-12d3-a456-426614174000","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
   }
 
 }
