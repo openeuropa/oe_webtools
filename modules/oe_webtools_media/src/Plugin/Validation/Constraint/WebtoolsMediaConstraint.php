@@ -29,7 +29,7 @@ class WebtoolsMediaConstraint extends Constraint {
    *
    * @var string
    */
-  public $blacklistMessage = 'Service from the snippet is in the blacklist of %widget_type_name widget.';
+  public $blacklistMessage = 'This service is supported by a dedicated asset type or feature, please use that instead.';
 
   /**
    * The webtools widget type this constraint is checking for.

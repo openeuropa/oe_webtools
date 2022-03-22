@@ -165,7 +165,6 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
           'map',
           'smk',
           'opwidget',
-          'cdown',
           'etrans',
         ],
       ],

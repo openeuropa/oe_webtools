@@ -94,7 +94,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
         $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
         $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $blacklisted_service . '"}');
         $page->pressButton('Save');
-        $assert_session->pageTextContains("Service from the snippet is in the blacklist of {$widget_name} widget.");
+        $assert_session->pageTextContains('This service is supported by a dedicated asset type or feature, please use that instead.');
       }
 
       $media_type->delete();
@@ -135,7 +135,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'map'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'smk'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'opwidget'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'cdown'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'etrans'],
     ];
   }
