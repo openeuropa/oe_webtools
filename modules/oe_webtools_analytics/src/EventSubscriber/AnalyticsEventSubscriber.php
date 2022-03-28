@@ -68,9 +68,9 @@ class AnalyticsEventSubscriber implements EventSubscriberInterface {
     $event->addCacheableDependency($config);
     $event->addCacheContexts(['url.path']);
 
-    // SiteID must exist and be an integer.
+    // SiteID must exist.
     $site_id = $config->get(AnalyticsEventInterface::SITE_ID);
-    if (!is_numeric($site_id)) {
+    if (empty($site_id)) {
       return;
     }
 

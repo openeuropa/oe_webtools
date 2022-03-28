@@ -5,7 +5,7 @@ oe_webtools_analytics.settings:
     siteID:
       type: string
       label: 'Site ID'
-      description: 'The site unique identifier.'
+      description: 'The site universal unique identifier.'
     sitePath:
       type: string
       label: 'Site path'
