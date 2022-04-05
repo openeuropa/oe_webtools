@@ -49,16 +49,23 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $widget_name = $data[1];
       $service = $data[2];
       $thumbnail_filename = $data[3];
+      $invalid_service = $data[4];
+      $blacklisted_service = $data[5];
 
       $media_type_id = 'test_media_webtools_type';
 
       // Create webtools map media type.
       $media_type = $this->createWebtoolsMediaType($media_type_id, $widget_type);
 
-      // Create a webtools media item with valid webtools snippet.
+      // Create a webtools media item with invalid webtools snippet.
       $this->drupalGet("media/add/{$media_type_id}");
       $name = "Valid webtools $widget_name item";
       $assert_session->fieldExists('Name')->setValue($name);
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"utility": "' . $service . '"}');
+      $page->pressButton('Save');
+      $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+
+      // Create a webtools media item with valid webtools snippet.
       $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
       $page->pressButton('Save');
       $assert_session->addressEquals('admin/content/media');
@@ -73,12 +80,23 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
 
       // Create a webtools media item with invalid webtools snippet.
-      $this->drupalGet("media/add/{$media_type_id}");
-      $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
-      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . $widget_type . '"}');
-      $page->pressButton('Save');
+      if ($invalid_service) {
+        $this->drupalGet("media/add/{$media_type_id}");
+        $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
+        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $invalid_service . '"}');
+        $page->pressButton('Save');
+        $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+      }
 
-      $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
+      // Create a webtools media item with service from the blacklist.
+      if ($blacklisted_service) {
+        $this->drupalGet("media/add/{$media_type_id}");
+        $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
+        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $blacklisted_service . '"}');
+        $page->pressButton('Save');
+        $assert_session->pageTextContains('This service is supported by a dedicated asset type or feature, please use that instead.');
+      }
+
       $media_type->delete();
       $media->delete();
     }
@@ -88,16 +106,36 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    * Provides data to self::testMediaWebtoolsMapSource().
    *
    * @return array
-   *   An array of widget types data.
+   *   An array of widget types data in the format:
+   *   - widget type
+   *   - widget name
+   *   - service name that is used by widget
+   *   - thumbnail filename of the widget
+   *   - service name that is not allowed.
+   *   - service name that is in the blacklist.
    */
   public function getTestMediaWebtoolsSourceData(): array {
     return [
-      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png'],
-      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png'],
-      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png'],
-      ['map', 'Map', 'map', '/maps-embed-no-bg.png'],
-      ['social_feed', 'Social feed', 'smk', '/twitter-embed-no-bg.png'],
-      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png'],
+      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png', 'smk', ''],
+      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png', 'smk', ''],
+      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png', 'smk', ''],
+      ['map', 'Map', 'map', '/maps-embed-no-bg.png', 'smk', ''],
+      [
+        'social_feed',
+        'Social feed',
+        'smk',
+        '/twitter-embed-no-bg.png',
+        'map',
+        '',
+      ],
+      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png', 'smk', ''],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'charts'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'chart'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'racing'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'map'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'smk'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'opwidget'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'etrans'],
     ];
   }
 

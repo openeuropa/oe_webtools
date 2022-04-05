@@ -128,6 +128,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'service' => 'charts',
         'services' => ['charts', 'chart', 'racing'],
         'default_thumbnail' => 'charts-embed-no-bg.png',
+        'blacklist' => [],
       ],
       'map' => [
         'name' => $this->t('Map'),
@@ -135,6 +136,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'service' => '',
         'services' => ['map'],
         'default_thumbnail' => 'maps-embed-no-bg.png',
+        'blacklist' => [],
       ],
       'social_feed' => [
         'name' => $this->t('Social feed'),
@@ -142,6 +144,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'service' => '',
         'services' => ['smk'],
         'default_thumbnail' => 'twitter-embed-no-bg.png',
+        'blacklist' => [],
       ],
       'opwidget' => [
         'name' => $this->t('OP Publication list'),
@@ -149,6 +152,21 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'service' => '',
         'services' => ['opwidget'],
         'default_thumbnail' => 'generic.png',
+        'blacklist' => [],
+      ],
+      'generic' => [
+        'name' => $this->t('Generic'),
+        'services' => [],
+        'default_thumbnail' => 'generic.png',
+        'blacklist' => [
+          'charts',
+          'chart',
+          'racing',
+          'map',
+          'smk',
+          'opwidget',
+          'etrans',
+        ],
       ],
     ];
   }
