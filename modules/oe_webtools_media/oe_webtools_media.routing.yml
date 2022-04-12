@@ -1,0 +1,7 @@
+oe_webtools_media.generic_widget_settings:
+  path: '/admin/config/regional/oe-webtools-media/generic-widget'
+  defaults:
+    _form: 'Drupal\oe_webtools_media\Form\GenericWidgetConfigForm'
+    _title: 'Webtools Media generic widget settings'
+  requirements:
+    _permission: 'administer webtools media configuration'

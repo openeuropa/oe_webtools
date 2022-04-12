@@ -34,3 +34,20 @@ function oe_webtools_media_post_update_00001(): void {
     }
   }
 }
+
+/**
+ * Configure the webtools media blacklist config with existing services.
+ */
+function oe_webtools_media_post_update_00002(): void {
+  $config = \Drupal::configFactory()->getEditable('oe_webtools_media.generic_widget_settings');
+  $config->set('blacklist', [
+    'charts',
+    'chart',
+    'racing',
+    'map',
+    'smk',
+    'opwidget',
+    'etrans',
+  ]);
+  $config->save();
+}

@@ -121,6 +121,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    * {@inheritdoc}
    */
   public function getWidgetTypes() {
+    $generic_blacklist = $this->configFactory->get('oe_webtools_media.generic_widget_settings')->get('blacklist') ?? [];
     return [
       'chart' => [
         'name' => $this->t('Chart'),
@@ -164,16 +165,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'name' => $this->t('Generic'),
         'services' => [],
         'default_thumbnail' => 'generic.png',
-        'blacklist' => [
-          'charts',
-          'chart',
-          'racing',
-          'map',
-          'smk',
-          'opwidget',
-          'etrans',
-          'cdown',
-        ],
+        'blacklist' => $generic_blacklist,
       ],
     ];
   }
