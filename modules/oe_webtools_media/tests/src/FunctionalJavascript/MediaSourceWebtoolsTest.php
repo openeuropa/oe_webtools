@@ -103,6 +103,75 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   }
 
   /**
+   * Tests the webtools media source generic blacklist configuration form.
+   */
+  public function testMediaWebtoolsBlacklistConfig(): void {
+    $session = $this->getSession();
+    $page = $session->getPage();
+    $assert_session = $this->assertSession();
+
+    $source_id = 'webtools';
+    $media_type_id = 'test_generic';
+
+    $this->drupalGet('admin/structure/media/add');
+    $page->fillField('label', $media_type_id);
+    $this->getSession()
+      ->wait(5000, "jQuery('.machine-name-value').text() === '{$media_type_id}'");
+
+    $page->selectFieldOption('Media source', $source_id);
+    $result = $assert_session->waitForElementVisible('css', 'fieldset[data-drupal-selector="edit-source-configuration"]');
+    $this->assertNotEmpty($result);
+
+    // Assert we don't see the Blacklist field.
+    $this->assertFalse($page->findField('Blacklist')->isVisible());
+    $page->selectFieldOption('Widget type', 'generic');
+    $assert_session->waitForElementVisible('css', 'textarea[name="source_configuration[generic_widget_type_blacklist]"]');
+
+    // Now we should see the Blacklist field.
+    $this->assertTrue($page->findField('Blacklist')->isVisible());
+    $default_list = [
+      'charts',
+      'chart',
+      'racing',
+      'map',
+      'smk',
+      'opwidget',
+      'etrans',
+    ];
+
+    $assert_session->fieldValueEquals('Blacklist', implode(PHP_EOL, $default_list));
+
+    // Fill in the blacklist field and change the widget.
+    $page->fillField('Blacklist', 'chart');
+    $page->selectFieldOption('Widget type', 'map');
+
+    // Save the form to create the type.
+    $page->pressButton('Save');
+    $assert_session->pageTextContains('The media type ' . $media_type_id . ' has been added.');
+
+    // Assert that no blacklist info was saved in the config.
+    /** @var \Drupal\media\Entity\MediaTypeInterface $media_type */
+    $media_type = MediaType::load($media_type_id);
+    $configuration = $media_type->get('source_configuration')['generic_widget_type_blacklist'];
+    $this->assertEmpty($configuration);
+
+    // Edit the media type, change to generic and add blacklisted services.
+    $this->drupalGet($media_type->toUrl('edit-form'));
+    $page->selectFieldOption('Widget type', 'generic');
+    $assert_session->waitForElementVisible('css', 'textarea[name="source_configuration[generic_widget_type_blacklist]"]');
+
+    $list = [
+      'blacklisted',
+    ];
+    $page->fillField('Blacklist', implode("\r\n", $list));
+    $page->pressButton('Save');
+    $assert_session->pageTextContains('The media type ' . $media_type_id . ' has been updated.');
+    $media_type = MediaType::load($media_type_id);
+    $configuration = $media_type->getSource()->getConfiguration()['generic_widget_type_blacklist'];
+    $this->assertEquals($list, $configuration);
+  }
+
+  /**
    * Provides data to self::testMediaWebtoolsMapSource().
    *
    * @return array

@@ -9,6 +9,7 @@ declare(strict_types = 1);
 
 use Drupal\Core\File\Exception\FileException;
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\media\Entity\MediaType;
 
 /**
  * Move png files for webtools media types into the public folder.
@@ -39,8 +40,9 @@ function oe_webtools_media_post_update_00001(): void {
  * Configure the webtools media blacklist config with existing services.
  */
 function oe_webtools_media_post_update_00002(): void {
-  $config = \Drupal::configFactory()->getEditable('oe_webtools_media.generic_widget_settings');
-  $config->set('blacklist', [
+  /** @var \Drupal\media\MediaTypeInterface[] $media_types */
+  $media_types = MediaType::loadMultiple();
+  $blacklist = [
     'charts',
     'chart',
     'racing',
@@ -48,6 +50,19 @@ function oe_webtools_media_post_update_00002(): void {
     'smk',
     'opwidget',
     'etrans',
-  ]);
-  $config->save();
+  ];
+  foreach ($media_types as $media_type) {
+    if ($media_type->get('source') !== 'webtools') {
+      continue;
+    }
+
+    $source_config = $media_type->get('source_configuration');
+    if ($source_config['widget_type'] !== 'generic') {
+      continue;
+    }
+
+    $source_config['generic_widget_type_blacklist'] = $blacklist;
+    $media_type->set('source_configuration', $source_config);
+    $media_type->save();
+  }
 }

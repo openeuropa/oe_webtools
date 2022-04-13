@@ -1,8 +1,0 @@
-blacklist:
-  - 'charts'
-  - 'chart'
-  - 'racing'
-  - 'map'
-  - 'smk'
-  - 'opwidget'
-  - 'etrans'

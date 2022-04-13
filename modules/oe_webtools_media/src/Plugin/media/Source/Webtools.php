@@ -69,6 +69,26 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
       '#required' => TRUE,
     ];
 
+    $blacklist_config = $this->getConfiguration()['generic_widget_type_blacklist'];
+    $blacklist = '';
+    if (!empty($blacklist_config)) {
+      $blacklist = implode(PHP_EOL, $blacklist_config);
+    }
+
+    $form['generic_widget_type_blacklist'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Blacklist'),
+      '#description' => $this->t('The Webtools services that are blacklisted in the generic widget, one per line.'),
+      '#default_value' => $blacklist,
+      '#states' => [
+        'visible' => [
+          'select[name="source_configuration[widget_type]"]' => [
+            'value' => 'generic',
+          ],
+        ],
+      ],
+    ];
+
     return $form;
   }
 
@@ -77,8 +97,49 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    */
   public function defaultConfiguration() {
     return [
-      'widget_type' => [],
+      'widget_type' => NULL,
+      'generic_widget_type_blacklist' => [
+        'charts',
+        'chart',
+        'racing',
+        'map',
+        'smk',
+        'opwidget',
+        'etrans',
+      ],
     ] + parent::defaultConfiguration();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setConfiguration(array $configuration) {
+    parent::setConfiguration($configuration);
+
+    // Prevent the deep merging from combining the blacklist array and use
+    // whatever is in the configuration.
+    if (isset($configuration['generic_widget_type_blacklist'])) {
+      $this->configuration['generic_widget_type_blacklist'] = $configuration['generic_widget_type_blacklist'];
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
+    parent::submitConfigurationForm($form, $form_state);
+
+    $widget_type = $this->getConfiguration()['widget_type'];
+    if ($widget_type !== 'generic') {
+      // In case the form contains blacklisted values, reset them if the
+      // selected widget type is not generic.
+      $this->configuration['generic_widget_type_blacklist'] = [];
+      return;
+    }
+
+    $blacklist = $this->configuration['generic_widget_type_blacklist'] ?? '';
+    $blacklist = array_filter(preg_split("/\r\n/", $blacklist));
+    $this->configuration['generic_widget_type_blacklist'] = $blacklist;
   }
 
   /**
@@ -121,7 +182,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
    * {@inheritdoc}
    */
   public function getWidgetTypes() {
-    $generic_blacklist = $this->configFactory->get('oe_webtools_media.generic_widget_settings')->get('blacklist') ?? [];
+    $generic_blacklist = $this->getConfiguration()['generic_widget_type_blacklist'] ?? [];
     return [
       'chart' => [
         'name' => $this->t('Chart'),

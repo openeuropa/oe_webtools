@@ -1,5 +1,0 @@
-e_webtools_media.generic_widget_setting:
-  title: Webtools Media generic widget
-  description: 'Configure the Webtools Media generic widget.'
-  route_name: oe_webtools_media.generic_widget_settings
-  parent: system.admin_config_regional

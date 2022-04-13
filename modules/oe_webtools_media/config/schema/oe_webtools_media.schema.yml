@@ -5,12 +5,7 @@ media.source.webtools:
     widget_type:
       type: string
       label: 'Widget type'
-
-oe_webtools_media.generic_widget_settings:
-  type: config_object
-  label: 'Webtools Media generic widget settings'
-  mapping:
-    blacklist:
+    generic_widget_type_blacklist:
       type: sequence
       label: 'Blacklist'
       sequence:
