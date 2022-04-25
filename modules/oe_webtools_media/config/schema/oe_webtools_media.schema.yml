@@ -5,3 +5,9 @@ media.source.webtools:
     widget_type:
       type: string
       label: 'Widget type'
+    generic_widget_type_blacklist:
+      type: sequence
+      label: 'Blacklist'
+      sequence:
+        type: string
+        label: 'Webtools widget service'
