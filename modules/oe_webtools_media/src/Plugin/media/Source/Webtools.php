@@ -106,6 +106,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'smk',
         'opwidget',
         'etrans',
+        'cdown',
       ],
     ] + parent::defaultConfiguration();
   }

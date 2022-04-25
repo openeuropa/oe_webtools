@@ -110,7 +110,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $page = $session->getPage();
     $assert_session = $this->assertSession();
 
-    $source_id = 'webtools';
     $media_type_id = 'test_generic';
 
     $this->drupalGet('admin/structure/media/add');
@@ -118,7 +117,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $this->getSession()
       ->wait(5000, "jQuery('.machine-name-value').text() === '{$media_type_id}'");
 
-    $page->selectFieldOption('Media source', $source_id);
+    $page->selectFieldOption('Media source', 'webtools');
     $result = $assert_session->waitForElementVisible('css', 'fieldset[data-drupal-selector="edit-source-configuration"]');
     $this->assertNotEmpty($result);
 
@@ -137,6 +136,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       'smk',
       'opwidget',
       'etrans',
+      'cdown',
     ];
 
     $assert_session->fieldValueEquals('Blacklist', implode(PHP_EOL, $default_list));

@@ -50,6 +50,7 @@ function oe_webtools_media_post_update_00002(): void {
     'smk',
     'opwidget',
     'etrans',
+    'cdown',
   ];
   foreach ($media_types as $media_type) {
     if ($media_type->get('source') !== 'webtools') {
