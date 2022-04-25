@@ -54,7 +54,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
       $media_type_id = 'test_media_webtools_type';
 
-      // Create webtools map media type.
+      // Create a webtools media type for the current widget.
       $media_type = $this->createWebtoolsMediaType($media_type_id, $widget_type);
 
       // Create a webtools media item with invalid webtools snippet.
@@ -129,6 +129,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
         '',
       ],
       ['opwidget', 'OP Publication list', 'opwidget', '/generic.png', 'smk', ''],
+      ['cdown', 'Countdown', 'cdown', '/generic.png', 'map', ''],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'charts'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'chart'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'racing'],
@@ -136,6 +137,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'smk'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'opwidget'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'etrans'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'cdown'],
     ];
   }
 

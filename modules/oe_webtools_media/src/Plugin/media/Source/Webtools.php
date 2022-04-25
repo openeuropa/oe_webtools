@@ -154,6 +154,12 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'default_thumbnail' => 'generic.png',
         'blacklist' => [],
       ],
+      'cdown' => [
+        'name' => $this->t('Countdown'),
+        'services' => ['cdown'],
+        'default_thumbnail' => 'generic.png',
+        'blacklist' => [],
+      ],
       'generic' => [
         'name' => $this->t('Generic'),
         'services' => [],
@@ -166,6 +172,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
           'smk',
           'opwidget',
           'etrans',
+          'cdown',
         ],
       ],
     ];
