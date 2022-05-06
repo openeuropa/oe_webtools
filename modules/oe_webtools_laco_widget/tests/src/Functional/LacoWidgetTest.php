@@ -30,6 +30,12 @@ class LacoWidgetTest extends BrowserTestBase {
     $this->drupalGet('<front>');
     $this->assertSession()
       ->responseContains('<script type="application/json">{"service":"laco","include":"body","coverage":{"document":"any","page":"any"},"icon":"all","exclude":".nolaco, .more-link, .pager"}</script>');
+    \Drupal::configFactory()->getEditable('oe_webtools_laco_widget.settings')
+      ->set('ignore', ['/fr/', '/en/'])
+      ->save();
+    $this->drupalGet('<front>');
+    $this->assertSession()
+      ->responseContains('<script type="application/json">{"service":"laco","include":"body","coverage":{"document":"any","page":"any"},"icon":"all","exclude":".nolaco, .more-link, .pager","ignore":["\/fr\/","\/en\/"]}</script>');
   }
 
 }

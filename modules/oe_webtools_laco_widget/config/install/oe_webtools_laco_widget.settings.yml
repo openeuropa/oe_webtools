@@ -4,3 +4,4 @@ coverage:
   document: 'any'
   page: 'any'
 icon: 'all'
+ignore: []

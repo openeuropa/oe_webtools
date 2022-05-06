@@ -7,6 +7,8 @@
 
 declare(strict_types = 1);
 
+use Drupal\Core\Cache\CacheableMetadata;
+
 /**
  * Implements hook_page_attachments().
  */
@@ -16,7 +18,7 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
 
   $include = $config->get('include');
   if (!$include) {
-    $logger->warning('There are no selectors to include the Laco widget for. 
+    $logger->warning('There are no selectors to include the Laco widget for.
     Please either provide include selectors or uninstall the module.');
     return;
   }
@@ -36,6 +38,11 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
     $json['exclude'] = implode(', ', $exclude);
   }
 
+  $ignore = $config->get('ignore');
+  if ($ignore) {
+    $json['ignore'] = $ignore;
+  }
+
   $attachments['#attached']['html_head'][] = [
     [
       '#type' => 'html_tag',
@@ -47,4 +54,7 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
   ];
 
   $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+  $cache = CacheableMetadata::createFromRenderArray($attachments);
+  $cache->addCacheableDependency($config);
+  $cache->applyTo($attachments);
 }
