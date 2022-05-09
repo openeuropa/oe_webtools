@@ -97,7 +97,7 @@ class ETransBlockTest extends KernelTestBase {
     $render_array = $plugin->build();
     $rendered_html = (string) $this->container->get('renderer')->renderRoot($render_array);
 
-    $this->assertEquals($expected_html, $rendered_html);
+    $this->assertEquals($expected_html, trim($rendered_html));
   }
 
   /**
@@ -131,7 +131,7 @@ class ETransBlockTest extends KernelTestBase {
 
         ",
         'en',
-        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"en\"]},\"renderAs\":{\"button\":true,\"icon\":false,\"link\":false},\"domain\":\"gen\",\"delay\":0,\"include\":\"h1.page__title,#main-content\"}</script>\n",
+        '<script type="application/json">{"service":"etrans","languages":{"exclude":["en"]},"renderAs":{"button":true,"icon":false,"link":false},"domain":"gen","delay":0,"include":"h1.page__title,#main-content"}</script>',
       ],
       [
         'icon',
@@ -143,7 +143,7 @@ class ETransBlockTest extends KernelTestBase {
           div.comment-wrapper
         ",
         'fr',
-        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"fr\"]},\"renderAs\":{\"button\":false,\"icon\":true,\"link\":false},\"domain\":\"gen\",\"delay\":100,\"renderTo\":\"main-content\",\"exclude\":\"div.comment-wrapper\"}</script>\n",
+        '<script type="application/json">{"service":"etrans","languages":{"exclude":["fr"]},"renderAs":{"button":false,"icon":true,"link":false},"domain":"gen","delay":100,"renderTo":"main-content","exclude":"div.comment-wrapper"}</script>',
       ],
       [
         'link',
@@ -162,7 +162,7 @@ class ETransBlockTest extends KernelTestBase {
 
         ",
         'es',
-        "<script type=\"application/json\">{\"service\":\"etrans\",\"languages\":{\"exclude\":[\"es\"]},\"renderAs\":{\"button\":false,\"icon\":false,\"link\":true},\"domain\":\"spd\",\"delay\":500,\"include\":\"#content-block div.main \u003E p,h1,h2,h3\",\"exclude\":\"aside,#nav \u003E a.pager\"}</script>\n",
+        '<script type="application/json">{"service":"etrans","languages":{"exclude":["es"]},"renderAs":{"button":false,"icon":false,"link":true},"domain":"spd","delay":500,"include":"#content-block div.main \u003E p,h1,h2,h3","exclude":"aside,#nav \u003E a.pager"}</script>',
       ],
     ];
   }
