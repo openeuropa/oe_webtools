@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Drupal\Tests\oe_webtools\Behat;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
+use PHPUnit\Framework\Assert;
 
 /**
  * Behat step definitions for testing Webtools eTrans.
@@ -33,7 +34,7 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should see the Webtools eTrans :type
    */
   public function assertElementPresent(?string $type = ''): void {
-    assert(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link".');
+    Assert::assertTrue(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link".');
     foreach ($this->getElements() as $data) {
       $types_to_check = $type ? [$type] : self::RENDER_OPTIONS;
       foreach ($types_to_check as $type_to_check) {
@@ -62,7 +63,7 @@ class WebtoolsETransContext extends RawDrupalContext {
    * @Then I should not see any Webtools eTrans elements
    */
   public function assertNoElementPresent(?string $type = ''): void {
-    assert(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
+    Assert::assertTrue(empty($type) || in_array($type, self::RENDER_OPTIONS), 'Element type should be either "button", "icon" or "link."');
     foreach ($this->getElements() as $data) {
       $types_to_check = $type ? [$type] : self::RENDER_OPTIONS;
       foreach ($types_to_check as $type) {
