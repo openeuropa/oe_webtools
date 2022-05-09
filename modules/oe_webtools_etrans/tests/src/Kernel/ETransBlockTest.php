@@ -164,6 +164,16 @@ class ETransBlockTest extends KernelTestBase {
         'es',
         '<script type="application/json">{"service":"etrans","languages":{"exclude":["es"]},"renderAs":{"button":false,"icon":false,"link":true},"domain":"spd","delay":500,"include":"#content-block div.main \u003E p,h1,h2,h3","exclude":"aside,#nav \u003E a.pager"}</script>',
       ],
+      [
+        'button',
+        '',
+        'gen',
+        0,
+        '',
+        '',
+        'pt-pt',
+        '<script type="application/json">{"service":"etrans","languages":{"exclude":["pt"]},"renderAs":{"button":true,"icon":false,"link":false},"domain":"gen","delay":0}</script>',
+      ],
     ];
   }
 
