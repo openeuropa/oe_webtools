@@ -1,0 +1,22 @@
+block.settings.oe_webtools_etrans:
+  type: block_settings
+  label: 'Webtools eTrans block'
+  mapping:
+    delay:
+      type: integer
+      label: 'Delay'
+    domain:
+      type: string
+      label: 'Domain'
+    exclude:
+      type: string
+      label: 'Exclude'
+    include:
+      type: string
+      label: 'Include'
+    render_as:
+      type: string
+      label: 'Render as'
+    render_to:
+      type: string
+      label: 'Render to'
