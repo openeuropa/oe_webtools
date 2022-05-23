@@ -8,10 +8,6 @@ use Drupal\media\Entity\MediaType;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
 use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 
 /**
  * Tests the webtools media source.
@@ -111,7 +107,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    * Tests the webtools media source support for wcloud.
    */
   public function testMediaWebtoolsSourceWcloud(): void {
-
     $session = $this->getSession();
     $page = $session->getPage();
     $assert_session = $this->assertSession();
@@ -119,7 +114,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     // Create a webtools media type for charts.
     $this->createWebtoolsMediaType('test_media_webtools_type', 'chart');
 
-    // Create a webtools wcloud media item without an url.
+    // Create a webtools wcloud media item without a url.
     $this->drupalGet("media/add/test_media_webtools_type");
     $name = "Valid webtools wcloud item";
     $assert_session->fieldExists('Name')->setValue($name);
@@ -132,25 +127,25 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $page->pressButton('Save');
     $assert_session->pageTextContains("The provided wcloud url is not valid.");
 
-    // Create a webtools wcloud media item with an url
+    // Create a webtools wcloud media item with a url
     // outside the europa.eu domain.
     $assert_session->fieldExists("Webtools Chart snippet")->setValue('{"utility": "wcloud", "url": "https://google.com"}');
     $page->pressButton('Save');
     $assert_session->pageTextContains("The wcloud url needs to be in the europa.eu domain.");
 
-    // Create a webtools wcloud media item with an url that
+    // Create a webtools wcloud media item with a url that
     // is not accessible/does not exist.
     $assert_session->fieldExists("Webtools Chart snippet")->setValue('{"utility": "wcloud", "url": "https://europa.eu/fake-url"}');
     $page->pressButton('Save');
     $assert_session->pageTextContains("Could not parse contents of the wcloud url.");
 
-    // Create a webtools wcloud media item with an url that returns
+    // Create a webtools wcloud media item with a url that returns
     // a correct response, but for the wrong widget type.
     $assert_session->fieldExists("Webtools Chart snippet")->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=map"}');
     $page->pressButton('Save');
     $assert_session->pageTextContains("Invalid webtools chart snippet.");
 
-    // Create a webtools wcloud media item with an url that returns
+    // Create a webtools wcloud media item with a url that returns
     // a correct response.
     $assert_session->fieldExists("Webtools Chart snippet")->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=chart"}');
     $page->pressButton('Save');
@@ -346,25 +341,6 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     }
 
     return reset($entities);
-  }
-
-  /**
-   * Mocks the http-client.
-   *
-   * @param \GuzzleHttp\Psr7\Response ...$responses
-   *   Several number of responses.
-   */
-  protected function mockHttpClient(Response ...$responses): void {
-    if (!isset($this->mockHttpClient)) {
-      // Create a mock and queue responses.
-      $mock = new MockHandler($responses);
-
-      $handler_stack = HandlerStack::create($mock);
-      // Create a new client with that handler stack.
-      $this->mockHttpClient = new Client(['handler' => $handler_stack]);
-    }
-    // Set the http_client with our new mocked client.
-    $this->container->set('http_client', $this->mockHttpClient);
   }
 
 }
