@@ -104,7 +104,7 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator {
       $this->context->addViolation($constraint->incorrectUrlContentMessage);
       return [];
     }
-    // Assert if parsing the response triggered any errors..
+    // Assert if parsing the response triggered any errors.
     if (json_last_error() !== JSON_ERROR_NONE) {
       $this->context->addViolation($constraint->incorrectUrlContentMessage);
       return [];
