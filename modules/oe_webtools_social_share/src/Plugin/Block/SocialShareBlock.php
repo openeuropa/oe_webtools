@@ -4,9 +4,8 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_social_share\Plugin\Block;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Render\Markup;
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
 
 /**
  * Provides a 'Social Share' Block.
@@ -30,7 +29,7 @@ class SocialShareBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $social_share_json = [
+    $social_share_json = new JsonEncoded([
       'service' => 'share',
       'popup' => FALSE,
       'selection' => TRUE,
@@ -42,11 +41,11 @@ class SocialShareBlock extends BlockBase {
         'e-mail',
       ],
       'stats' => TRUE,
-    ];
+    ]);
     return [
       '#theme' => 'oe_webtools_social_share',
       '#title' => $this->t('Share this page'),
-      '#icons_json' => Markup::create(Json::encode($social_share_json)),
+      '#icons_json' => $social_share_json,
       '#attached' => ['library' => ['oe_webtools/drupal.webtools-smartloader']],
     ];
   }

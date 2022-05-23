@@ -7,6 +7,8 @@
 
 declare(strict_types = 1);
 
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
+
 /**
  * Implements hook_page_attachments().
  */
@@ -40,7 +42,7 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
     [
       '#type' => 'html_tag',
       '#tag' => 'script',
-      '#value' => json_encode($json),
+      '#value' => new JsonEncoded($json),
       '#attributes' => ['type' => 'application/json'],
     ],
     'oe_webtools_laco_widget',

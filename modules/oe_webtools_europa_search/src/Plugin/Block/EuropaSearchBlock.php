@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_europa_search\Plugin\Block;
 
-use Drupal\Component\Serialization\Json;
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -76,7 +76,7 @@ class EuropaSearchBlock extends BlockBase implements ContainerFactoryPluginInter
       '#attached' => ['library' => ['oe_webtools/drupal.webtools-smartloader']],
       '#type' => 'html_tag',
       '#tag' => 'script',
-      '#value' => Json::encode($search_widget_json),
+      '#value' => new JsonEncoded($search_widget_json),
       '#attributes' => ['type' => 'application/json'],
     ];
 
