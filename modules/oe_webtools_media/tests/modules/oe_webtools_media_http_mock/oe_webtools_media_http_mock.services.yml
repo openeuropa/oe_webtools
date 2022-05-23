@@ -1,0 +1,5 @@
+services:
+  test_mock_request.http_client.middleware:
+    class: Drupal\oe_webtools_media_http_mock\MockWcloudMiddleware
+    tags:
+      - { name: http_client_middleware }
