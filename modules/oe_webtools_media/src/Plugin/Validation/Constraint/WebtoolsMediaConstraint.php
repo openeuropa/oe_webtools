@@ -46,7 +46,7 @@ class WebtoolsMediaConstraint extends Constraint {
   public $incorrectUrlDomainMessage = 'The wcloud url needs to be in the europa.eu domain.';
 
   /**
-   * The incorrect wcloud url domain message.
+   * The incorrect wcloud content message.
    *
    * @var string
    */
