@@ -5,6 +5,9 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_media\Plugin\Validation\Constraint;
 
 use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
+use GuzzleHttp\Client;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Drupal\Component\Serialization\Json;
@@ -13,7 +16,33 @@ use Drupal\oe_webtools_media\Plugin\media\Source\WebtoolsInterface;
 /**
  * Validates the webtools media constraint.
  */
-class WebtoolsMediaConstraintValidator extends ConstraintValidator {
+class WebtoolsMediaConstraintValidator extends ConstraintValidator implements ContainerInjectionInterface {
+
+  /**
+   * The http client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected $httpClient;
+
+  /**
+   * Constructs a WebtoolsMediaConstraintValidator object.
+   *
+   * @param \GuzzleHttp\Client $http_client
+   *   The http client.
+   */
+  public function __construct(Client $http_client) {
+    $this->httpClient = $http_client;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('http_client')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -96,7 +125,7 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator {
 
     // Try to fetch and parse the response.
     try {
-      $request = \Drupal::httpClient()->get($snippet['url']);
+      $request = $this->httpClient->get($snippet['url']);
       $wcloud_content = $request->getBody()->getContents();
       $wcloud_snippet = Json::decode($wcloud_content);
     }
