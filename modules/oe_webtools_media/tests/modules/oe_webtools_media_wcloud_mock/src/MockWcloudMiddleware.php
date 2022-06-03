@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\oe_webtools_media_http_mock;
+namespace Drupal\oe_webtools_media_wcloud_mock;
 
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Psr7\Response;

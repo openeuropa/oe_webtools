@@ -1,5 +1,5 @@
-name: 'OpenEuropa Webtools Media HTTP Mock'
-description: 'Test module to mock HTTP responses.'
+name: 'OpenEuropa Webtools Media Wcloud Mock'
+description: 'Test module to mock Wcloud responses.'
 package: 'OpenEuropa Webtools'
 type: module
 core_version_requirement: ^9.2

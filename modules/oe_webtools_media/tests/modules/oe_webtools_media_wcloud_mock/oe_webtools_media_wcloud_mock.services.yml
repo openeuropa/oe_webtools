@@ -1,0 +1,5 @@
+services:
+  oe_webtools_media_wcloud_mock.wcloud_middleware:
+    class: Drupal\oe_webtools_media_wcloud_mock\MockWcloudMiddleware
+    tags:
+      - { name: http_client_middleware }

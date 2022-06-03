@@ -23,7 +23,7 @@ class WcloudContext extends RawDrupalContext {
    */
   public function enableTestModule(BeforeScenarioScope $scope): void {
     \Drupal::service('module_installer')->install([
-      'oe_webtools_media_http_mock',
+      'oe_webtools_media_wcloud_mock',
     ]);
   }
 
@@ -37,7 +37,7 @@ class WcloudContext extends RawDrupalContext {
    */
   public function disableTestModule(AfterScenarioScope $scope): void {
     \Drupal::service('module_installer')->uninstall([
-      'oe_webtools_media_http_mock',
+      'oe_webtools_media_wcloud_mock',
     ]);
   }
 

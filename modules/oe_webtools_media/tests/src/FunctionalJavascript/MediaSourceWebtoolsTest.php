@@ -29,7 +29,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     'json_field',
     'oe_webtools',
     'oe_webtools_media',
-    'oe_webtools_media_http_mock',
+    'oe_webtools_media_wcloud_mock',
   ];
 
   /**
@@ -149,6 +149,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     // a correct response.
     $assert_session->fieldExists("Webtools Chart snippet")->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=chart"}');
     $page->pressButton('Save');
+    $assert_session->addressEquals('admin/content/media');
     $media = $this->getMediaByName($name);
     // Check that all fields are properly populated.
     $this->assertSame($name, $media->getName());
