@@ -36,21 +36,21 @@ class WebtoolsMediaConstraint extends Constraint {
    *
    * @var string
    */
-  public $incorrectUrlMessage = 'The provided wcloud url is not valid.';
+  public $incorrectUrlMessage = 'The provided wcloud URL is not valid.';
 
   /**
    * The incorrect wcloud url domain message.
    *
    * @var string
    */
-  public $incorrectUrlDomainMessage = 'The wcloud url needs to be in the europa.eu domain.';
+  public $incorrectUrlDomainMessage = 'The wcloud URL needs to be in the europa.eu domain.';
 
   /**
    * The incorrect wcloud content message.
    *
    * @var string
    */
-  public $incorrectUrlContentMessage = 'Could not parse contents of the wcloud url.';
+  public $incorrectUrlContentMessage = 'Could not parse contents of the wcloud URL.';
 
   /**
    * The webtools widget type this constraint is checking for.

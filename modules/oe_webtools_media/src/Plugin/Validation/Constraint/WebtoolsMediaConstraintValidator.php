@@ -80,7 +80,7 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
 
     // If it's a wcloud style service, assert its correct
     // and try to fetch the actual snippet for validation.
-    if (!empty($snippet['utility']) && $snippet['utility'] == 'wcloud') {
+    if (!empty($snippet['utility']) && $snippet['utility'] === 'wcloud') {
       $snippet = $this->parseWcloud($snippet, $constraint);
       if (empty($snippet)) {
         return;
@@ -117,8 +117,8 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       $this->context->addViolation($constraint->incorrectUrlMessage);
       return [];
     }
-    // Assert that the url contains the europa.eu domain.
-    if (strpos(parse_url($snippet['url'], PHP_URL_HOST), 'europa.eu') === FALSE) {
+    // Assert that the url is in the europa.eu domain.
+    if (substr(parse_url($snippet['url'], PHP_URL_HOST), -strlen('europa.eu')) !== 'europa.eu') {
       $this->context->addViolation($constraint->incorrectUrlDomainMessage);
       return [];
     }
@@ -137,6 +137,9 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
     if (json_last_error() !== JSON_ERROR_NONE) {
       $this->context->addViolation($constraint->incorrectUrlContentMessage);
       return [];
+    }
+    if (empty($wcloud_snippet)) {
+      $this->context->addViolation($constraint->incorrectUrlContentMessage);
     }
     return $wcloud_snippet;
   }

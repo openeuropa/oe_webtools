@@ -21,6 +21,12 @@ class MockWcloudMiddleware {
       return function (RequestInterface $request, array $options) use ($handler) {
         $uri = $request->getUri();
 
+        if ($uri->getHost() === 'europa.eu' && $uri->getPath() === '/wcloud-error') {
+          $parameters = \GuzzleHttp\Psr7\parse_query($uri->getQuery());
+          $response = new Response($parameters['code']);
+          return new FulfilledPromise($response);
+        }
+
         if ($uri->getHost() === 'europa.eu' && $uri->getPath() === '/correct-wcloud') {
           $parameters = \GuzzleHttp\Psr7\parse_query($uri->getQuery());
           $response = new Response(200, [], '{"service": "' . $parameters['widget'] . '"}');
