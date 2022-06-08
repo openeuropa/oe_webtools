@@ -14,6 +14,12 @@ oe_webtools_laco_widget.settings:
       sequence:
         type: string
         label: 'Class'
+    ignore:
+      type: sequence
+      label: 'Ignore'
+      sequence:
+        type: string
+        label: 'String or pattern to ignore'
     coverage:
       type: mapping
       label: 'Coverage'

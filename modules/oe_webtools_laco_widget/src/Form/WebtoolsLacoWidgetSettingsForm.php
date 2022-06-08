@@ -54,6 +54,17 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
       '#default_value' => $exclude_value,
       '#description' => $this->t('CSS selectors to exclude the widget.'),
     ];
+
+    $ignore_value = '';
+    if (!empty($this->config(static::CONFIGNAME)->get('ignore'))) {
+      $ignore_value = implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('ignore'));
+    }
+    $form['ignore'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Ignore'),
+      '#default_value' => $ignore_value,
+      '#description' => $this->t('Optionally specify a part/pattern of the URLs to be ignored by the LACO service.'),
+    ];
     $form['coverage'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Coverage'),
@@ -92,6 +103,7 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
     // Preprocess needed form values.
     $include_value = array_filter(preg_split("/\r\n/", $form_values['include']));
     $exclude_value = array_filter(preg_split("/\r\n/", $form_values['exclude']));
+    $ignore_value = array_filter(preg_split("/\r\n/", $form_values['ignore']));
     $coverage_value = [
       'document' => $form_values['coverage_document'],
       'page' => $form_values['coverage_page'],
@@ -100,6 +112,7 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
     $this->config(static::CONFIGNAME)
       ->set('include', $include_value)
       ->set('exclude', $exclude_value)
+      ->set('ignore', $ignore_value)
       ->set('coverage', $coverage_value)
       ->set('icon', $form_values['icon'])
       ->save();
