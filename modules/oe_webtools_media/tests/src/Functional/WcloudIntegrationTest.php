@@ -7,7 +7,7 @@ namespace Drupal\Tests\oe_webtools_media\Functional;
 use Drupal\Tests\media\Functional\MediaFunctionalTestBase;
 
 /**
- * Tests the Webtools media source wcloud integration.
+ * Tests the Webtools media source WCLOUD integration.
  *
  * @group oe_webtools_media
  */
@@ -24,10 +24,6 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
    * @var array
    */
   public static $modules = [
-    'system',
-    'node',
-    'field_ui',
-    'media',
     'json_field',
     'oe_webtools',
     'oe_webtools_media',
@@ -35,7 +31,7 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
   ];
 
   /**
-   * Tests the Webtools media source support for wcloud.
+   * Tests the Webtools media source support for WCLOUD.
    */
   public function testMediaWebtoolsWcloudIntegration(): void {
     $session = $this->getSession();
@@ -45,61 +41,65 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
     // Create a Webtools media type for charts.
     $this->createMediaType('webtools', [
       'id' => 'test_webtools_cloud',
-      'label' => 'Test wcloud webtools',
+      'label' => 'Test WCLOUD webtools',
       'source' => 'webtools',
       'source_configuration' => [
         'widget_type' => 'chart',
       ],
     ]);
 
-    // Create a Webtools wcloud media item without a url.
+    // Create a Webtools WCLOUD media item without a URL.
     $this->drupalGet('media/add/test_webtools_cloud');
-    $name = "Valid webtools wcloud item";
+    $name = "Valid webtools WCLOUD item";
     $assert_session->fieldExists('Name')->setValue($name);
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('The provided wcloud url is not valid.');
+    $assert_session->pageTextContains('The provided WCLOUD URL is not valid.');
 
-    // Create a Webtools wcloud media item with an invalid url.
+    // Create a Webtools WCLOUD media item with an invalid URL.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "not-a-url"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('The provided wcloud url is not valid.');
+    $assert_session->pageTextContains('The provided WCLOUD URL is not valid.');
 
-    // Create a Webtools wcloud media item with a url
-    // outside the europa.eu domain.
+    // Create a Webtools WCLOUD media item with a URL outside the europa.eu
+    // domain.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://google.com"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('The wcloud url needs to be in the europa.eu domain.');
+    $assert_session->pageTextContains('The WCLOUD URL needs to be in the europa.eu domain.');
 
-    // Create a Webtools wcloud media item with a url
-    // that contains europa.eu but is not in the domain.
-    $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://miao.europa.eunot.com"}');
+    // Create a Webtools WCLOUD media item with a URL that contains europa.eu
+    // but is not in the domain.
+    $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://webtools.europa.eunot.com"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('The wcloud url needs to be in the europa.eu domain.');
+    $assert_session->pageTextContains('The WCLOUD URL needs to be in the europa.eu domain.');
 
-    // Create a Webtools wcloud media item with a url that
-    // returns a 404.
+    // Create a Webtools WCLOUD media item with a URL that returns a 404.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-error?code=404"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('Could not parse contents of the wcloud url.');
+    $assert_session->pageTextContains('Cannot access the contents of the URL. Please verify that it exists and it’s accessible for anonymous users.');
 
-    // Create a Webtools wcloud media item with a url that
-    // returns a 500.
+    // Create a Webtools WCLOUD media item with a URL that returns a 500.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-error?code=500"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('Could not parse contents of the wcloud url.');
+    $assert_session->pageTextContains('Cannot access the contents of the URL. Please verify that it exists and it’s accessible for anonymous users.');
 
-    // Create a Webtools wcloud media item with a url that returns
-    // a correct response, but for the wrong widget type.
+    // Create a Webtools WCLOUD media item with a URL that returns an empty
+    // response.
+    $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/empty-wcloud"}');
+    $page->pressButton('Save');
+    $assert_session->pageTextContains('Cannot access the contents of the URL. Please verify that it exists and it’s accessible for anonymous users.');
+
+    // Create a Webtools WCLOUD media item with a URL that returns a correct
+    // response, but for the wrong widget type.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=map"}');
     $page->pressButton('Save');
     $assert_session->pageTextContains('Invalid webtools chart snippet.');
 
-    // Create a Webtools wcloud media item with a url that returns
-    // a correct response.
+    // Create a Webtools WCLOUD media item with a URL that returns a correct
+    // response.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=chart"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('Test wcloud webtools Valid webtools wcloud item has been created.');
+    $assert_session->pageTextContains('Test wcloud webtools Valid webtools WCLOUD item has been created.');
     $assert_session->addressEquals('admin/content/media');
     $entities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['name' => $name]);
     if (!$entities) {

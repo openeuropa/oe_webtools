@@ -9,7 +9,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Mock a wcloud response.
+ * Mock a WCLOUD response.
  */
 class MockWcloudMiddleware {
 
@@ -30,6 +30,11 @@ class MockWcloudMiddleware {
         if ($uri->getHost() === 'europa.eu' && $uri->getPath() === '/correct-wcloud') {
           $parameters = \GuzzleHttp\Psr7\parse_query($uri->getQuery());
           $response = new Response(200, [], '{"service": "' . $parameters['widget'] . '"}');
+          return new FulfilledPromise($response);
+        }
+
+        if ($uri->getHost() === 'europa.eu' && $uri->getPath() === '/empty-wcloud') {
+          $response = new Response(200, [], []);
           return new FulfilledPromise($response);
         }
 

@@ -130,7 +130,7 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       $wcloud_snippet = Json::decode($wcloud_content);
     }
     catch (\Exception $exception) {
-      $this->context->addViolation($constraint->inaccessibletUrl);
+      $this->context->addViolation($constraint->inaccessibleUrlMessage);
       return [];
     }
     // Assert if parsing the response triggered any errors.

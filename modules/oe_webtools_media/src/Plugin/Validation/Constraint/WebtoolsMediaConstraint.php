@@ -57,7 +57,7 @@ class WebtoolsMediaConstraint extends Constraint {
    *
    * @var string
    */
-  public $inaccessibletUrl = 'Cannot access the contents of the URL. Please verify that it exists and it’s accessible for anonymous users.';
+  public $inaccessibleUrlMessage = 'Cannot access the contents of the URL. Please verify that it exists and it’s accessible for anonymous users.';
 
   /**
    * The webtools widget type this constraint is checking for.
