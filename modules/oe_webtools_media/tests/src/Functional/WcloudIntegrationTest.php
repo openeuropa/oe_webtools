@@ -99,6 +99,7 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
     // a correct response.
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=chart"}');
     $page->pressButton('Save');
+    $assert_session->pageTextContains('Test wcloud webtools Valid webtools wcloud item has been created.');
     $assert_session->addressEquals('admin/content/media');
     $entities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['name' => $name]);
     if (!$entities) {
