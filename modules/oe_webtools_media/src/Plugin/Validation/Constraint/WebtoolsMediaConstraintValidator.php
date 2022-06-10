@@ -78,8 +78,8 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       return;
     }
 
-    // If it's a wcloud style service, assert its correct
-    // and try to fetch the actual snippet for validation.
+    // If it's a WCLOUD style service, assert its correct and try to fetch the
+    // actual snippet for validation.
     if (!empty($snippet['utility']) && $snippet['utility'] === 'wcloud') {
       $snippet = $this->parseWcloud($snippet, $constraint);
       if (empty($snippet)) {
@@ -101,7 +101,7 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
   }
 
   /**
-   * Attempts to parse and validate a Wcloud snippet.
+   * Attempts to parse and validate a WCLOUD snippet.
    *
    * @param array $snippet
    *   The snippet to ve parsed and validated.
@@ -112,12 +112,12 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
    *   The parsed snippet if validation passed or an empty array otherwise.
    */
   protected function parseWcloud(array $snippet, Constraint $constraint): array {
-    // Assert if the url property is set and is valid.
+    // Assert if the URL property is set and is valid.
     if (empty($snippet['url']) || !UrlHelper::isValid($snippet['url'], TRUE)) {
       $this->context->addViolation($constraint->incorrectUrlMessage);
       return [];
     }
-    // Assert that the url is in the europa.eu domain.
+    // Assert that the URL is in the europa.eu domain.
     if (substr(parse_url($snippet['url'], PHP_URL_HOST), -strlen('europa.eu')) !== 'europa.eu') {
       $this->context->addViolation($constraint->incorrectUrlDomainMessage);
       return [];
@@ -130,7 +130,7 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       $wcloud_snippet = Json::decode($wcloud_content);
     }
     catch (\Exception $exception) {
-      $this->context->addViolation($constraint->incorrectUrlContentMessage);
+      $this->context->addViolation($constraint->inaccessibletUrl);
       return [];
     }
     // Assert if parsing the response triggered any errors.
