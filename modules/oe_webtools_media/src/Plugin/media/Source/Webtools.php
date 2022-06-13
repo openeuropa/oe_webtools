@@ -107,6 +107,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'opwidget',
         'etrans',
         'cdown',
+        'qlik',
       ],
     ] + parent::defaultConfiguration();
   }
@@ -189,7 +190,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'name' => $this->t('Chart'),
         // @deprecated Use services key instead.
         'service' => 'charts',
-        'services' => ['charts', 'chart', 'racing'],
+        'services' => ['charts', 'chart', 'racing', 'qlik'],
         'default_thumbnail' => 'charts-embed-no-bg.png',
         'blacklist' => [],
       ],

@@ -137,6 +137,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       'opwidget',
       'etrans',
       'cdown',
+      'qlik',
     ];
 
     $assert_session->fieldValueEquals('Blacklist', implode(PHP_EOL, $default_list));
@@ -150,7 +151,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     $assert_session->pageTextContains('The media type ' . $media_type_id . ' has been added.');
 
     // Assert that no blacklist info was saved in the config.
-    /** @var \Drupal\media\Entity\MediaTypeInterface $media_type */
+    /** @var \Drupal\media\MediaTypeInterface $media_type */
     $media_type = MediaType::load($media_type_id);
     $configuration = $media_type->get('source_configuration')['generic_widget_type_blacklist'];
     $this->assertEmpty($configuration);
@@ -189,6 +190,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png', 'smk', ''],
       ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png', 'smk', ''],
       ['map', 'Map', 'map', '/maps-embed-no-bg.png', 'smk', ''],
+      ['chart', 'Chart', 'qlik', '/charts-embed-no-bg.png', 'smk', ''],
       [
         'social_feed',
         'Social feed',
@@ -207,6 +209,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'opwidget'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'etrans'],
       ['generic', 'Generic', 'captcha', '/generic.png', '', 'cdown'],
+      ['generic', 'Generic', 'captcha', '/generic.png', '', 'qlik'],
     ];
   }
 
