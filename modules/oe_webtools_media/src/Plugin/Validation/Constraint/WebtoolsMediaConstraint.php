@@ -32,6 +32,34 @@ class WebtoolsMediaConstraint extends Constraint {
   public $blacklistMessage = 'This service is supported by a dedicated asset type or feature, please use that instead.';
 
   /**
+   * The incorrect WCLOUD URL message.
+   *
+   * @var string
+   */
+  public $incorrectUrlMessage = 'The provided WCLOUD URL is not valid.';
+
+  /**
+   * The incorrect WCLOUD URL domain message.
+   *
+   * @var string
+   */
+  public $incorrectUrlDomainMessage = 'The WCLOUD URL needs to be in the europa.eu domain.';
+
+  /**
+   * The incorrect WCLOUD content message.
+   *
+   * @var string
+   */
+  public $incorrectUrlContentMessage = 'Could not parse contents of the WCLOUD URL.';
+
+  /**
+   * The inaccessible WCLOUD URL message.
+   *
+   * @var string
+   */
+  public $inaccessibleUrlMessage = 'Cannot access the contents of the URL. Please verify that it exists and it’s accessible for anonymous users.';
+
+  /**
    * The webtools widget type this constraint is checking for.
    *
    * @var string

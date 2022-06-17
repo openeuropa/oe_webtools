@@ -10,7 +10,7 @@ use Drupal\media\MediaTypeInterface;
 use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 
 /**
- * Tests the webtools media source.
+ * Tests the Webtools media source.
  *
  * @group oe_webtools_media
  */
@@ -37,7 +37,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   protected $defaultTheme = 'classy';
 
   /**
-   * Tests the webtools media source.
+   * Tests the Webtools media source.
    */
   public function testMediaWebtoolsSource(): void {
     $session = $this->getSession();
@@ -54,10 +54,10 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
       $media_type_id = 'test_media_webtools_type';
 
-      // Create a webtools media type for the current widget.
+      // Create a Webtools media type for the current widget.
       $media_type = $this->createWebtoolsMediaType($media_type_id, $widget_type);
 
-      // Create a webtools media item with invalid webtools snippet.
+      // Create a Webtools media item with invalid Webtools snippet.
       $this->drupalGet("media/add/{$media_type_id}");
       $name = "Valid webtools $widget_name item";
       $assert_session->fieldExists('Name')->setValue($name);
@@ -65,7 +65,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $page->pressButton('Save');
       $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
 
-      // Create a webtools media item with valid webtools snippet.
+      // Create a Webtools media item with valid Webtools snippet.
       $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
       $page->pressButton('Save');
       $assert_session->addressEquals('admin/content/media');
@@ -79,7 +79,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $this->assertSame("Valid webtools $widget_name item", $media->getName());
       $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
 
-      // Create a webtools media item with invalid webtools snippet.
+      // Create a Webtools media item with invalid Webtools snippet.
       if ($invalid_service) {
         $this->drupalGet("media/add/{$media_type_id}");
         $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
@@ -88,7 +88,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
         $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
       }
 
-      // Create a webtools media item with service from the blacklist.
+      // Create a Webtools media item with service from the blacklist.
       if ($blacklisted_service) {
         $this->drupalGet("media/add/{$media_type_id}");
         $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
@@ -103,7 +103,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   }
 
   /**
-   * Tests the webtools media source generic blacklist configuration form.
+   * Tests the Webtools media source generic blacklist configuration form.
    */
   public function testMediaWebtoolsBlacklistConfig(): void {
     $session = $this->getSession();
@@ -214,7 +214,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   }
 
   /**
-   * Creates webtools media type.
+   * Creates Webtools media type.
    *
    * @param string $media_type_id
    *   The media type id.

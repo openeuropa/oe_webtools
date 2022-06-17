@@ -1,0 +1,7 @@
+name: 'OpenEuropa Webtools Media WCLOUD Mock'
+description: 'Test module to mock WCLOUD responses.'
+package: 'OpenEuropa Webtools'
+type: module
+core_version_requirement: ^9.2
+dependencies:
+  - oe_webtools:oe_webtools_media
