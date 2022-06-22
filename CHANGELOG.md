@@ -1,11 +1,25 @@
 # Changelog
 
+## [1.18.0](https://github.com/openeuropa/oe_webtools/tree/1.18.0) (2022-06-21)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.17.0...1.18.0)
+
+**Merged pull requests:**
+
+- EWPP-2243: Add wcloud support for webtools media sources. [\#196](https://github.com/openeuropa/oe_webtools/pull/196) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- EWPP-2167: Laco ignore option. [\#195](https://github.com/openeuropa/oe_webtools/pull/195) ([upchuk](https://github.com/upchuk))
+- EWPP-1569: Allow Webtools cdown widget for Webtools media source. [\#190](https://github.com/openeuropa/oe_webtools/pull/190) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-2124: Configurable webtools media generic widget. [\#189](https://github.com/openeuropa/oe_webtools/pull/189) ([upchuk](https://github.com/upchuk))
+- EWPP-2057: Add Qlik service for chart webtools media. [\#183](https://github.com/openeuropa/oe_webtools/pull/183) ([sergepavle](https://github.com/sergepavle))
+- ISAICP-6273: Integrate with Webtools eTrans [\#178](https://github.com/openeuropa/oe_webtools/pull/178) ([brummbar](https://github.com/brummbar))
+
 ## [1.17.0](https://github.com/openeuropa/oe_webtools/tree/1.17.0) (2022-04-11)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.16.0...1.17.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.17.0. [\#188](https://github.com/openeuropa/oe_webtools/pull/188) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-2125: Add translation for ru language. [\#187](https://github.com/openeuropa/oe_webtools/pull/187) ([sergepavle](https://github.com/sergepavle))
 - EWPP-2101: Add translation for chinese and ukrainian languages. [\#186](https://github.com/openeuropa/oe_webtools/pull/186) ([sergepavle](https://github.com/sergepavle))
 - EWPP-1714: Generic webtools service. [\#179](https://github.com/openeuropa/oe_webtools/pull/179) ([yenyasinn](https://github.com/yenyasinn))
