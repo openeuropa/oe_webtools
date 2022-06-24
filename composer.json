@@ -7,15 +7,15 @@
     "prefer-stable": true,
     "require": {
         "php": ">=7.4",
-        "drupal/core": "^9.2",
+        "drupal/core": "^9.3",
         "ext-json": "*"
     },
     "require-dev": {
         "behat/behat": "^3.10",
         "composer/installers": "~1.5",
         "drupal/config_devel": "~1.2",
-        "drupal/core-composer-scaffold": "^9.2",
-        "drupal/core-dev": "^9.2",
+        "drupal/core-composer-scaffold": "^9.3",
+        "drupal/core-dev": "^9.3",
         "drupal/ctools": "^3.7",
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
@@ -24,7 +24,7 @@
         "drupal/token": "^1.10",
         "drupaltest/behat-traits": "^0.3",
         "drush/drush": "~10.3",
-        "egulias/email-validator": "^2.1.22 || ^3.0",
+        "fabpot/goutte": "^3.3",
         "nikic/php-parser": "^4.12.0",
         "openeuropa/behat-transformation-context": "~0.1",
         "openeuropa/code-review": "^2.0",
@@ -75,8 +75,8 @@
         "_readme": [
             "Explicit requirement of drupal/token module due to PHP8 compatbility.",
             "Explicit requirement of behat module due to PHP8 compatibility.",
-            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.2 compatibility.",
-            "Explicit requirement for egulias/email-validator due to https://www.drupal.org/project/drupal/issues/3061074#comment-14300579. It can be removed when Drupal core 9.2 support is droppped."
+            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.3 compatibility.",
+            "Explicit minimum version requirement of fabpot/goutte due to Drupal 9.3 compatbility."
         ]
     },
     "config": {

@@ -2,6 +2,6 @@ name: OpenEuropa Webtools eTrans
 description: Provides a block that adds translation buttons to pages.
 package: OpenEuropa Webtools
 type: module
-core_version_requirement: ^9.2
+core_version_requirement: ^9.3
 dependencies:
   - oe_webtools:oe_webtools

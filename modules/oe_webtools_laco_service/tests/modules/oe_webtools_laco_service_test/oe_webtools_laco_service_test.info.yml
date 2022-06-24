@@ -1,5 +1,5 @@
 name: 'OE Webtools Laco Service Test'
 description: 'A test module for the Laco service'
-core_version_requirement: ^9.2
+core_version_requirement: ^9.3
 type: module
 package: Testing
