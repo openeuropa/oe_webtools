@@ -1,11 +1,21 @@
 # Changelog
 
-## [1.18.0](https://github.com/openeuropa/oe_webtools/tree/1.18.0) (2022-06-21)
+## [1.19.0](https://github.com/openeuropa/oe_webtools/tree/1.19.0) (2022-07-29)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.18.0...1.19.0)
+
+**Merged pull requests:**
+
+- EWPP-2375: Add Luxembourgish string translation. [\#199](https://github.com/openeuropa/oe_webtools/pull/199) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-2358: Drupal 9.4 support. [\#197](https://github.com/openeuropa/oe_webtools/pull/197) ([yenyasinn](https://github.com/yenyasinn))
+
+## [1.18.0](https://github.com/openeuropa/oe_webtools/tree/1.18.0) (2022-06-22)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.17.0...1.18.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.18.0. [\#198](https://github.com/openeuropa/oe_webtools/pull/198) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-2243: Add wcloud support for webtools media sources. [\#196](https://github.com/openeuropa/oe_webtools/pull/196) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-2167: Laco ignore option. [\#195](https://github.com/openeuropa/oe_webtools/pull/195) ([upchuk](https://github.com/upchuk))
 - EWPP-1569: Allow Webtools cdown widget for Webtools media source. [\#190](https://github.com/openeuropa/oe_webtools/pull/190) ([22Alexandra](https://github.com/22Alexandra))
