@@ -42,6 +42,7 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Include'),
       '#default_value' => $include_value,
       '#description' => $this->t('CSS selectors within which to apply the widget.'),
+      '#required' => TRUE,
     ];
 
     $exclude_value = '';

@@ -20,7 +20,7 @@
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
-        "drupal/json_field": "~1.0-rc4",
+        "drupal/json_field": "~1.1",
         "drupal/token": "^1.10",
         "drupaltest/behat-traits": "^0.3",
         "drush/drush": "~10.3",

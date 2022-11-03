@@ -57,6 +57,7 @@ default:
         priorities dropdown menu: "#nav-menu-expandable-group-3"
       selectors:
         message_selector: ".messages"
+        error_message_selector: ".messages.messages--error"
   formatters:
     progress: ~
 
