@@ -4,7 +4,7 @@ Feature: Webtools LACO Widget
   As the site manager
   I need to be able to configure LACO widget
 
-  @BackupLacoConfigs @disable-browser-required-field-validation @javascript
+  @disable-browser-required-field-validation @javascript @BackupLacoConfigs
   Scenario: Configure Webtools Laco Widget settings
     Given I am logged in as a user with the "administer webtools laco widget configuration" permission
     When I am on "the Webtools Laco Widget configuration page"
