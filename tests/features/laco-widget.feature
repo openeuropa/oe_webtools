@@ -4,7 +4,7 @@ Feature: Webtools LACO Widget
   As the site manager
   I need to be able to configure LACO widget
 
-  @BackupLacoConfigs
+  @BackupLacoConfigs @disable-browser-required-field-validation @javascript
   Scenario: Configure Webtools Laco Widget settings
     Given I am logged in as a user with the "administer webtools laco widget configuration" permission
     When I am on "the Webtools Laco Widget configuration page"
@@ -14,7 +14,12 @@ Feature: Webtools LACO Widget
     And I fill in "Include" with ""
     And I press "Save configuration"
     And I should see the error message "Include field is required."
-    When I fill in "Include" with "header-test"
+    When I uncheck the box "Enable LACO widget"
+    And I press "Save configuration"
+    Then I should not see the text "For more information check the module"
+    And I should not see the text "Exclude"
+    When I check the box "Enable LACO widget"
+    And I fill in "Include" with "header-test"
     And I fill in "Exclude" with "footer-test"
     And I fill in "Ignore" with "/fr/"
     And I select "other" from "Document"

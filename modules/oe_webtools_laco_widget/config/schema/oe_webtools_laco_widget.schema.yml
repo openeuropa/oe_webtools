@@ -2,6 +2,9 @@ oe_webtools_laco_widget.settings:
   type: config_object
   label: 'Webtools Laco Widget settings'
   mapping:
+    enabled:
+      type: boolean
+      label: 'Enabled'
     include:
       type: sequence
       label: 'Include'

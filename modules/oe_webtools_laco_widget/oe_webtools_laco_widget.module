@@ -16,6 +16,11 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
   $logger = \Drupal::logger('oe_webtools_laco_widget');
   $config = \Drupal::config('oe_webtools_laco_widget.settings');
 
+  // Do not add LACO widget related JSON if it is disabled in the config.
+  if (!$config->get('enabled')) {
+    return;
+  }
+
   $include = $config->get('include');
   if (!$include) {
     $logger->warning('There are no selectors to include the Laco widget for.
