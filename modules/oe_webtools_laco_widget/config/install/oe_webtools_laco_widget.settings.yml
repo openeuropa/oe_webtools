@@ -1,3 +1,4 @@
+enabled: true
 include: ['body']
 exclude: ['.nolaco', '.more-link', '.pager']
 coverage:

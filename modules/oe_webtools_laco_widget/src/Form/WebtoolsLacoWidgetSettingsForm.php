@@ -28,7 +28,23 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['intro'] = [
+    $form['enabled'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable LACO widget'),
+      '#default_value' => $this->config(static::CONFIGNAME)->get('enabled'),
+    ];
+
+    $form['configuration'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Configuration'),
+      '#states' => [
+        'visible' => [
+          'input[name="enabled"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['configuration']['intro'] = [
       '#type' => 'item',
       '#description' => $this->t('For more information check the module <a href="@href">documentation</a>.', ['@href' => 'https://github.com/openeuropa/oe_webtools/blob/master/modules/oe_webtools_laco_widget/README.md']),
     ];
@@ -37,18 +53,19 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
     if (!empty($this->config(static::CONFIGNAME)->get('include'))) {
       $include_value = implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('include'));
     }
-    $form['include'] = [
+    $form['configuration']['include'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Include'),
       '#default_value' => $include_value,
       '#description' => $this->t('CSS selectors within which to apply the widget.'),
+      '#required' => TRUE,
     ];
 
     $exclude_value = '';
     if (!empty($this->config(static::CONFIGNAME)->get('exclude'))) {
       $exclude_value = implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('exclude'));
     }
-    $form['exclude'] = [
+    $form['configuration']['exclude'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Exclude'),
       '#default_value' => $exclude_value,
@@ -59,31 +76,31 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
     if (!empty($this->config(static::CONFIGNAME)->get('ignore'))) {
       $ignore_value = implode(PHP_EOL, $this->config(static::CONFIGNAME)->get('ignore'));
     }
-    $form['ignore'] = [
+    $form['configuration']['ignore'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Ignore'),
       '#default_value' => $ignore_value,
       '#description' => $this->t('Optionally specify a part/pattern of the URLs to be ignored by the LACO service.'),
     ];
-    $form['coverage'] = [
+    $form['configuration']['coverage'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Coverage'),
     ];
-    $form['coverage']['coverage_document'] = [
+    $form['configuration']['coverage']['coverage_document'] = [
       '#type' => 'select',
       '#title' => $this->t('Document'),
       '#options' => ['any' => 'any', 'other' => 'other', 'false' => 'false'],
       '#default_value' => $this->config(static::CONFIGNAME)->get('coverage.document'),
       '#description' => $this->t('Rule for links to (binary) documents.'),
     ];
-    $form['coverage']['coverage_page'] = [
+    $form['configuration']['coverage']['coverage_page'] = [
       '#type' => 'select',
       '#title' => $this->t('Page'),
       '#options' => ['any' => 'any', 'other' => 'other', 'false' => 'false'],
       '#default_value' => $this->config(static::CONFIGNAME)->get('coverage.page'),
       '#description' => $this->t('Rule for links to html pages.'),
     ];
-    $form['icon'] = [
+    $form['configuration']['icon'] = [
       '#type' => 'select',
       '#title' => $this->t('Icon'),
       '#options' => ['all' => 'all', 'dot' => 'dot'],
@@ -110,6 +127,7 @@ class WebtoolsLacoWidgetSettingsForm extends ConfigFormBase {
     ];
 
     $this->config(static::CONFIGNAME)
+      ->set('enabled', $form_values['enabled'])
       ->set('include', $include_value)
       ->set('exclude', $exclude_value)
       ->set('ignore', $ignore_value)

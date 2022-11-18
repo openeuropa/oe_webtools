@@ -8,6 +8,7 @@ default:
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\Tests\oe_webtools\Behat\MinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsAnalyticsMinkContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsConfigContext
         - Drupal\Tests\oe_webtools\Behat\WebtoolsCookieConsentContext:
@@ -57,6 +58,7 @@ default:
         priorities dropdown menu: "#nav-menu-expandable-group-3"
       selectors:
         message_selector: ".messages"
+        error_message_selector: ".messages.messages--error"
   formatters:
     progress: ~
 
