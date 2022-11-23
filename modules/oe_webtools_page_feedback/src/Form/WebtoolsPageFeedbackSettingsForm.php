@@ -32,7 +32,7 @@ class WebtoolsPageFeedbackSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('enabled'),
     ];
     $form['feedback_form_id'] = [
-      '#type' => 'number',
+      '#type' => 'textfield',
       '#title' => $this->t('Form ID'),
       '#description' => $this->t('Provide your webtools form ID.'),
       '#default_value' => $config->get('feedback_form_id'),

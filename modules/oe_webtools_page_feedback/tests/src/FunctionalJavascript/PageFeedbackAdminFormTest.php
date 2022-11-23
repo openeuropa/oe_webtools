@@ -61,15 +61,15 @@ class PageFeedbackAdminFormTest extends WebDriverTestBase {
     $page = $this->getSession()->getPage();
     $page->checkField('Enabled');
     $this->assertSession()->elementAttributeContains('css', 'input#edit-feedback-form-id', 'required', 'required');
-    $page->fillField('Form ID', '1234');
+    $page->fillField('Form ID', '1234abc');
     $page->pressButton('Save configuration');
     // Assert values are correctly saved.
     $this->assertSession()->pageTextContains('The configuration options have been saved.');
     $this->assertSession()->checkboxChecked('Enabled');
-    $this->assertSession()->fieldValueEquals('Form ID', '1234');
+    $this->assertSession()->fieldValueEquals('Form ID', '1234abc');
     $page_feedback_config = $this->config('oe_webtools_page_feedback.settings');
     $this->assertEquals(TRUE, $page_feedback_config->get('enabled'));
-    $this->assertEquals('1234', $page_feedback_config->get('feedback_form_id'));
+    $this->assertEquals('1234abc', $page_feedback_config->get('feedback_form_id'));
 
     // Disable the block and check states.
     $this->drupalLogin($user);
@@ -77,6 +77,7 @@ class PageFeedbackAdminFormTest extends WebDriverTestBase {
     $page->uncheckField('Enabled');
     $this->assertFalse($this->assertSession()->elementExists('css', 'input#edit-feedback-form-id')->hasAttribute('required'));
     $page->pressButton('Save configuration');
+    $this->assertSession()->pageTextContains('The configuration options have been saved.');
   }
 
 }

@@ -7,6 +7,6 @@ oe_webtools_page_feedback.settings:
       label: 'Enabled'
       description: 'Whether the Page Feedback Form is enabled or not.'
     feedback_form_id:
-      type: integer
+      type: string
       label: 'Form ID'
       description: 'ID of the corresponding Feedback Form where submissions will be recorded.'
