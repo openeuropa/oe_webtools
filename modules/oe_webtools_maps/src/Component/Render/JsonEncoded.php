@@ -59,7 +59,7 @@ class JsonEncoded implements MarkupInterface {
   /**
    * {@inheritdoc}
    */
-  public function jsonSerialize() {
+  public function jsonSerialize(): mixed {
     return Json::encode($this->json);
   }
 
