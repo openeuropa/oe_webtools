@@ -8,35 +8,42 @@
     "require": {
         "php": ">=8.0",
         "drupal/core": "^9.4",
-        "cweagans/composer-patches": "~1.4",
         "ext-json": "*"
     },
     "require-dev": {
         "behat/behat": "^3.10",
-        "behat/mink-extension": "^2.3.1",
+        "behat/mink-selenium2-driver": "^1.5",
         "composer/installers": "~1.5",
         "drupal/config_devel": "~1.2",
         "drupal/core-composer-scaffold": "^9.4",
+        "drupal/core-utility": "^9.4",
         "drupal/ctools": "^3.7",
-        "drupal/drupal-extension": "^4.0",
+        "drupal/drupal-extension": "dev-master as 4.0",
         "drupal/geocoder": "^3.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.1",
         "drupal/token": "^1.10",
         "drupaltest/behat-traits": "^0.3",
-        "drush/drush": "~10.3",
-        "fabpot/goutte": "^3.3",
+        "drush/drush": "^11.1",
+        "guzzlehttp/guzzle": "^7.0",
         "instaclick/php-webdriver": "^1.4.7",
+        "masterminds/html5": "^2.7.6",
+        "mikey179/vfsstream": "^1.6.10",
         "nikic/php-parser": "^4.12.0",
-        "openeuropa/behat-transformation-context": "~0.1",
-        "openeuropa/code-review": "^2.0",
+        "openeuropa/behat-transformation-context": "dev-master",
+        "openeuropa/code-review": "2.x-dev",
         "openeuropa/oe_media": "^1.15",
-        "openeuropa/oe_multilingual": "^1.10",
-        "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
-        "openeuropa/webtools-geocoding-provider": "^0.2",
+        "openeuropa/oe_multilingual": "dev-master",
+        "openeuropa/task-runner-drupal-project-symlink": "1.x-dev",
+        "openeuropa/webtools-geocoding-provider": "dev-EWPP-2921",
         "phpspec/prophecy-phpunit": "^2",
-        "symfony/dom-crawler": "^4.4.12",
-        "symfony/phpunit-bridge": "^6.0"
+        "symfony/css-selector": "^4.4.24",
+        "symfony/dom-crawler": "^4.4.44",
+        "symfony/http-foundation": "^4.4.30",
+        "symfony/phpunit-bridge": "^6.0",
+        "symfony/routing": "^4.4.30",
+        "symfony/validator": "^4.4.30",
+        "symfony/yaml": "^4.4.29"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
@@ -76,11 +83,15 @@
             }
         },
         "_readme": [
-            "Explicit requirement of drupal/token module due to PHP8 compatbility.",
+            "Explicit requirement of token module due to lower versions declaring optional parameters before the require one on token_tokens() function.",
             "Explicit requirement of behat module due to PHP8 compatibility.",
-            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.3 compatibility.",
-            "Explicit minimum version requirement of fabpot/goutte due to Drupal 9.3 compatbility.",
-            "Explicit minimum version requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits."
+            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.4 compatibility.",
+            "Explicit minimum version requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits.",
+            "Use master branch of drupal/drupal-extension to replace fabpot/goutte with behat/mink-browserkit-driver and the rest of the behat required dependencies.",
+            "Explicit minimum version requirement of mikey179/vfsstream due to lower versions missing return type on vfsStreamDirectory::getIterator() method.",
+            "Explicit minimum version requirement of guzzlehttp/guzzle due to lower versions missing return type on CookieJar::getIterator() and CookieJar::count() methods.",
+            "Explicit minimum version requirement of symfony packages due to lower versions missing return type on various methods being incompatible with PHP 8.1 parent methods.",
+            "Explicit minimum version requirement of masterminds/html5 due to lower versions passing NULL parameters instead of string when calling DOMImplementation::createDocument() method."
         ]
     },
     "config": {
