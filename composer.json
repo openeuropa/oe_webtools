@@ -7,7 +7,8 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.0",
-        "drupal/core": "^9.3",
+        "drupal/core": "^9.4",
+        "cweagans/composer-patches": "~1.4",
         "ext-json": "*"
     },
     "require-dev": {
@@ -15,8 +16,7 @@
         "behat/mink-extension": "^2.3.1",
         "composer/installers": "~1.5",
         "drupal/config_devel": "~1.2",
-        "drupal/core-composer-scaffold": "^9.3",
-        "drupal/core-dev": "^9.3",
+        "drupal/core-composer-scaffold": "^9.4",
         "drupal/ctools": "^3.7",
         "drupal/drupal-extension": "^4.0",
         "drupal/geocoder": "^3.0",
@@ -35,7 +35,8 @@
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta5",
         "openeuropa/webtools-geocoding-provider": "^0.2",
         "phpspec/prophecy-phpunit": "^2",
-        "symfony/dom-crawler": "^4.4.12"
+        "symfony/dom-crawler": "^4.4.12",
+        "symfony/phpunit-bridge": "^6.0"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
@@ -78,7 +79,8 @@
             "Explicit requirement of drupal/token module due to PHP8 compatbility.",
             "Explicit requirement of behat module due to PHP8 compatibility.",
             "Explicit lower version requirement of drupal/ctools due to Drupal core 9.3 compatibility.",
-            "Explicit minimum version requirement of fabpot/goutte due to Drupal 9.3 compatbility."
+            "Explicit minimum version requirement of fabpot/goutte due to Drupal 9.3 compatbility.",
+            "Explicit minimum version requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits."
         ]
     },
     "config": {
