@@ -240,7 +240,7 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
   /**
    * {@inheritdoc}
    */
-  public function jsonSerialize() {
+  public function jsonSerialize(): mixed {
     $data = [
       self::UTILITY => $this->getUtility(),
       self::SITE_ID => $this->getSiteId(),
