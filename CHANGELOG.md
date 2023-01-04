@@ -1,11 +1,26 @@
 # Changelog
 
-## [1.19.0](https://github.com/openeuropa/oe_webtools/tree/1.19.0) (2022-07-29)
+## [1.20.0](https://github.com/openeuropa/oe_webtools/tree/1.20.0) (2023-01-03)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.19.0...1.20.0)
+
+**Closed issues:**
+
+- Need to define siteID for dev installation [\#25](https://github.com/openeuropa/oe_webtools/issues/25)
+
+**Merged pull requests:**
+
+- EWPP-2909: Update to PHP 8.1. [\#206](https://github.com/openeuropa/oe_webtools/pull/206) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-2804: Allow alphanumeric ID for Webtools Page feedback form. [\#204](https://github.com/openeuropa/oe_webtools/pull/204) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-2709: Make Include field in laco widget settings form as required. [\#201](https://github.com/openeuropa/oe_webtools/pull/201) ([sergepavle](https://github.com/sergepavle))
+
+## [1.19.0](https://github.com/openeuropa/oe_webtools/tree/1.19.0) (2022-08-02)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.18.0...1.19.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.19.0. [\#200](https://github.com/openeuropa/oe_webtools/pull/200) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-2375: Add Luxembourgish string translation. [\#199](https://github.com/openeuropa/oe_webtools/pull/199) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-2358: Drupal 9.4 support. [\#197](https://github.com/openeuropa/oe_webtools/pull/197) ([yenyasinn](https://github.com/yenyasinn))
 
