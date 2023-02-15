@@ -78,7 +78,10 @@ class WebtoolsMapFormatter extends FormatterBase {
         'version' => '2.0',
         'map' => [
           'zoom' => $this->getSetting('zoom_level'),
-          'center' => [$item->get('lat')->getValue(), $item->get('lon')->getValue()],
+          'center' => [
+            $item->get('lat')->getValue(),
+            $item->get('lon')->getValue(),
+          ],
         ],
       ];
 
