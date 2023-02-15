@@ -1,7 +1,13 @@
 # Changelog
 
-## [1.20.0](https://github.com/openeuropa/oe_webtools/tree/1.20.0) (2023-01-03)
+## [1.21.0](https://github.com/openeuropa/oe_webtools/tree/1.21.0) (2023-02-15)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.20.0...1.21.0)
 
+**Merged pull requests:**
+
+- ISAICP-4998: Allow the formatter to automatically show the marker of the coordinates. [\#111](https://github.com/openeuropa/oe_webtools/pull/111) ([idimopoulos](https://github.com/idimopoulos))
+
+## [1.20.0](https://github.com/openeuropa/oe_webtools/tree/1.20.0) (2023-01-04)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.19.0...1.20.0)
 
 **Closed issues:**
