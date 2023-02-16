@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.21.1](https://github.com/openeuropa/oe_webtools/tree/1.21.1) (2023-02-16)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.0...1.21.1)
+
+**Merged pull requests:**
+
+- EWPP-2909: Update to PHP 8.1 (leftover). [\#209](https://github.com/openeuropa/oe_webtools/pull/209) ([claudiu-cristea](https://github.com/claudiu-cristea))
+
 ## [1.21.0](https://github.com/openeuropa/oe_webtools/tree/1.21.0) (2023-02-15)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.20.0...1.21.0)
 
