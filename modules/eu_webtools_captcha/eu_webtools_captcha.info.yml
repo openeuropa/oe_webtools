@@ -1,0 +1,9 @@
+name: Webtools Captcha
+type: module
+description: Adds an webtools captcha webform element.
+package: Custom
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:captcha
+  - drupal:oe_webtools

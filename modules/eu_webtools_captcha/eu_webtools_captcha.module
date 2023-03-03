@@ -1,0 +1,94 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for eu_webtools_captcha module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+use Drupal\oe_webtools_maps\Component\Render\JsonEncoded;
+use GuzzleHttp\Exception\ClientException;
+
+/**
+ * Implements hook_captcha().
+ */
+function eu_webtools_captcha_captcha($op, $captcha_type = '') {
+  switch ($op) {
+    case 'list':
+      return ['webtools_captcha'];
+
+    case 'generate':
+      $captcha = [];
+      if ($captcha_type == 'webtools_captcha') {
+        $captcha['solution'] = TRUE;
+        $captcha['captcha_validate'] = 'eu_webtools_captcha_captcha_validation';
+        $captcha['form']['webtools_captcha'] = [
+          '#type' => 'html_tag',
+          '#tag' => 'script',
+          '#value' => new JsonEncoded([
+            'service' => 'captcha',
+            'auto' => FALSE,
+            'ajax' => FALSE,
+          ]),
+          '#attributes' => ['type' => 'application/json'],
+          '#attached' => [
+            'library' => ['oe_webtools/drupal.webtools-smartloader'],
+          ],
+
+        ];
+        $captcha['cacheable'] = FALSE;
+      }
+      else {
+        $captcha = captcha_captcha('generate', 'Math');
+      }
+  }
+  return $captcha;
+}
+
+/**
+ * Validate the captcha answer agains the validation API.
+ */
+function eu_webtools_captcha_captcha_validation($solution, $response, $element, $form_state) {
+  $url = 'https://europa.eu/webtools/rest/captcha/verify';
+  $is_valid = FALSE;
+  if (isset($_POST['wt_captcha_sid']) && isset($_POST['wt_captcha_answer'])) {
+    $params = [
+      'sid' => $_POST['wt_captcha_sid'],
+      'answer' => $_POST['wt_captcha_answer'],
+    ];
+    try {
+      $headers = [
+        'Origin' => 'https://smart-cities-marketplace.ec.europa.eu/',
+        'Accept' => 'application/json',
+      ];
+
+      $response = \Drupal::httpClient()->post($url, [
+        'headers' => $headers,
+        'form_params' => $params,
+      ]);
+      if ($response->getStatusCode() === 200) {
+        $body = json_decode($response->getBody()->getContents());
+        if ($body->status && $body->status === "success") {
+          $is_valid = TRUE;
+        }
+      }
+    }
+    catch (ClientException $exception) {
+      \Drupal::logger('eu_webtools_captcha')->alert($exception->getMessage());
+    }
+  }
+  return $is_valid;
+}
+
+/**
+ * Implements hook_preprocess_captcha().
+ */
+function eu_webtools_captcha_preprocess_captcha(&$variables) {
+  if (!empty($variables['details'])) {
+    $variables['details']['#type'] = 'container';
+    $variables['details']['#attributes']['class'][] = 'mb-3';
+  }
+}
