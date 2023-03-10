@@ -5,7 +5,7 @@
  * Primary module hooks for eu_webtools_captcha module.
  */
 
-use Drupal\oe_webtools_maps\Component\Render\JsonEncoded;
+use Drupal\Component\Serialization\Json;
 use GuzzleHttp\Exception\ClientException;
 
 /**
@@ -24,7 +24,7 @@ function eu_webtools_captcha_captcha($op, $captcha_type = '') {
         $captcha['form']['webtools_captcha'] = [
           '#type' => 'html_tag',
           '#tag' => 'script',
-          '#value' => new JsonEncoded([
+          '#value' => Json::encode([
             'service' => 'captcha',
             'auto' => FALSE,
             'ajax' => FALSE,
