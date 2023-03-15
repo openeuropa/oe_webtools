@@ -71,7 +71,7 @@ class LacoServiceTest extends KernelTestBase {
     // enhancers.
     // @see CurrentUserContext::getRuntimeContexts().
     // @see EntityConverter::convert().
-    module_load_include('install', 'user');
+    \Drupal::moduleHandler()->loadInclude('user', 'install');
     user_install();
   }
 
