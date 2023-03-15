@@ -7,16 +7,15 @@ namespace Drupal\Tests\oe_webtools\Behat;
 use Behat\Behat\Hook\Scope\AfterScenarioScope;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Mink\Exception\DriverException;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 use Drupal\media\Entity\Media;
-use DrupalTest\BehatTraits\Traits\BrowserCapabilityDetectionTrait;
 
 /**
  * Behat step definitions related to the oe_webtools_cookie_consent module.
  */
 class WebtoolsCookieConsentContext extends RawDrupalContext {
-
-  use BrowserCapabilityDetectionTrait;
 
   /**
    * The config context.
@@ -207,6 +206,38 @@ JS;
     }
 
     return $this->selectors[$name];
+  }
+
+  /**
+   * Checks whether the browser supports JavaScript.
+   *
+   * @see https://github.com/drupaltest/behat-traits/blob/8.x-1.x/src/Traits/BrowserCapabilityDetectionTrait.php
+   *
+   * @return bool
+   *   Returns TRUE when the browser environment supports executing JavaScript
+   *   code, for example because the test is running in Selenium or PhantomJS.
+   */
+  protected function browserSupportsJavaScript(): bool {
+    $driver = $this->getSession()->getDriver();
+    try {
+      if (!$driver->isStarted()) {
+        $driver->start();
+      }
+    }
+    catch (DriverException $e) {
+      throw new \RuntimeException('Could not start webdriver.', 0, $e);
+    }
+
+    try {
+      $driver->executeScript('return;');
+      return TRUE;
+    }
+    catch (UnsupportedDriverActionException $e) {
+      return FALSE;
+    }
+    catch (DriverException $e) {
+      throw new \RuntimeException('Could not execute JavaScript.', 0, $e);
+    }
   }
 
 }
