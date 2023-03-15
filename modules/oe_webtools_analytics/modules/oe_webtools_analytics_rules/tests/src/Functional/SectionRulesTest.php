@@ -26,7 +26,7 @@ class SectionRulesTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * Test that sections for different rules are correctly rendered.

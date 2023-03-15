@@ -34,7 +34,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * Tests the Webtools media source.
