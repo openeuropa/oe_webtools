@@ -6,7 +6,7 @@ namespace Drupal\oe_webtools_cookie_consent\Event;
 
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Event fired when a page is displayed, in order to handle Cookie Consent data.

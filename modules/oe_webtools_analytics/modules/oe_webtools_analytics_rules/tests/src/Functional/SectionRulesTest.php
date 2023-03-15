@@ -17,7 +17,7 @@ class SectionRulesTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'config',
     'system',
     'oe_webtools_analytics_rules',

@@ -14,7 +14,7 @@ class LacoWidgetTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'oe_webtools_laco_widget',
   ];
 

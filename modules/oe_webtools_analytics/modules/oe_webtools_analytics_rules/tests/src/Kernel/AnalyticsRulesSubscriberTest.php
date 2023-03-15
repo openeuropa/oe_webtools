@@ -38,7 +38,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'config',
     'system',
     'oe_webtools_analytics_rules',

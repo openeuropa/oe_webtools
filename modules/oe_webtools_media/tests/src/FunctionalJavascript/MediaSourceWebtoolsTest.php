@@ -21,7 +21,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'node',
     'field_ui',
