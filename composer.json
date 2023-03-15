@@ -25,7 +25,8 @@
         "openeuropa/oe_multilingual": "^1.13",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
         "openeuropa/webtools-geocoding-provider": "^0.3",
-        "phpspec/prophecy-phpunit": "^2"
+        "phpspec/prophecy-phpunit": "^2",
+        "symfony/phpunit-bridge": "^6.2"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
