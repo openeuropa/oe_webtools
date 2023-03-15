@@ -15,7 +15,7 @@
         "composer/installers": "~1.5",
         "drupal/core-composer-scaffold": "^9.4 || ^10",
         "drupal/drupal-extension": "^5.0",
-        "drupal/geocoder": "^3.0",
+        "drupal/geocoder": "^4.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.1",
         "drupaltest/behat-traits": "^0.3",
