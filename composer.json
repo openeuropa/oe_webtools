@@ -19,6 +19,7 @@
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.1",
         "drush/drush": "^11.1",
+        "mikey179/vfsstream": "^1.6",
         "openeuropa/behat-transformation-context": "^0.2",
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_media": "^1.15",
