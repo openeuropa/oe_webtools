@@ -18,7 +18,7 @@ use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 function oe_webtools_analytics_page_attachments(array &$attachments): void {
   $event = new AnalyticsEvent();
   $event_dispatcher = \Drupal::service('event_dispatcher');
-  $event_dispatcher->dispatch(AnalyticsEvent::NAME, $event);
+  $event_dispatcher->dispatch($event, AnalyticsEvent::NAME);
 
   $existing_cache = CacheableMetadata::createFromRenderArray($attachments);
   $event_cache = CacheableMetadata::createFromObject($event);
