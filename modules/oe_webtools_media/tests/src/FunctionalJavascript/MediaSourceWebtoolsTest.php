@@ -48,9 +48,10 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $widget_type = $data[0];
       $widget_name = $data[1];
       $service = $data[2];
-      $thumbnail_filename = $data[3];
-      $invalid_service = $data[4];
-      $blacklisted_service = $data[5];
+      $service_field = $data[3];
+      $thumbnail_filename = $data[4];
+      $invalid_service = $data[5];
+      $blacklisted_service = $data[6];
 
       $media_type_id = 'test_media_webtools_type';
 
@@ -61,12 +62,12 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       $this->drupalGet("media/add/{$media_type_id}");
       $name = "Valid webtools $widget_name item";
       $assert_session->fieldExists('Name')->setValue($name);
-      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"utility": "' . $service . '"}');
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"invalid": "' . $service . '"}');
       $page->pressButton('Save');
       $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
 
       // Create a Webtools media item with valid Webtools snippet.
-      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $service . '"}');
+      $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"' . $service_field . '": "' . $service . '"}');
       $page->pressButton('Save');
       $assert_session->addressEquals('admin/content/media');
 
@@ -77,13 +78,13 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
 
       // Check that all fields are properly populated.
       $this->assertSame("Valid webtools $widget_name item", $media->getName());
-      $this->assertSame('{"service": "' . $service . '"}', $media->get('field_media_webtools')->value);
+      $this->assertSame('{"' . $service_field . '": "' . $service . '"}', $media->get('field_media_webtools')->value);
 
       // Create a Webtools media item with invalid Webtools snippet.
       if ($invalid_service) {
         $this->drupalGet("media/add/{$media_type_id}");
         $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
-        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $invalid_service . '"}');
+        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"' . $service_field . '": "' . $invalid_service . '"}');
         $page->pressButton('Save');
         $assert_session->pageTextContains("Invalid webtools {$widget_name} snippet.");
       }
@@ -92,7 +93,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       if ($blacklisted_service) {
         $this->drupalGet("media/add/{$media_type_id}");
         $assert_session->fieldExists('Name')->setValue("Invalid webtools $widget_name item");
-        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"service": "' . $blacklisted_service . '"}');
+        $assert_session->fieldExists("Webtools {$widget_name} snippet")->setValue('{"' . $service_field . '": "' . $blacklisted_service . '"}');
         $page->pressButton('Save');
         $assert_session->pageTextContains('This service is supported by a dedicated asset type or feature, please use that instead.');
       }
@@ -180,36 +181,86 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    *   - widget type
    *   - widget name
    *   - service name that is used by widget
+   *   - field name for service name
    *   - thumbnail filename of the widget
    *   - service name that is not allowed.
    *   - service name that is in the blacklist.
    */
   public function getTestMediaWebtoolsSourceData(): array {
     return [
-      ['chart', 'Chart', 'charts', '/charts-embed-no-bg.png', 'smk', ''],
-      ['chart', 'Chart', 'chart', '/charts-embed-no-bg.png', 'smk', ''],
-      ['chart', 'Chart', 'racing', '/charts-embed-no-bg.png', 'smk', ''],
-      ['map', 'Map', 'map', '/maps-embed-no-bg.png', 'smk', ''],
-      ['chart', 'Chart', 'qlik', '/charts-embed-no-bg.png', 'smk', ''],
+      [
+        'chart',
+        'Chart',
+        'charts',
+        'service',
+        '/charts-embed-no-bg.png',
+        'smk',
+        '',
+      ],
+      [
+        'chart',
+        'Chart',
+        'chart',
+        'service',
+        '/charts-embed-no-bg.png',
+        'smk',
+        '',
+      ],
+      [
+        'chart',
+        'Chart',
+        'racing',
+        'service',
+        '/charts-embed-no-bg.png',
+        'smk',
+        '',
+      ],
+      ['map', 'Map', 'map', 'service', '/maps-embed-no-bg.png', 'smk', ''],
+      [
+        'chart',
+        'Chart',
+        'qlik',
+        'service',
+        '/charts-embed-no-bg.png',
+        'smk',
+        '',
+      ],
       [
         'social_feed',
         'Social feed',
         'smk',
+        'service',
         '/twitter-embed-no-bg.png',
         'map',
         '',
       ],
-      ['opwidget', 'OP Publication list', 'opwidget', '/generic.png', 'smk', ''],
-      ['cdown', 'Countdown', 'cdown', '/generic.png', 'map', ''],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'charts'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'chart'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'racing'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'map'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'smk'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'opwidget'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'etrans'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'cdown'],
-      ['generic', 'Generic', 'captcha', '/generic.png', '', 'qlik'],
+      [
+        'opwidget',
+        'OP Publication list',
+        'opwidget',
+        'utility',
+        '/generic.png',
+        'smk',
+        '',
+      ],
+      ['cdown', 'Countdown', 'cdown', 'service', '/generic.png', 'map', ''],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'charts'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'chart'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'racing'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'map'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'smk'],
+      [
+        'generic',
+        'Generic',
+        'captcha',
+        'service',
+        '/generic.png',
+        '',
+        'opwidget',
+      ],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'etrans'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'cdown'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'qlik'],
     ];
   }
 

@@ -87,6 +87,11 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       }
     }
 
+    // Adapt snippet validation for 'opwidget' service.
+    if (!empty($snippet['utility']) && $snippet['utility'] === 'opwidget') {
+      $snippet['service'] = $snippet['utility'];
+    }
+
     // Add violation in case incorrect services.
     $services = $widget_types[$constraint->widgetType]['services'] ?? [$widget_types[$constraint->widgetType]['service']];
     if (empty($snippet['service']) || (!empty($services) && !in_array($snippet['service'], $services))) {
