@@ -9,7 +9,7 @@ use Drupal\Core\Controller\ControllerResolverInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -67,10 +67,10 @@ class LacoServiceSubscriber implements EventSubscriberInterface {
    *
    * Changes the controller on Laco requests.
    *
-   * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\ControllerEvent $event
    *   The dispatched event.
    */
-  public function onController(FilterControllerEvent $event): void {
+  public function onController(ControllerEvent $event): void {
     if (!$event->getRequest()->attributes->get('_is_laco_request')) {
       return;
     }

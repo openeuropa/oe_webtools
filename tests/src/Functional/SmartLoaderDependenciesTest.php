@@ -17,7 +17,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'config',
     'system',
     'path_alias',

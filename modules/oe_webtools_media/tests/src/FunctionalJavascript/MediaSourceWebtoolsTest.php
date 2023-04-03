@@ -21,7 +21,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'system',
     'node',
     'field_ui',
@@ -34,7 +34,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'classy';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * Tests the Webtools media source.

@@ -25,7 +25,6 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   selenium:
-    # Newer Selenium Chrome images are not supported at the moment by behat/mink-selenium2-driver.
     image: registry.fpfis.eu/fpfis/selenium:standalone-chrome-3.141.59-oxygen
     shm_size: 2g
     environment:
@@ -37,29 +36,14 @@ services:
       - NODE_MAX_SESSION=5
 
 pipeline:
-  composer-install-lowest:
+  composer-install:
     group: prepare
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     volumes:
-      - /cache:/cache
+      - /cache/${DRONE_REPO_NAME}:/cache
     commands:
       - composer self-update --2
-      - composer update --prefer-lowest --prefer-stable --ansi --no-progress
-    when:
-      matrix:
-        COMPOSER_BOUNDARY: lowest
-
-  composer-install-highest:
-    group: prepare
-    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
-    volumes:
-      - /cache:/cache
-    commands:
-      - composer self-update --2
-      - composer install --ansi --no-progress
-    when:
-      matrix:
-        COMPOSER_BOUNDARY: highest
+      - composer require drupal/core:~${CORE_VERSION} drupal/core-composer-scaffold:~${CORE_VERSION} --update-with-all-dependencies --ansi --no-progress --no-interaction
 
   site-install:
     image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
@@ -94,9 +78,10 @@ pipeline:
       status: failure
 
 matrix:
-  COMPOSER_BOUNDARY:
-    - lowest
-    - highest
-  PHP_VERSION:
-    - 8.0
-    - 8.1
+  include:
+    - CORE_VERSION: 9.4.0
+      PHP_VERSION: 8.0
+    - CORE_VERSION: 9.4.0
+      PHP_VERSION: 8.1
+    - CORE_VERSION: 10.0
+      PHP_VERSION: 8.1

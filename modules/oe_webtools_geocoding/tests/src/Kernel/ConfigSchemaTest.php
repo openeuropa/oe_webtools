@@ -34,7 +34,7 @@ class ConfigSchemaTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->installConfig(['geocoder']);
     $this->typedConfigManager = \Drupal::service('config.typed');

@@ -3,7 +3,7 @@ description: 'Allows to use Webtools Maps in sites built on the OpenEuropa platf
 package: 'OpenEuropa Webtools'
 
 type: module
-core_version_requirement: ^9.3
+core_version_requirement: ^9.4 || ^10
 
 dependencies:
   - geofield:geofield

@@ -23,7 +23,7 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'json_field',
     'oe_webtools',
     'oe_webtools_media',

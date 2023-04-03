@@ -16,7 +16,7 @@ use Drupal\Core\File\FileSystemInterface;
  * @see \media_install()
  */
 function oe_webtools_media_install() {
-  $source = drupal_get_path('module', 'oe_webtools_media') . '/images/icons';
+  $source = \Drupal::service('extension.list.module')->getPath('oe_webtools_media') . '/images/icons';
   $destination = \Drupal::config('media.settings')->get('icon_base_uri');
   /** @var \Drupal\Core\File\FileSystemInterface $file_system */
   $file_system = \Drupal::service('file_system');
