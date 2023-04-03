@@ -26,7 +26,7 @@ abstract class LacoServiceMiddlewareBase implements HttpKernelInterface {
   protected $httpKernel;
 
   /**
-   * Constructs a LacoServiceMiddleware object.
+   * Constructs a LacoServiceMiddlewareBase object.
    *
    * @param \Symfony\Component\HttpKernel\HttpKernelInterface $http_kernel
    *   The decorated kernel.
