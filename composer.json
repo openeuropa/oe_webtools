@@ -11,7 +11,6 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "behat/behat": "^3.10",
         "composer/installers": "~1.5",
         "drupal/core-composer-scaffold": "^9.4 || ^10",
         "drupal/drupal-extension": "^5.0",
@@ -67,15 +66,8 @@
             }
         },
         "_readme": [
-            "Explicit requirement of token module due to lower versions declaring optional parameters before the require one on token_tokens() function.",
-            "Explicit requirement of behat module due to PHP8 compatibility.",
-            "Explicit lower version requirement of drupal/ctools due to Drupal core 9.4 compatibility.",
-            "Explicit minimum version requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits.",
-            "Use master branch of drupal/drupal-extension to replace fabpot/goutte with behat/mink-browserkit-driver and the rest of the behat required dependencies.",
-            "Explicit minimum version requirement of mikey179/vfsstream due to lower versions missing return type on vfsStreamDirectory::getIterator() method.",
-            "Explicit minimum version requirement of guzzlehttp/guzzle due to lower versions missing return type on CookieJar::getIterator() and CookieJar::count() methods.",
-            "Explicit minimum version requirement of symfony packages due to lower versions missing return type on various methods being incompatible with PHP 8.1 parent methods.",
-            "Explicit minimum version requirement of masterminds/html5 due to lower versions passing NULL parameters instead of string when calling DOMImplementation::createDocument() method."
+            "Explicit requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits.",
+            "Explicit requirement of mikey179/vfsstream to remove when drupal/core-dev is reinstated."
         ]
     },
     "config": {
