@@ -1,17 +1,30 @@
-# Changelog
+# Change Log
+
+## [1.22.0](https://github.com/openeuropa/oe_webtools/tree/1.22.0) (2023-04-06)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.1...1.22.0)
+
+**Closed issues:**
+
+-  oe\_webtools\_analytics seems not be compatible with 8.1 PHP version [\#202](https://github.com/openeuropa/oe_webtools/issues/202)
+
+**Merged pull requests:**
+
+- EWPP-3010: Drupal 10 compatibility. [\#212](https://github.com/openeuropa/oe_webtools/pull/212) ([brummbar](https://github.com/brummbar))
 
 ## [1.21.1](https://github.com/openeuropa/oe_webtools/tree/1.21.1) (2023-02-16)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.0...1.21.1)
 
 **Merged pull requests:**
 
-- EWPP-2909: Update to PHP 8.1 (leftover). [\#209](https://github.com/openeuropa/oe_webtools/pull/209) ([claudiu-cristea](https://github.com/claudiu-cristea))
+- Prepare changelog for release 1.21.1. [\#210](https://github.com/openeuropa/oe_webtools/pull/210) ([claudiu-cristea](https://github.com/claudiu-cristea))
+- Fix PHP8 deprecation notice [\#209](https://github.com/openeuropa/oe_webtools/pull/209) ([claudiu-cristea](https://github.com/claudiu-cristea))
 
 ## [1.21.0](https://github.com/openeuropa/oe_webtools/tree/1.21.0) (2023-02-15)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.20.0...1.21.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.21.0. [\#208](https://github.com/openeuropa/oe_webtools/pull/208) ([brummbar](https://github.com/brummbar))
 - ISAICP-4998: Allow the formatter to automatically show the marker of the coordinates. [\#111](https://github.com/openeuropa/oe_webtools/pull/111) ([idimopoulos](https://github.com/idimopoulos))
 
 ## [1.20.0](https://github.com/openeuropa/oe_webtools/tree/1.20.0) (2023-01-04)
