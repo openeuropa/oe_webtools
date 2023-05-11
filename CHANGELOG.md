@@ -1,6 +1,15 @@
-# Change Log
+# Changelog
 
-## [1.22.0](https://github.com/openeuropa/oe_webtools/tree/1.22.0) (2023-04-06)
+## [1.23.0](https://github.com/openeuropa/oe_webtools/tree/1.23.0) (2023-05-11)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.22.0...1.23.0)
+
+**Merged pull requests:**
+
+- EWPP-2775: Adapt WebtoolsMediaConstraintValidator for opwidget service. [\#213](https://github.com/openeuropa/oe_webtools/pull/213) ([sergepavle](https://github.com/sergepavle))
+
+## [1.22.0](https://github.com/openeuropa/oe_webtools/tree/1.22.0) (2023-04-11)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.1...1.22.0)
 
 **Closed issues:**
@@ -9,9 +18,11 @@
 
 **Merged pull requests:**
 
+- Prepare changelog for release 1.22.0 [\#214](https://github.com/openeuropa/oe_webtools/pull/214) ([brummbar](https://github.com/brummbar))
 - EWPP-3010: Drupal 10 compatibility. [\#212](https://github.com/openeuropa/oe_webtools/pull/212) ([brummbar](https://github.com/brummbar))
 
 ## [1.21.1](https://github.com/openeuropa/oe_webtools/tree/1.21.1) (2023-02-16)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.0...1.21.1)
 
 **Merged pull requests:**
@@ -20,6 +31,7 @@
 - Fix PHP8 deprecation notice [\#209](https://github.com/openeuropa/oe_webtools/pull/209) ([claudiu-cristea](https://github.com/claudiu-cristea))
 
 ## [1.21.0](https://github.com/openeuropa/oe_webtools/tree/1.21.0) (2023-02-15)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.20.0...1.21.0)
 
 **Merged pull requests:**
@@ -28,6 +40,7 @@
 - ISAICP-4998: Allow the formatter to automatically show the marker of the coordinates. [\#111](https://github.com/openeuropa/oe_webtools/pull/111) ([idimopoulos](https://github.com/idimopoulos))
 
 ## [1.20.0](https://github.com/openeuropa/oe_webtools/tree/1.20.0) (2023-01-04)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.19.0...1.20.0)
 
 **Closed issues:**
@@ -36,6 +49,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.20.0. [\#207](https://github.com/openeuropa/oe_webtools/pull/207) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-2909: Update to PHP 8.1. [\#206](https://github.com/openeuropa/oe_webtools/pull/206) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-2804: Allow alphanumeric ID for Webtools Page feedback form. [\#204](https://github.com/openeuropa/oe_webtools/pull/204) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-2709: Make Include field in laco widget settings form as required. [\#201](https://github.com/openeuropa/oe_webtools/pull/201) ([sergepavle](https://github.com/sergepavle))
