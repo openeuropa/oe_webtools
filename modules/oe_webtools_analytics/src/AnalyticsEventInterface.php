@@ -56,12 +56,20 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
    * Refine the statistics by indicating a site section  or a subwebsite.
    */
   public const SITE_SECTION = 'siteSection';
+
   /**
    * Set to true when search with the parameters form SearchParameters class.
    *
    * @see \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    */
   public const SEARCH = 'search';
+
+  /**
+   * Set to true when search with the parameters form SearchParameters class.
+   *
+   * @see \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
+   */
+  public const DIMENSIONS = 'dimensions';
 
   /**
    * Set the search parameters object.

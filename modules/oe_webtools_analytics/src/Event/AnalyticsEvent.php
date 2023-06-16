@@ -6,6 +6,8 @@ namespace Drupal\oe_webtools_analytics\Event;
 
 use Drupal\Core\Cache\RefinableCacheableDependencyTrait;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use Drupal\oe_webtools_analytics\CustomDimensions;
+use Drupal\oe_webtools_analytics\CustomDimensionsInterface;
 use Drupal\oe_webtools_analytics\Search\SearchParameters;
 use Drupal\oe_webtools_analytics\Search\SearchParametersInterface;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -88,6 +90,13 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
   protected $search;
 
   /**
+   * The custom dimensions.
+   *
+   * @var \Drupal\oe_webtools_analytics\CustomDimensionsInterface
+   */
+  protected $dimensions;
+
+  /**
    * The analytic parameter.
    *
    * @var string
@@ -109,6 +118,14 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
     $this->setIs403Page();
     $this->setSiteId();
     $this->setSearchParameters(new SearchParameters());
+    $this->setDimensions(new CustomDimensions());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setDimensions(CustomDimensionsInterface $dimensions): void {
+    $this->dimensions = $dimensions;
   }
 
   /**
@@ -240,6 +257,13 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
   /**
    * {@inheritdoc}
    */
+  public function getDimensions(): CustomDimensionsInterface {
+    return $this->dimensions;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function jsonSerialize(): mixed {
     $data = [
       self::UTILITY => $this->getUtility(),
@@ -254,6 +278,10 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
 
     if ($this->search->isSetKeyword()) {
       $data[self::SEARCH] = $this->search->jsonSerialize();
+    }
+
+    if ($this->dimensions->hasCustomDimensions()) {
+      $data[self::DIMENSIONS] = $this->dimensions->getDimensions();
     }
 
     return array_filter($data);
