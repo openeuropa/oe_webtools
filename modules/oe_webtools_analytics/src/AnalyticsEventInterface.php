@@ -151,6 +151,14 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
   public function setUtility(string $utility = 'piwik'): void;
 
   /**
+   * Sets custom dimensions.
+   *
+   * @param \Drupal\oe_webtools_analytics\CustomDimensionsInterface $dimensions
+   *   The instance of custom dimensions.
+   */
+  public function setDimensions(CustomDimensionsInterface $dimensions): void;
+
+  /**
    * Get siteID.
    *
    * @return string
@@ -221,6 +229,14 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
    *   A string which by default is "piwik"
    */
   public function getUtility(): string;
+
+  /**
+   * Get custom dimensions.
+   *
+   * @return \Drupal\oe_webtools_analytics\CustomDimensionsInterface
+   *   The custom dimensions.
+   */
+  public function getDimensions(): CustomDimensionsInterface;
 
   /**
    * A mandatory field "siteId".
