@@ -65,7 +65,7 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
   public const SEARCH = 'search';
 
   /**
-   * Set to true when search with the parameters form SearchParameters class.
+   * Allows to define additional custom dimensions.
    *
    * @see \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    */
