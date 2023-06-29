@@ -10,10 +10,10 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule;
 use Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface;
+use Drupal\path_alias\AliasManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**

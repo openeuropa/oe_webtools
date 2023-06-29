@@ -56,12 +56,20 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
    * Refine the statistics by indicating a site section  or a subwebsite.
    */
   public const SITE_SECTION = 'siteSection';
+
   /**
    * Set to true when search with the parameters form SearchParameters class.
    *
    * @see \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
    */
   public const SEARCH = 'search';
+
+  /**
+   * Allows to define additional custom dimensions.
+   *
+   * @see \Drupal\oe_webtools_analytics\Search\SearchParametersInterface
+   */
+  public const DIMENSIONS = 'dimensions';
 
   /**
    * Set the search parameters object.
@@ -143,6 +151,14 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
   public function setUtility(string $utility = 'piwik'): void;
 
   /**
+   * Sets custom dimensions.
+   *
+   * @param \Drupal\oe_webtools_analytics\CustomDimensionsInterface $dimensions
+   *   The instance of custom dimensions.
+   */
+  public function setDimensions(CustomDimensionsInterface $dimensions): void;
+
+  /**
    * Get siteID.
    *
    * @return string
@@ -213,6 +229,14 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
    *   A string which by default is "piwik"
    */
   public function getUtility(): string;
+
+  /**
+   * Get custom dimensions.
+   *
+   * @return \Drupal\oe_webtools_analytics\CustomDimensionsInterface
+   *   The custom dimensions.
+   */
+  public function getDimensions(): CustomDimensionsInterface;
 
   /**
    * A mandatory field "siteId".

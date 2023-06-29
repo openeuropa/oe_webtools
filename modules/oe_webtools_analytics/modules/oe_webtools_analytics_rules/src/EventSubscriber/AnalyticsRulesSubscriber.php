@@ -6,8 +6,8 @@ namespace Drupal\oe_webtools_analytics_rules\EventSubscriber;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Drupal\oe_webtools_analytics_rules\RuleMatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
