@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.24.0](https://github.com/openeuropa/oe_webtools/tree/1.24.0) (2023-06-30)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.23.0...1.24.0)
+
+**Merged pull requests:**
+
+- EWPP-3326: Add support of webtools custom dimensions. [\#216](https://github.com/openeuropa/oe_webtools/pull/216) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.23.0](https://github.com/openeuropa/oe_webtools/tree/1.23.0) (2023-05-11)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.22.0...1.23.0)
 
 **Merged pull requests:**
 
+- Prepare changelog for 1.23.0 release. [\#215](https://github.com/openeuropa/oe_webtools/pull/215) ([sergepavle](https://github.com/sergepavle))
 - EWPP-2775: Adapt WebtoolsMediaConstraintValidator for opwidget service. [\#213](https://github.com/openeuropa/oe_webtools/pull/213) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.22.0](https://github.com/openeuropa/oe_webtools/tree/1.22.0) (2023-04-11)
