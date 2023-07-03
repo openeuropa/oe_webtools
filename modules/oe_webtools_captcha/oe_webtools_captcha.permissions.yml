@@ -1,0 +1,3 @@
+administer webtools captcha:
+  title: 'Administer Webtools Captcha'
+  restrict access: false

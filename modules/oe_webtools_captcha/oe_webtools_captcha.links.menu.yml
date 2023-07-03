@@ -1,0 +1,5 @@
+oe_webtools_captcha.settings:
+  title: Webtools Captcha
+  description: 'Configure Webtools Captcha.'
+  route_name: oe_webtools_captcha.settings
+  parent: system.admin_config_system
