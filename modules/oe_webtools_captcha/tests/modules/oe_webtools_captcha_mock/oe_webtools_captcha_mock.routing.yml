@@ -1,0 +1,8 @@
+oe_webtools_captcha_mock.validate:
+  path: '/oe_webtools_captcha_mock/validate'
+  methods: [POST]
+  defaults:
+    _controller: '\Drupal\oe_webtools_captcha_mock\Controller\MockController::validate'
+    _title: 'Mock Validation'
+  requirements:
+    _access: 'TRUE'

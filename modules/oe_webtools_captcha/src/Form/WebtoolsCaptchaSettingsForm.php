@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Drupal\oe_webtools_captcha\Form;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -30,12 +31,23 @@ class WebtoolsCaptchaSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state): array {
     $form['validationEndpoint'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Validation endpoint ID'),
+      '#title' => $this->t('Validation endpoint'),
       '#default_value' => $this->config(static::CONFIG_NAME)->get('validationEndpoint'),
       '#description' => $this->t('The URL of the captcha validation endpoint.'),
     ];
 
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
+    $value = $form_state->getValue('validationEndpoint');
+    if (!UrlHelper::isValid($value)) {
+      $form_state->setErrorByName('validationEndpoint', 'The given URL is not a valid URL.');
+    }
+    parent::validateForm($form, $form_state);
   }
 
   /**
@@ -52,7 +64,7 @@ class WebtoolsCaptchaSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   protected function getEditableConfigNames(): array {
-    return ['oe_webtools_captcha.settings'];
+    return [static::CONFIG_NAME];
   }
 
 }

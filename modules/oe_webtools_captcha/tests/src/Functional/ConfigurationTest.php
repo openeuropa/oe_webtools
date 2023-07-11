@@ -28,7 +28,7 @@ class ConfigurationTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
-   * Tests The configuration is well saved from the form to config.
+   * Tests The configuration is well saved from the form to the config.
    */
   public function testConfigurationForm(): void {
     // Assert the default configuration.

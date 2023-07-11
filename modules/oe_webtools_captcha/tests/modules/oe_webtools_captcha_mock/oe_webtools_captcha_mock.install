@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Install, uninstall hooks for OpenEuropa Webtools Captcha Mock module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_install().
+ */
+function oe_webtools_captcha_mock_install() {
+  // Change the validation endpoint to the mock.
+  $captcha_settings = \Drupal::configFactory()->getEditable('oe_webtools_captcha.settings');
+  $captcha_settings->set('validationEndpoint', Url::fromUserInput('/oe_webtools_captcha_mock/validate', ['absolute' => TRUE])->toString());
+  $captcha_settings->save();
+}

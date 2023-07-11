@@ -8,6 +8,7 @@
 declare(strict_types = 1);
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Core\Url;
 use GuzzleHttp\Exception\ClientException;
 
 /**
@@ -49,25 +50,28 @@ function oe_webtools_captcha_captcha($op, $captcha_type = '') {
  */
 function oe_webtools_captcha_captcha_validation($solution, $response, $element, $form_state): bool {
   $validation_endpoint = \Drupal::config('oe_webtools_captcha.settings')->get('validationEndpoint');
+  $url = Url::fromUri($validation_endpoint);
   $is_valid = FALSE;
-  if (isset($_POST['wt_captcha_sid']) && isset($_POST['wt_captcha_answer']) && $validation_endpoint) {
+  if ($url) {
     $params = [
-      'sid' => $_POST['wt_captcha_sid'],
-      'answer' => $_POST['wt_captcha_answer'],
+      // Map the parameters for the validation endpoint.
+      'sid' => $_POST['wt_captcha_sid'] ?? '',
+      'answer' => $_POST['wt_captcha_answer'] ?? '',
     ];
     try {
       $headers = [
+        // This is needed by the endpoint.
         'Origin' => 'https://ec.europa.eu/',
         'Accept' => 'application/json',
       ];
 
-      $response = \Drupal::httpClient()->post($validation_endpoint, [
+      $response = \Drupal::httpClient()->post($url->toString(), [
         'headers' => $headers,
         'form_params' => $params,
       ]);
       if ($response->getStatusCode() === 200) {
         $body = json_decode($response->getBody()->getContents());
-        if ($body->status && $body->status === "success") {
+        if ($body->status === "success") {
           $is_valid = TRUE;
         }
       }
