@@ -1,7 +1,0 @@
-oe_webtools_captcha.settings:
-  path: '/admin/config/system/oe_webtools_captcha'
-  defaults:
-    _form: 'Drupal\oe_webtools_captcha\Form\WebtoolsCaptchaSettingsForm'
-    _title: 'Webtools Captcha settings'
-  requirements:
-    _permission: 'administer webtools captcha'
