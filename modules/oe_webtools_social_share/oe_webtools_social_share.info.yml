@@ -2,7 +2,7 @@ name: 'OpenEuropa Webtools Social Share'
 description: 'Provide social sharing functionality for a site.'
 package: 'OpenEuropa Webtools'
 type: module
-core_version_requirement: ^9.4 || ^10
+core_version_requirement: ^9.5 || ^10
 
 dependencies:
   - oe_webtools:oe_webtools
