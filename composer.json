@@ -13,7 +13,7 @@
     "require-dev": {
         "composer/installers": "~1.5",
         "drupal/captcha": "^1.10 || ^2.0",
-        "drupal/core-composer-scaffold": "^9.4 || ^10",
+        "drupal/core-composer-scaffold": "^9.5 || ^10",
         "drupal/drupal-extension": "^5.0",
         "drupal/geocoder": "^4.0",
         "drupal/geofield": "^1.0",

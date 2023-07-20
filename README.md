@@ -35,6 +35,12 @@ The Webtools module contains a submodule that provides a service for providing
 analytics information. For more information on how to use and configure this module,
 check out the module [README](modules/oe_webtools_analytics/README.md).
 
+### OpenEuropa Webtools Captcha
+
+The Webtools module contains a submodule that integrates the webtools captcha
+capabilities. For more information on how to use and configure this module,
+check out the module [README](modules/oe_webtools_captcha/README.md).
+
 ### OpenEuropa Webtools eTrans
 
 The Webtools eTrans module provides a block that will show a link to the machine
