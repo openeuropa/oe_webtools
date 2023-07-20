@@ -12,5 +12,5 @@ installation!
 
 ### Usage
 
-Drupal state variable `captcha_mock_response` is used to determine the
-if the validation should return `success` or `error`. See the `MockController::class`.
+Drupal state variable `captcha_mock_response` is used to determine if the
+validation should return `success` or `error`. See the `MockController::class`.
