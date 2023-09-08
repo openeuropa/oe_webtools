@@ -111,7 +111,14 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    */
   public function assertOembedIframeWithCckUsage(): void {
     $iframe_url = $this->getSession()->getPage()->find('css', $this->getSelector('oembed_video'))->getAttribute('src');
-    $this->visitPath(str_replace(rtrim($this->getDrupalParameter('drupal')['drupal_root'], '/'), '', $iframe_url));
+    // @see https://www.drupal.org/project/drupal/issues/3311469.
+    if (version_compare(\Drupal::VERSION, '10.1.3') >= 0) {
+      $base_url = $this->getMinkParameter('base_url');
+    }
+    else {
+      $base_url = $this->getDrupalParameter('drupal')['drupal_root'];
+    }
+    $this->visitPath(str_replace(rtrim($base_url, '/'), '', $iframe_url));
     $this->assertSession()->elementExists('css', "iframe[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . "?oriurl=']");
   }
 
@@ -122,7 +129,14 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
    */
   public function assertNoOembedIframeWithCckUsage(): void {
     $iframe_url = $this->getSession()->getPage()->find('css', $this->getSelector('oembed_video'))->getAttribute('src');
-    $this->visitPath(str_replace(rtrim($this->getDrupalParameter('drupal')['drupal_root'], '/'), '', $iframe_url));
+    // @see https://www.drupal.org/project/drupal/issues/3311469.
+    if (version_compare(\Drupal::VERSION, '10.1.3') >= 0) {
+      $base_url = $this->getMinkParameter('base_url');
+    }
+    else {
+      $base_url = $this->getDrupalParameter('drupal')['drupal_root'];
+    }
+    $this->visitPath(str_replace(rtrim($base_url, '/'), '', $iframe_url));
     $this->assertSession()->elementNotExists('css', "iframe[src^='" . OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL . "?oriurl=']");
   }
 
