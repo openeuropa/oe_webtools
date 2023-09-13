@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for oe_webtools_captcha module.
+ */
+
+declare(strict_types = 1);
+
+use Drupal\Component\Serialization\Json;
+use Drupal\Core\Url;
+use GuzzleHttp\Exception\ClientException;
+
+/**
+ * Implements hook_captcha().
+ */
+function oe_webtools_captcha_captcha($op, $captcha_type = '') {
+  $captcha = [];
+  switch ($op) {
+    case 'list':
+      return ['Webtools captcha'];
+
+    case 'generate':
+      if ($captcha_type === 'Webtools captcha') {
+        $captcha['solution'] = TRUE;
+        $captcha['captcha_validate'] = 'oe_webtools_captcha_captcha_validation';
+        $captcha['form']['oe_webtools_captcha'] = [
+          '#type' => 'html_tag',
+          '#tag' => 'script',
+          '#value' => Json::encode([
+            'service' => 'captcha',
+            'auto' => FALSE,
+            'ajax' => FALSE,
+          ]),
+          '#attributes' => ['type' => 'application/json'],
+          '#attached' => [
+            'library' => ['oe_webtools/drupal.webtools-smartloader'],
+          ],
+          '#cache' => ['max-age' => 0],
+        ];
+        $captcha['cacheable'] = FALSE;
+      }
+      break;
+  }
+  return $captcha;
+}
+
+/**
+ * Validate the captcha answer against the validation API.
+ */
+function oe_webtools_captcha_captcha_validation($solution, $response, $element, $form_state): bool {
+  $url = FALSE;
+  $is_valid = FALSE;
+  $validation_endpoint = \Drupal::config('oe_webtools_captcha.settings')->get('validationEndpoint');
+  try {
+    $url = Url::fromUri($validation_endpoint);
+  }
+  catch (\InvalidArgumentException $e) {
+    \Drupal::logger('oe_webtools_captcha')->alert($e->getMessage());
+  }
+  if ($url) {
+    $params = [
+      // Map the parameters for the validation endpoint.
+      'sid' => $_POST['wt_captcha_sid'] ?? '',
+      'answer' => $_POST['wt_captcha_answer'] ?? '',
+    ];
+    try {
+      $headers = [
+        // This is needed by the endpoint.
+        'Origin' => 'https://ec.europa.eu/',
+        'Accept' => 'application/json',
+      ];
+
+      $response = \Drupal::httpClient()->post($url->toString(), [
+        'headers' => $headers,
+        'form_params' => $params,
+      ]);
+      if ($response->getStatusCode() === 200) {
+        $body = json_decode($response->getBody()->getContents());
+        if ($body->status === "success") {
+          $is_valid = TRUE;
+        }
+      }
+    }
+    catch (ClientException $exception) {
+      \Drupal::logger('oe_webtools_captcha')->alert($exception->getMessage());
+    }
+  }
+  return $is_valid;
+}
