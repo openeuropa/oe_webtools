@@ -1,11 +1,25 @@
 # Changelog
 
+## [1.25.0](https://github.com/openeuropa/oe_webtools/tree/1.25.0) (2023-09-14)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.24.0...1.25.0)
+
+**Closed issues:**
+
+- Webtools Sliding Captcha integration [\#203](https://github.com/openeuropa/oe_webtools/issues/203)
+
+**Merged pull requests:**
+
+- EWPP-3345: Fix behat step for asserting CCK usage. [\#219](https://github.com/openeuropa/oe_webtools/pull/219) ([sergepavle](https://github.com/sergepavle))
+- EWPP-3386: Implement the webtools sliding captcha. [\#218](https://github.com/openeuropa/oe_webtools/pull/218) ([nagyad](https://github.com/nagyad))
+
 ## [1.24.0](https://github.com/openeuropa/oe_webtools/tree/1.24.0) (2023-06-30)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.23.0...1.24.0)
 
 **Merged pull requests:**
 
+- Release-1.24.0: Update changelog. [\#217](https://github.com/openeuropa/oe_webtools/pull/217) ([nagyad](https://github.com/nagyad))
 - EWPP-3326: Add support of webtools custom dimensions. [\#216](https://github.com/openeuropa/oe_webtools/pull/216) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.23.0](https://github.com/openeuropa/oe_webtools/tree/1.23.0) (2023-05-11)
