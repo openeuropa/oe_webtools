@@ -46,7 +46,7 @@ class WtagWidget extends WidgetBase {
       '#description' => $this->t('The title of the modal.'),
     ];
     $element['modal_description'] = [
-      '#type' => 'textfield',
+      '#type' => 'textarea',
       '#title' => $this->t('Modal description'),
       '#default_value' => $this->getSetting('modal_description'),
       '#description' => $this->t('The introductory text on the modal.'),
@@ -114,7 +114,6 @@ class WtagWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     return is_array($values['target_id']) ? $values['target_id'] : [];
   }
-
 
   /**
    * {@inheritdoc}

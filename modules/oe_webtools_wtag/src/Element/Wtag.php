@@ -51,9 +51,6 @@ class Wtag extends EntityAutocomplete {
    *
    * @return array
    *   The form element.
-   *
-   * @return array
-   *   The element
    */
   public static function processWtag(array &$element, FormStateInterface $form_state, array &$complete_form) {
     $wtag_json = [
@@ -74,6 +71,8 @@ class Wtag extends EntityAutocomplete {
 
   /**
    * {@inheritdoc}
+   *
+   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
     // Process the #default_value property. In this situation, we need to
