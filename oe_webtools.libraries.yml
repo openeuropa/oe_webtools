@@ -3,3 +3,8 @@ drupal.webtools-smartloader:
   version: 1.x
   js:
     https://europa.eu/webtools/load.js: { type: external, attributes: { defer: true } }
+
+oe_webtools.component-collect:
+  version: 1.x
+  js:
+    assets/js/component_collect.js: {}
