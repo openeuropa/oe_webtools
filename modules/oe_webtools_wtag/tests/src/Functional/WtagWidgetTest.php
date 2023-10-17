@@ -89,7 +89,23 @@ class WtagWidgetTest extends BrowserTestBase {
     // not use the DET concept scheme.
     $this->assertSession()->responseNotContains('<script type="application/json">{"service":"wtag","target":"#edit-wtag-target-id","title":"Wtag","description":"Use the search field or the tree view to find and add one or more tags."}</script>');
 
-    // Set the DET concept scheme for the field.
+    // Set multiple concept schemes for the field.
+    $settings = [
+      'handler' => 'default:skos_concept',
+      'handler_settings' => [
+        'concept_schemes' => [
+          'http://data.europa.eu/uxp/det',
+          'http://data.europa.eu/uxp/non-EC_bodies',
+        ],
+      ],
+    ];
+    $field_config->set('settings', $settings)->save();
+
+    $this->drupalGet('/node/add/page');
+    // Assert the webtools script does not exist in the page.
+    $this->assertSession()->responseNotContains('<script type="application/json">{"service":"wtag","target":"#edit-wtag-target-id","title":"Wtag","description":"Use the search field or the tree view to find and add one or more tags."}</script>');
+
+    // Set only the DET concept scheme for the field.
     $settings = [
       'handler' => 'default:skos_concept',
       'handler_settings' => [

@@ -78,7 +78,11 @@ class WtagWidget extends WidgetBase {
     }
 
     $concept_schemes = $field_definition->getSetting('handler_settings')['concept_schemes'];
-    if (!in_array('http://data.europa.eu/uxp/det', $concept_schemes)) {
+    if (count($concept_schemes) > 1 || empty($concept_schemes)) {
+      return FALSE;
+    }
+
+    if ($concept_schemes[0] !== 'http://data.europa.eu/uxp/det') {
       return FALSE;
     }
 
