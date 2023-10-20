@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Drupal\oe_webtools_wtag\Element;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element\Textfield;
 use Drupal\Core\Render\Markup;
 use Drupal\rdf_skos\Entity\ConceptInterface;
 
@@ -18,7 +18,7 @@ use Drupal\rdf_skos\Entity\ConceptInterface;
  *
  * @FormElement("oe_webtools_wtag")
  */
-class Wtag extends EntityAutocomplete {
+class Wtag extends Textfield {
 
   /**
    * {@inheritdoc}
@@ -28,10 +28,9 @@ class Wtag extends EntityAutocomplete {
 
     $class = static::class;
     $info['#process'][] = [$class, 'processWtag'];
-
-    // Apply default form element properties.
-    $info['#target_type'] = 'skos_concept';
-    $info['#tags'] = TRUE;
+    $info['#element_validate'] = [[$class, 'validateWtag']];
+    $info['#validate_reference'] = TRUE;
+    $info['#process_default_value'] = TRUE;
     $info['#theme'] = 'oe_webtools_wtag';
     $info['#modal_title'] = $this->t('Wtag');
     $info['#modal_description'] = $this->t('Use the search field or the tree view to find and add one or more tags to describe the subject of your page.');
@@ -70,6 +69,35 @@ class Wtag extends EntityAutocomplete {
   }
 
   /**
+   * Form element validation handler for wtag elements.
+   */
+  public static function validateWtag(array &$element, FormStateInterface $form_state, array &$complete_form) {
+    $value = NULL;
+
+    if (!empty($element['#value'])) {
+      $entities = static::jsonToEntities($element['#value']);
+      if (!$entities) {
+        $form_state->setValueForElement($element, $value);
+        return;
+      }
+
+      // Validate that they are both Skos Concepts in DET.
+      foreach ($entities as $entity) {
+        if (!$entity instanceof ConceptInterface || !in_array('http://data.europa.eu/uxp/det', array_column($entity->get('in_scheme')->getValue(), 'target_id'))) {
+          $form_state->setError($element, t('The referenced entity (%id) is not valid.', ['%id' => $entity->id()]));
+          continue;
+        }
+
+        $value[] = [
+          'target_id' => $entity->id(),
+        ];
+      }
+    }
+
+    $form_state->setValueForElement($element, $value);
+  }
+
+  /**
    * {@inheritdoc}
    *
    * @SuppressWarnings(PHPMD.CyclomaticComplexity)
@@ -78,10 +106,7 @@ class Wtag extends EntityAutocomplete {
     // Process the #default_value property. In this situation, we need to
     // transform the entity objects into the JSON object expected by Webtols.
     if ($input === FALSE && isset($element['#default_value']) && $element['#process_default_value']) {
-      if (is_array($element['#default_value']) && $element['#tags'] !== TRUE) {
-        throw new \InvalidArgumentException('The #default_value property is an array but the form element does not allow multiple values.');
-      }
-      elseif (!empty($element['#default_value']) && !is_array($element['#default_value'])) {
+      if (!empty($element['#default_value']) && !is_array($element['#default_value'])) {
         // Convert the default value into an array for easier processing in
         // static::getEntityLabels().
         $element['#default_value'] = [$element['#default_value']];
@@ -92,44 +117,60 @@ class Wtag extends EntityAutocomplete {
           throw new \InvalidArgumentException('The #default_value property has to be in the form of SKOS Concept entities.');
         }
 
-        return static::extractValueJson($element['#default_value']);
+        return static::entitiesToJson($element['#default_value']);
       }
     }
 
-    // Process the submitted value. In this case, we need to defer back to the
-    // parent class to perform the validation and submission of the values in
-    // the default entity autocomplete format: label (id).
+    // Process the submitted value.
     if ($input !== FALSE && $input !== "") {
-      $values = json_decode($input, TRUE);
-      if (!is_array($values)) {
-        throw new \InvalidArgumentException('The submitted values are not in the correct format.');
-      }
+      $entities = static::jsonToEntities($input);
 
-      if (empty($values)) {
+      if (!$entities) {
         return '';
       }
 
-      $entities = \Drupal::entityTypeManager()->getStorage($element['#target_type'])->loadMultiple(array_keys($values));
-      return static::getEntityLabels($entities);
+      return static::entitiesToJson($entities);
     }
   }
 
   /**
-   * Extracts the JSON from an array of default entities.
+   * Turns an array of entities to their JSON representation.
    *
-   * @param array $value
-   *   The submitted value.
+   * @param \Drupal\Core\Entity\ContentEntityInterface[] $entities
+   *   The entities.
    *
    * @return string
    *   The JSON object.
    */
-  public static function extractValueJson(array $value): string {
+  public static function entitiesToJson(array $entities): string {
     $return = [];
-    foreach ($value as $entity) {
+    foreach ($entities as $entity) {
       $return[$entity->id()] = $entity->label();
     }
 
     return json_encode($return, JSON_UNESCAPED_SLASHES);
+  }
+
+  /**
+   * Turns a JSON into the entities.
+   *
+   * @param string $json
+   *   The JSON string.
+   *
+   * @return string
+   *   The entities.
+   */
+  public static function jsonToEntities(string $json): array {
+    $values = json_decode($json, TRUE);
+    if (!is_array($values)) {
+      throw new \InvalidArgumentException('The submitted values are not in the correct format.');
+    }
+
+    if (empty($values)) {
+      return [];
+    }
+
+    return \Drupal::entityTypeManager()->getStorage('skos_concept')->loadMultiple(array_keys($values));
   }
 
 }
