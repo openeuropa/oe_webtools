@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * The OpenEuropa Webtools Wtag module file.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_theme().
+ */
+function oe_webtools_wtag_theme() {
+  return [
+    'oe_webtools_wtag' => [
+      'variables' => [
+        'value' => NULL,
+        'wtag' => NULL,
+        'attributes' => [],
+      ],
+    ],
+  ];
+}

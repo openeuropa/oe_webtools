@@ -10,6 +10,9 @@ drupal:
     name: "oe_webtools"
     user: "root"
     password: ""
+  sparql:
+    host: "sparql"
+    port: "8890"
   post_install:
     # Prepare the instance.
     - "./vendor/bin/drush en toolbar -y"
@@ -28,6 +31,14 @@ drupal:
         - "bower_components"
         - "vendor"
         - "${drupal.root}"
+    databases:
+      sparql_default:
+        default:
+          prefix: ""
+          host: ${drupal.sparql.host}
+          port: ${drupal.sparql.port}
+          namespace: 'Drupal\sparql_entity_storage\Driver\Database\sparql'
+          driver: 'sparql'
 static_html:
   base_url: "http://web:8080/tests/fixtures/static_html"
 
@@ -49,3 +60,11 @@ commands:
     - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
   setup:behat:
       - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
+  # Use the following commands only if you can run Task Runner commands on your host machine.
+  sparql:purge:
+    - "docker-compose exec sparql ./vendor/bin/robo purge"
+  sparql:import:
+    - "docker-compose exec sparql ./vendor/bin/robo import"
+  sparql:reset:
+    - { task: "run", command: "sparql:purge" }
+    - { task: "run", command: "sparql:import" }

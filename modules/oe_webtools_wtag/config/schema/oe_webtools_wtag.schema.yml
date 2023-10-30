@@ -1,0 +1,10 @@
+field.widget.settings.oe_webtools_wtag:
+  type: mapping
+  label: 'Webtools Wtag widget display format settings'
+  mapping:
+    modal_title:
+      type: label
+      label: 'Webtools Modal title'
+    modal_description:
+      type: label
+      label: 'Webtools modal description'

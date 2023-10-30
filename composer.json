@@ -24,6 +24,7 @@
         "openeuropa/code-review": "^2.0.0-alpha6",
         "openeuropa/oe_media": "^1.23",
         "openeuropa/oe_multilingual": "^1.13",
+        "openeuropa/rdf_skos": "^1.0.0-alpha10",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0-beta6",
         "openeuropa/webtools-geocoding-provider": "^0.3",
         "phpspec/prophecy-phpunit": "^2",

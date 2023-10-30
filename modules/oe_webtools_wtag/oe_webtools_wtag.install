@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Webtools Wtag installation file.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_install().
+ */
+function oe_webtools_wtag_install($is_syncing): void {
+  if ($is_syncing) {
+    return;
+  }
+  // Configure the RDF SKOS DET graph.
+  \Drupal::service('rdf_skos.skos_graph_configurator')->addGraphs([
+    'digital_europa_thesaurus' => 'http://data.europa.eu/uxp',
+  ]);
+}
