@@ -1,6 +1,14 @@
 # Changelog
 
-## [1.25.0](https://github.com/openeuropa/oe_webtools/tree/1.25.0) (2023-09-14)
+## [1.26.0](https://github.com/openeuropa/oe_webtools/tree/1.26.0) (2023-11-21)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.25.0...1.26.0)
+
+**Merged pull requests:**
+
+- EWPP-3623: Add Webtools Wtag service. [\#221](https://github.com/openeuropa/oe_webtools/pull/221) ([22Alexandra](https://github.com/22Alexandra))
+
+## [1.25.0](https://github.com/openeuropa/oe_webtools/tree/1.25.0) (2023-09-18)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.24.0...1.25.0)
 
@@ -10,6 +18,7 @@
 
 **Merged pull requests:**
 
+- Prepare release 1.25.0. [\#220](https://github.com/openeuropa/oe_webtools/pull/220) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-3345: Fix behat step for asserting CCK usage. [\#219](https://github.com/openeuropa/oe_webtools/pull/219) ([sergepavle](https://github.com/sergepavle))
 - EWPP-3386: Implement the webtools sliding captcha. [\#218](https://github.com/openeuropa/oe_webtools/pull/218) ([nagyad](https://github.com/nagyad))
 
