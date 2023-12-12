@@ -50,7 +50,7 @@ class SocialShareBlockTest extends KernelTestBase {
     $crawler = new Crawler($html);
     // Make sure that social share block is present.
     $actual = $crawler->filter('script');
-    $this->assertEquals('{"service":"share","popup":false,"selection":true,"to":["more","twitter","facebook","linkedin","e-mail"],"stats":true}', $actual->text());
+    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"stats":true,"selection":true}', $actual->text());
     // Make sure "Share this page" heading is present.
     $this->assertStringContainsString('Share this page', $html);
   }
