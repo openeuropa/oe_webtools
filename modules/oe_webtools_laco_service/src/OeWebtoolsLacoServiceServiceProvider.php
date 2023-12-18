@@ -17,9 +17,7 @@ class OeWebtoolsLacoServiceServiceProvider extends ServiceProviderBase {
    */
   public function alter(ContainerBuilder $container): void {
     $definition = $container->getDefinition('oe_webtools_laco_service.service_middleware');
-    if (version_compare(\Drupal::VERSION, '10.0.0') >= 0) {
-      $definition->setClass('\Drupal\oe_webtools_laco_service\StackMiddleware\LacoServiceMiddlewareDrupal10');
-    }
+    $definition->setClass('\Drupal\oe_webtools_laco_service\StackMiddleware\LacoServiceMiddlewareDrupal10');
   }
 
 }

@@ -2,7 +2,7 @@ name: 'OpenEuropa Webtools Analytics Rules'
 description: 'Provides rules for customizing the behavior of the Webtools Analytics module.'
 package: 'OpenEuropa Webtools'
 type: module
-core_version_requirement: ^9.5 || ^10
+core_version_requirement: ^10
 
 dependencies:
   - oe_webtools_analytics:oe_webtools_analytics
