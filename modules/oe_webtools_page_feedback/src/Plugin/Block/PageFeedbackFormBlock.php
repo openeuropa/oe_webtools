@@ -101,6 +101,7 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
       'service' => 'dff',
       'id' => $config->get('feedback_form_id'),
       'lang' => $current_langcode,
+      'version' => '2.0',
     ];
     $build = [
       '#cache' => [
