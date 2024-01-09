@@ -9,8 +9,8 @@ Feature: Cookie Consent kit.
     # Check that the oEmbed video iframe with Cookie Consent.
     Given I am an anonymous user
     When I visit the remote video entity page:
-      | url                                         | title                  | path         |
-      | https://www.youtube.com/watch?v=1-g73ty9v04 | Energy, let's save it! | /media/test  |
+      | url                                         | title                                                                                  | path        |
+      | https://www.youtube.com/watch?v=yyW38-l0kZY | The European Union goals at COP 28 2023 #europeanunion #climatechange #renewableenergy | /media/test |
     Then I should see the oEmbed video iframe with Cookie Consent
 
     # Change the configuration.

@@ -32,16 +32,16 @@ class SocialShareBlock extends BlockBase {
   public function build() {
     $social_share_json = [
       'service' => 'share',
-      'popup' => FALSE,
-      'selection' => TRUE,
-      'to' => [
-        'more',
+      'version' => '2.0',
+      'networks' => [
         'twitter',
         'facebook',
         'linkedin',
-        'e-mail',
+        'email',
+        'more',
       ],
       'stats' => TRUE,
+      'selection' => TRUE,
     ];
     return [
       '#theme' => 'oe_webtools_social_share',
