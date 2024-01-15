@@ -1,11 +1,21 @@
 # Changelog
 
+## [1.27.0](https://github.com/openeuropa/oe_webtools/tree/1.27.0) (2024-01-15)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.26.0...1.27.0)
+
+**Merged pull requests:**
+
+- EWPP-3838: Add version property to dff embed code. [\#225](https://github.com/openeuropa/oe_webtools/pull/225) ([nagyad](https://github.com/nagyad))
+- EWPP-3797: Update SBKM to 2.0 version. [\#224](https://github.com/openeuropa/oe_webtools/pull/224) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.26.0](https://github.com/openeuropa/oe_webtools/tree/1.26.0) (2023-11-21)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.25.0...1.26.0)
 
 **Merged pull requests:**
 
+- Prepare release 1.26.0 [\#223](https://github.com/openeuropa/oe_webtools/pull/223) ([imanoleguskiza](https://github.com/imanoleguskiza))
 - EWPP-3623: Add Webtools Wtag service. [\#221](https://github.com/openeuropa/oe_webtools/pull/221) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.25.0](https://github.com/openeuropa/oe_webtools/tree/1.25.0) (2023-09-18)
