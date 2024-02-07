@@ -106,7 +106,7 @@ class LacoServiceTest extends KernelTestBase {
       $request = $definition[0];
       $response = $kernel->handle($request);
       $status = $response->getStatusCode();
-      $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
+      $this->assertEquals($definition[1], $status, 'The failure is at ' . $definition[2]);
 
       // Check also that the response content is empty to make sure that the
       // actual route we hit is not the real canonical route.
@@ -130,7 +130,7 @@ class LacoServiceTest extends KernelTestBase {
       $request = $definition[0];
       $response = $kernel->handle($request);
       $status = $response->getStatusCode();
-      $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
+      $this->assertEquals($definition[1], $status, 'The failure is at ' . $definition[2]);
 
       // Check also that the response content is empty to make sure that the
       // actual route we hit is not the real canonical route.
