@@ -28,6 +28,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     'media',
     'json_field',
     'oe_webtools',
+    'oe_webtools_js_mock',
     'oe_webtools_media',
   ];
 
