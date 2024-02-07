@@ -52,6 +52,7 @@ class CaptchaTest extends WebDriverTestBase {
     // First make sure we can't log in without the captcha.
     $page->fillField('Username', $user->getAccountName());
     $page->fillField('Password', $user->passRaw);
+    $this->waitForWebtoolsCaptcha();
     $page->pressButton('Log in');
     $this->assertSession()->pageTextContainsOnce('The answer you entered for the CAPTCHA was not correct.');
 
@@ -59,11 +60,22 @@ class CaptchaTest extends WebDriverTestBase {
     \Drupal::state()->set('captcha_mock_response', 'success');
     $page->fillField('Username', $user->getAccountName());
     $page->fillField('Password', $user->passRaw);
+    $this->waitForWebtoolsCaptcha();
     $page->pressButton('Log in');
     $this->assertSession()->pageTextNotContains('The answer you entered for the CAPTCHA was not correct.');
     $this->assertSession()->pageTextContains('Member for');
     $this->assertSession()->fieldNotExists('Username');
     $this->assertSession()->fieldNotExists('Password');
+  }
+
+  /**
+   * Waits for the Webtools Captcha to be rendered.
+   *
+   * Submitting the page too early, before the full captcha HTML is generated,
+   * can cause JS errors.
+   */
+  protected function waitForWebtoolsCaptcha(): void {
+    $this->assertNotNull($this->assertSession()->waitForElementVisible('css', '.wt-captcha--challenge'));
   }
 
 }
