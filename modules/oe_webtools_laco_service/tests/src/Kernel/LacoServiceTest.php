@@ -55,7 +55,10 @@ class LacoServiceTest extends KernelTestBase {
     // Give anonymous users permission to view test entities.
     Role::load(RoleInterface::ANONYMOUS_ID)
       ->grantPermission('view test entity')
+      // These two permissions are required in order to allow the anonymous user
+      // to access the /admin page.
       ->grantPermission('access administration pages')
+      ->grantPermission('administer site configuration')
       ->save();
 
     // Set up some languages.
