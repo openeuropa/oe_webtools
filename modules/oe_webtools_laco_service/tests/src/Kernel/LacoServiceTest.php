@@ -55,7 +55,10 @@ class LacoServiceTest extends KernelTestBase {
     // Give anonymous users permission to view test entities.
     Role::load(RoleInterface::ANONYMOUS_ID)
       ->grantPermission('view test entity')
+      // These two permissions are required in order to allow the anonymous user
+      // to access the /admin page.
       ->grantPermission('access administration pages')
+      ->grantPermission('administer site configuration')
       ->save();
 
     // Set up some languages.
@@ -106,7 +109,7 @@ class LacoServiceTest extends KernelTestBase {
       $request = $definition[0];
       $response = $kernel->handle($request);
       $status = $response->getStatusCode();
-      $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
+      $this->assertEquals($definition[1], $status, 'The failure is at ' . $definition[2]);
 
       // Check also that the response content is empty to make sure that the
       // actual route we hit is not the real canonical route.
@@ -130,7 +133,7 @@ class LacoServiceTest extends KernelTestBase {
       $request = $definition[0];
       $response = $kernel->handle($request);
       $status = $response->getStatusCode();
-      $this->assertEquals($status, $definition[1], 'The failure is at ' . $definition[2]);
+      $this->assertEquals($definition[1], $status, 'The failure is at ' . $definition[2]);
 
       // Check also that the response content is empty to make sure that the
       // actual route we hit is not the real canonical route.

@@ -12,9 +12,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 /**
  * Laco service middleware base class.
  *
- * Contains all the logic of the middleware. The other two implementations
- * wrap this class to offer support for the different handle() method signature
- * in Symfony 4.x and 6.x (Drupal 9.x and 10.x).
+ * Contains all the logic of the middleware.
+ * This class was introduced to work around the different signatures of the
+ * handle() method between Drupal 9.x and 10.x.
  */
 abstract class LacoServiceMiddlewareBase implements HttpKernelInterface {
 

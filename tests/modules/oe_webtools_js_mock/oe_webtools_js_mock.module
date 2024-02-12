@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Contains hooks for the OpenEuropa Webtools mock module.
+ */
+
+declare(strict_types = 1);
+
+/**
+ * Implements hook_library_info_alter().
+ *
+ * Replaces the Webtools smartloader with an empty JS file.
+ */
+function oe_webtools_js_mock_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'oe_webtools' && isset($libraries['drupal.webtools-smartloader'])) {
+    // Prepend the path with a slash, so the path will be considered from
+    // the Drupal root and not inside the oe_webtools module itself.
+    $path = '/' . \Drupal::service('extension.list.module')->getPath('oe_webtools_js_mock');
+    $libraries['drupal.webtools-smartloader']['js'] = [
+      $path . '/js/load.js' => [
+        'attributes' => [
+          'defer' => TRUE,
+          'preprocess' => FALSE,
+        ],
+      ],
+    ];
+  }
+}
