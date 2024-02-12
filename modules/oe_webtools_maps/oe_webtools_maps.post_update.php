@@ -5,7 +5,7 @@
  * Post update functions for the OpenEuropa Webtools Maps module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Enable the OpenEuropa Webtools module.

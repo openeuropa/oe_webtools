@@ -5,7 +5,7 @@
  * The Webtools Global Banner module file.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Cache\CacheableMetadata;
