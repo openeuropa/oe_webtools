@@ -5,7 +5,7 @@
  * Install, uninstall hooks for OpenEuropa Webtools Captcha Mock module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 use Drupal\Core\Url;
 

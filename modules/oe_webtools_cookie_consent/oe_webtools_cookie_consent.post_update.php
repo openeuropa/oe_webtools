@@ -5,7 +5,7 @@
  * Post update hook for oe_webtools_cookie_consent.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Set default cookie consent kit settings.

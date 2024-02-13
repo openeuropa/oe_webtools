@@ -5,7 +5,7 @@
  * Post update hooks for Webtools Global Banner.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Set sticky config for globan.

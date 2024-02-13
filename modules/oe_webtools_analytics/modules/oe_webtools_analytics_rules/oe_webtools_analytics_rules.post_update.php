@@ -5,7 +5,7 @@
  * Post update functions for OpenEuropa Webtools Analytics Rules module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Set default weight for 'webtools_analytics_rule' config entities.

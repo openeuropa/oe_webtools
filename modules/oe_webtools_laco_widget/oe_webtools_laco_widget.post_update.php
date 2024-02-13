@@ -5,7 +5,7 @@
  * Post update hooks for Webtools Laco Widget module.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /**
  * Set new option for enabling/disabling LACO widget.
