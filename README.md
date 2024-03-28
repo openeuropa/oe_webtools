@@ -9,6 +9,7 @@ Webtools are interactive services available to integrate in a website.
 **Table of contents:**
 
 - [Installation](#installation)
+- [Submodules](#submodules)
 - [Development setup](#development-setup)
 - [Contributing](#contributing)
 - [Versioning](#versioning)
@@ -28,6 +29,8 @@ In order to enable the module in your project run:
 ```bash
 ./vendor/bin/drush en oe_webtools
 ```
+
+## Submodules
 
 ### OpenEuropa Webtools Analytics
 
@@ -87,6 +90,12 @@ with the maps service.
 
 * [drupal/geofield 1.x](https://www.drupal.org/project/geofield)
 
+#### Webtools Maps Usage
+
+```bash
+drush en oe_webtools_maps
+```
+
 ### OpenEuropa Webtools Cookie Consent
 
 The Webtools module contains a submodule that provides a service for providing
@@ -102,9 +111,38 @@ supported media providers.
 
 * [drupal/json_field 1.x-rc3](https://www.drupal.org/project/json_field)
 
+#### Webtools Media Usage
+
+```bash
+drush en oe_webtools_media
+```
+
 ### OpenEuropa Webtools Social Share
 
-The Webtools module contains a submodule that provides social sharing functionality for a site.
+The Webtools module contains a submodule that provides the Social Share block
+with buttons for Twitter, Facebook, LinkedIn and E-mail.
+
+#### Webtools Social Share Usage
+
+```bash
+drush en oe_webtools_social_share
+```
+
+After enabling the module, go to "admin/structure/block" and place the block in a certain region
+(e.g. Content region).
+
+### OpenEuropa Webtools Global Banner
+
+The Webtools module contains a submodule that provides a Global Banner with
+the EU flag and a link to all EU institutions.
+
+#### Webtools Global Banner Usage
+
+```bash
+drush en oe_webtools_globan
+```
+
+After enabling the module, the configuration can be modified here "admin/config/system/oe_webtools_globan".
 
 ## Development setup
 
