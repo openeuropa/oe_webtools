@@ -15,7 +15,7 @@ use Drupal\oe_webtools_cookie_consent\Event\ConfigBannerPopupEvent;
 use Drupal\oe_webtools_cookie_consent\Event\ConfigVideoPopupEvent;
 use Drupal\oe_webtools_cookie_consent\Form\WebtoolsCookieConsentSettingsForm;
 
-const OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL = '//europa.eu/webtools/crs/iframe/';
+const OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL = '//webtools.europa.eu/crs/iframe/';
 
 /**
  * Implements hook_page_attachments().

@@ -1,1 +1,1 @@
-validationEndpoint: 'https://europa.eu/webtools/rest/captcha/verify'
+validationEndpoint: 'https://webtools.europa.eu/rest/captcha/verify'
