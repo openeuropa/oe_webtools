@@ -154,7 +154,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
 
     $generator_link = Link::fromTextAndUrl(
       $this->t('Webtools wizard'),
-      Url::fromUri('https://europa.eu/webtools/mgmt/wizard/')
+      Url::fromUri('https://webtools.europa.eu/mgmt/wizard/')
     )->toString();
     // The opwidget type has to be created on the op website.
     if ($this->configuration['widget_type'] === 'opwidget') {

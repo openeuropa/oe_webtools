@@ -48,7 +48,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
     $this->container->get('kernel')->invalidateContainer();
 
     $this->drupalGet($url);
-    $this->assertSession()->responseContains('<script src="https://europa.eu/webtools/load.js');
+    $this->assertSession()->responseContains('<script src="https://webtools.europa.eu/load.js');
   }
 
   /**
