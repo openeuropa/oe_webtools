@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.29.0](https://github.com/openeuropa/oe_webtools/tree/1.29.0) (2024-04-16)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.28.0...1.29.0)
+
+**Merged pull requests:**
+
+- EWPP-4269: Replace hardcoded webtools url. [\#234](https://github.com/openeuropa/oe_webtools/pull/234) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.28.0](https://github.com/openeuropa/oe_webtools/tree/1.28.0) (2024-02-13)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.27.0...1.28.0)
@@ -10,6 +18,7 @@
 
 **Merged pull requests:**
 
+- Release-1.28.0: Update changelog. [\#230](https://github.com/openeuropa/oe_webtools/pull/230) ([nagyad](https://github.com/nagyad))
 - EWPP-3956: Fix coding standards. [\#229](https://github.com/openeuropa/oe_webtools/pull/229) ([brummbar](https://github.com/brummbar))
 - EWPP-3956: Add Drupal 10.2.x and PHP 8.2 to matrix. [\#228](https://github.com/openeuropa/oe_webtools/pull/228) ([brummbar](https://github.com/brummbar))
 
