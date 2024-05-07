@@ -13,6 +13,14 @@
       if ($translateLink.length) handleTranslateLink($translateLink, $etransMessage, settings);
       if ($etransMessage.length) handleEtransMessage($etransMessage, $closeLink, context);
       if ($defaultLanguage.length) handleDefaultLanguage($defaultLanguage);
+
+      // Update language elements and add prefLang query parameter.
+      $(window, context).on('wtTranslationEnd', function () {
+        // Make sure we do not have a live cookie.
+        if ($wt && $wt.etrans && !$wt.etrans.getLiveCookie()) {
+          addPrefLanguageQueryParam(context);
+        }
+      });
     }
   };
 
@@ -51,6 +59,25 @@
     const url = new URL(window.location.href);
     url.searchParams.delete('prefLang');
     window.history.pushState({}, '', url);
+  }
+
+  // Add prefLang query parameter to links.
+  function addPrefLanguageQueryParam(context) {
+    $(context).find('a:not(.ecl-language-list__container a)').each(function () {
+      const href = $(this).attr('href');
+      if (href && href.startsWith('/') && !href.includes('prefLang=')) {
+        const newHref = appendPrefLang(href, $wt.etrans.toLanguage);
+        $(this).attr('href', newHref);
+      }
+    });
+  }
+
+  // Append 'prefLang' parameter to the URL.
+  function appendPrefLang(href, language) {
+    if (language) {
+      return href + (href.includes('?') ? '&prefLang=' : '?prefLang=') + language;
+    }
+    return href;
   }
 
 })(jQuery, Drupal);
