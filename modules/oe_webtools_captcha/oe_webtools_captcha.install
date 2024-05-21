@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * Contains installation hooks.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_requirements().
+ */
+function oe_webtools_captcha_requirements($phase): array {
+  $requirements = [];
+
+  if ($phase !== 'runtime') {
+    return $requirements;
+  }
+
+  $requirements['webtools_captcha'] = [
+    'title' => t('Webtools captcha'),
+    'value' => t('The current URL of the captcha verification endpoint is <b>@url</b>', ['@url' => \Drupal::config('oe_webtools_captcha.settings')->get('validationEndpoint')]),
+    'severity' => REQUIREMENT_INFO,
+  ];
+
+  return $requirements;
+}
