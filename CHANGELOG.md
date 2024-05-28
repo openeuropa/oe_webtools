@@ -1,11 +1,25 @@
 # Changelog
 
+## [1.30.0](https://github.com/openeuropa/oe_webtools/tree/1.30.0) (2024-05-28)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.29.0...1.30.0)
+
+**Closed issues:**
+
+- Feedback added to https://github.com/openeuropa/oe\_webtools/pull/234 from Webtools point of view [\#236](https://github.com/openeuropa/oe_webtools/issues/236)
+- Webtools modules - Migration from europa.eu/webtools to webtools.europa.eu [\#233](https://github.com/openeuropa/oe_webtools/issues/233)
+
+**Merged pull requests:**
+
+- EWPP-4357: Update captcha config value for verification endpoint. [\#240](https://github.com/openeuropa/oe_webtools/pull/240) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.29.0](https://github.com/openeuropa/oe_webtools/tree/1.29.0) (2024-04-16)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.28.0...1.29.0)
 
 **Merged pull requests:**
 
+- Release-1.29.0: Update changelog. [\#235](https://github.com/openeuropa/oe_webtools/pull/235) ([nagyad](https://github.com/nagyad))
 - EWPP-4269: Replace hardcoded webtools url. [\#234](https://github.com/openeuropa/oe_webtools/pull/234) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.28.0](https://github.com/openeuropa/oe_webtools/tree/1.28.0) (2024-02-13)
