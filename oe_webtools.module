@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for oe_webtools module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Site\Settings;
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function oe_webtools_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'oe_webtools' && !empty(Settings::get('webtools_smart_loader_js_url', FALSE))) {
+    $libraries['drupal.webtools-smartloader']['js'] = [
+      Settings::get('webtools_smart_loader_js_url') => [
+        'type' => 'external',
+        'attributes' => [
+          'defer' => TRUE,
+        ],
+      ],
+    ];
+  }
+}
