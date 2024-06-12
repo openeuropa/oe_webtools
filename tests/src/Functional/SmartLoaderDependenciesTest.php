@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_webtools\Functional;
 
+use Drupal\Core\Test\FunctionalTestSetupTrait;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 
@@ -13,6 +14,8 @@ use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
  * @group oe_webtools
  */
 class SmartLoaderDependenciesTest extends BrowserTestBase {
+
+  use FunctionalTestSetupTrait;
 
   /**
    * {@inheritdoc}
@@ -27,6 +30,27 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
+
+  /**
+   * Test override of the smartload library js file.
+   */
+  public function testLibraryOverride(): void {
+    $this->container->get('module_installer')->install(['oe_webtools_analytics']);
+    $this->configureWebtoolsAnalytics();
+    $this->container->get('kernel')->invalidateContainer();
+
+    $this->writeSettings([
+      'settings' => [
+        'webtools_smart_loader_js_url' => (object) [
+          'value' => '//webtools.europa.eu/load.js',
+          'required' => TRUE,
+        ],
+      ],
+    ]);
+
+    $this->drupalGet('random/path');
+    $this->assertSession()->responseContains('<script src="//webtools.europa.eu/load.js');
+  }
 
   /**
    * Tests if Webtools library is present on the page during module install.
