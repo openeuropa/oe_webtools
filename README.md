@@ -34,7 +34,7 @@ In order to enable the module in your project run:
 To override the default js file URL for smartloader, you can add the:
 
 ```
-$settings['webtools_smart_loader_js_url'] = '//webtools.europa.eu/load.js';
+$settings['webtools_smart_loader_js_url'] = 'https://webtools.europa.eu/load.js';
 ```
 If you wish to use the default, you don't need to do anything, it works out of
 the box.
