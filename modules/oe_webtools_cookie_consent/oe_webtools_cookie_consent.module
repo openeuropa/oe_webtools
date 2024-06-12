@@ -9,13 +9,14 @@ declare(strict_types=1);
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Site\Settings;
 use Drupal\Core\Url;
 use Drupal\media\IFrameMarkup;
 use Drupal\oe_webtools_cookie_consent\Event\ConfigBannerPopupEvent;
 use Drupal\oe_webtools_cookie_consent\Event\ConfigVideoPopupEvent;
 use Drupal\oe_webtools_cookie_consent\Form\WebtoolsCookieConsentSettingsForm;
 
-const OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL = 'https://webtools.europa.eu/crs/iframe/';
+define("OE_WEBTOOLS_COOKIE_CONSENT_EMBED_COOKIE_URL", Settings::get('webtools_cookie_consent_embed_cookie_url') ?? 'https://webtools.europa.eu/crs/iframe/');
 
 /**
  * Implements hook_page_bottom().
