@@ -1,0 +1,7 @@
+oe_webtools_social_share.settings:
+  path: '/admin/config/system/oe_webtools_social_share'
+  defaults:
+    _form: 'Drupal\oe_webtools_social_share\Form\SocialShareSettingsForm'
+    _title: 'Webtools Social share settings'
+  requirements:
+    _permission: 'administer webtools social share block'
