@@ -58,6 +58,7 @@ class SocialShareSettingsFormTest extends WebDriverTestBase {
     // Enable the icons option.
     $this->getSession()->getPage()->checkField('Display only icons');
     $this->getSession()->getPage()->pressButton('Save configuration');
+    $this->container->get('config.factory')->reset('oe_webtools_social_share.settings');
     // Assert the values are saved.
     $assert->pageTextContainsOnce('The configuration options have been saved.');
     $assert->checkboxChecked('Display only icons');
