@@ -27,8 +27,6 @@ function oe_webtools_analytics_page_bottom(array &$page_bottom) {
     return;
   }
 
-  $event_cache->applyTo($page_bottom);
-
   $page_bottom['oe_webtools_cookie_consent'][] = [
     '#type' => 'html_tag',
     '#tag' => 'script',
