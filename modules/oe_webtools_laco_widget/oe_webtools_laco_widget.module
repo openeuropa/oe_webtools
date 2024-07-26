@@ -10,9 +10,9 @@ declare(strict_types=1);
 use Drupal\Core\Cache\CacheableMetadata;
 
 /**
- * Implements hook_page_attachments().
+ * Implements hook_page_bottom().
  */
-function oe_webtools_laco_widget_page_attachments(array &$attachments) {
+function oe_webtools_laco_widget_page_bottom(array &$page_bottom) {
   $logger = \Drupal::logger('oe_webtools_laco_widget');
   $config = \Drupal::config('oe_webtools_laco_widget.settings');
 
@@ -48,18 +48,15 @@ function oe_webtools_laco_widget_page_attachments(array &$attachments) {
     $json['ignore'] = $ignore;
   }
 
-  $attachments['#attached']['html_head'][] = [
-    [
-      '#type' => 'html_tag',
-      '#tag' => 'script',
-      '#value' => json_encode($json),
-      '#attributes' => ['type' => 'application/json'],
-    ],
-    'oe_webtools_laco_widget',
+  $page_bottom['oe_webtools_cookie_consent'][] = [
+    '#type' => 'html_tag',
+    '#tag' => 'script',
+    '#value' => json_encode($json),
+    '#attributes' => ['type' => 'application/json'],
   ];
 
-  $attachments['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
-  $cache = CacheableMetadata::createFromRenderArray($attachments);
+  $page_bottom['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+  $cache = CacheableMetadata::createFromRenderArray($page_bottom);
   $cache->addCacheableDependency($config);
-  $cache->applyTo($attachments);
+  $cache->applyTo($page_bottom);
 }
