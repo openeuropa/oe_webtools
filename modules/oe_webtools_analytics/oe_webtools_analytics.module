@@ -21,9 +21,10 @@ function oe_webtools_analytics_page_bottom(array &$page_bottom) {
   $existing_cache = CacheableMetadata::createFromRenderArray($page_bottom);
   $event_cache = CacheableMetadata::createFromObject($event);
 
+  $cache = $existing_cache->merge($event_cache);
+  $cache->applyTo($page_bottom);
+
   if (!$event->isValid()) {
-    $cache = $existing_cache->merge($event_cache);
-    $cache->applyTo($page_bottom);
     return;
   }
 
