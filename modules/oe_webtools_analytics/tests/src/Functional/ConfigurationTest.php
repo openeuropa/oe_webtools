@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_analytics\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
 
 /**
  * Tests that the configured settings are correctly output in the page.
@@ -12,6 +13,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group oe_webtools_analytics
  */
 class ConfigurationTest extends BrowserTestBase {
+
+  use ContentAssertionTrait;
 
   /**
    * {@inheritdoc}
@@ -42,13 +45,13 @@ class ConfigurationTest extends BrowserTestBase {
 
     $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"instance":"testing"}');
 
     $this->drupalGet('not-existing-page');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is404":true,"instance":"testing"}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is404":true,"instance":"testing"}');
 
     $this->drupalGet('admin');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}');
 
     // Test the cache invalidation.
     $this->drupalLogin($user);
@@ -58,7 +61,7 @@ class ConfigurationTest extends BrowserTestBase {
 
     $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"piwik","siteID":"123e4567-e89b-12d3-a456-426614174000","sitePath":["ec.europa.eu"],"instance":"testing"}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123e4567-e89b-12d3-a456-426614174000","sitePath":["ec.europa.eu"],"instance":"testing"}');
   }
 
 }

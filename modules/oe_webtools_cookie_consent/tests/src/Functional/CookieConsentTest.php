@@ -6,11 +6,14 @@ namespace Drupal\Tests\oe_webtools_cookie_consent\Functional;
 
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
 
 /**
  * Check if the Laco widget code is on the front page.
  */
 class CookieConsentTest extends BrowserTestBase {
+
+  use ContentAssertionTrait;
 
   /**
    * {@inheritdoc}
@@ -62,7 +65,7 @@ class CookieConsentTest extends BrowserTestBase {
     // Re-assert again as anonymous user.
     $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('{"utility":"cck","url":"' . addcslashes('http://example.com/cookie', '/') . '"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"cck","url":"' . addcslashes('http://example.com/cookie', '/') . '"}');
 
     // Translate the cookie consent URL.
     $this->drupalLogin($user);
@@ -76,9 +79,9 @@ class CookieConsentTest extends BrowserTestBase {
     // Re-assert as anonymous user.
     $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('{"utility":"cck","url":"' . addcslashes('http://example.com/cookie', '/') . '"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"cck","url":"' . addcslashes('http://example.com/cookie', '/') . '"}');
     $this->drupalGet('/fr');
-    $this->assertSession()->responseContains('{"utility":"cck","url":"' . addcslashes('http://example.com/fr/cookie', '/') . '"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"cck","url":"' . addcslashes('http://example.com/fr/cookie', '/') . '"}');
 
     // Disable CCK.
     $this->drupalLogin($user);
