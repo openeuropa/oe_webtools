@@ -6,11 +6,14 @@ namespace Drupal\Tests\oe_webtools_page_feedback\FunctionalJavascript;
 
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Tests the Page Feedback Form webtools widget.
  */
 class PageFeedbackFormTest extends BrowserTestBase {
+
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}
@@ -54,14 +57,14 @@ class PageFeedbackFormTest extends BrowserTestBase {
     // language.
     $this->drupalGet('/node/1');
     $this->assertSession()->pageTextContains('Page node');
-    $this->assertSession()->responseContains('<script type="application/json">{"service":"dff","id":"1234","lang":"en","version":"2.0"}</script>');
+    $this->assertBodyContainsApplicationJson('{"service":"dff","id":"1234","lang":"en","version":"2.0"}');
     $this->drupalGet('<front>');
     $this->assertSession()->responseNotContains('"service":"dff"');
     $this->drupalGet('/pt-pt/node/1');
-    $this->assertSession()->responseContains('<script type="application/json">{"service":"dff","id":"1234","lang":"pt","version":"2.0"}</script>');
+    $this->assertBodyContainsApplicationJson('{"service":"dff","id":"1234","lang":"pt","version":"2.0"}');
     $page_feedback_config->set('feedback_form_id', '1234abc')->save();
     $this->drupalGet('/pt-pt/node/1');
-    $this->assertSession()->responseContains('<script type="application/json">{"service":"dff","id":"1234abc","lang":"pt","version":"2.0"}</script>');
+    $this->assertBodyContainsApplicationJson('{"service":"dff","id":"1234abc","lang":"pt","version":"2.0"}');
 
     // Disable the block and assert the block is not rendered and the cache was
     // properly invalidated.

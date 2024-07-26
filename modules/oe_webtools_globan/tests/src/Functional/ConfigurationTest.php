@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_globan\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Tests that the configured settings are correctly output in the page.
@@ -12,6 +13,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group oe_webtools_globan
  */
 class ConfigurationTest extends BrowserTestBase {
+
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}
@@ -32,7 +35,7 @@ class ConfigurationTest extends BrowserTestBase {
    */
   public function testLibraryLoading(): void {
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"dark","logo":true,"link":true,"mode":false}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"dark","logo":true,"link":true,"mode":false}');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
@@ -44,7 +47,7 @@ class ConfigurationTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"light","logo":false,"link":false,"mode":false}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"light","logo":false,"link":false,"mode":false}');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
@@ -56,7 +59,7 @@ class ConfigurationTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"dark","logo":false,"link":true,"mode":true,"lang":"it"}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"dark","logo":false,"link":true,"mode":true,"lang":"it"}');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
@@ -70,7 +73,7 @@ class ConfigurationTest extends BrowserTestBase {
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertSession()->responseContains('<script type="application/json">{"utility":"globan","theme":"dark","logo":false,"link":true,"mode":true,"lang":"it","zindex":0}</script>');
+    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"dark","logo":false,"link":true,"mode":true,"lang":"it","zindex":0}');
   }
 
 }
