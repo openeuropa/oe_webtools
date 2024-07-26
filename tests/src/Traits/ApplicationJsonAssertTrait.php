@@ -7,7 +7,7 @@ namespace Drupal\Tests\oe_webtools\Traits;
 /**
  * Helper methods to deal with asserting page content.
  */
-trait ContentAssertionTrait {
+trait ApplicationJsonAssertTrait {
 
   /**
    * Asserts that the page body contains the application JSON.

@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_laco_widget\Functional;
 
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Check if the Laco widget code is on the front page.
  */
 class LacoWidgetTest extends BrowserTestBase {
 
-  use ContentAssertionTrait;
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}

@@ -6,14 +6,14 @@ namespace Drupal\Tests\oe_webtools_cookie_consent\Functional;
 
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Check if the Laco widget code is on the front page.
  */
 class CookieConsentTest extends BrowserTestBase {
 
-  use ContentAssertionTrait;
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}

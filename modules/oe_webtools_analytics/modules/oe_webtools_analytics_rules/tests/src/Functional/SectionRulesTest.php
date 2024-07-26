@@ -6,7 +6,7 @@ namespace Drupal\Tests\oe_webtools_analytics_rules\Functional;
 
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Tests for defining site sections using regular expressions.
@@ -15,7 +15,7 @@ use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
  */
 class SectionRulesTest extends BrowserTestBase {
 
-  use ContentAssertionTrait;
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}

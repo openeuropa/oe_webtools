@@ -6,14 +6,14 @@ namespace Drupal\Tests\oe_webtools_page_feedback\FunctionalJavascript;
 
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Tests the Page Feedback Form webtools widget.
  */
 class PageFeedbackFormTest extends BrowserTestBase {
 
-  use ContentAssertionTrait;
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_globan\Functional;
 
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
+use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Tests that the configured settings are correctly output in the page.
@@ -14,7 +14,7 @@ use Drupal\Tests\oe_webtools\Traits\ContentAssertionTrait;
  */
 class ConfigurationTest extends BrowserTestBase {
 
-  use ContentAssertionTrait;
+  use ApplicationJsonAssertTrait;
 
   /**
    * {@inheritdoc}
