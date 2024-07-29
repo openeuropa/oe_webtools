@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\oe_webtools_social_share\FunctionalJavascript;
+namespace Drupal\Tests\oe_webtools_social_share\Functional;
 
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests the Social share widget settings form.
  */
-class SocialShareSettingsFormTest extends WebDriverTestBase {
+class SocialShareSettingsFormTest extends BrowserTestBase {
 
   /**
    * {@inheritdoc}
@@ -25,15 +25,6 @@ class SocialShareSettingsFormTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-
-    $this->drupalPlaceBlock('page_title_block');
-  }
 
   /**
    * Tests Social share form configuration.
