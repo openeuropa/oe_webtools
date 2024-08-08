@@ -1,0 +1,5 @@
+oe_webtools_social_share.settings:
+  title: 'Webtools Social share'
+  description: 'Configure Webtools Social share block.'
+  route_name: oe_webtools_social_share.settings
+  parent: system.admin_config_system
