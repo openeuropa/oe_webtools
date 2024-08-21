@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\oe_webtools\Kernel;
+namespace Drupal\Tests\oe_webtools_social_share\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\DomCrawler\Crawler;
@@ -50,9 +50,18 @@ class SocialShareBlockTest extends KernelTestBase {
     $crawler = new Crawler($html);
     // Make sure that social share block is present.
     $actual = $crawler->filter('script');
-    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"stats":true,"selection":true}', $actual->text());
+    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"display":"button","stats":true,"selection":true}', $actual->text());
     // Make sure "Share this page" heading is present.
     $this->assertStringContainsString('Share this page', $html);
+
+    $social_share_settings = $this->config('oe_webtools_social_share.settings');
+    $social_share_settings->set('icons', TRUE)->save();
+    $render = $plugin->build();
+    $html = (string) $this->container->get('renderer')->renderRoot($render);
+    $crawler = new Crawler($html);
+    // Make sure that social share block is present.
+    $actual = $crawler->filter('script');
+    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"display":"icons","stats":true,"selection":true}', $actual->text());
   }
 
 }

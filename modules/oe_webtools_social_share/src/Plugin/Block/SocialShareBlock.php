@@ -6,7 +6,10 @@ namespace Drupal\oe_webtools_social_share\Plugin\Block;
 
 use Drupal\Component\Serialization\Json;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Social Share' Block.
@@ -17,7 +20,43 @@ use Drupal\Core\Render\Markup;
  *   category = @Translation("Webtools"),
  * )
  */
-class SocialShareBlock extends BlockBase {
+class SocialShareBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The configuration factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * Creates a SocialShareBlock instance.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ConfigFactoryInterface $config_factory) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->configFactory = $config_factory;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('config.factory')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -30,6 +69,8 @@ class SocialShareBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+    $config = $this->configFactory->get('oe_webtools_social_share.settings');
     $social_share_json = [
       'service' => 'share',
       'version' => '2.0',
@@ -40,6 +81,7 @@ class SocialShareBlock extends BlockBase {
         'email',
         'more',
       ],
+      'display' => $config->get('icons') ? 'icons' : 'button',
       'stats' => TRUE,
       'selection' => TRUE,
     ];
