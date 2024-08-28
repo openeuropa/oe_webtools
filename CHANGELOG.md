@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.31.0](https://github.com/openeuropa/oe_webtools/tree/1.31.0) (2024-08-28)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.30.0...1.31.0)
+
+**Merged pull requests:**
+
+- EWPP-4526: Add Japanese translation. [\#246](https://github.com/openeuropa/oe_webtools/pull/246) ([22Alexandra](https://github.com/22Alexandra))
+- OEL-3156: Placed widgets inside the body tag [\#245](https://github.com/openeuropa/oe_webtools/pull/245) ([drishu](https://github.com/drishu))
+- EWPP-4547: Add settings form for Social share widget to allow rendering icons without labels. [\#244](https://github.com/openeuropa/oe_webtools/pull/244) ([22Alexandra](https://github.com/22Alexandra))
+- OEL-3033: Update to Drupal 10.3. [\#243](https://github.com/openeuropa/oe_webtools/pull/243) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
+
 ## [1.30.0](https://github.com/openeuropa/oe_webtools/tree/1.30.0) (2024-05-28)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.29.0...1.30.0)
@@ -11,6 +22,7 @@
 
 **Merged pull requests:**
 
+- EWPP-0000: Update changelog. [\#241](https://github.com/openeuropa/oe_webtools/pull/241) ([hernani](https://github.com/hernani))
 - EWPP-4357: Update captcha config value for verification endpoint. [\#240](https://github.com/openeuropa/oe_webtools/pull/240) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.29.0](https://github.com/openeuropa/oe_webtools/tree/1.29.0) (2024-04-16)
