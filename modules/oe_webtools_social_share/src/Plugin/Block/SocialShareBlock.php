@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\oe_webtools_social_share\Plugin\Block;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Render\Markup;
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -88,7 +87,7 @@ class SocialShareBlock extends BlockBase implements ContainerFactoryPluginInterf
     return [
       '#theme' => 'oe_webtools_social_share',
       '#title' => $this->t('Share this page'),
-      '#icons_json' => Markup::create(Json::encode($social_share_json)),
+      '#icons_json' => new JsonEncoded($social_share_json),
       '#attached' => ['library' => ['oe_webtools/drupal.webtools-smartloader']],
     ];
   }
