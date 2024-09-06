@@ -35,19 +35,19 @@ class ConfigurationTest extends BrowserTestBase {
    */
   public function testLibraryLoading(): void {
     $this->drupalGet('<front>');
-    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"dark","logo":true,"link":true,"mode":false}');
+    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"light","logo":true,"link":true,"mode":false}');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
       ->set('display_eu_flag', FALSE)
-      ->set('background_theme', 'light')
+      ->set('background_theme', 'dark')
       ->set('display_eu_institutions_links', FALSE)
       ->set('override_page_lang', '')
       ->set('sticky', FALSE);
     $config->save();
 
     $this->drupalGet('<front>');
-    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"light","logo":false,"link":false,"mode":false}');
+    $this->assertBodyContainsApplicationJson('{"utility":"globan","theme":"dark","logo":false,"link":false,"mode":false}');
 
     $config = \Drupal::configFactory()
       ->getEditable('oe_webtools_globan.settings')
