@@ -1,5 +1,5 @@
 display_eu_flag: true
-background_theme: 'dark'
+background_theme: 'light'
 display_eu_institutions_links: true
 override_page_lang: ''
 sticky: false

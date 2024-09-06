@@ -19,3 +19,11 @@ function oe_webtools_globan_post_update_00001(): void {
 
   $config->save();
 }
+
+/**
+ * Set 'light' background_theme config for globan.
+ */
+function oe_webtools_globan_post_update_00002(): void {
+  $config = \Drupal::configFactory()->getEditable('oe_webtools_globan.settings');
+  $config->set('background_theme', 'light')->save();
+}
