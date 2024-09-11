@@ -15,24 +15,29 @@ For more information see [here](https://webgate.ec.europa.eu/fpfis/wikis/display
 
 ## How to use
 
+#### Enable the module
+
+```bash
+drush en oe_webtools_cookie_consent
+```
+
 Simply install the module and all available options will be enabled.
 Uninstall the module to disable the services.
 
 ### Required configuration
 
 In order to provide the Cookie Consent functionality the OpenEuropa Webtools Cookie Consent module
-needs a default configuration in the form of this variable:
+needs a default configuration.
 
-* Enable Cookie Consent Kit: Enable the CCK banner.
-
-This configuration can be provided using Drupal 8 configuration system or by
-providing details in your sites settings.php file:
+This configuration can be provided in 2 ways:
+* Set up the following variables in  your sites settings.php file:
 
 ```
 $config['oe_webtools_cookie_consent.settings']['banner_popup'] = true;
 $config['oe_webtools_cookie_consent.settings']['video_popup'] = true;
 
 ```
+* Using the settings form located on this path "admin/config/system/oe_webtools_cookie_consent"
 
 ## Upgrade to CCK v2
 
