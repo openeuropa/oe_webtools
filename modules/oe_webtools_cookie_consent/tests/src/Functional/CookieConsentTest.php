@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_webtools_cookie_consent\Functional;
 
-use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
+use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
  * Check if the Laco widget code is on the front page.

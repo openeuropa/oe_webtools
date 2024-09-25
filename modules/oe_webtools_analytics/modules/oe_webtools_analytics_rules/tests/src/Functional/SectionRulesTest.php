@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_webtools_analytics_rules\Functional;
 
-use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
+use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
 
 /**
  * Tests for defining site sections using regular expressions.
