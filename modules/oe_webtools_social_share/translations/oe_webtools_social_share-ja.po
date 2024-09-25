@@ -2,4 +2,4 @@ msgid ""
 msgstr ""
 
 msgid "Share this page"
-msgstr "このページを共有する"
+msgstr "このページをシェア"
