@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_cookie_consent\Kernel;
 
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\filter\FilterPluginCollection;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\filter\FilterPluginCollection;
 use Drupal\language\Entity\ConfigurableLanguage;
 
 /**

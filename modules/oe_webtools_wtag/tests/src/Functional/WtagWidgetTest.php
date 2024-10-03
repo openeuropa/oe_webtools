@@ -6,10 +6,10 @@ namespace Drupal\Tests\oe_webtools_wtag\Functional;
 
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Tests\BrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests the Wtag widget using the Wtag form element.
