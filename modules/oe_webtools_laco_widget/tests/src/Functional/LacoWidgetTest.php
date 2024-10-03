@@ -37,6 +37,12 @@ class LacoWidgetTest extends BrowserTestBase {
       ->save();
     $this->drupalGet('<front>');
     $this->assertBodyContainsApplicationJson('{"service":"laco","include":"body","coverage":{"document":"any","page":"any"},"icon":"all","exclude":".nolaco, .more-link, .pager","ignore":["\/fr\/","\/en\/"]}');
+    \Drupal::configFactory()->getEditable('oe_webtools_laco_widget.settings')
+      ->set('coverage.document', 'false')
+      ->set('coverage.page', 'false')
+      ->save();
+    $this->drupalGet('<front>');
+    $this->assertSession()->responseNotContains('<script type="application/json">{"service":"laco"');
   }
 
 }
