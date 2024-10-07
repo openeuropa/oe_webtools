@@ -91,14 +91,14 @@ class RuleMatcher implements RuleMatcherInterface {
   /**
    * {@inheritdoc}
    */
-  public function getMatchingSection(string $path = NULL): ?string {
+  public function getMatchingSection(?string $path = NULL): ?string {
     return $this->getDataForPath($path)['section'];
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getMatchingRule(string $path = NULL): ?WebtoolsAnalyticsRuleInterface {
+  public function getMatchingRule(?string $path = NULL): ?WebtoolsAnalyticsRuleInterface {
     $rule_id = $this->getDataForPath($path)['rule'];
     return !empty($rule_id) ? $this->loadRule($rule_id) : NULL;
   }
@@ -117,7 +117,7 @@ class RuleMatcher implements RuleMatcherInterface {
    *   - rule: Optional ID of the Webtools Analytics Rule entity that was used
    *     to generate the matching section, or NULL if there is no matchine rule.
    */
-  protected function getDataForPath(string $path = NULL): array {
+  protected function getDataForPath(?string $path = NULL): array {
     // Default to the current path.
     if (!$path) {
       $path = $this->getCurrentPath();
@@ -232,7 +232,7 @@ class RuleMatcher implements RuleMatcherInterface {
    * @return \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule[]
    *   The entities.
    */
-  protected function loadRules(array $ids = NULL): array {
+  protected function loadRules(?array $ids = NULL): array {
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRule[] $rules */
     $rules = $this->getRuleEntityStorage()->loadMultiple($ids);
 

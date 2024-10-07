@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_webtools_page_feedback\FunctionalJavascript;
 
-use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
+use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
  * Tests the Page Feedback Form webtools widget.
