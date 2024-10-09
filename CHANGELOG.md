@@ -1,7 +1,17 @@
 # Changelog
 
-## [1.31.0](https://github.com/openeuropa/oe_webtools/tree/1.31.0) (2024-08-28)
+## [1.32.0](https://github.com/openeuropa/oe_webtools/tree/1.32.0) (2024-10-09)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.31.0...1.32.0)
 
+**Closed issues:**
+
+- Update Twitter icon to X in Social Share module [\#222](https://github.com/openeuropa/oe_webtools/issues/222)
+
+**Merged pull requests:**
+
+- EWPP-4791: Include protocol in the webtools cck URL. [\#252](https://github.com/openeuropa/oe_webtools/pull/252) ([22Alexandra](https://github.com/22Alexandra))
+
+## [1.31.0](https://github.com/openeuropa/oe_webtools/tree/1.31.0) (2024-08-29)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.30.0...1.31.0)
 
 **Merged pull requests:**
