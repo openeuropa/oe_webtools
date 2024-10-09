@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_webtools_media\FunctionalJavascript;
 
+use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 use Drupal\media\Entity\MediaType;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
-use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 
 /**
  * Tests the Webtools media source.

@@ -21,7 +21,7 @@ interface RuleMatcherInterface {
    *   The Webtools Analytics rule entity that matches the given path, or NULL
    *   if no match was found.
    */
-  public function getMatchingRule(string $path = NULL): ?WebtoolsAnalyticsRuleInterface;
+  public function getMatchingRule(?string $path = NULL): ?WebtoolsAnalyticsRuleInterface;
 
   /**
    * Returns the site section that matches the given path.
@@ -33,6 +33,6 @@ interface RuleMatcherInterface {
    *   The site section as returned by the Webtools Analytics rule entity that
    *   matches the given path, or NULL if no match was found.
    */
-  public function getMatchingSection(string $path = NULL): ?string;
+  public function getMatchingSection(?string $path = NULL): ?string;
 
 }

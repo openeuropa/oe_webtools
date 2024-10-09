@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_cookie_consent\Kernel;
 
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\filter\FilterPluginCollection;
 use Drupal\KernelTests\KernelTestBase;
+use Drupal\filter\FilterPluginCollection;
 use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
@@ -47,12 +47,12 @@ class IframeFilterPluginKernelTest extends KernelTestBase {
     $input = '<p><iframe src="https://example.com?q=a+b&p=1" style="width: 400px; height: 200px;"></iframe></p>';
 
     // The default language is English.
-    $expected = '<p><iframe src="//webtools.europa.eu/crs/iframe/?oriurl=https%3A//example.com%3Fq%3Da%2Bb%26p%3D1&amp;lang=en" style="width: 400px; height: 200px;"></iframe></p>';
+    $expected = '<p><iframe src="https://webtools.europa.eu/crs/iframe/?oriurl=https%3A//example.com%3Fq%3Da%2Bb%26p%3D1&amp;lang=en" style="width: 400px; height: 200px;"></iframe></p>';
     $this->assertEquals($expected, $cck_filter->process($input, LanguageInterface::LANGCODE_NOT_SPECIFIED)->getProcessedText());
 
     // Test with a different language.
     $this->config('system.site')->set('default_langcode', 'hu')->save();
-    $expected = '<p><iframe src="//webtools.europa.eu/crs/iframe/?oriurl=https%3A//example.com%3Fq%3Da%2Bb%26p%3D1&amp;lang=hu" style="width: 400px; height: 200px;"></iframe></p>';
+    $expected = '<p><iframe src="https://webtools.europa.eu/crs/iframe/?oriurl=https%3A//example.com%3Fq%3Da%2Bb%26p%3D1&amp;lang=hu" style="width: 400px; height: 200px;"></iframe></p>';
     $this->assertEquals($expected, $cck_filter->process($input, LanguageInterface::LANGCODE_NOT_SPECIFIED)->getProcessedText());
   }
 
