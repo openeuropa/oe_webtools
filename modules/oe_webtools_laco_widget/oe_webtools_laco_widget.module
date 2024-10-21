@@ -16,8 +16,18 @@ function oe_webtools_laco_widget_page_bottom(array &$page_bottom) {
   $logger = \Drupal::logger('oe_webtools_laco_widget');
   $config = \Drupal::config('oe_webtools_laco_widget.settings');
 
+  $cache = CacheableMetadata::createFromRenderArray($page_bottom);
+  $cache->addCacheableDependency($config);
+  $cache->applyTo($page_bottom);
+
   // Do not add LACO widget related JSON if it is disabled in the config.
   if (!$config->get('enabled')) {
+    return;
+  }
+
+  // Do not add LACO widget related JSON if both coverage options are disabled.
+  $coverage = $config->get('coverage');
+  if (($coverage['document'] === 'false') && ($coverage['page'] === 'false')) {
     return;
   }
 
@@ -32,8 +42,8 @@ function oe_webtools_laco_widget_page_bottom(array &$page_bottom) {
     'service' => 'laco',
     'include' => implode(', ', $include),
     'coverage' => [
-      'document' => $config->get('coverage.document'),
-      'page' => $config->get('coverage.page'),
+      'document' => $coverage['document'],
+      'page' => $coverage['page'],
     ],
     'icon' => $config->get('icon'),
   ];
@@ -56,7 +66,4 @@ function oe_webtools_laco_widget_page_bottom(array &$page_bottom) {
   ];
 
   $page_bottom['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
-  $cache = CacheableMetadata::createFromRenderArray($page_bottom);
-  $cache->addCacheableDependency($config);
-  $cache->applyTo($page_bottom);
 }
