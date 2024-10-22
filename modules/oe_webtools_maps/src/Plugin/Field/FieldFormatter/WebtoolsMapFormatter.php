@@ -134,6 +134,7 @@ class WebtoolsMapFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $data_array = [
         'service' => 'map',
+        // Fallback to version 2.0 for BC.
         'version' => $config->get('map_version') ?? '2.0',
         'map' => [
           'zoom' => $this->getSetting('zoom_level'),
