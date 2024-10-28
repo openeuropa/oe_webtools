@@ -1,6 +1,16 @@
 # Changelog
 
+## [1.33.0](https://github.com/openeuropa/oe_webtools/tree/1.33.0) (2024-10-28)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.32.0...1.33.0)
+
+**Merged pull requests:**
+
+- EWPP-4784: Do not add LACO widget if all coverage options are disabled. [\#251](https://github.com/openeuropa/oe_webtools/pull/251) ([intelektron](https://github.com/intelektron))
+- EWPP-4782: Update japanese translation. [\#250](https://github.com/openeuropa/oe_webtools/pull/250) ([22Alexandra](https://github.com/22Alexandra))
+
 ## [1.32.0](https://github.com/openeuropa/oe_webtools/tree/1.32.0) (2024-10-09)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.31.0...1.32.0)
 
 **Closed issues:**
@@ -9,13 +19,16 @@
 
 **Merged pull requests:**
 
+- Release 1.32.0. [\#253](https://github.com/openeuropa/oe_webtools/pull/253) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-4791: Include protocol in the webtools cck URL. [\#252](https://github.com/openeuropa/oe_webtools/pull/252) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.31.0](https://github.com/openeuropa/oe_webtools/tree/1.31.0) (2024-08-29)
+
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.30.0...1.31.0)
 
 **Merged pull requests:**
 
+- Release-1.31.0: Update changelog. [\#247](https://github.com/openeuropa/oe_webtools/pull/247) ([nagyad](https://github.com/nagyad))
 - EWPP-4526: Add Japanese translation. [\#246](https://github.com/openeuropa/oe_webtools/pull/246) ([22Alexandra](https://github.com/22Alexandra))
 - OEL-3156: Placed widgets inside the body tag [\#245](https://github.com/openeuropa/oe_webtools/pull/245) ([drishu](https://github.com/drishu))
 - EWPP-4547: Add settings form for Social share widget to allow rendering icons without labels. [\#244](https://github.com/openeuropa/oe_webtools/pull/244) ([22Alexandra](https://github.com/22Alexandra))
