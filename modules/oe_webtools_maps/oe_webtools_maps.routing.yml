@@ -4,4 +4,4 @@ oe_webtools_maps.settings:
     _form: 'Drupal\oe_webtools_maps\Form\WebtoolsMapsSettingsForm'
     _title: 'Webtools Maps Form settings'
   requirements:
-    _permission: 'administer webtools maps form'
+    _permission: 'administer webtools maps'
