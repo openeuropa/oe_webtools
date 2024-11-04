@@ -4,7 +4,7 @@ oe_webtools_maps.settings:
   mapping:
     map_version:
       type: string
-      label: 'Map Version'
+      label: 'Map version'
 
 field.formatter.settings.oe_webtools_maps_map:
   type: mapping
