@@ -29,6 +29,16 @@ In order to enable the module in your project run:
 ./vendor/bin/drush en oe_webtools
 ```
 
+### Webtools configuration
+
+To override the default js file URL for smartloader, you can add the:
+
+```
+$settings['webtools_smart_loader_js_url'] = 'https://webtools.europa.eu/load.js';
+```
+If you wish to use the default, you don't need to do anything, it works out of
+the box.
+
 ### OpenEuropa Webtools Analytics
 
 The Webtools module contains a submodule that provides a service for providing

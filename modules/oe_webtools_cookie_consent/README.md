@@ -34,6 +34,16 @@ $config['oe_webtools_cookie_consent.settings']['video_popup'] = true;
 
 ```
 
+### Iframe URL override
+
+To override the default iframe URL, you can add the:
+
+```
+$settings['webtools_cookie_consent_embed_cookie_url'] = 'https://webtools.europa.eu/crs/iframe/';
+```
+If you wish to use the default, you don't need to do anything, it works out of
+the box.
+
 ## Upgrade to CCK v2
 
 Cookie Consent Kit v2 requires the smartloader library which is declared in oe_webtools module. This new dependency will be applied by running the post_update_00002 for existing installations.
