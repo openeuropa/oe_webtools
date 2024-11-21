@@ -9,6 +9,8 @@ use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 
 /**
  * Check if the Laco widget code is on the front page.
+ *
+ * @group oe_webtools_laco_widget
  */
 class LacoWidgetTest extends BrowserTestBase {
 
