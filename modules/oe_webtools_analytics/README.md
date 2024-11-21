@@ -24,6 +24,7 @@ needs a default configuration in the form of two variables:
 
 * Site ID: This is the unique ID that identifies your site.
 * Site path: This is the base path that leads to your site.
+* Instance: Choose the Europa Analytics server that the data will be reported to.
 
 This configuration can be provided using Drupal 8 configuration system or by
 providing details in your sites settings.php file:
