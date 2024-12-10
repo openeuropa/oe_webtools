@@ -202,14 +202,6 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'default_thumbnail' => 'maps-embed-no-bg.png',
         'blacklist' => [],
       ],
-      'social_feed' => [
-        'name' => $this->t('Social feed'),
-        // @deprecated Use services key instead.
-        'service' => '',
-        'services' => ['smk'],
-        'default_thumbnail' => 'twitter-embed-no-bg.png',
-        'blacklist' => [],
-      ],
       'opwidget' => [
         'name' => $this->t('OP Publication list'),
         // @deprecated Use services key instead.

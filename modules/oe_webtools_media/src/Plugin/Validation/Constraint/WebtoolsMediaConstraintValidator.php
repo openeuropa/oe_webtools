@@ -92,6 +92,11 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       $snippet['service'] = $snippet['utility'];
     }
 
+    if (!isset($widget_types[$constraint->widgetType])) {
+      $this->context->addViolation($constraint->unsupportedWidgetTypeMessage, ['%widget_type' => $constraint->widgetType]);
+      return;
+    }
+
     // Add violation in case incorrect services.
     $services = $widget_types[$constraint->widgetType]['services'] ?? [$widget_types[$constraint->widgetType]['service']];
     if (empty($snippet['service']) || (!empty($services) && !in_array($snippet['service'], $services))) {
