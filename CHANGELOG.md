@@ -1,7 +1,13 @@
-# Changelog
+# Change Log
+
+## [1.34.0](https://github.com/openeuropa/oe_webtools/tree/1.34.0) (2024-12-16)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.33.0...1.34.0)
+
+**Merged pull requests:**
+
+- EWPP-4267: Add override of smartload library in settings.php file. [\#242](https://github.com/openeuropa/oe_webtools/pull/242) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.33.0](https://github.com/openeuropa/oe_webtools/tree/1.33.0) (2024-10-28)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.32.0...1.33.0)
 
 **Merged pull requests:**
