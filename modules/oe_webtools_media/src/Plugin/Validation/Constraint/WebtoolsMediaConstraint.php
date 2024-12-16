@@ -32,6 +32,13 @@ class WebtoolsMediaConstraint extends Constraint {
   public $blacklistMessage = 'This service is supported by a dedicated asset type or feature, please use that instead.';
 
   /**
+   * The unsupported widget type message.
+   *
+   * @var string
+   */
+  public $unsupportedWidgetTypeMessage = 'The service "%widget_type" is no longer supported.';
+
+  /**
    * The incorrect WCLOUD URL message.
    *
    * @var string
