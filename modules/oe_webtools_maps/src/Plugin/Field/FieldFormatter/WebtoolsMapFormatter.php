@@ -75,7 +75,7 @@ class WebtoolsMapFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $data_array = [
         'service' => 'map',
-        'version' => '2.0',
+        'version' => '3.0',
         'map' => [
           'zoom' => $this->getSetting('zoom_level'),
           'center' => [
@@ -87,27 +87,29 @@ class WebtoolsMapFormatter extends FormatterBase {
 
       if ($this->getSetting('show_marker')) {
         $data_array['layers'] = [
-          [
-            'markers' => [
-              'type' => 'FeatureCollection',
-              'features' => [
-                [
-                  'type' => 'Feature',
-                  'properties' => [
-                    'name' => $this->t('Coordinates'),
-                    'description' => $this->t('Longitude: @lon, Latitude: @lat', [
-                      '@lon' => $item->get('lon')->getValue(),
-                      '@lat' => $item->get('lat')->getValue(),
-                    ]),
-                  ],
-                  'geometry' => [
-                    'type' => 'Point',
-                    'coordinates' => [
-                      // Even though in other places the Latitude (lat) comes
-                      // first and the Longitude (lon) second, this array
-                      // requires these values to be reversed.
-                      $item->get('lon')->getValue(),
-                      $item->get('lat')->getValue(),
+          'markers' => [
+            [
+              'data' => [
+                'type' => 'FeatureCollection',
+                'features' => [
+                  [
+                    'type' => 'Feature',
+                    'properties' => [
+                      'name' => $this->t('Coordinates'),
+                      'description' => $this->t('Longitude: @lon, Latitude: @lat', [
+                        '@lon' => $item->get('lon')->getValue(),
+                        '@lat' => $item->get('lat')->getValue(),
+                      ]),
+                    ],
+                    'geometry' => [
+                      'type' => 'Point',
+                      'coordinates' => [
+                        // Even though in other places the Latitude (lat) comes
+                        // first and the Longitude (lon) second, this array
+                        // requires these values to be reversed.
+                        $item->get('lon')->getValue(),
+                        $item->get('lat')->getValue(),
+                      ],
                     ],
                   ],
                 ],
