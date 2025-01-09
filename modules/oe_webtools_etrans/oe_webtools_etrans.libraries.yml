@@ -1,0 +1,11 @@
+wt_etrans:
+  version: VERSION
+  js:
+    js/oe_webtools_etrans_unified.js: { attributes: { defer: true } }
+  css:
+    component:
+      css/oe_webtools_etrans_unified.css: { }
+  dependencies:
+    - core/drupal
+    - core/once
+    - oe_webtools/drupal.webtools-smartloader

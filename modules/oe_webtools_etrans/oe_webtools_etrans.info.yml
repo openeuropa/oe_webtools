@@ -1,7 +1,8 @@
 name: OpenEuropa Webtools eTrans
-description: Provides a block that adds translation buttons to pages.
+description: Provides blocks that adds translation options to pages.
 package: OpenEuropa Webtools
 type: module
 core_version_requirement: ^10
 dependencies:
+  - drupal:language
   - oe_webtools:oe_webtools
