@@ -20,3 +20,16 @@ block.settings.oe_webtools_etrans:
     render_to:
       type: string
       label: 'Render to'
+block.settings.oe_webtools_etrans_unified:
+  type: block_settings
+  label: 'Webtools Unified eTrans block'
+  mapping:
+    delay:
+      type: integer
+      label: 'Delay'
+    exclude:
+      type: string
+      label: 'Exclude'
+    include:
+      type: string
+      label: 'Include'
