@@ -1,0 +1,5 @@
+oe_webtools_maps.settings:
+  title: Webtools Maps
+  description: 'Configure Webtools Maps.'
+  route_name: oe_webtools_maps.settings
+  parent: system.admin_config_system
