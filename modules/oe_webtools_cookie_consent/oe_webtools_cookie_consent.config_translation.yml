@@ -3,4 +3,3 @@ oe_webtools_cookie_consent.settings:
   base_route_name: oe_webtools_cookie_consent.settings
   names:
     - oe_webtools_cookie_consent.settings
-
