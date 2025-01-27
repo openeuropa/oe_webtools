@@ -82,13 +82,14 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
     ]);
     $this->assertSession()->pageTextContains("I'm a text that will be translated.");
     $this->assertSession()->pageTextNotContains("English is available via eTranslation, the European Commission's machine translation service.");
+
     // French translation should not have the block.
     $this->drupalGet($node->toUrl(NULL, [
       'language' => ConfigurableLanguage::load('fr'),
     ]));
-
     $this->assertSession()->pageTextContains("Je suis un texte qui va être traduit.");
     $this->assertSession()->pageTextNotContains("French is available via eTranslation, the European Commission's machine translation service.");
+
     // Croatian translation should have the block
     // and display the english text.
     $this->drupalGet($node->toUrl(NULL, [
@@ -97,6 +98,21 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains("I'm a text that will be translated.");
     $this->assertSession()->pageTextContains("Croatian is available via eTranslation, the European Commission's machine translation service.");
 
+    $translation = $node->addTranslation('hr', [
+      'title' => 'Hrvatski prijevod',
+      'body' => [
+        'value' => "Ja sam tekst koji će biti preveden.",
+        'format' => filter_default_format(),
+      ],
+    ]);
+    $translation->save();
+    // Croatian translation should not have the block
+    // and display the croatian text.
+    $this->drupalGet($node->toUrl(NULL, [
+      'language' => ConfigurableLanguage::load('hr'),
+    ]));
+    $this->assertSession()->pageTextContains("Ja sam tekst koji će biti preveden.");
+    $this->assertSession()->pageTextNotContains("Croatian is available via eTranslation, the European Commission's machine translation service.");
   }
 
   /**
