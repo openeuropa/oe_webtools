@@ -1,6 +1,6 @@
 /**
  * @file
- * Handles the machine translation.
+ * Handles webtools eTrans unified block js.
  */
 
 (function (Drupal) {

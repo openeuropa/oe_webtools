@@ -1,5 +1,5 @@
 name: OpenEuropa Webtools eTrans
-description: Provides blocks that adds translation options to pages.
+description: Provides blocks that adds translation options.
 package: OpenEuropa Webtools
 type: module
 core_version_requirement: ^10
