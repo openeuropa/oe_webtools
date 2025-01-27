@@ -8,7 +8,14 @@
  *  - disclaimer_link: The link to the EC disclaimer eTrans service use.
  */
 #}
-<div id="unified-translation-request" class="wt-ecl-notification wt-ecl-notification--info laco-exclude">
+{%
+  set classes = [
+    'wt-ecl-notification',
+    'wt-ecl-notification--info',
+    'laco-exclude'
+  ]
+%}
+<div id="unified-translation-request" {{ attributes.addClass(classes) }}>
   <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false" xmlns="xmlns=&quot;http://www.w3.org/2000/svg" class="wt-ecl-notification__icon" width="48" height="48"><path fill-rule="evenodd" d="M42 3H6C4.35 3 3 4.35 3 6v36c0 1.65 1.35 3 3 3h36c1.65 0 3-1.35 3-3V6c0-1.65-1.35-3-3-3M21.93 13.38a2.31 2.31 0 0 1 2.1-1.41c.6 0 1.17.24 1.59.66s.66.99.66 1.59c0 .45-.12.87-.39 1.26-.24.36-.6.66-1.02.84s-.87.21-1.29.12c-.45-.09-.84-.3-1.14-.63-.3-.3-.54-.72-.63-1.14s-.03-.9.12-1.29M30 36H18v-3h4.5v-9h-3v-3h6v12H30z" clip-rule="evenodd"></path></svg>
   <div class="wt-ecl-notification__content">
     <div class="wt-ecl-notification__description">

@@ -10,7 +10,6 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -22,7 +21,7 @@ use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a block that unifies Drupal/Etrans translation of current page.
+ * Provides a block that unifies Drupal-Etrans translation of current page.
  */
 #[Block(
   id: 'oe_webtools_etrans_unified',
@@ -41,27 +40,6 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   ];
 
   /**
-   * The language manager.
-   *
-   * @var \Drupal\Core\Language\LanguageManagerInterface
-   */
-  protected $languageManager;
-
-  /**
-   * The route match service.
-   *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
-   */
-  protected $routeMatch;
-
-  /**
-   * The module handler.
-   *
-   * @var \Drupal\Core\Extension\ModuleHandlerInterface
-   */
-  protected $moduleHandler;
-
-  /**
    * Creates an ETransBlock.
    *
    * @param array $configuration
@@ -70,18 +48,19 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
    *   The plugin_id for the plugin instance.
    * @param mixed $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
+   * @param \Drupal\Core\Language\LanguageManagerInterface $languageManager
    *   The language manager.
-   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The route match service.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, LanguageManagerInterface $language_manager, RouteMatchInterface $route_match, ModuleHandlerInterface $module_handler) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    protected LanguageManagerInterface $languageManager,
+    protected RouteMatchInterface $routeMatch,
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->languageManager = $language_manager;
-    $this->routeMatch = $route_match;
-    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -93,8 +72,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
       $plugin_id,
       $plugin_definition,
       $container->get('language_manager'),
-      $container->get('current_route_match'),
-      $container->get('module_handler')
+      $container->get('current_route_match')
     );
   }
 
@@ -127,8 +105,6 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     $translation_to_language = $this->languageManager->getCurrentLanguage();
 
     $json = $this->preparesWtEtransJson($translation_from, $placeholder_id);
-
-    $this->moduleHandler->invokeAll('oe_webtools_etrans_unified_alter_json', [&$json]);
 
     // Returns UEC webtool eTrans widget.
     $build['etrans_uec'] = [
@@ -204,7 +180,6 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   public function buildConfigurationForm(array $form, FormStateInterface $form_state): array {
     $form = parent::buildConfigurationForm($form, $form_state);
 
-    // Delay.
     $form['delay'] = [
       '#type' => 'number',
       '#title' => $this->t('Delay'),
@@ -213,7 +188,6 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
       '#default_value' => $this->configuration['delay'],
     ];
 
-    // Include.
     $form['include'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Include'),
@@ -221,7 +195,6 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
       '#default_value' => (string) $this->configuration['include'],
     ];
 
-    // Exclude.
     $form['exclude'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Exclude'),
