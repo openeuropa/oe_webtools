@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.35.0](https://github.com/openeuropa/oe_webtools/tree/1.35.0) (2025-01-29)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.34.0...1.35.0)
+
+**Merged pull requests:**
+
+- EWPP-4991: Ensure PHP8.3 compatibility. [\#259](https://github.com/openeuropa/oe_webtools/pull/259) ([nagyad](https://github.com/nagyad))
+
 ## [1.34.0](https://github.com/openeuropa/oe_webtools/tree/1.34.0) (2024-12-16)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.33.0...1.34.0)
 
 **Merged pull requests:**
 
+- Release 1.34.0 changelog. [\#257](https://github.com/openeuropa/oe_webtools/pull/257) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-4267: Add override of smartload library in settings.php file. [\#242](https://github.com/openeuropa/oe_webtools/pull/242) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.33.0](https://github.com/openeuropa/oe_webtools/tree/1.33.0) (2024-10-28)
@@ -12,11 +20,11 @@
 
 **Merged pull requests:**
 
+- Release-1.33.0: Update changelog. [\#255](https://github.com/openeuropa/oe_webtools/pull/255) ([nagyad](https://github.com/nagyad))
 - EWPP-4784: Do not add LACO widget if all coverage options are disabled. [\#251](https://github.com/openeuropa/oe_webtools/pull/251) ([intelektron](https://github.com/intelektron))
 - EWPP-4782: Update japanese translation. [\#250](https://github.com/openeuropa/oe_webtools/pull/250) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.32.0](https://github.com/openeuropa/oe_webtools/tree/1.32.0) (2024-10-09)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.31.0...1.32.0)
 
 **Closed issues:**
@@ -29,7 +37,6 @@
 - EWPP-4791: Include protocol in the webtools cck URL. [\#252](https://github.com/openeuropa/oe_webtools/pull/252) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.31.0](https://github.com/openeuropa/oe_webtools/tree/1.31.0) (2024-08-29)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.30.0...1.31.0)
 
 **Merged pull requests:**
@@ -41,7 +48,6 @@
 - OEL-3033: Update to Drupal 10.3. [\#243](https://github.com/openeuropa/oe_webtools/pull/243) ([AaronGilMartinez](https://github.com/AaronGilMartinez))
 
 ## [1.30.0](https://github.com/openeuropa/oe_webtools/tree/1.30.0) (2024-05-28)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.29.0...1.30.0)
 
 **Closed issues:**
@@ -55,7 +61,6 @@
 - EWPP-4357: Update captcha config value for verification endpoint. [\#240](https://github.com/openeuropa/oe_webtools/pull/240) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.29.0](https://github.com/openeuropa/oe_webtools/tree/1.29.0) (2024-04-16)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.28.0...1.29.0)
 
 **Merged pull requests:**
@@ -64,7 +69,6 @@
 - EWPP-4269: Replace hardcoded webtools url. [\#234](https://github.com/openeuropa/oe_webtools/pull/234) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.28.0](https://github.com/openeuropa/oe_webtools/tree/1.28.0) (2024-02-13)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.27.0...1.28.0)
 
 **Closed issues:**
@@ -78,7 +82,6 @@
 - EWPP-3956: Add Drupal 10.2.x and PHP 8.2 to matrix. [\#228](https://github.com/openeuropa/oe_webtools/pull/228) ([brummbar](https://github.com/brummbar))
 
 ## [1.27.0](https://github.com/openeuropa/oe_webtools/tree/1.27.0) (2024-01-15)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.26.0...1.27.0)
 
 **Merged pull requests:**
@@ -88,7 +91,6 @@
 - EWPP-3797: Update SBKM to 2.0 version. [\#224](https://github.com/openeuropa/oe_webtools/pull/224) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.26.0](https://github.com/openeuropa/oe_webtools/tree/1.26.0) (2023-11-21)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.25.0...1.26.0)
 
 **Merged pull requests:**
@@ -97,7 +99,6 @@
 - EWPP-3623: Add Webtools Wtag service. [\#221](https://github.com/openeuropa/oe_webtools/pull/221) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.25.0](https://github.com/openeuropa/oe_webtools/tree/1.25.0) (2023-09-18)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.24.0...1.25.0)
 
 **Closed issues:**
@@ -111,7 +112,6 @@
 - EWPP-3386: Implement the webtools sliding captcha. [\#218](https://github.com/openeuropa/oe_webtools/pull/218) ([nagyad](https://github.com/nagyad))
 
 ## [1.24.0](https://github.com/openeuropa/oe_webtools/tree/1.24.0) (2023-06-30)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.23.0...1.24.0)
 
 **Merged pull requests:**
@@ -120,7 +120,6 @@
 - EWPP-3326: Add support of webtools custom dimensions. [\#216](https://github.com/openeuropa/oe_webtools/pull/216) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.23.0](https://github.com/openeuropa/oe_webtools/tree/1.23.0) (2023-05-11)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.22.0...1.23.0)
 
 **Merged pull requests:**
@@ -129,7 +128,6 @@
 - EWPP-2775: Adapt WebtoolsMediaConstraintValidator for opwidget service. [\#213](https://github.com/openeuropa/oe_webtools/pull/213) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.22.0](https://github.com/openeuropa/oe_webtools/tree/1.22.0) (2023-04-11)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.1...1.22.0)
 
 **Closed issues:**
@@ -142,7 +140,6 @@
 - EWPP-3010: Drupal 10 compatibility. [\#212](https://github.com/openeuropa/oe_webtools/pull/212) ([brummbar](https://github.com/brummbar))
 
 ## [1.21.1](https://github.com/openeuropa/oe_webtools/tree/1.21.1) (2023-02-16)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.21.0...1.21.1)
 
 **Merged pull requests:**
@@ -151,7 +148,6 @@
 - Fix PHP8 deprecation notice [\#209](https://github.com/openeuropa/oe_webtools/pull/209) ([claudiu-cristea](https://github.com/claudiu-cristea))
 
 ## [1.21.0](https://github.com/openeuropa/oe_webtools/tree/1.21.0) (2023-02-15)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.20.0...1.21.0)
 
 **Merged pull requests:**
@@ -160,7 +156,6 @@
 - ISAICP-4998: Allow the formatter to automatically show the marker of the coordinates. [\#111](https://github.com/openeuropa/oe_webtools/pull/111) ([idimopoulos](https://github.com/idimopoulos))
 
 ## [1.20.0](https://github.com/openeuropa/oe_webtools/tree/1.20.0) (2023-01-04)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.19.0...1.20.0)
 
 **Closed issues:**
@@ -175,7 +170,6 @@
 - EWPP-2709: Make Include field in laco widget settings form as required. [\#201](https://github.com/openeuropa/oe_webtools/pull/201) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.19.0](https://github.com/openeuropa/oe_webtools/tree/1.19.0) (2022-08-02)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.18.0...1.19.0)
 
 **Merged pull requests:**
@@ -185,7 +179,6 @@
 - EWPP-2358: Drupal 9.4 support. [\#197](https://github.com/openeuropa/oe_webtools/pull/197) ([yenyasinn](https://github.com/yenyasinn))
 
 ## [1.18.0](https://github.com/openeuropa/oe_webtools/tree/1.18.0) (2022-06-22)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.17.0...1.18.0)
 
 **Merged pull requests:**
@@ -199,7 +192,6 @@
 - ISAICP-6273: Integrate with Webtools eTrans [\#178](https://github.com/openeuropa/oe_webtools/pull/178) ([brummbar](https://github.com/brummbar))
 
 ## [1.17.0](https://github.com/openeuropa/oe_webtools/tree/1.17.0) (2022-04-11)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.16.0...1.17.0)
 
 **Merged pull requests:**
@@ -210,7 +202,6 @@
 - EWPP-1714: Generic webtools service. [\#179](https://github.com/openeuropa/oe_webtools/pull/179) ([yenyasinn](https://github.com/yenyasinn))
 
 ## [1.16.0](https://github.com/openeuropa/oe_webtools/tree/1.16.0) (2022-03-28)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.15.0...1.16.0)
 
 **Merged pull requests:**
@@ -219,7 +210,6 @@
 - EWPP-2085: Allow alpha numeric site id for Webtools analytics. [\#184](https://github.com/openeuropa/oe_webtools/pull/184) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.15.0](https://github.com/openeuropa/oe_webtools/tree/1.15.0) (2022-02-17)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.14.1...1.15.0)
 
 **Merged pull requests:**
@@ -229,7 +219,6 @@
 - EWPP-1910: Update to PHP7.4/8.0 [\#177](https://github.com/openeuropa/oe_webtools/pull/177) ([hernani](https://github.com/hernani))
 
 ## [1.14.1](https://github.com/openeuropa/oe_webtools/tree/1.14.1) (2021-11-02)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.14.0...1.14.1)
 
 **Merged pull requests:**
@@ -238,7 +227,6 @@
 - EWPP-1648: Ensuring LACO works with mapped languages. [\#175](https://github.com/openeuropa/oe_webtools/pull/175) ([upchuk](https://github.com/upchuk))
 
 ## [1.14.0](https://github.com/openeuropa/oe_webtools/tree/1.14.0) (2021-09-27)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.13.0...1.14.0)
 
 **Merged pull requests:**
@@ -253,7 +241,6 @@
 - EWPP-1178: Update globan to use the new json syntax. [\#164](https://github.com/openeuropa/oe_webtools/pull/164) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.13.0](https://github.com/openeuropa/oe_webtools/tree/1.13.0) (2021-08-16)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.12.0...1.13.0)
 
 **Closed issues:**
@@ -267,7 +254,6 @@
 - EWPP-490: Cookie consent page URL. [\#165](https://github.com/openeuropa/oe_webtools/pull/165) ([upchuk](https://github.com/upchuk))
 
 ## [1.12.0](https://github.com/openeuropa/oe_webtools/tree/1.12.0) (2021-06-15)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.11.0...1.12.0)
 
 **Merged pull requests:**
@@ -280,7 +266,6 @@
 - EWPP-721: Update xdebug configuration. [\#150](https://github.com/openeuropa/oe_webtools/pull/150) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.11.0](https://github.com/openeuropa/oe_webtools/tree/1.11.0) (2021-03-11)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.10.0...1.11.0)
 
 **Closed issues:**
@@ -294,7 +279,6 @@
 - ISAICP-6273: Avoid CORS issues by requesting the Webtools Smartloader script over HTTPS [\#149](https://github.com/openeuropa/oe_webtools/pull/149) ([pfrenssen](https://github.com/pfrenssen))
 
 ## [1.10.0](https://github.com/openeuropa/oe_webtools/tree/1.10.0) (2021-01-25)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.9.0...1.10.0)
 
 **Merged pull requests:**
@@ -304,7 +288,6 @@
 - EWPP-416: Add new opwidget webtools media source. [\#142](https://github.com/openeuropa/oe_webtools/pull/142) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.9.0](https://github.com/openeuropa/oe_webtools/tree/1.9.0) (2020-12-03)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.8.0...1.9.0)
 
 **Merged pull requests:**
@@ -316,7 +299,6 @@
 - EWPP-427: Do not create a log entry for each page load if site ID is missing [\#136](https://github.com/openeuropa/oe_webtools/pull/136) ([brummbar](https://github.com/brummbar))
 
 ## [1.8.0](https://github.com/openeuropa/oe_webtools/tree/1.8.0) (2020-08-06)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.7.0...1.8.0)
 
 **Merged pull requests:**
@@ -327,7 +309,6 @@
 - OPENEUROPA-2943: Upgrade to PHP 7.3. [\#120](https://github.com/openeuropa/oe_webtools/pull/120) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.7.0](https://github.com/openeuropa/oe_webtools/tree/1.7.0) (2020-06-22)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.6.0...1.7.0)
 
 **Merged pull requests:**
@@ -340,7 +321,6 @@
 - OPENEUROPA-2264: Add sticky flag for globan. [\#124](https://github.com/openeuropa/oe_webtools/pull/124) ([nagyad](https://github.com/nagyad))
 
 ## [1.6.0](https://github.com/openeuropa/oe_webtools/tree/1.6.0) (2020-04-29)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.5.0...1.6.0)
 
 **Merged pull requests:**
@@ -351,7 +331,6 @@
 - OPENEUROPA-2604: Drupal 8 recommended project. [\#119](https://github.com/openeuropa/oe_webtools/pull/119) ([upchuk](https://github.com/upchuk))
 
 ## [1.5.0](https://github.com/openeuropa/oe_webtools/tree/1.5.0) (2020-02-05)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.4.0...1.5.0)
 
 **Merged pull requests:**
@@ -363,7 +342,6 @@
 - OPENEUROPA-2258: Use PHP 7.2 in drone and docker image. [\#95](https://github.com/openeuropa/oe_webtools/pull/95) ([dxvargas](https://github.com/dxvargas))
 
 ## [1.4.0](https://github.com/openeuropa/oe_webtools/tree/1.4.0) (2019-10-16)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.3.0...1.4.0)
 
 **Closed issues:**
@@ -379,7 +357,6 @@
 - Issue \#87: Allow alteration of "Webtools Map" formatter [\#88](https://github.com/openeuropa/oe_webtools/pull/88) ([vever001](https://github.com/vever001))
 
 ## [1.3.0](https://github.com/openeuropa/oe_webtools/tree/1.3.0) (2019-09-24)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.1...1.3.0)
 
 **Closed issues:**
@@ -397,7 +374,6 @@
 - OPENEUROPA-2130: Add new component oe webtools media. [\#84](https://github.com/openeuropa/oe_webtools/pull/84) ([msnassar](https://github.com/msnassar))
 
 ## [1.2.1](https://github.com/openeuropa/oe_webtools/tree/1.2.1) (2019-07-26)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.2.0...1.2.1)
 
 **Merged pull requests:**
@@ -406,7 +382,6 @@
 - OPENEUROPA-2084: Fix url of CCK. [\#82](https://github.com/openeuropa/oe_webtools/pull/82) ([voidtek](https://github.com/voidtek))
 
 ## [1.2.0](https://github.com/openeuropa/oe_webtools/tree/1.2.0) (2019-07-25)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.1.0...1.2.0)
 
 **Merged pull requests:**
@@ -418,7 +393,6 @@
 - OPENEUROPA-2043: Integrate cookie consent kit. [\#74](https://github.com/openeuropa/oe_webtools/pull/74) ([voidtek](https://github.com/voidtek))
 
 ## [1.1.0](https://github.com/openeuropa/oe_webtools/tree/1.1.0) (2019-06-18)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.0.0...1.1.0)
 
 **Implemented enhancements:**
@@ -439,7 +413,6 @@
 - OPENEUROPA-1864: Fix dependencies from oe\_media. [\#58](https://github.com/openeuropa/oe_webtools/pull/58) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.0.0](https://github.com/openeuropa/oe_webtools/tree/1.0.0) (2019-05-15)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.5.0...1.0.0)
 
 **Closed issues:**
@@ -451,7 +424,6 @@
 - Update CHANGELOG.md for release 1.0.0. [\#57](https://github.com/openeuropa/oe_webtools/pull/57) ([richardcanoe](https://github.com/richardcanoe))
 
 ## [0.5.0](https://github.com/openeuropa/oe_webtools/tree/0.5.0) (2019-05-07)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.1...0.5.0)
 
 **Merged pull requests:**
@@ -460,7 +432,6 @@
 - OPENEUROPA-1813: Upgrade to 8.7. [\#52](https://github.com/openeuropa/oe_webtools/pull/52) ([upchuk](https://github.com/upchuk))
 
 ## [0.4.1](https://github.com/openeuropa/oe_webtools/tree/0.4.1) (2019-05-07)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.4.0...0.4.1)
 
 **Merged pull requests:**
@@ -471,7 +442,6 @@
 - OPENEUROPA-1874: Fixing tests. [\#50](https://github.com/openeuropa/oe_webtools/pull/50) ([upchuk](https://github.com/upchuk))
 
 ## [0.4.0](https://github.com/openeuropa/oe_webtools/tree/0.4.0) (2019-04-25)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.3.0...0.4.0)
 
 **Fixed bugs:**
@@ -506,7 +476,6 @@
 - OPENEUROPA-1465: Add instance parameter to webtools analytics [\#20](https://github.com/openeuropa/oe_webtools/pull/20) ([imanoleguskiza](https://github.com/imanoleguskiza))
 
 ## [0.3.0](https://github.com/openeuropa/oe_webtools/tree/0.3.0) (2018-12-03)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.2.0...0.3.0)
 
 **Merged pull requests:**
@@ -518,7 +487,6 @@
 - OPENEUROPA-1247: Cleanup and minor fixes for Analytics. [\#15](https://github.com/openeuropa/oe_webtools/pull/15) ([dxvargas](https://github.com/dxvargas))
 
 ## [0.2.0](https://github.com/openeuropa/oe_webtools/tree/0.2.0) (2018-09-27)
-
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/0.1.0...0.2.0)
 
 **Merged pull requests:**
@@ -546,4 +514,4 @@
 
 
 
-\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
