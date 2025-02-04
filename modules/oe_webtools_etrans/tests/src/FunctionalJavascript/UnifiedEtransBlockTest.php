@@ -25,6 +25,8 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
     'node',
     'oe_multilingual',
     'oe_webtools_etrans',
+    'page_cache',
+    'dynamic_page_cache',
   ];
 
   /**
