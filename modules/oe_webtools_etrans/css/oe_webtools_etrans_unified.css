@@ -1,0 +1,13 @@
+#wtEtransModal {
+  display: none;
+}
+
+#unified-translation-request .utr-close {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+}
+
+#etrans-widget .wt-icon--s {
+  display: none;
+}
