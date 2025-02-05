@@ -130,12 +130,13 @@ class WebtoolsMapFormatter extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
     $config = $this->configFactory->get('oe_webtools_maps.settings');
+    // Fallback to version 2.0 for BC.
+    $map_version = $config->get('map_version') ?? '2.0';
 
     foreach ($items as $delta => $item) {
       $data_array = [
         'service' => 'map',
-        // Fallback to version 2.0 for BC.
-        'version' => $config->get('map_version') ?? '2.0',
+        'version' => $map_version,
         'map' => [
           'zoom' => $this->getSetting('zoom_level'),
           'center' => [
@@ -145,38 +146,48 @@ class WebtoolsMapFormatter extends FormatterBase {
         ],
       ];
 
+      $markers_data = [
+        'type' => 'FeatureCollection',
+        'features' => [
+          [
+            'type' => 'Feature',
+            'properties' => [
+              'name' => $this->t('Coordinates'),
+              'description' => $this->t('Longitude: @lon, Latitude: @lat', [
+                '@lon' => $item->get('lon')->getValue(),
+                '@lat' => $item->get('lat')->getValue(),
+              ]),
+            ],
+            'geometry' => [
+              'type' => 'Point',
+              'coordinates' => [
+                // Even though in other places the Latitude (lat) comes
+                // first and the Longitude (lon) second, this array
+                // requires these values to be reversed.
+                $item->get('lon')->getValue(),
+                $item->get('lat')->getValue(),
+              ],
+            ],
+          ],
+        ],
+      ];
+
       if ($this->getSetting('show_marker')) {
         $data_array['layers'] = [
           'markers' => [
             [
-              'data' => [
-                'type' => 'FeatureCollection',
-                'features' => [
-                  [
-                    'type' => 'Feature',
-                    'properties' => [
-                      'name' => $this->t('Coordinates'),
-                      'description' => $this->t('Longitude: @lon, Latitude: @lat', [
-                        '@lon' => $item->get('lon')->getValue(),
-                        '@lat' => $item->get('lat')->getValue(),
-                      ]),
-                    ],
-                    'geometry' => [
-                      'type' => 'Point',
-                      'coordinates' => [
-                        // Even though in other places the Latitude (lat) comes
-                        // first and the Longitude (lon) second, this array
-                        // requires these values to be reversed.
-                        $item->get('lon')->getValue(),
-                        $item->get('lat')->getValue(),
-                      ],
-                    ],
-                  ],
-                ],
-              ],
+              'data' => $markers_data,
             ],
           ],
         ];
+
+        if ($map_version === '2.0') {
+          $data_array['layers'] = [
+            [
+              'markers' => $markers_data,
+            ],
+          ];
+        }
       }
 
       $element[$delta] = [
