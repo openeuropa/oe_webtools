@@ -140,7 +140,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     ]);
     $translate_link = [
       '#type' => 'link',
-      '#url' => Url::fromRoute('<none>', [], ['attributes' => ['class' => ['oe-multilingual-unified-etrans--translate']]]),
+      '#url' => Url::fromRoute('<none>', [], ['attributes' => ['class' => ['oe-webtools-unified-etrans--translate']]]),
       '#title' => $this->t('Translate to @language', [
         '@language' => $translation_to_language->getName(),
       ], [

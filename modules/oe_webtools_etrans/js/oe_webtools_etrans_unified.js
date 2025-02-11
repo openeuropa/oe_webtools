@@ -10,16 +10,16 @@
    *
    * @type {Drupal~behavior}
    */
-  Drupal.behaviors.etrans = {
+  Drupal.behaviors.oe_webtools_unified_etrans = {
     attach: function (context) {
 
-      const translated = once('oe-multilang-unified-etrans', 'body', context);
+      const translated = once('oe-webtools-unified-etrans', 'body', context);
       if (!translated) {
         return;
       }
 
       const unifiedTranslationRequest = document.getElementById('unified-translation-request');
-      const translateLink = document.querySelector('.oe-multilingual-unified-etrans--translate');
+      const translateLink = document.querySelector('.oe-webtools-unified-etrans--translate');
       translateLink.addEventListener('click', (e) => {
         e.preventDefault();
         $wt.etrans.translate('body', drupalSettings.path.languageTo);
