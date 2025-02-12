@@ -221,6 +221,9 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   /**
    * Get route entity langcode (translation or default).
    *
+   * @param bool $default
+   *   Whether to fallback to node default site language on node route.
+   *
    * @return string
    *   Requested langcode, default one or empty string.
    */
