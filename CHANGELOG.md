@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.36.0](https://github.com/openeuropa/oe_webtools/tree/1.36.0) (2025-02-12)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.35.0...1.36.0)
+
+**Merged pull requests:**
+
+- EWPP-4984: Remove social feed widget type from the Webtools media source options. [\#256](https://github.com/openeuropa/oe_webtools/pull/256) ([22Alexandra](https://github.com/22Alexandra))
+
 ## [1.35.0](https://github.com/openeuropa/oe_webtools/tree/1.35.0) (2025-01-29)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.34.0...1.35.0)
 
 **Merged pull requests:**
 
+- Release-1.35.0: Update changelog. [\#264](https://github.com/openeuropa/oe_webtools/pull/264) ([nagyad](https://github.com/nagyad))
 - EWPP-4991: Ensure PHP8.3 compatibility. [\#259](https://github.com/openeuropa/oe_webtools/pull/259) ([nagyad](https://github.com/nagyad))
 
 ## [1.34.0](https://github.com/openeuropa/oe_webtools/tree/1.34.0) (2024-12-16)
