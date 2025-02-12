@@ -1,5 +1,4 @@
 wt_etrans:
-  version: VERSION
   js:
     js/oe_webtools_etrans_unified.js: { attributes: { defer: true } }
   css:

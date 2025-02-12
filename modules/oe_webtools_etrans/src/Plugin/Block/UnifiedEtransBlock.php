@@ -40,7 +40,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   ];
 
   /**
-   * Creates an ETransBlock.
+   * Creates an UnifiedEransBlock.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -79,7 +79,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   /**
    * {@inheritdoc}
    */
-  public function access(AccountInterface $account, $return_as_object = FALSE) {
+  public function blockAccess(AccountInterface $account) {
     $translation_exists = (bool) $this->getRouteEntityLangcode();
     return AccessResult::allowedIf(!$translation_exists);
   }
