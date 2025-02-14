@@ -2,7 +2,7 @@ name: 'OpenEuropa Webtools Captcha Mock'
 description: 'Provides mock end point for validation.'
 package: 'OpenEuropa Webtools'
 type: module
-core_version_requirement: ^10
+core_version_requirement: ^10 || ^11
 
 dependencies:
   - oe_webtools_captcha:oe_webtools_captcha
