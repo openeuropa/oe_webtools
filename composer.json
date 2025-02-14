@@ -15,11 +15,13 @@
         "drupal/captcha": "^1.10 || ^2.0",
         "drupal/core-composer-scaffold": "^10.3 || ^11",
         "drupal/drupal-extension": "^5.0",
+        "drupal/entity_reference_revisions": "^1.12",
         "drupal/geocoder": "^4.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.1",
         "drush/drush": "^12 || ^13",
         "mikey179/vfsstream": "^1.6",
+        "nikic/php-parser": "^4.18",
         "openeuropa/behat-transformation-context": "^0.2",
         "openeuropa/code-review-drupal": "^1.0.0-alpha",
         "openeuropa/oe_media": "dev-EWPP-4630",
@@ -28,8 +30,7 @@
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
         "openeuropa/webtools-geocoding-provider": "^0.3",
         "phpspec/prophecy-phpunit": "^2",
-        "symfony/phpunit-bridge": "^6.2",
-        "nikic/php-parser": "^4.18"
+        "symfony/phpunit-bridge": "^6.2"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
