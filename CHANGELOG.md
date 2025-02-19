@@ -1,10 +1,18 @@
 # Change Log
 
+## [1.37.0](https://github.com/openeuropa/oe_webtools/tree/1.37.0) (2025-02-19)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.36.0...1.37.0)
+
+**Merged pull requests:**
+
+- OEL-3585: eTrans unified block. [\#262](https://github.com/openeuropa/oe_webtools/pull/262) ([Aporie](https://github.com/Aporie))
+
 ## [1.36.0](https://github.com/openeuropa/oe_webtools/tree/1.36.0) (2025-02-12)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.35.0...1.36.0)
 
 **Merged pull requests:**
 
+- Release-1.36.0: Update changelog. [\#265](https://github.com/openeuropa/oe_webtools/pull/265) ([nagyad](https://github.com/nagyad))
 - EWPP-4984: Remove social feed widget type from the Webtools media source options. [\#256](https://github.com/openeuropa/oe_webtools/pull/256) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.35.0](https://github.com/openeuropa/oe_webtools/tree/1.35.0) (2025-01-29)
