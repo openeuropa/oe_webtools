@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * OE webtools eTrans file.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme().
+ */
+function oe_webtools_etrans_theme() {
+  return [
+    'block__unified_etrans_request' => [
+      'variables' => [
+        'message' => NULL,
+        'translate_link' => NULL,
+        'disclaimer_link' => NULL,
+      ],
+    ],
+  ];
+}
