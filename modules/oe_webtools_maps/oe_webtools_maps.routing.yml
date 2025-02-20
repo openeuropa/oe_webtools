@@ -1,0 +1,7 @@
+oe_webtools_maps.settings:
+  path: '/admin/config/system/oe_webtools_maps'
+  defaults:
+    _form: 'Drupal\oe_webtools_maps\Form\WebtoolsMapsSettingsForm'
+    _title: 'Webtools Maps settings'
+  requirements:
+    _permission: 'administer webtools maps'
