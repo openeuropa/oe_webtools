@@ -182,10 +182,12 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
           $this->assertCacheTags($this->ruleEntityType->getListCacheTags());
         }
         else {
-          // Cache contexts and tags should not be set
-          // when no section is matched.
+          // Cache contexts should not be set when no section is matched.
           $this->assertNoCacheContexts(['url.path']);
-          $this->assertNoCacheTags($this->ruleEntityType->getListCacheTags());
+          // If any of the rules change then the result cache should be
+          // invalidated. Check that the list cache tags of the rule
+          // entity are included in the result.
+          $this->assertCacheTags($this->ruleEntityType->getListCacheTags());
         }
 
       }

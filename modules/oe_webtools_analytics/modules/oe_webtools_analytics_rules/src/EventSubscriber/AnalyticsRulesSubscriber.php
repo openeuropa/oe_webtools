@@ -54,6 +54,13 @@ class AnalyticsRulesSubscriber implements EventSubscriberInterface {
    *   The analytics event.
    */
   public function onAnalyticsEvent(AnalyticsEventInterface $event): void {
+    // We return results based on rule entities. This means that if a rule is
+    // added or deleted, or if any of the existing rules change, the cached
+    // results should be invalidated.
+    $webtools_analytics_rule_definition = $this->getWebtoolsAnalyticsRuleDefinition();
+    $webtools_rules_cache_tags = $webtools_analytics_rule_definition->getListCacheTags();
+    $event->addCacheTags($webtools_rules_cache_tags);
+
     // Store the section that matches the current path on the event if it is
     // found.
     $section = $this->ruleMatcher->getMatchingSection();
@@ -62,13 +69,6 @@ class AnalyticsRulesSubscriber implements EventSubscriberInterface {
     }
 
     $event->setSiteSection($section);
-
-    // We return results based on rule entities. This means that if a rule is
-    // added or deleted, or if any of the existing rules change, the cached
-    // results should be invalidated.
-    $webtools_analytics_rule_definition = $this->getWebtoolsAnalyticsRuleDefinition();
-    $webtools_rules_cache_tags = $webtools_analytics_rule_definition->getListCacheTags();
-    $event->addCacheTags($webtools_rules_cache_tags);
 
     // Since the rules that are used to discover the site sections are URI based
     // the result cache should vary based on the path.
