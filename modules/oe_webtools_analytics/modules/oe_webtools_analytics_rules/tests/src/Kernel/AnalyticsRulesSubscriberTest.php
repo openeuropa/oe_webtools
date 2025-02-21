@@ -171,15 +171,23 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
         // Check that the expected section is set on the event.
         $this->assertEquals($expected_section, $this->event->getSiteSection(), "The path '$path' is expected to have the site section '$expected_section' when the default language is set to '$language'.");
 
-        // Since the rules that are used to discover the site sections are URI
-        // based the result cache should vary based on the path.
-        $this->assertCacheContexts(['url.path']);
+        if ($this->event->getSiteSection()) {
+          // Since the rules that are used to discover the site sections are URI
+          // based the result cache should vary based on the path.
+          $this->assertCacheContexts(['url.path']);
 
-        // If any of the rules change then the result cache should be
-        // invalidated. Check that the list cache tags and contexts of the rule
-        // entity are included in the result.
-        $this->assertCacheContexts($this->ruleEntityType->getListCacheContexts());
-        $this->assertCacheTags($this->ruleEntityType->getListCacheTags());
+          // If any of the rules change then the result cache should be
+          // invalidated. Check that the list cache tags of the rule
+          // entity are included in the result.
+          $this->assertCacheTags($this->ruleEntityType->getListCacheTags());
+        }
+        else {
+          // Cache contexts and tags should not be set
+          // when no section is matched.
+          $this->assertNoCacheContexts(['url.path']);
+          $this->assertNoCacheTags($this->ruleEntityType->getListCacheTags());
+        }
+
       }
     }
   }
@@ -418,6 +426,32 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
     $actual_cache_tags = $this->event->getCacheTags();
     foreach ($tags as $tag) {
       $this->assertTrue(in_array($tag, $actual_cache_tags), "The '$tag' cache tag is present on the event.");
+    }
+  }
+
+  /**
+   * Checks that the given cache contexts are not present on the event.
+   *
+   * @param string[] $contexts
+   *   The contexts to check.
+   */
+  protected function assertNoCacheContexts(array $contexts): void {
+    $actual_cache_contexts = $this->event->getCacheContexts();
+    foreach ($contexts as $context) {
+      $this->assertFalse(in_array($context, $actual_cache_contexts), "The '$context' cache context is not present on the event.");
+    }
+  }
+
+  /**
+   * Checks that the given cache tags are not present on the event.
+   *
+   * @param string[] $tags
+   *   The cache tags to check.
+   */
+  protected function assertNoCacheTags(array $tags): void {
+    $actual_cache_tags = $this->event->getCacheTags();
+    foreach ($tags as $tag) {
+      $this->assertFalse(in_array($tag, $actual_cache_tags), "The '$tag' cache tag is not present on the event.");
     }
   }
 
