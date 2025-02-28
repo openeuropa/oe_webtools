@@ -8,6 +8,7 @@
 declare(strict_types=1);
 
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
 
 /**
  * Implements hook_page_bottom().
@@ -61,7 +62,7 @@ function oe_webtools_laco_widget_page_bottom(array &$page_bottom) {
   $page_bottom['oe_webtools_cookie_consent'][] = [
     '#type' => 'html_tag',
     '#tag' => 'script',
-    '#value' => json_encode($json),
+    '#value' => new JsonEncoded($json),
     '#attributes' => ['type' => 'application/json'],
   ];
 

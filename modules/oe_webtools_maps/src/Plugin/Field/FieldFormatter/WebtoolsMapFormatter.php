@@ -7,7 +7,7 @@ namespace Drupal\oe_webtools_maps\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\oe_webtools_maps\Component\Render\JsonEncoded;
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
 
 /**
  * Displays a Geofield as a map using the Webtools Maps service.
