@@ -33,3 +33,12 @@ To use the OpenEuropa Unified eTrans block, ensure the following steps are compl
 Once a user visits a page that does not have a translation available and is browsing the website in a language
 other than the default one, they will be presented with a banner offering them the opportunity 
 to translate the page using the eTrans service.
+
+## Using path alias for non translated entities
+
+The purpose of the unified eTrans block is to allow users to navigate the website in their preferred language. 
+When using [pathauto](https://www.drupal.org/project/pathauto), URL aliases are generated for translated pages. 
+However, non-translated pages will still use the default Drupal path (/node/nid) when accessed by users.
+
+Currently, there is a [patch available](https://www.drupal.org/project/pathauto/issues/2946354) that enables 
+the use of the default language alias for untranslated content.
