@@ -40,7 +40,35 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://packages.drupal.org/8"
+            "url": "https://packages.drupal.org/8",
+            "exclude": [
+                "drupal/file_link",
+                "drupal/media_avportal",
+                "drupal/remote_stream_wrapper"
+            ]
+        },
+        {
+            "type": "git",
+            "url": "https://git.drupalcode.org/issue/file_link-3430560.git",
+            "reference": "e919bf13b4a14ac0bb1504bcbd04a80504466bb4"
+        },
+        {
+            "type": "git",
+            "url": "https://git.drupalcode.org/issue/media_avportal-3431855.git",
+            "reference": "1475bf7a0795f337cd007bc94780dc6041787cf3"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "drupal/remote_stream_wrapper",
+                "version": "dev-d11-compatibility",
+                "type": "drupal-module",
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/issue/remote_stream_wrapper-3434168.git",
+                    "reference": "5e9eb8d290f78f69464ab01ed374439992985811"
+                }
+            }
         }
     ],
     "autoload": {
