@@ -90,7 +90,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
   /**
    * Data provider for testLibraryLoading.
    */
-  public function getProvidedData(): array {
+  public static function getProvidedData(): array {
     return [
       ['oe_webtools_analytics', 'random/path', 'configureWebtoolsAnalytics'],
       [
