@@ -187,7 +187,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   /**
    * Returns test data for ::testEventSubscriber().
    */
-  public function eventSubscriberProvider(): array {
+  public static function eventSubscriberProvider(): array {
     return [
       // When no rules are defined it is expected that none of the paths return
       // sections.
