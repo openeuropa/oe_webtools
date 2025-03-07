@@ -32,7 +32,7 @@ Feature: Webtools Analytics Site Section
     And I click "Delete" in the "examplesection" row
     And I press "Delete"
     Then I should be on "the Webtools Analytics rule page"
-    And I should not see "examplesection"
+    And I should see "Rule examplesection has been deleted"
     # Check the rule doesn't apply.
     When I am on "custompath"
     Then the page analytics json should not contain the parameter "siteSection"
