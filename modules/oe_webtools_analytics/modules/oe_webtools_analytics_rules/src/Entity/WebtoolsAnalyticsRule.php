@@ -35,6 +35,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   admin_permission = "administer webtools analytics",
  *   entity_keys = {
  *     "id" = "id",
+ *     "label" = "section",
  *     "weight" = "weight"
  *   },
  *   config_export = {
