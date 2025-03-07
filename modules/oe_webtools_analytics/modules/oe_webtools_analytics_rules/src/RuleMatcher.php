@@ -145,6 +145,11 @@ class RuleMatcher implements RuleMatcherInterface {
   protected function populateCache(string $path): \stdClass {
     $data = ['rule' => NULL, 'section' => NULL];
 
+    // If we don't have any rules, prevent the cache record from being created.
+    if (empty($this->loadRules())) {
+      return (object) ['data' => $data, 'expire' => Cache::PERMANENT, 'tags' => []];
+    }
+
     $expire = Cache::PERMANENT;
 
     // We return results based on rule entities. This means that if a rule is

@@ -60,18 +60,19 @@ class AnalyticsRulesSubscriber implements EventSubscriberInterface {
     $webtools_analytics_rule_definition = $this->getWebtoolsAnalyticsRuleDefinition();
     $webtools_rules_cache_tags = $webtools_analytics_rule_definition->getListCacheTags();
     $event->addCacheTags($webtools_rules_cache_tags);
-    $event->addCacheContexts($webtools_analytics_rule_definition->getListCacheContexts());
-
-    // Since the rules that are used to discover the site sections are URI based
-    // the result cache should vary based on the path.
-    $event->addCacheContexts(['url.path']);
 
     // Store the section that matches the current path on the event if it is
     // found.
     $section = $this->ruleMatcher->getMatchingSection();
-    if ($section) {
-      $event->setSiteSection($section);
+    if (!$section) {
+      return;
     }
+
+    $event->setSiteSection($section);
+
+    // Since the rules that are used to discover the site sections are URI based
+    // the result cache should vary based on the path.
+    $event->addCacheContexts(['url.path']);
   }
 
   /**
