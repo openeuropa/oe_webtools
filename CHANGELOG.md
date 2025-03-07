@@ -1,5 +1,12 @@
 # Change Log
 
+## [1.38.0](https://github.com/openeuropa/oe_webtools/tree/1.38.0) (2025-03-07)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.37.0...1.38.0)
+
+**Merged pull requests:**
+
+- EWPP-5281: Remove unneeded adding of cache records if webtools analytics rules are not found. [\#269](https://github.com/openeuropa/oe_webtools/pull/269) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.37.0](https://github.com/openeuropa/oe_webtools/tree/1.37.0) (2025-02-19)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.36.0...1.37.0)
 
