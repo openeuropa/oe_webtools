@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="${drupal.root}/core/tests/bootstrap.php" backupGlobals="true" colors="true" cacheResult="false">
+<phpunit bootstrap="${drupal.root}/core/tests/bootstrap.php"
+         backupGlobals="true"
+         colors="true"
+         cacheResult="false"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         failOnDeprecation="true"
+         failOnRisky="true"
+         failOnWarning="true">
   <php>
     <ini name="error_reporting" value="32767"/>
     <ini name="memory_limit" value="-1"/>
