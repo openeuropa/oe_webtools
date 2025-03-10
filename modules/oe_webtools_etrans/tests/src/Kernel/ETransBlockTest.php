@@ -116,7 +116,7 @@ class ETransBlockTest extends KernelTestBase {
    *
    * @see ::testBlockRendering()
    */
-  public function blockRenderingTestProvider(): array {
+  public static function blockRenderingTestProvider(): array {
     return [
       [
         'button',

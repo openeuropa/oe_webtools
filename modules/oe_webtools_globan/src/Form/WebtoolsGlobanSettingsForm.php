@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Drupal\oe_webtools_globan\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Language\LanguageManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,26 +21,12 @@ class WebtoolsGlobanSettingsForm extends ConfigFormBase {
   protected $languageManager;
 
   /**
-   * Constructs a WebtoolsGlobanSettingsForm object.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The factory for configuration objects.
-   * @param \Drupal\Core\Language\LanguageManagerInterface $language_manager
-   *   The Language Manager service.
-   */
-  public function __construct(ConfigFactoryInterface $config_factory, LanguageManagerInterface $language_manager) {
-    parent::__construct($config_factory);
-    $this->languageManager = $language_manager;
-  }
-
-  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory'),
-      $container->get('language_manager')
-    );
+    $instance = parent::create($container);
+    $instance->languageManager = $container->get('language_manager');
+    return $instance;
   }
 
   /**
