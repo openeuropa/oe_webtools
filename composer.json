@@ -14,21 +14,19 @@
         "composer/installers": "~1.5",
         "drupal/captcha": "^1.10 || ^2.0",
         "drupal/core-composer-scaffold": "^10 || ^11",
+        "drupal/core-dev": "^10 || ^11",
         "drupal/drupal-extension": "^5.0",
         "drupal/geocoder": "^4.0",
         "drupal/geofield": "^1.0",
         "drupal/json_field": "~1.1",
         "drush/drush": "^12 || ^13",
-        "mikey179/vfsstream": "^1.6",
         "openeuropa/behat-transformation-context": "^0.2",
         "openeuropa/code-review-drupal": "^1.0.0-alpha",
         "openeuropa/oe_media": "dev-EWPP-4630",
         "openeuropa/oe_multilingual": "^1.20",
         "openeuropa/rdf_skos": "^1.2",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
-        "openeuropa/webtools-geocoding-provider": "^0.3",
-        "phpspec/prophecy-phpunit": "^2",
-        "symfony/phpunit-bridge": "^6.2|| 7"
+        "openeuropa/webtools-geocoding-provider": "^0.3"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
@@ -66,11 +64,7 @@
             "locations": {
                 "web-root": "./build"
             }
-        },
-        "_readme": [
-            "Explicit requirement of symfony/phpunit-bridge to replace drupal/core-dev testing classes and traits.",
-            "Explicit requirement of mikey179/vfsstream to remove when drupal/core-dev is reinstated."
-        ]
+        }
     },
     "config": {
         "sort-packages": true,
@@ -82,7 +76,8 @@
             "php-http/discovery": false,
             "phpro/grumphp": true,
             "phpro/grumphp-shim": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "tbachert/spi": false
         }
     }
 }
