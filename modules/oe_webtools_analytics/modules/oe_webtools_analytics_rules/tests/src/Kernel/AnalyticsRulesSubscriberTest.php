@@ -7,6 +7,8 @@ namespace Drupal\Tests\oe_webtools_analytics_rules\Kernel;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\oe_webtools_analytics\Event\AnalyticsEvent;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
  * Tests that rule based analytics sections are returned for the current path.
@@ -438,6 +440,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
    */
   protected function setCurrentPath(string $path): void {
     $request = Request::create($path);
+    $request->setSession(new Session(new MockArraySessionStorage()));
     $this->pathProcessor->processInbound($path, $request);
     $this->requestStack->push($request);
     $this->currentPathStack->setPath($path);
