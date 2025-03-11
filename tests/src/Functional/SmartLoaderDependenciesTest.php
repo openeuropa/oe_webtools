@@ -62,7 +62,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
    * @param string|null $setup_method
    *   The method responsible for enabling required configuration.
    *
-   * @dataProvider getProvidedData
+   * @dataProvider modulesProvider
    */
   public function testLibraryLoading(string $module, string $url, $setup_method = NULL): void {
     $this->container->get('module_installer')->install([$module]);
@@ -90,7 +90,7 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
   /**
    * Data provider for testLibraryLoading.
    */
-  public static function getProvidedData(): array {
+  public static function modulesProvider(): array {
     return [
       ['oe_webtools_analytics', 'random/path', 'configureWebtoolsAnalytics'],
       [
