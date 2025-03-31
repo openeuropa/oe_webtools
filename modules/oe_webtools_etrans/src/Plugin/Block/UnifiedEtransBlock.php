@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\oe_webtools_etrans\Plugin\Block;
 
 use Drupal\Component\Serialization\Json;
-use Drupal\Component\Serialization\Yaml;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\Attribute\Block;
@@ -325,9 +324,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     // In Drupal, langcode are often in ISO 639-2 format by default.
     // But, some languages use browser formats like 'pt-pt' or 'ta-lk'.
     // A mapping exists in the language module.
-    $mapping_file = file_get_contents(DRUPAL_ROOT . '/core/modules/language/config/install/language.mappings.yml');
-    $mapping = Yaml::decode($mapping_file ?: '');
-    $mapping = array_flip($mapping['map'] ?? []);
+    $mapping = array_flip(language_get_browser_drupal_langcode_mappings());
     if (isset($mapping[$langcode])) {
       return substr($mapping[$langcode], 0, 2);
     }
