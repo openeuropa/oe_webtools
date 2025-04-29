@@ -153,7 +153,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     ];
     $disclaimer_link = [
       '#type' => 'link',
-      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $current_language->getId(), [
+      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $langcode_to, [
         'attributes' => [
           'class' => ['webtools-etrans--disclaimer'],
           'target' => '_blank',
@@ -312,16 +312,16 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   }
 
   /**
-   * Attempt to map langcode to ISO 639-2.
+   * Attempt to map langcode to ISO 639-1.
    *
    * @param string $langcode
    *   The drupal langcode.
    *
    * @return string
-   *   The ISO 639-2 langcode format.
+   *   The ISO 639-1 langcode format.
    */
   protected function mapLangcodeToIso(string $langcode): string {
-    // In Drupal, langcode are often in ISO 639-2 format by default.
+    // In Drupal, langcode are often in ISO 639-1 format by default.
     // But, some languages use browser formats like 'pt-pt' or 'ta-lk'.
     // A mapping exists in the language module.
     $mapping = array_flip(language_get_browser_drupal_langcode_mappings());
