@@ -1,10 +1,26 @@
 # Change Log
 
+## [1.39.0](https://github.com/openeuropa/oe_webtools/tree/1.39.0) (2025-05-02)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.38.0...1.39.0)
+
+**Merged pull requests:**
+
+- EWPP-5461: Update sparql image in docker-compose.yml and for drone.yml. [\#275](https://github.com/openeuropa/oe_webtools/pull/275) ([sergepavle](https://github.com/sergepavle))
+- OEL-3178: Add maps version 3.0 [\#254](https://github.com/openeuropa/oe_webtools/pull/254) ([drishu](https://github.com/drishu))
+
+## [1.38.0](https://github.com/openeuropa/oe_webtools/tree/1.38.0) (2025-03-07)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.37.0...1.38.0)
+
+**Merged pull requests:**
+
+- EWPP-5281: Remove unneeded adding of cache records if webtools analytics rules are not found. [\#269](https://github.com/openeuropa/oe_webtools/pull/269) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.37.0](https://github.com/openeuropa/oe_webtools/tree/1.37.0) (2025-02-19)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.36.0...1.37.0)
 
 **Merged pull requests:**
 
+- Release-1.37.0: Update changelog. [\#268](https://github.com/openeuropa/oe_webtools/pull/268) ([nagyad](https://github.com/nagyad))
 - OEL-3585: eTrans unified block. [\#262](https://github.com/openeuropa/oe_webtools/pull/262) ([Aporie](https://github.com/Aporie))
 
 ## [1.36.0](https://github.com/openeuropa/oe_webtools/tree/1.36.0) (2025-02-12)
