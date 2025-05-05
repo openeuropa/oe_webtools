@@ -115,6 +115,18 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
     ]));
     $this->assertSession()->pageTextContains("Ja sam tekst koji će biti preveden.");
     $this->assertSession()->pageTextNotContains("Croatian is available via eTranslation, the European Commission's machine translation service.");
+
+    // Tests the mapping of regional language codes in
+    // UnifiedEtransBlock::mapLangcodeToIso(). While mapping was incorrect,
+    // nothing happened when clicking on the link 'Translate to Portuguese'.
+    $this->drupalGet($node->toUrl(NULL, [
+      'language' => ConfigurableLanguage::load('pt-pt'),
+    ]));
+    $this->assertSession()->pageTextContains("I'm a text that will be translated.");
+    $this->assertSession()->pageTextContains("Portuguese is available via eTranslation, the European Commission's machine translation service.");
+    $this->clickLink('Translate to Portuguese');
+    $this->assertSession()->pageTextContains("Tradução em curso. Por favor aguarde.");
+    $this->assertSession()->linkExists("Cancelar tradução");
   }
 
   /**

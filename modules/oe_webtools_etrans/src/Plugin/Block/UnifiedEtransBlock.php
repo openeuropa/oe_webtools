@@ -101,10 +101,14 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     $placeholder_id = Html::getUniqueId('etrans-widget');
     // On node route, we take the node original language,
     // which is not necessarily the default language of the website.
-    $translation_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
-    $translation_to_language = $this->languageManager->getCurrentLanguage();
+    $current_language = $this->languageManager->getCurrentLanguage();
+    $langcode_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
+    $langcode_to = $current_language->getId();
 
-    $json = $this->preparesWtEtransJson($translation_from, $placeholder_id);
+    $langcode_from = $this->mapLangcodeToIso($langcode_from);
+    $langcode_to = $this->mapLangcodeToIso($langcode_to);
+
+    $json = $this->preparesWtEtransJson($langcode_from, $placeholder_id);
 
     // Returns UEC webtool eTrans widget.
     $build['etrans_uec'] = [
@@ -120,7 +124,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
         ],
         'drupalSettings' => [
           'path' => [
-            'languageTo' => $translation_to_language->getId(),
+            'languageTo' => $langcode_to,
           ],
         ],
       ],
@@ -134,28 +138,28 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     ];
 
     $message = $this->t("@language is available via eTranslation, the European Commission's machine translation service.", [
-      '@language' => $translation_to_language->getName(),
+      '@language' => $current_language->getName(),
     ], [
-      'langcode' => $translation_to_language->getId(),
+      'langcode' => $current_language->getId(),
     ]);
     $translate_link = [
       '#type' => 'link',
       '#url' => Url::fromRoute('<none>', [], ['attributes' => ['class' => ['oe-webtools-unified-etrans--translate']]]),
       '#title' => $this->t('Translate to @language', [
-        '@language' => $translation_to_language->getName(),
+        '@language' => $current_language->getName(),
       ], [
-        'langcode' => $translation_to_language->getId(),
+        'langcode' => $current_language->getId(),
       ]),
     ];
     $disclaimer_link = [
       '#type' => 'link',
-      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $translation_to_language->getId(), [
+      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $langcode_to, [
         'attributes' => [
           'class' => ['webtools-etrans--disclaimer'],
           'target' => '_blank',
         ],
       ]),
-      '#title' => $this->t('Important information about machine translation', [], ['langcode' => $translation_to_language->getId()]),
+      '#title' => $this->t('Important information about machine translation', [], ['langcode' => $current_language->getId()]),
     ];
     $build['translation_request'] = [
       '#theme' => 'block__unified_etrans_request',
@@ -282,6 +286,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
         'source' => $translation_from,
       ],
       'config' => [
+        'mode' => 'lc2023',
         'targets' => [
           'receiver' => "#$placeholder_id",
         ],
@@ -304,6 +309,29 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     }
 
     return $json;
+  }
+
+  /**
+   * Attempt to map langcode to ISO 639-1.
+   *
+   * @param string $langcode
+   *   The drupal langcode.
+   *
+   * @return string
+   *   The ISO 639-1 langcode format.
+   */
+  protected function mapLangcodeToIso(string $langcode): string {
+    // In Drupal, langcode are often in ISO 639-1 format by default.
+    // But, some languages use browser formats like 'pt-pt' or 'ta-lk'.
+    // A mapping exists in the language module.
+    $mapping = array_flip(language_get_browser_drupal_langcode_mappings());
+    if (isset($mapping[$langcode])) {
+      return substr($mapping[$langcode], 0, 2);
+    }
+    // In some cases, users may add languages that are not standard.
+    // Due to this variability, the format of langcode is unpredictable.
+    // Therefore, we use only the first two characters as a best guess.
+    return substr($langcode, 0, 2);
   }
 
 }
