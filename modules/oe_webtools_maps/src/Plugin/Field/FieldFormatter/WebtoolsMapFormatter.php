@@ -10,7 +10,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\oe_webtools_maps\Component\Render\JsonEncoded;
+use Drupal\oe_webtools\Component\Render\JsonEncoded;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
