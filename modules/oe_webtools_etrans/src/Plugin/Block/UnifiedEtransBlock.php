@@ -102,13 +102,13 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     // On node route, we take the node original language,
     // which is not necessarily the default language of the website.
     $current_language = $this->languageManager->getCurrentLanguage();
-    $langcode_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
-    $langcode_to = $current_language->getId();
+    $iso_langcode_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
+    $iso_langcode_to = $current_language->getId();
 
-    $langcode_from = $this->mapLangcodeToIso($langcode_from);
-    $langcode_to = $this->mapLangcodeToIso($langcode_to);
+    $iso_langcode_from = $this->mapLangcodeToIso($iso_langcode_from);
+    $iso_langcode_to = $this->mapLangcodeToIso($iso_langcode_to);
 
-    $json = $this->preparesWtEtransJson($langcode_from, $placeholder_id);
+    $json = $this->preparesWtEtransJson($iso_langcode_from, $placeholder_id);
 
     // Returns UEC webtool eTrans widget.
     $build['etrans_uec'] = [
@@ -124,7 +124,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
         ],
         'drupalSettings' => [
           'path' => [
-            'languageTo' => $langcode_to,
+            'languageTo' => $iso_langcode_to,
           ],
         ],
       ],
@@ -153,7 +153,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     ];
     $disclaimer_link = [
       '#type' => 'link',
-      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $langcode_to, [
+      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $iso_langcode_to, [
         'attributes' => [
           'class' => ['webtools-etrans--disclaimer'],
           'target' => '_blank',
