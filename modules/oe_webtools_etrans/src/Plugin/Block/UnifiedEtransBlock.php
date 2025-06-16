@@ -315,7 +315,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
    * Attempt to map langcode to ISO 639-1.
    *
    * @param string $langcode
-   *   The drupal langcode.
+   *   The Drupal langcode.
    *
    * @return string
    *   The ISO 639-1 langcode format.
