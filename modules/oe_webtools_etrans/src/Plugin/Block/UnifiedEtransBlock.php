@@ -312,13 +312,22 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
   }
 
   /**
-   * Attempt to map langcode to ISO 639-1.
+   * Attempts to map a Drupal langcode to ISO 639-1 as expected by Webtools.
+   *
+   * Language codes in Drupal are based on w3c language tags.
+   * For most (European) languages, these are identical with the ISO-639-1
+   * code.
+   * In some cases, the language code in Drupal has an additional suffix to
+   * distinguish regional variants, e.g. 'pt-pt' vs 'pt-br'.
+   * In other cases, Drupal uses a different ISO 639-1 code than Webtools
+   * does: For Norwegian, Drupal has 'nb' for Bokmal, whereas Webtools expects
+   * the more generic 'no' for Norwegian.
    *
    * @param string $langcode
    *   The Drupal langcode.
    *
    * @return string
-   *   The ISO 639-1 langcode format.
+   *   The corresponding ISO 639-1 language code as expected by Webtools.
    */
   protected function mapLangcodeToIso(string $langcode): string {
     // In Drupal, langcode are often in ISO 639-1 format by default.
