@@ -102,11 +102,11 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     // On node route, we take the node original language,
     // which is not necessarily the default language of the website.
     $current_language = $this->languageManager->getCurrentLanguage();
-    $iso_langcode_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
-    $iso_langcode_to = $current_language->getId();
+    $langcode_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
+    $langcode_to = $current_language->getId();
 
-    $iso_langcode_from = $this->mapLangcodeToIso($iso_langcode_from);
-    $iso_langcode_to = $this->mapLangcodeToIso($iso_langcode_to);
+    $iso_langcode_from = $this->mapLangcodeToIso($langcode_from);
+    $iso_langcode_to = $this->mapLangcodeToIso($langcode_to);
 
     $json = $this->preparesWtEtransJson($iso_langcode_from, $placeholder_id);
 
