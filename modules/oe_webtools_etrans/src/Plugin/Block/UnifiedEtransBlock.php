@@ -330,16 +330,25 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
    *   The corresponding ISO 639-1 language code as expected by Webtools.
    */
   protected function mapLangcodeToIso(string $langcode): string {
-    // In Drupal, langcode are often in ISO 639-1 format by default.
-    // But, some languages use browser formats like 'pt-pt' or 'ta-lk'.
-    // A mapping exists in the language module.
-    $mapping = array_flip(language_get_browser_drupal_langcode_mappings());
-    if (isset($mapping[$langcode])) {
-      return substr($mapping[$langcode], 0, 2);
+    // Get the browser language lookup map from language module.
+    // This maps different alternative language codes to their corresponding
+    // Drupal language codes.
+    $mappings = language_get_browser_drupal_langcode_mappings();
+    // Get alternative language codes for the given Drupal langcode.
+    $alternative_codes = array_keys($mappings, $langcode, TRUE);
+    if ($alternative_codes) {
+      // Look for alternative codes with two letters.
+      $alternative_short_codes = array_filter($alternative_codes, fn (string $code) => strlen($code) === 2);
+      if ($alternative_short_codes) {
+        // An alternative two-letter code exists.
+        // We assume that this is the ISO 639-1 code expected by Webtools.
+        // This happens to be true at least with the default language mappings.
+        return reset($alternative_short_codes);
+      }
     }
-    // In some cases, users may add languages that are not standard.
-    // Due to this variability, the format of langcode is unpredictable.
-    // Therefore, we use only the first two characters as a best guess.
+    // No alternative two-letter codes found.
+    // Return the first two letters of the Drupal language code, which should be
+    // the ISO 639-1 code, at least for most European languages.
     return substr($langcode, 0, 2);
   }
 
