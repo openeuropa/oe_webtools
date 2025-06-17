@@ -347,9 +347,10 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
       }
     }
     // No alternative two-letter codes found.
-    // Return the first two letters of the Drupal language code, which should be
-    // the ISO 639-1 code, at least for most European languages.
-    return substr($langcode, 0, 2);
+    // Return the first part of the Drupal language code, before the first '-'.
+    // For most European languages, this should be the ISO 639-1 code.
+    // Do not use substr(*, 0, 2), to not cut 3-letter codes.
+    return explode('-', $langcode, 2)[0];
   }
 
 }
