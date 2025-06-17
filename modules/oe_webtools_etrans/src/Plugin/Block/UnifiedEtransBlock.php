@@ -333,6 +333,8 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     // Get the browser language lookup map from language module.
     // This maps different alternative language codes to their corresponding
     // Drupal language codes.
+    // @todo The browser language map is not really meant for this purpose.
+    //   It just happens to do what we need in the most common scenarios.
     $mappings = language_get_browser_drupal_langcode_mappings();
     // Get alternative language codes for the given Drupal langcode.
     $alternative_codes = array_keys($mappings, $langcode, TRUE);
@@ -342,7 +344,8 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
       if ($alternative_short_codes) {
         // An alternative two-letter code exists.
         // We assume that this is the ISO 639-1 code expected by Webtools.
-        // This happens to be true at least with the default language mappings.
+        // This happens to be true at least with the default language mappings
+        // from core/modules/language/config/install/language.mappings.yml.
         return reset($alternative_short_codes);
       }
     }
