@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.40.1](https://github.com/openeuropa/oe_webtools/tree/1.40.1) (2025-06-18)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.40.0...1.40.1)
+
+**Merged pull requests:**
+
+- EWPP-5553: Update sparql image in docker-compose.yml and .drone.yml. [\#279](https://github.com/openeuropa/oe_webtools/pull/279) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.40.0](https://github.com/openeuropa/oe_webtools/tree/1.40.0) (2025-05-21)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.39.0...1.40.0)
 
 **Merged pull requests:**
 
+- Release-1.40.0: Update changelog. [\#278](https://github.com/openeuropa/oe_webtools/pull/278) ([nagyad](https://github.com/nagyad))
 - EWPP-4629: Support D11 [\#266](https://github.com/openeuropa/oe_webtools/pull/266) ([gorsky87](https://github.com/gorsky87))
 
 ## [1.39.0](https://github.com/openeuropa/oe_webtools/tree/1.39.0) (2025-05-05)
