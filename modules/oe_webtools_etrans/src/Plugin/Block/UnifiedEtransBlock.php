@@ -101,10 +101,14 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     $placeholder_id = Html::getUniqueId('etrans-widget');
     // On node route, we take the node original language,
     // which is not necessarily the default language of the website.
-    $translation_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
-    $translation_to_language = $this->languageManager->getCurrentLanguage();
+    $current_language = $this->languageManager->getCurrentLanguage();
+    $langcode_from = $this->getRouteEntityLangcode(TRUE) ?: $this->languageManager->getDefaultLanguage()->getId();
+    $langcode_to = $current_language->getId();
 
-    $json = $this->preparesWtEtransJson($translation_from, $placeholder_id);
+    $iso_langcode_from = $this->mapLangcodeToIso($langcode_from);
+    $iso_langcode_to = $this->mapLangcodeToIso($langcode_to);
+
+    $json = $this->preparesWtEtransJson($iso_langcode_from, $placeholder_id);
 
     // Returns UEC webtool eTrans widget.
     $build['etrans_uec'] = [
@@ -120,7 +124,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
         ],
         'drupalSettings' => [
           'path' => [
-            'languageTo' => $translation_to_language->getId(),
+            'languageTo' => $iso_langcode_to,
           ],
         ],
       ],
@@ -134,28 +138,28 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     ];
 
     $message = $this->t("@language is available via eTranslation, the European Commission's machine translation service.", [
-      '@language' => $translation_to_language->getName(),
+      '@language' => $current_language->getName(),
     ], [
-      'langcode' => $translation_to_language->getId(),
+      'langcode' => $current_language->getId(),
     ]);
     $translate_link = [
       '#type' => 'link',
       '#url' => Url::fromRoute('<none>', [], ['attributes' => ['class' => ['oe-webtools-unified-etrans--translate']]]),
       '#title' => $this->t('Translate to @language', [
-        '@language' => $translation_to_language->getName(),
+        '@language' => $current_language->getName(),
       ], [
-        'langcode' => $translation_to_language->getId(),
+        'langcode' => $current_language->getId(),
       ]),
     ];
     $disclaimer_link = [
       '#type' => 'link',
-      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $translation_to_language->getId(), [
+      '#url' => Url::fromUri('https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' . $iso_langcode_to, [
         'attributes' => [
           'class' => ['webtools-etrans--disclaimer'],
           'target' => '_blank',
         ],
       ]),
-      '#title' => $this->t('Important information about machine translation', [], ['langcode' => $translation_to_language->getId()]),
+      '#title' => $this->t('Important information about machine translation', [], ['langcode' => $current_language->getId()]),
     ];
     $build['translation_request'] = [
       '#theme' => 'block__unified_etrans_request',
@@ -282,6 +286,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
         'source' => $translation_from,
       ],
       'config' => [
+        'mode' => 'lc2023',
         'targets' => [
           'receiver' => "#$placeholder_id",
         ],
@@ -304,6 +309,51 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     }
 
     return $json;
+  }
+
+  /**
+   * Attempts to map a Drupal langcode to ISO 639-1 as expected by Webtools.
+   *
+   * Language codes in Drupal are based on w3c language tags.
+   * For most (European) languages, these are identical with the ISO-639-1
+   * code.
+   * In some cases, the language code in Drupal has an additional suffix to
+   * distinguish regional variants, e.g. 'pt-pt' vs 'pt-br'.
+   * In other cases, Drupal uses a different ISO 639-1 code than Webtools
+   * does: For Norwegian, Drupal has 'nb' for Bokmal, whereas Webtools expects
+   * the more generic 'no' for Norwegian.
+   *
+   * @param string $langcode
+   *   The Drupal langcode.
+   *
+   * @return string
+   *   The corresponding ISO 639-1 language code as expected by Webtools.
+   */
+  protected function mapLangcodeToIso(string $langcode): string {
+    // Get the browser language lookup map from language module.
+    // This maps different alternative language codes to their corresponding
+    // Drupal language codes.
+    // @todo The browser language map is not really meant for this purpose.
+    //   It just happens to do what we need in the most common scenarios.
+    $mappings = language_get_browser_drupal_langcode_mappings();
+    // Get alternative language codes for the given Drupal langcode.
+    $alternative_codes = array_keys($mappings, $langcode, TRUE);
+    if ($alternative_codes) {
+      // Look for alternative codes with two letters.
+      $alternative_short_codes = array_filter($alternative_codes, fn (string $code) => strlen($code) === 2);
+      if ($alternative_short_codes) {
+        // An alternative two-letter code exists.
+        // We assume that this is the ISO 639-1 code expected by Webtools.
+        // This happens to be true at least with the default language mappings
+        // from core/modules/language/config/install/language.mappings.yml.
+        return reset($alternative_short_codes);
+      }
+    }
+    // No alternative two-letter codes found.
+    // Return the first part of the Drupal language code, before the first '-'.
+    // For most European languages, this should be the ISO 639-1 code.
+    // Do not use substr(*, 0, 2), to not cut 3-letter codes.
+    return explode('-', $langcode, 2)[0];
   }
 
 }
