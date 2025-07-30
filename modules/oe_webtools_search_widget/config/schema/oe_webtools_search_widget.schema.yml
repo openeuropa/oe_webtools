@@ -1,0 +1,16 @@
+block.settings.oe_webtools_search_widget:
+  type: block_settings
+  label: 'OE Webtools search widget local label'
+  mapping:
+     search_scope:
+       type: string
+       label: 'Search scope'
+     local_label:
+       type: string
+       label: 'Local label'
+     site_ids:
+       type: string
+       label: 'Site ids'
+     form_selector:
+       type: string
+       label: 'form selector'
