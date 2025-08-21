@@ -1,0 +1,25 @@
+block.block.oe_webtools_etrans_lc2023:
+  type: block_settings
+  label: 'OpenEuropa Webtools eTrans - Language Concept 2023 Block settings'
+  mapping:
+    receiver:
+      type: string
+      label: 'Receiver'
+    domain:
+      type: string
+      label: 'Domain'
+    delay:
+      type: integer
+      label: 'Delay'
+    source:
+      type: string
+      label: 'Source'
+    include:
+      type: string
+      label: 'Include'
+    exclude:
+      type: string
+      label: 'Exclude'
+    live:
+      type: boolean
+      label: 'Live'
