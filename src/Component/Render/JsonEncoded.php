@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\oe_webtools_maps\Component\Render;
+namespace Drupal\oe_webtools\Component\Render;
 
 use Drupal\Component\Render\MarkupInterface;
 use Drupal\Component\Serialization\Json;
