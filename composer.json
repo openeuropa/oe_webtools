@@ -12,6 +12,7 @@
     },
     "require-dev": {
         "composer/installers": "~1.5",
+        "cweagans/composer-patches": "^1.6",
         "drupal/captcha": "^1.10 || ^2.0",
         "drupal/core-composer-scaffold": "^10 || ^11",
         "drupal/core-dev": "^10 || ^11",
@@ -63,6 +64,11 @@
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./build"
+            }
+        },
+        "patches": {
+            "openeuropa/webtools-geocoding-provider": {
+                "EWPP-5992": "https://github.com/openeuropa/webtools-geocoding-provider/compare/0.3.0...EWPP-5992.diff"
             }
         }
     },
