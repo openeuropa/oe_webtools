@@ -67,26 +67,26 @@ class WebtoolsMapsContext extends RawDrupalContext {
       foreach ($hashed_data as $type => $value) {
         switch ($type) {
           case 'name':
-            if ($map_data->layers[0]->markers->features[0]->properties->name !== $value) {
-              continue 3;
+            if ($map_data->layers->markers[0]->data->features[0]->properties->name !== $value) {
+              continue 2;
             }
             break;
 
           case 'description':
-            if ($map_data->layers[0]->markers->features[0]->properties->description !== $value) {
-              continue 3;
+            if ($map_data->layers->markers[0]->data->features[0]->properties->description !== $value) {
+              continue 2;
             }
             break;
 
           case 'latitude':
-            if ((string) $map_data->layers[0]->markers->features[0]->geometry->coordinates[1] !== $value) {
-              continue 3;
+            if ((string) $map_data->layers->markers[0]->data->features[0]->geometry->coordinates[1] !== $value) {
+              continue 2;
             }
             break;
 
           case 'longitude':
-            if ((string) $map_data->layers[0]->markers->features[0]->geometry->coordinates[0] !== $value) {
-              continue 3;
+            if ((string) $map_data->layers->markers[0]->data->features[0]->geometry->coordinates[0] !== $value) {
+              continue 2;
             }
             break;
 
