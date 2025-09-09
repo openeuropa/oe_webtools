@@ -1,4 +1,18 @@
-# Changelog
+# Change Log
+
+## [1.41.0](https://github.com/openeuropa/oe_webtools/tree/1.41.0) (2025-09-09)
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.40.1...1.41.0)
+
+**Fixed bugs:**
+
+- Oe\_webtools\_unified\_etrans does not work for non ISO language format [\#271](https://github.com/openeuropa/oe_webtools/issues/271)
+
+**Merged pull requests:**
+
+- Issue-139: Use JsonEncoded everywhere possible. [\#287](https://github.com/openeuropa/oe_webtools/pull/287) ([sergepavle](https://github.com/sergepavle))
+- EWPP-5768: Update to Drupal 10.5. [\#285](https://github.com/openeuropa/oe_webtools/pull/285) ([intelektron](https://github.com/intelektron))
+- EWPP-5701: Webtools search widget. [\#284](https://github.com/openeuropa/oe_webtools/pull/284) ([hernani](https://github.com/hernani))
+- D8TEFD-1822: Fix drupal non ISO langcode. [\#272](https://github.com/openeuropa/oe_webtools/pull/272) ([Aporie](https://github.com/Aporie))
 
 ## [1.40.1](https://github.com/openeuropa/oe_webtools/tree/1.40.1) (2025-06-18)
 
@@ -6,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Release-1.40.1: Update changelog and docker PHP images. [\#283](https://github.com/openeuropa/oe_webtools/pull/283) ([nagyad](https://github.com/nagyad))
 - EWPP-5553: Update sparql image in docker-compose.yml and .drone.yml. [\#279](https://github.com/openeuropa/oe_webtools/pull/279) ([sergepavle](https://github.com/sergepavle))
 
 ## [1.40.0](https://github.com/openeuropa/oe_webtools/tree/1.40.0) (2025-05-21)
