@@ -1,0 +1,7 @@
+oe_webtools_hotjar.settings:
+  path: '/admin/config/system/oe_webtools_hotjar'
+  defaults:
+    _form: 'Drupal\oe_webtools_hotjar\Form\WebtoolsHotjarSettingsForm'
+    _title: 'Webtools Hotjar settings'
+  requirements:
+    _permission: 'administer webtools hotjar'

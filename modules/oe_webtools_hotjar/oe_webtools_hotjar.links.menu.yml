@@ -1,0 +1,5 @@
+oe_webtools_hotjar.settings:
+  title: Webtools Hotjar
+  description: 'Configure Webtools Hotjar.'
+  route_name: oe_webtools_hotjar.settings
+  parent: system.admin_config_system

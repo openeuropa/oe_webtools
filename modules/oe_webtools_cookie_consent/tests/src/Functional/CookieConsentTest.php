@@ -9,7 +9,7 @@ use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
- * Check if the Laco widget code is on the front page.
+ * Tests the cookie consent.
  */
 class CookieConsentTest extends BrowserTestBase {
 
