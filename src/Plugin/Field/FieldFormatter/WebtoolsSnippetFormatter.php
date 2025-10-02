@@ -29,13 +29,17 @@ class WebtoolsSnippetFormatter extends FormatterBase {
     $element = [];
 
     foreach ($items as $delta => $item) {
+      $value = Json::decode($item->get('value')->getValue());
+      if (\json_last_error() !== JSON_ERROR_NONE || !\is_array($value)) {
+        continue;
+      }
       $element[$delta] = [
         '#type' => 'html_tag',
         '#tag' => 'script',
         // We need to properly escape the json content before outputting in the
         // page. We cannot use twig escaping mechanism as it will use html
         // entities. Json::encode takes care of it.
-        '#value' => new JsonEncoded(Json::decode($item->get('value')->getValue())),
+        '#value' => new JsonEncoded($value),
         '#attributes' => ['type' => 'application/json'],
       ];
     }
