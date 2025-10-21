@@ -1,4 +1,14 @@
-# Change Log
+# Changelog
+
+## [1.42.0](https://github.com/openeuropa/oe_webtools/tree/1.42.0) (2025-10-21)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.41.0...1.42.0)
+
+- Use JsonEncoded everywhere possible. [\#139](https://github.com/openeuropa/oe_webtools/issues/139)
+
+- EWPP-6096: Webtools hotjar. [\#291](https://github.com/openeuropa/oe_webtools/pull/291) ([upchuk](https://github.com/upchuk))
+- EWPP-6007: Move CI to github actions. [\#289](https://github.com/openeuropa/oe_webtools/pull/289) ([hernani](https://github.com/hernani))
+- EWPP-5828: Adapt the assertMarkerPresent behat step after the update to Maps 3.0. [\#286](https://github.com/openeuropa/oe_webtools/pull/286) ([22Alexandra](https://github.com/22Alexandra))
 
 ## [1.41.0](https://github.com/openeuropa/oe_webtools/tree/1.41.0) (2025-09-09)
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.40.1...1.41.0)
