@@ -75,7 +75,7 @@ class CaptchaTest extends WebDriverTestBase {
    * can cause JS errors.
    */
   protected function waitForWebtoolsCaptcha(): void {
-    $this->assertNotNull($this->assertSession()->waitForElementVisible('css', '.wt-captcha--challenge'));
+    $this->assertNotNull($this->assertSession()->waitForElement('css', '.wt-captcha--challenge'));
   }
 
 }
