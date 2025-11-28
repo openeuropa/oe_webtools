@@ -76,6 +76,11 @@ class CaptchaTest extends WebDriverTestBase {
    */
   protected function waitForWebtoolsCaptcha(): void {
     sleep(10);
+    $logs = $this->getSession()->getDriver()->getWebDriverSession()->log('browser');
+    foreach ($logs as $log) {
+      var_dump($log);
+    }
+
     $this->assertNotNull($this->assertSession()->waitForElementVisible('css', '.wt-captcha--challenge'));
   }
 
