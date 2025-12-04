@@ -1,6 +1,6 @@
 drupal:
   root: "build"
-  base_url: "http://web:8080/build"
+  base_url: "http://localhost.europa.eu:8080/build"
   site:
     profile: "minimal"
     name: "OpenEuropa"

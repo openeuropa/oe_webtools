@@ -33,7 +33,7 @@ jobs:
         run: docker compose exec -T web composer self-update --2
 
       - name: Build dependencies
-        run: docker compose exec -T web composer require drupal/core:~${{ matrix.core_version }} drupal/core-composer-scaffold:~${{ matrix.core_version }} --update-with-all-dependencies --ansi --no-progress --no-interaction
+        run: docker compose exec -T web composer require drupal/core-dev:~${{ matrix.core_version }} drupal/core:~${{ matrix.core_version }} drupal/core-composer-scaffold:~${{ matrix.core_version }} --update-with-all-dependencies --ansi --no-progress --no-interaction
 
       - name: Run grumphp
         run: docker compose exec -T web ./vendor/bin/grumphp run
