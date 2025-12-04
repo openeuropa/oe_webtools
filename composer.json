@@ -11,7 +11,7 @@
         "ext-json": "*"
     },
     "require-dev": {
-        "composer/installers": "~1.5",
+        "composer/installers": "^2.3",
         "drupal/captcha": "^1.10 || ^2.0",
         "drupal/core-composer-scaffold": "^10 || ^11",
         "drupal/core-dev": "^10 || ^11",
