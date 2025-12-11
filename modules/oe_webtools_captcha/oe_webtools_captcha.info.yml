@@ -3,7 +3,6 @@ description: 'Provides the webtools captcha integration.'
 package: 'OpenEuropa Webtools'
 type: module
 core_version_requirement: ^10 || ^11
-configure: oe_webtools_captcha.settings
 
 dependencies:
   - drupal:captcha
