@@ -17,14 +17,36 @@ jobs:
       PHP_VERSION: ${{ matrix.php_version }}
     steps:
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Generate cache key
+        id: cache-key
+        # Include the docker-compose.yml file hash and week number to ensure weekly cache refresh.
+        run: echo "key=docker-${{ runner.os }}-${{ matrix.php_version }}-${{ hashFiles('docker-compose.yml') }}-$(date +%Y-%U)" >> $GITHUB_OUTPUT
+
+      - name: Cache Docker images
+        uses: actions/cache@v4
+        id: docker-cache
+        with:
+          path: ~/docker-images.tar
+          key: ${{ steps.cache-key.outputs.key }}
+
+      - name: Pull and save Docker images
+        if: steps.docker-cache.outputs.cache-hit != 'true'
+        run: |
+          # Set the php version and use -ci variant
+          sed -i 's|fpfis/httpd-php:8\.3-dev|fpfis/httpd-php:${{ matrix.php_version }}-ci|g' docker-compose.yml
+          docker compose pull
+          docker save -o ~/docker-images.tar $(docker compose config --images)
+
+      - name: Load Docker images from cache
+        if: steps.docker-cache.outputs.cache-hit == 'true'
+        run: docker load -i ~/docker-images.tar
 
       - name: Modify web container version
+        if: steps.docker-cache.outputs.cache-hit == 'true'
         run: |
-          # Set the php version, and replace -dev with -ci.
-          sed -i 's/httpd-php:8\.3-\(dev\|ci\)/httpd-php:${{ matrix.php_version}}-ci/g' docker-compose.yml
-          # Report the difference.
-          git diff
+          sed -i 's|fpfis/httpd-php:8\.3-dev|fpfis/httpd-php:${{ matrix.php_version }}-ci|g' docker-compose.yml
 
       - name: Start services with Docker Compose
         run: docker compose up -d
