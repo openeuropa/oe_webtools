@@ -8,63 +8,6 @@ on:
 
 jobs:
   automated-tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php_version: ["8.3"]
-        core_version: ["10.5.0", "11.2.0"]
-    env:
-      PHP_VERSION: ${{ matrix.php_version }}
-    steps:
-      - name: Clone repository
-        uses: actions/checkout@v4
-
-      - name: Generate cache key
-        id: cache-key
-        # Include the docker-compose.yml file hash and week number to ensure weekly cache refresh.
-        run: echo "key=docker-${{ runner.os }}-${{ matrix.php_version }}-${{ hashFiles('docker-compose.yml') }}-$(date +%Y-%U)" >> $GITHUB_OUTPUT
-
-      - name: Cache Docker images
-        uses: actions/cache@v4
-        id: docker-cache
-        with:
-          path: ~/docker-images.tar
-          key: ${{ steps.cache-key.outputs.key }}
-
-      - name: Pull and save Docker images
-        if: steps.docker-cache.outputs.cache-hit != 'true'
-        run: |
-          # Set the php version and use -ci variant
-          sed -i 's|fpfis/httpd-php:8\.3-dev|fpfis/httpd-php:${{ matrix.php_version }}-ci|g' docker-compose.yml
-          docker compose pull
-          docker save -o ~/docker-images.tar $(docker compose config --images)
-
-      - name: Load Docker images from cache
-        if: steps.docker-cache.outputs.cache-hit == 'true'
-        run: docker load -i ~/docker-images.tar
-
-      - name: Modify web container version
-        if: steps.docker-cache.outputs.cache-hit == 'true'
-        run: |
-          sed -i 's|fpfis/httpd-php:8\.3-dev|fpfis/httpd-php:${{ matrix.php_version }}-ci|g' docker-compose.yml
-
-      - name: Start services with Docker Compose
-        run: docker compose up -d
-
-      - name: Update composer
-        run: docker compose exec -T web composer self-update --2
-
-      - name: Build dependencies
-        run: docker compose exec -T web composer require drupal/core-dev:~${{ matrix.core_version }} drupal/core:~${{ matrix.core_version }} drupal/core-composer-scaffold:~${{ matrix.core_version }} --update-with-all-dependencies --ansi --no-progress --no-interaction
-
-      - name: Run grumphp
-        run: docker compose exec -T web ./vendor/bin/grumphp run
-
-      - name: Site install
-        run: docker compose exec -T web ./vendor/bin/run drupal:site-install
-
-      - name: Run phpunit
-        run: docker compose exec -T web ./vendor/bin/phpunit
-
-      - name: Run behat
-        run: docker compose exec -T web ./vendor/bin/behat --strict
+    uses: openeuropa/github-ci/.github/workflows/drupal-ci.yml@main
+    with:
+      run_behat: true
