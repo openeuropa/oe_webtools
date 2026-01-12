@@ -1,0 +1,50 @@
+{#
+/**
+ * @file
+ * Theme implementation for the eTranslation - 2023 Language Concept
+ *
+ * Available variables:
+ * - oe_wt_etrans_script: The script for eTranslation.
+ * - oe_wt_etrans_lc2023: Contains information related to the translation service.
+ *   - language: The language available for translation.
+ *   - language_id:  The id of the language available for translation.
+ */
+#}
+
+{# Set the script #}
+{{ oe_wt_etrans_script }}
+
+{# Disclimer message #}
+{% if oe_wt_etrans_lc2023 %}
+  <div
+    class="wt-ecl-message wt-ecl-etrans-message wt-ecl-message--info laco-exclude hidden">
+    <svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48"
+         class="wt-information wt-ecl-icon wt-ecl-icon--l wt-ecl-message__icon">
+      <path
+        d="M24 2.01c12.072 0 22 9.81 22 22s-9.81 22-22 22-22-9.81-22-22 9.81-22 22-22M28 20H18v4h4v10h-4v4h14v-4h-4zm0-10h-6v6h6z"></path>
+    </svg>
+    <div class="wt-ecl-message__content">
+      <button class="wt-ecl-button wt-ecl-button--ghost wt-ecl-message__close"
+              type="button" data-wt-ecl-message-close="">
+        <span class="wt-ecl-button__container"><span
+            class="wt-ecl-button__label"
+            data-wt-ecl-label="true">{{ 'Close' }}</span></span>
+      </button>
+      <div class="wt-ecl-message__description">
+        <span>
+          {{ oe_wt_etrans_lc2023.language ~ ' is available via eTranslation, the European Commission’s machine translation service.' }}
+        </span>
+        <br>
+        <a class="wt-ecl-link wt-ecl-translate-link" href=""
+           id="_translate">{{ 'Translate into ' ~ oe_wt_etrans_lc2023.language }}</a>
+        |
+        <a class="wt-ecl-link wt-ecl-translate-info"
+           href="{{ 'https://commission.europa.eu/languages-our-websites/use-machine-translation-europa_' ~ oe_wt_etrans_lc2023.language_id }}"
+           target="_blank">
+          {{ 'Important information about machine translation' }}
+        </a>
+      </div>
+    </div>
+  </div>
+{% endif %}
