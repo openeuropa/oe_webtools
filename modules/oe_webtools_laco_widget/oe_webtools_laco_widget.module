@@ -59,7 +59,7 @@ function oe_webtools_laco_widget_page_bottom(array &$page_bottom) {
     $json['ignore'] = $ignore;
   }
 
-  $page_bottom['oe_webtools_cookie_consent'][] = [
+  $page_bottom['oe_webtools_laco_widget'][] = [
     '#type' => 'html_tag',
     '#tag' => 'script',
     '#value' => new JsonEncoded($json),
