@@ -63,6 +63,7 @@ function oe_webtools_captcha_captcha_validation($solution, $response, $element, 
       // Map the parameters for the validation endpoint.
       'sid' => $_POST['wt_captcha_sid'] ?? '',
       'answer' => $_POST['wt_captcha_answer'] ?? '',
+      'revoke_sid' => TRUE,
     ];
     try {
       $headers = [
