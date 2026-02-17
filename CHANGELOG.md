@@ -1,11 +1,24 @@
 # Changelog
 
-## [1.42.0](https://github.com/openeuropa/oe_webtools/tree/1.42.0) (2025-10-21)
+## [1.43.0](https://github.com/openeuropa/oe_webtools/tree/1.43.0) (2026-02-17)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.42.0...1.43.0)
+
+**Merged pull requests:**
+
+- EWPP-6339: Cache docker images for GitHub actions. [\#302](https://github.com/openeuropa/oe_webtools/pull/302) ([nagyad](https://github.com/nagyad))
+- EWPP-6301: Hardcode domain for test. [\#300](https://github.com/openeuropa/oe_webtools/pull/300) ([hernani](https://github.com/hernani))
+- EWPP-6261: Bump composer/installers to 2.x. [\#297](https://github.com/openeuropa/oe_webtools/pull/297) ([nagyad](https://github.com/nagyad))
+- EWPP-6066: Upgrade to Drupal 11.2. [\#295](https://github.com/openeuropa/oe_webtools/pull/295) ([sergepavle](https://github.com/sergepavle))
+- OEL-4009: Fix the array key. [\#290](https://github.com/openeuropa/oe_webtools/pull/290) ([piotrsmykaj](https://github.com/piotrsmykaj))
+
+## [1.42.0](https://github.com/openeuropa/oe_webtools/tree/1.42.0) (2025-10-22)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.41.0...1.42.0)
 
-- Use JsonEncoded everywhere possible. [\#139](https://github.com/openeuropa/oe_webtools/issues/139)
+**Merged pull requests:**
 
+- Release-1.42.0: Update changelog. [\#294](https://github.com/openeuropa/oe_webtools/pull/294) ([22Alexandra](https://github.com/22Alexandra))
 - EWPP-6096: Webtools hotjar. [\#291](https://github.com/openeuropa/oe_webtools/pull/291) ([upchuk](https://github.com/upchuk))
 - EWPP-6007: Move CI to github actions. [\#289](https://github.com/openeuropa/oe_webtools/pull/289) ([hernani](https://github.com/hernani))
 - EWPP-5828: Adapt the assertMarkerPresent behat step after the update to Maps 3.0. [\#286](https://github.com/openeuropa/oe_webtools/pull/286) ([22Alexandra](https://github.com/22Alexandra))
@@ -19,6 +32,7 @@
 
 **Merged pull requests:**
 
+- Release-1.41.0: Update changelog. [\#288](https://github.com/openeuropa/oe_webtools/pull/288) ([nagyad](https://github.com/nagyad))
 - Issue-139: Use JsonEncoded everywhere possible. [\#287](https://github.com/openeuropa/oe_webtools/pull/287) ([sergepavle](https://github.com/sergepavle))
 - EWPP-5768: Update to Drupal 10.5. [\#285](https://github.com/openeuropa/oe_webtools/pull/285) ([intelektron](https://github.com/intelektron))
 - EWPP-5701: Webtools search widget. [\#284](https://github.com/openeuropa/oe_webtools/pull/284) ([hernani](https://github.com/hernani))
