@@ -1,0 +1,7 @@
+oe_wt_etrans_lc2023:
+  js:
+    js/oe-webtools-lc2023.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
