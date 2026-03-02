@@ -1,11 +1,20 @@
 # Changelog
 
+## [1.44.0](https://github.com/openeuropa/oe_webtools/tree/1.44.0) (2026-03-02)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.43.0...1.44.0)
+
+**Merged pull requests:**
+
+- EWPP-6454: Use revoke ID webtools captcha parameter to prevent replay. [\#304](https://github.com/openeuropa/oe_webtools/pull/304) ([nagyad](https://github.com/nagyad))
+
 ## [1.43.0](https://github.com/openeuropa/oe_webtools/tree/1.43.0) (2026-02-17)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.42.0...1.43.0)
 
 **Merged pull requests:**
 
+- Release-1.43.0: Update changelog. [\#305](https://github.com/openeuropa/oe_webtools/pull/305) ([nagyad](https://github.com/nagyad))
 - EWPP-6339: Cache docker images for GitHub actions. [\#302](https://github.com/openeuropa/oe_webtools/pull/302) ([nagyad](https://github.com/nagyad))
 - EWPP-6301: Hardcode domain for test. [\#300](https://github.com/openeuropa/oe_webtools/pull/300) ([hernani](https://github.com/hernani))
 - EWPP-6261: Bump composer/installers to 2.x. [\#297](https://github.com/openeuropa/oe_webtools/pull/297) ([nagyad](https://github.com/nagyad))
