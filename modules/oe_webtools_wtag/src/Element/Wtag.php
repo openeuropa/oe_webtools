@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace Drupal\oe_webtools_wtag\Element;
 
 use Drupal\Component\Serialization\Json;
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Component\Utility\Tags;
+use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\Textfield;
 use Drupal\Core\Render\Markup;
+use Drupal\rdf_skos\Entity\Concept;
 use Drupal\rdf_skos\Entity\ConceptInterface;
 
 /**
@@ -30,8 +34,7 @@ class Wtag extends Textfield {
     $info['#process'][] = [$class, 'processWtag'];
     $info['#element_validate'] = [[$class, 'validateWtag']];
     $info['#validate_reference'] = TRUE;
-    $info['#process_default_value'] = TRUE;
-    $info['#theme'] = 'oe_webtools_wtag';
+    $info['#process_default_value'] = FALSE;
     $info['#modal_title'] = $this->t('Wtag');
     $info['#modal_description'] = $this->t('Use the search field or the tree view to find and add one or more tags to describe the subject of your page.');
 
@@ -51,19 +54,74 @@ class Wtag extends Textfield {
    * @return array
    *   The form element.
    */
-  public static function processWtag(array &$element, FormStateInterface $form_state, array &$complete_form) {
+  public static function processWtag(array &$element, FormStateInterface $form_state, array &$complete_form): array {
+    $wtag_child_id = $element['#id'] . '--wtag';
+
     $wtag_json = [
       'service' => 'wtag',
-      'target' => '#' . $element['#id'],
+      'target' => '#' . $wtag_child_id,
       'title' => $element['#modal_title'],
       'description' => $element['#modal_description'],
     ];
 
-    $element['#wtag'] = Markup::create(Json::encode($wtag_json));
-    $element['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
-    unset($element['#attributes']['data-autocomplete-path']);
-    $element['#attributes']['maxlength'] = '100000000';
-    $element['#maxlength'] = '100000000';
+    $entity_json = '';
+    $default_entities = [];
+    if (!empty($element['#default_value'])) {
+      $entities = is_array($element['#default_value'])
+        ? $element['#default_value']
+        : [$element['#default_value']];
+      $entity_json = static::entitiesToJson($entities);
+      $default_entities = $entities;
+    }
+
+    // Main Wtag element.
+    $element['wtag'] = [
+      '#type' => 'textfield',
+      '#theme' => 'oe_webtools_wtag',
+      '#title' => $element['#title'] ?? '',
+      '#description' => $element['#description'] ?? '',
+      '#required' => $element['#required'] ?? FALSE,
+      '#default_value' => $entity_json,
+      '#maxlength' => 100000000,
+      '#id' => $wtag_child_id,
+      '#attributes' => ['maxlength' => '100000000'] + ($element['#attributes'] ?? []),
+      '#wtag' => Markup::create(Json::encode($wtag_json)),
+      '#attached' => ['library' => ['oe_webtools/drupal.webtools-smartloader']],
+      '#value_callback' => [static::class, 'valueCallbackWtag'],
+      '#process_default_value' => TRUE,
+    ];
+
+    // Fallback element.
+    $element['fallback'] = [
+      '#type' => 'entity_autocomplete',
+      '#target_type' => 'skos_concept',
+      '#selection_handler' => 'default:skos_concept',
+      '#selection_settings' => [
+        'concept_schemes' => ['http://data.europa.eu/uxp/det'],
+      ],
+      '#tags' => TRUE,
+      '#maxlength' => 1200,
+      '#default_value' => $default_entities ?: NULL,
+      '#process_default_value' => TRUE,
+      '#wrapper_attributes' => ['class' => ['wtag-fallback']],
+    ];
+
+    // Hidden input that determines via JS how the value is handled: via the
+    // normal wtag or fallback.
+    $element['input_mode'] = [
+      '#type' => 'hidden',
+      '#default_value' => 'wtag',
+      '#attributes' => ['data-wtag-input-mode' => ''],
+    ];
+
+    unset($element['#maxlength']);
+    $element['#theme_wrappers'] = ['container'];
+    $element['#attributes']['class'][] = 'wtag-element-wrapper';
+    $element['#attributes']['data-wtag-id'] = $wtag_child_id;
+
+    $element['#attached']['library'][] = 'oe_webtools_wtag/oe_webtools_wtag.fallback';
+
+    unset($element['#theme']);
 
     return $element;
   }
@@ -71,26 +129,36 @@ class Wtag extends Textfield {
   /**
    * Form element validation handler for wtag elements.
    */
-  public static function validateWtag(array &$element, FormStateInterface $form_state, array &$complete_form) {
+  public static function validateWtag(array &$element, FormStateInterface $form_state, array &$complete_form): void {
+    $input_mode = $element['input_mode']['#value'] ?? 'wtag';
+
+    if ($input_mode === 'fallback') {
+      $result = $form_state->getValue($element['fallback']['#parents']);
+      $form_state->setValueForElement($element, $result);
+      return;
+    }
+
+    // Otherwise it's the normal Wtag element.
     $value = NULL;
 
-    if (!empty($element['#value'])) {
-      $entities = static::jsonToEntities($element['#value']);
-      if (!$entities) {
-        $form_state->setValueForElement($element, $value);
+    if (!empty($element['wtag']['#value'])) {
+      try {
+        $entities = static::jsonToEntities($element['wtag']['#value']);
+      }
+      catch (\InvalidArgumentException $e) {
+        $form_state->setError($element, t('The submitted tag data is not in the correct format.'));
+        $form_state->setValueForElement($element, NULL);
         return;
       }
 
-      // Validate that they are both Skos Concepts in DET.
-      foreach ($entities as $entity) {
-        if (!$entity instanceof ConceptInterface || !in_array('http://data.europa.eu/uxp/det', array_column($entity->get('in_scheme')->getValue(), 'target_id'))) {
-          $form_state->setError($element, t('The referenced entity (%id) is not valid.', ['%id' => $entity->id()]));
-          continue;
+      if ($entities) {
+        foreach ($entities as $entity) {
+          if (!$entity instanceof ConceptInterface || !in_array('http://data.europa.eu/uxp/det', array_column($entity->get('in_scheme')->getValue(), 'target_id'))) {
+            $form_state->setError($element, t('The referenced entity (%id) is not valid.', ['%id' => $entity->id()]));
+            continue;
+          }
+          $value[] = ['target_id' => $entity->id()];
         }
-
-        $value[] = [
-          'target_id' => $entity->id(),
-        ];
       }
     }
 
@@ -99,38 +167,73 @@ class Wtag extends Textfield {
 
   /**
    * {@inheritdoc}
-   *
-   * @SuppressWarnings(PHPMD.CyclomaticComplexity)
    */
   public static function valueCallback(&$element, $input, FormStateInterface $form_state) {
-    // Process the #default_value property. In this situation, we need to
-    // transform the entity objects into the JSON object expected by Webtols.
-    if ($input === FALSE && isset($element['#default_value']) && $element['#process_default_value']) {
-      if (!empty($element['#default_value']) && !is_array($element['#default_value'])) {
-        // Convert the default value into an array for easier processing in
-        // static::getEntityLabels().
-        $element['#default_value'] = [$element['#default_value']];
-      }
-
-      if ($element['#default_value']) {
-        if (!(reset($element['#default_value']) instanceof ConceptInterface)) {
-          throw new \InvalidArgumentException('The #default_value property has to be in the form of SKOS Concept entities.');
-        }
-
-        return static::entitiesToJson($element['#default_value']);
-      }
+    if ($input === FALSE) {
+      // Initial load, not a form submission.
+      return '';
     }
 
-    // Process the submitted value.
-    if ($input !== FALSE && $input !== "") {
-      $entities = static::jsonToEntities($input);
+    // Return the relevant child value as a string so that Drupal's required
+    // validation can inspect it, while avoiding the raw array fallback.
+    $input_mode = $input['input_mode'] ?? 'wtag';
 
+    if ($input_mode === 'fallback') {
+      return !empty($input['fallback']) ? $input['fallback'] : '';
+    }
+
+    // Wtag mode: return the JSON string from the child textarea.
+    return $input['wtag'] ?? '';
+  }
+
+  /**
+   * Value callback for the wtag child element.
+   *
+   * We need this callback in case the field is element is marked as required.
+   * In this case, the value cannot be empty so we need to fish it out of the
+   * fallback.
+   *
+   * @param array $element
+   *   The form element.
+   * @param mixed $input
+   *   The submitted input, or FALSE if this is the initial load.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   *
+   * @return string
+   *   The processed value.
+   */
+  public static function valueCallbackWtag(&$element, $input, FormStateInterface $form_state) {
+    if ($input === FALSE && isset($element['#default_value']) && $element['#process_default_value']) {
+      return $element['#default_value'];
+    }
+    if ($input !== FALSE && $input !== '') {
+      try {
+        $entities = static::jsonToEntities($input);
+      }
+      catch (\InvalidArgumentException $e) {
+        // Return the raw input so validateWtag can detect and report it.
+        return $input;
+      }
       if (!$entities) {
         return '';
       }
-
       return static::entitiesToJson($entities);
     }
+
+    $parents = NestedArray::getValue($form_state->getCompleteForm(), array_slice($element['#array_parents'], 0, 2))['target_id']['#parents'];
+    $fallback = $form_state->getValue($parents);
+    if (!$fallback) {
+      return '';
+    }
+
+    $tags = Tags::explode($fallback);
+    $entities = [];
+    foreach ($tags as $tag) {
+      $entities[] = Concept::load(EntityAutocomplete::extractEntityIdFromAutocompleteInput($tag));
+    }
+
+    return static::entitiesToJson($entities);
   }
 
   /**

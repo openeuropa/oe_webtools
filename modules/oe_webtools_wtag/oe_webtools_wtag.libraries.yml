@@ -1,0 +1,9 @@
+oe_webtools_wtag.fallback:
+  js:
+    js/wtag-fallback.js: {}
+  css:
+    component:
+      css/wtag-fallback.css: {}
+  dependencies:
+    - core/drupal
+    - core/once
