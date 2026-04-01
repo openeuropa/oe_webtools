@@ -92,6 +92,11 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       $snippet['service'] = $snippet['utility'];
     }
 
+    // Adapt snippet validation for 'app' service.
+    if (!empty($snippet['utility']) && $snippet['utility'] === 'app') {
+      $snippet['service'] = $snippet['utility'];
+    }
+
     if (!isset($widget_types[$constraint->widgetType])) {
       $this->context->addViolation($constraint->unsupportedWidgetTypeMessage, ['%widget_type' => $constraint->widgetType]);
       return;
