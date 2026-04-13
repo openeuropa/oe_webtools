@@ -65,7 +65,7 @@ class WebtoolsCookieConsentContext extends RawDrupalContext {
   public function enableModule(BeforeScenarioScope $scope): void {
     \Drupal::service('module_installer')->install(['oe_media', 'path']);
 
-    $this->configContext->setConfig('media.settings', 'standalone_url', TRUE);
+    $this->configContext->setBasicConfig('media.settings', 'standalone_url', (string) TRUE);
     \Drupal::service('router.builder')->rebuild();
   }
 

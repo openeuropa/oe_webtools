@@ -44,8 +44,8 @@ class WebtoolsConfigContext extends RawDrupalContext {
    * @Given the Webtools Analytics configuration is set to use the id :id and the site path :sitepath
    */
   public function webtoolsAnalyicsConfigIsSet(string $id, string $sitepath): void {
-    $this->configContext->setConfig('oe_webtools_analytics.settings', 'siteID', $id);
-    $this->configContext->setConfig('oe_webtools_analytics.settings', 'sitePath', $sitepath);
+    $this->configContext->setBasicConfig('oe_webtools_analytics.settings', 'siteID', $id);
+    $this->configContext->setBasicConfig('oe_webtools_analytics.settings', 'sitePath', $sitepath);
   }
 
   /**
@@ -110,7 +110,16 @@ class WebtoolsConfigContext extends RawDrupalContext {
   protected function backupConfigs(string $name) {
     $configs = $this->getDriver()->getCore()->configGet($name);
     foreach ($configs as $key => $value) {
-      $this->configContext->setConfig($name, $key, $value);
+      if (is_array($value)) {
+        $table = [['key', 'value']];
+        foreach ($value as $k => $v) {
+          $table[] = [$k, $v];
+        }
+        $this->configContext->setComplexConfig($name, (string) $key, new TableNode($table));
+      }
+      else {
+        $this->configContext->setBasicConfig($name, (string) $key, (string) $value);
+      }
     }
   }
 
