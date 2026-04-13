@@ -253,6 +253,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'etrans'],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'cdown'],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'qlik'],
+      ['generic', 'Generic', 'app', 'utility', '/generic.png', '', ''],
     ];
   }
 
