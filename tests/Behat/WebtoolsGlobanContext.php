@@ -42,7 +42,9 @@ class WebtoolsGlobanContext extends RawDrupalContext {
     $name = 'oe_webtools_globan.settings';
     $configs = $this->getDriver()->getCore()->configGet($name);
     foreach ($configs as $key => $value) {
-      $this->configContext->setConfig($name, $key, $value);
+      if (!is_array($value)) {
+        $this->configContext->setBasicConfig($name, $key, (string) $value);
+      }
     }
   }
 
