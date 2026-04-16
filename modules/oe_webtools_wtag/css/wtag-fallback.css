@@ -1,0 +1,11 @@
+.wtag-fallback {
+  display: none;
+}
+
+.wtag-wrapper--hidden {
+  display: none;
+}
+
+.wtag-fallback--active {
+  display: block;
+}
