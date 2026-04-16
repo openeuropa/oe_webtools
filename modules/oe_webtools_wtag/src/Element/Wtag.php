@@ -221,7 +221,11 @@ class Wtag extends Textfield {
       return static::entitiesToJson($entities);
     }
 
-    $parents = NestedArray::getValue($form_state->getCompleteForm(), array_slice($element['#array_parents'], 0, 2))['target_id']['#parents'];
+    $array_parents = NestedArray::getValue($form_state->getCompleteForm(), array_slice($element['#array_parents'], 0, 2));
+    if (!isset($array_parents['target_id']['#parents'])) {
+      return '';
+    }
+    $parents = $array_parents['target_id']['#parents'];
     $fallback = $form_state->getValue($parents);
     if (!$fallback) {
       return '';
