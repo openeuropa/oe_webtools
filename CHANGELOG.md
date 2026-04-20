@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.45.0](https://github.com/openeuropa/oe_webtools/tree/1.45.0) (2026-04-20)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.44.0...1.45.0)
+
+**Merged pull requests:**
+
+- EWPP-6642: Minor fix on webtools Wtag element. [\#315](https://github.com/openeuropa/oe_webtools/pull/315) ([upchuk](https://github.com/upchuk))
+- EWPP-6671: Unlock drupal-extension. [\#314](https://github.com/openeuropa/oe_webtools/pull/314) ([hernani](https://github.com/hernani))
+- EWPP-6717: Allow using the webtools 'app' utility through the generic webtools media source. [\#312](https://github.com/openeuropa/oe_webtools/pull/312) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-6642: Wtag fallback element. [\#309](https://github.com/openeuropa/oe_webtools/pull/309) ([upchuk](https://github.com/upchuk))
+
 ## [1.44.0](https://github.com/openeuropa/oe_webtools/tree/1.44.0) (2026-03-02)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.43.0...1.44.0)
