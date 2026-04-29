@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * OpenEuropa Webtools WePick Icons module.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_theme().
+ */
+function oe_webtools_wepick_icons_theme() {
+  return [
+    'oe_webtools_wepick_icons' => [
+      'variables' => [
+        'value' => NULL,
+        'wepick_icons' => NULL,
+        'attributes' => [],
+      ],
+    ],
+  ];
+}
