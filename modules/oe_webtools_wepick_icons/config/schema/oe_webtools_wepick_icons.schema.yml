@@ -1,0 +1,36 @@
+field.value.oe_webtools_wepick_icons:
+  type: mapping
+  label: 'Webtools WePick Icons'
+  mapping:
+    icon_name:
+      type: string
+      label: 'Icon name'
+    icon_family:
+      type: string
+      label: 'Icon family'
+
+field.widget.settings.oe_webtools_wepick_icons:
+  type: mapping
+  label: 'Webtools WePick Icons widget settings'
+  mapping:
+    modal_title:
+      type: label
+      label: 'Modal title'
+    include_names:
+      type: string
+      label: 'Include icon names'
+    include_families:
+      type: string
+      label: 'Include icon families'
+    include_tags:
+      type: string
+      label: 'Include tags'
+    exclude_names:
+      type: string
+      label: 'Exclude icon names'
+    exclude_families:
+      type: string
+      label: 'Exclude icon families'
+    exclude_tags:
+      type: string
+      label: 'Exclude tags'
