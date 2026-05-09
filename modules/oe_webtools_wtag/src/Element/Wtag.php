@@ -100,7 +100,7 @@ class Wtag extends Textfield {
         'concept_schemes' => ['http://data.europa.eu/uxp/det'],
       ],
       '#tags' => TRUE,
-      '#maxlength' => 1200,
+      '#maxlength' => 100000000,
       '#default_value' => $default_entities ?: NULL,
       '#process_default_value' => TRUE,
       '#wrapper_attributes' => ['class' => ['wtag-fallback']],
