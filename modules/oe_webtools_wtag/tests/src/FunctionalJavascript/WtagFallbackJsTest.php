@@ -91,7 +91,7 @@ class WtagFallbackJsTest extends WebDriverTestBase {
     $this->assertSession()->waitForElementVisible('css', '.wtag-fallback--active', 2000);
     $this->assertSession()->elementExists('css', '.wtag-wrapper--hidden');
 
-    // input_mode hidden field is set to 'fallback'.
+    // The input_mode hidden field is set to 'fallback'.
     $inputMode = $this->getSession()->evaluateScript(
       "document.querySelector('[data-wtag-input-mode]').value"
     );

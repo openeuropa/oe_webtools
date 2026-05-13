@@ -189,8 +189,15 @@ class WtagWidgetTest extends BrowserTestBase {
     if (empty($concepts)) {
       $this->fail('No SKOS concepts available');
     }
-    $concept = reset($concepts);
-    $concept_json = json_encode([$concept->id() => $concept->label()]);
+
+    // Set a bunch of concepts.
+    $concept_values = [];
+    $concepts = array_values($concepts);
+    for ($i = 1; $i <= 30; $i++) {
+      $concept = $concepts[$i];
+      $concept_values[$concept->id()] = $concept->label();
+    }
+    $concept_json = json_encode($concept_values);
 
     $this->submitForm([
       'title[0][value]' => 'Test node',
@@ -199,9 +206,15 @@ class WtagWidgetTest extends BrowserTestBase {
 
     $this->assertSession()->pageTextContains('Basic page Test node has been created.');
     $node = $this->drupalGetNodeByTitle('Test node');
-    $this->assertEquals($concept->id(), $node->get('wtag')->target_id);
+    $this->assertCount(30, $node->get('wtag')->getValue());
 
-    // Assert submitting via the fallback path (input_mode = 'fallback').
+    // Reave the node.
+    $node = $this->getNodeByTitle('Test node');
+    $this->drupalGet($node->toUrl('edit-form'));
+    $this->getSession()->getPage()->pressButton('Save');
+    $this->assertSession()->pageTextContains('Basic page Test node has been updated.');
+
+    // Assert submitting via the fallback path, just one concept this time.
     $this->drupalGet('/node/add/page');
     $this->getSession()->getPage()
       ->find('css', 'input[data-wtag-input-mode]')
