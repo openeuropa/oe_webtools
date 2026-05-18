@@ -10,3 +10,7 @@ oe_webtools_page_feedback.settings:
       type: string
       label: 'Form ID'
       description: 'ID of the corresponding Feedback Form where submissions will be recorded.'
+    survey:
+      type: uri
+      label: 'Survey URL'
+      description: 'Optional URL to the website survey. May contain the {zz} token as a language placeholder.'

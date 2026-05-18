@@ -20,6 +20,11 @@ provided:
 
 * Enabled: Whether the Page Feedback Form is enabled or not.
 * Form ID: The Webtools ID of the corresponding Feedback Form where submissions will be recorded.
+* Survey URL (optional): URL of an external website survey, restricted to `http` / `https` schemes. When provided,
+  the floating "Share feedback" button on the page opens a modal that links to this survey. The URL may include the
+  literal `{zz}` token (in the path or the query string), which Webtools replaces at runtime with the current page
+  language code — for example `https://example.com/?lang={zz}` or `https://example.com/survey/{zz}`. The token is
+  forwarded un-encoded.
 
 This configuration can be provided using the configuration form (`/admin/config/system/oe_webtools_page_feedback`) by
 users that were granted with the permission `administer webtools page feedback form` or by providing details in your
@@ -28,4 +33,5 @@ site's settings.php file:
 ```
 $config['oe_webtools_page_feedback.settings']['enabled'] = TRUE;
 $config['oe_webtools_page_feedback.settings']['feedback_form_id'] = '1234';
+$config['oe_webtools_page_feedback.settings']['survey'] = 'https://example.com/?lang={zz}';
 ```
