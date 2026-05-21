@@ -95,20 +95,38 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
     $page->pressButton('Save');
     $assert_session->pageTextContains('Invalid webtools chart snippet.');
 
+    // Create a Webtools WCLOUD media item with an acceptance URL that gets
+    // replaced with the staging asset manager URL for validation only.
+    $assert_session->fieldExists('Name')->setValue('Valid webtools WCLOUD acceptance item');
+    $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://www.acceptance.europa.eu/correct-wcloud?widget=chart"}');
+    $page->pressButton('Save');
+    $assert_session->pageTextContains('Test wcloud webtools Valid webtools WCLOUD acceptance item has been created.');
+    $assert_session->addressEquals('admin/content/media');
+    // Assert that the saved value retains the original acceptance URL.
+    $entities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['name' => 'Valid webtools WCLOUD acceptance item']);
+    if (!$entities) {
+      throw new \Exception(sprintf('The media with the name %s does not exist.', 'Valid webtools WCLOUD acceptance item'));
+    }
+    $media = reset($entities);
+    $this->assertSame('{"utility": "wcloud", "url": "https://www.acceptance.europa.eu/correct-wcloud?widget=chart"}', $media->get('field_media_webtools')->value);
+
     // Create a Webtools WCLOUD media item with a URL that returns a correct
     // response.
+    $this->drupalGet('media/add/test_webtools_cloud');
+    $name_direct = "Valid webtools WCLOUD direct item";
+    $assert_session->fieldExists('Name')->setValue($name_direct);
     $assert_session->fieldExists('Webtools Chart snippet')->setValue('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=chart"}');
     $page->pressButton('Save');
-    $assert_session->pageTextContains('Test wcloud webtools Valid webtools WCLOUD item has been created.');
+    $assert_session->pageTextContains('Test wcloud webtools Valid webtools WCLOUD direct item has been created.');
     $assert_session->addressEquals('admin/content/media');
-    $entities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['name' => $name]);
+    $entities = \Drupal::entityTypeManager()->getStorage('media')->loadByProperties(['name' => $name_direct]);
     if (!$entities) {
-      throw new \Exception(sprintf('The media with the name %s does not exist.', $name));
+      throw new \Exception(sprintf('The media with the name %s does not exist.', $name_direct));
     }
 
     $media = reset($entities);
     // Check that all fields are properly populated.
-    $this->assertSame($name, $media->getName());
+    $this->assertSame($name_direct, $media->getName());
     $this->assertSame('{"utility": "wcloud", "url": "https://europa.eu/correct-wcloud?widget=chart"}', $media->get('field_media_webtools')->value);
   }
 

@@ -34,6 +34,12 @@ class MockWcloudMiddleware {
           return new FulfilledPromise($response);
         }
 
+        if ($uri->getHost() === 'webgate.ec.europa.eu' && str_starts_with($uri->getPath(), '/webtools/asset-manager/stg/europa.eu/correct-wcloud')) {
+          $parameters = Query::parse($uri->getQuery());
+          $response = new Response(200, [], '{"service": "' . $parameters['widget'] . '"}');
+          return new FulfilledPromise($response);
+        }
+
         if ($uri->getHost() === 'europa.eu' && $uri->getPath() === '/empty-wcloud') {
           $response = new Response(200, [], []);
           return new FulfilledPromise($response);

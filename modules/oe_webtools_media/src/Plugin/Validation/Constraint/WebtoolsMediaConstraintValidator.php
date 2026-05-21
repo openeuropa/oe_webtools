@@ -138,6 +138,9 @@ class WebtoolsMediaConstraintValidator extends ConstraintValidator implements Co
       return [];
     }
 
+    // Replace acceptance URLs with the staging asset manager URL.
+    $snippet['url'] = str_replace('https://www.acceptance.europa.eu/', 'https://webgate.ec.europa.eu/webtools/asset-manager/stg/europa.eu/', $snippet['url']);
+
     // Try to fetch and parse the response.
     try {
       $request = $this->httpClient->get($snippet['url']);
