@@ -50,7 +50,7 @@ class SocialShareBlockTest extends KernelTestBase {
     $crawler = new Crawler($html);
     // Make sure that social share block is present.
     $actual = $crawler->filter('script');
-    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"display":"button","stats":true,"selection":true}', $actual->text());
+    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"more":[],"display":"button","stats":true,"selection":true}', $actual->text());
     // Make sure "Share this page" heading is present.
     $this->assertStringContainsString('Share this page', $html);
 
@@ -61,7 +61,33 @@ class SocialShareBlockTest extends KernelTestBase {
     $crawler = new Crawler($html);
     // Make sure that social share block is present.
     $actual = $crawler->filter('script');
-    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"display":"icons","stats":true,"selection":true}', $actual->text());
+    $this->assertEquals('{"service":"share","version":"2.0","networks":["twitter","facebook","linkedin","email","more"],"more":[],"display":"icons","stats":true,"selection":true}', $actual->text());
+
+    $social_share_settings->set('custom_networks', TRUE)->save();
+    $social_share_settings->set('networks', [
+      'linkedin' => [
+        'visible' => TRUE,
+        'weight' => 0,
+      ],
+      'email' => [
+        'visible' => FALSE,
+        'weight' => 1,
+      ],
+      'facebook' => [
+        'visible' => TRUE,
+        'weight' => 2,
+      ],
+      'yammer' => [
+        'visible' => FALSE,
+        'weight' => 3,
+      ],
+    ])->save();
+    $render = $plugin->build();
+    $html = (string) $this->container->get('renderer')->renderRoot($render);
+    $crawler = new Crawler($html);
+    // Make sure that custom networks for social share block is present.
+    $actual = $crawler->filter('script');
+    $this->assertEquals('{"service":"share","version":"2.0","networks":["linkedin","facebook","more"],"more":["email","yammer"],"display":"icons","stats":true,"selection":true}', $actual->text());
   }
 
 }

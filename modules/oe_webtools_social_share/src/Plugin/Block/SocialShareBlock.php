@@ -70,16 +70,30 @@ class SocialShareBlock extends BlockBase implements ContainerFactoryPluginInterf
   public function build() {
     /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
     $config = $this->configFactory->get('oe_webtools_social_share.settings');
+
+    $networks = !$config->get('custom_networks') ? [
+      'twitter',
+      'facebook',
+      'linkedin',
+      'email',
+      'more',
+    ] : [];
+    $more = [];
+    $networks_settings = $config->get('networks') ?? [];
+    foreach ($networks_settings as $network => $settings) {
+      ($settings['visible'] ?? FALSE)
+        ? $networks[] = $network
+        : $more[] = $network;
+    }
+
+    // Add more item.
+    $more && $networks[] = 'more';
+
     $social_share_json = [
       'service' => 'share',
       'version' => '2.0',
-      'networks' => [
-        'twitter',
-        'facebook',
-        'linkedin',
-        'email',
-        'more',
-      ],
+      'networks' => $networks,
+      'more' => $more,
       'display' => $config->get('icons') ? 'icons' : 'button',
       'stats' => TRUE,
       'selection' => TRUE,
