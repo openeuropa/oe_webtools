@@ -47,7 +47,7 @@ class WebtoolsCookieConsentEventSubscriber implements EventSubscriberInterface {
     $event->addCacheableDependency($config);
 
     $config_data = $config->get('banner_popup');
-    $event->setBannerPopup((boolean) $config_data);
+    $event->setBannerPopup((bool) $config_data);
   }
 
   /**
@@ -61,7 +61,7 @@ class WebtoolsCookieConsentEventSubscriber implements EventSubscriberInterface {
     $event->addCacheableDependency($config);
 
     $config_data = $config->get('video_popup');
-    $event->setVideoPopup((boolean) $config_data);
+    $event->setVideoPopup((bool) $config_data);
   }
 
   /**
