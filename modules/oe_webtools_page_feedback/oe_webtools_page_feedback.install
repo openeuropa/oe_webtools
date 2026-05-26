@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Contains installation hooks.
+ */
+
+declare(strict_types=1);
+
+/**
+ * Implements hook_update_N().
+ *
+ * Backfill the `survey` config key on sites updated from a version where it
+ * did not yet exist.
+ */
+function oe_webtools_page_feedback_update_8001(): void {
+  $config = \Drupal::configFactory()->getEditable('oe_webtools_page_feedback.settings');
+  if (is_null($config->get('survey'))) {
+    $config->set('survey', '')->save(TRUE);
+  }
+}

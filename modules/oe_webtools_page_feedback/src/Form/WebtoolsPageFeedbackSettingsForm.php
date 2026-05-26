@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\oe_webtools_page_feedback\Form;
 
+use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -42,8 +43,41 @@ class WebtoolsPageFeedbackSettingsForm extends ConfigFormBase {
         ],
       ],
     ];
+    $form['survey'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Survey URL'),
+      '#description' => $this->t('Optional URL to the website survey. May contain the {zz} token as a language placeholder.'),
+      '#default_value' => $config->get('survey'),
+      '#maxlength' => 2048,
+    ];
 
     return parent::buildForm($form, $form_state);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state): void {
+    parent::validateForm($form, $form_state);
+
+    $survey = (string) $form_state->getValue('survey');
+    if ($survey === '') {
+      return;
+    }
+    // The {zz} substring is a Webtools placeholder for the page language and
+    // must be preserved verbatim. Substitute it with a valid language code
+    // before validating so URL validation does not reject the curly braces.
+    $candidate = str_replace('{zz}', 'en', $survey);
+    if (!UrlHelper::isValid($candidate, TRUE)) {
+      $form_state->setErrorByName('survey', $this->t('The Survey URL must be a valid absolute URL. The {zz} language placeholder is allowed.'));
+      return;
+    }
+    // Restrict to http/https to avoid laundering javascript:/data:/etc URLs
+    // through the trusted Webtools widget.
+    $scheme = strtolower((string) parse_url($candidate, PHP_URL_SCHEME));
+    if (!in_array($scheme, ['http', 'https'], TRUE)) {
+      $form_state->setErrorByName('survey', $this->t('The Survey URL must use the http or https scheme.'));
+    }
   }
 
   /**
@@ -53,6 +87,7 @@ class WebtoolsPageFeedbackSettingsForm extends ConfigFormBase {
     $this->config('oe_webtools_page_feedback.settings')
       ->set('enabled', $form_state->getValue('enabled'))
       ->set('feedback_form_id', $form_state->getValue('feedback_form_id'))
+      ->set('survey', $form_state->getValue('survey'))
       ->save();
     parent::submitForm($form, $form_state);
   }

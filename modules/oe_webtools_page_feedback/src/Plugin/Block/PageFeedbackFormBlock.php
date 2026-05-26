@@ -89,7 +89,7 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function build(): array {
-    /** @var \Drupal\Core\Config\ConfigFactoryInterface $config */
+    /** @var \Drupal\Core\Config\ImmutableConfig $config */
     $config = $this->configFactory->get('oe_webtools_page_feedback.settings');
     // Use language mapping config from core for handling first of
     // all pt_pt language.
@@ -101,8 +101,13 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
       'service' => 'dff',
       'id' => $config->get('feedback_form_id'),
       'lang' => $current_langcode,
-      'version' => '2.0',
     ];
+
+    $survey = $config->get('survey');
+    if (!empty($survey)) {
+      $feedback_form_json['survey'] = $survey;
+    }
+
     $build = [
       '#cache' => [
         'tags' => $config->getCacheTags(),
