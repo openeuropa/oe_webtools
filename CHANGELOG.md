@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.46.0](https://github.com/openeuropa/oe_webtools/tree/1.46.0) (2026-06-02)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.45.0...1.46.0)
+
+**Merged pull requests:**
+
+- EWPP-6873: Migrate webtools feedback form to v3. [\#319](https://github.com/openeuropa/oe_webtools/pull/319) ([nagyad](https://github.com/nagyad))
+- EWPP-6862: Extendig the limit of the Wtag fallback textfield. [\#318](https://github.com/openeuropa/oe_webtools/pull/318) ([upchuk](https://github.com/upchuk))
+- EWPP-4247: Alter acceptance URLs to a different format. [\#316](https://github.com/openeuropa/oe_webtools/pull/316) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-6706: Create a new field type and widget that use the Webtools PickIcons service. [\#313](https://github.com/openeuropa/oe_webtools/pull/313) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-6514: Support D11.3. [\#306](https://github.com/openeuropa/oe_webtools/pull/306) ([nagyad](https://github.com/nagyad))
+
 ## [1.45.0](https://github.com/openeuropa/oe_webtools/tree/1.45.0) (2026-04-20)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.44.0...1.45.0)
