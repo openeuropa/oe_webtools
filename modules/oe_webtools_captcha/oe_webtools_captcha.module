@@ -29,6 +29,7 @@ function oe_webtools_captcha_captcha($op, $captcha_type = '') {
           '#tag' => 'script',
           '#value' => Json::encode([
             'service' => 'captcha',
+            'version' => '2.0',
             'auto' => FALSE,
             'ajax' => FALSE,
           ]),
