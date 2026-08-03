@@ -10,6 +10,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
@@ -52,6 +53,8 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
    *   The language manager.
    * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
    *   The route match service.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   *   The config factory service.
    */
   public function __construct(
     array $configuration,
@@ -59,6 +62,7 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
     $plugin_definition,
     protected LanguageManagerInterface $languageManager,
     protected RouteMatchInterface $routeMatch,
+    protected ConfigFactoryInterface $configFactory,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
@@ -72,7 +76,8 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
       $plugin_id,
       $plugin_definition,
       $container->get('language_manager'),
-      $container->get('current_route_match')
+      $container->get('current_route_match'),
+      $container->get('config.factory')
     );
   }
 
@@ -330,12 +335,12 @@ class UnifiedEtransBlock extends BlockBase implements ContainerFactoryPluginInte
    *   The corresponding ISO 639-1 language code as expected by Webtools.
    */
   protected function mapLangcodeToIso(string $langcode): string {
-    // Get the browser language lookup map from language module.
+    // Get the browser language lookup map from the language module config.
     // This maps different alternative language codes to their corresponding
     // Drupal language codes.
     // @todo The browser language map is not really meant for this purpose.
     //   It just happens to do what we need in the most common scenarios.
-    $mappings = language_get_browser_drupal_langcode_mappings();
+    $mappings = $this->configFactory->get('language.mappings')->get('map') ?? [];
     // Get alternative language codes for the given Drupal langcode.
     $alternative_codes = array_keys($mappings, $langcode, TRUE);
     if ($alternative_codes) {

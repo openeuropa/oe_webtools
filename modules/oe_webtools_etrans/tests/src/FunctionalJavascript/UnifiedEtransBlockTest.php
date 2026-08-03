@@ -13,6 +13,18 @@ use Drupal\language\Entity\ConfigurableLanguage;
 class UnifiedEtransBlockTest extends WebDriverTestBase {
 
   /**
+   * The text format used for the node bodies created in this test.
+   *
+   * The filter module only installs the "plain_text" fallback format in the
+   * test environment, so it is the format that the (now deprecated)
+   * filter_default_format() returned here. Referencing it directly avoids the
+   * deprecated filter_default_format()/filter_formats() functions while keeping
+   * compatibility with Drupal 10 and 11.3, where the filter.format_repository
+   * service (Drupal 11.4+) does not yet exist.
+   */
+  protected const BODY_TEXT_FORMAT = 'plain_text';
+
+  /**
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
@@ -68,14 +80,14 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
       'title' => 'English translation',
       'body' => [
         'value' => "I'm a text that will be translated.",
-        'format' => filter_default_format(),
+        'format' => self::BODY_TEXT_FORMAT,
       ],
     ]);
     $translation = $node->addTranslation('fr', [
       'title' => 'Traduction Française',
       'body' => [
         'value' => "Je suis un texte qui va être traduit.",
-        'format' => filter_default_format(),
+        'format' => self::BODY_TEXT_FORMAT,
       ],
     ]);
     $translation->save();
@@ -106,7 +118,7 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
       'title' => 'Hrvatski prijevod',
       'body' => [
         'value' => "Ja sam tekst koji će biti preveden.",
-        'format' => filter_default_format(),
+        'format' => self::BODY_TEXT_FORMAT,
       ],
     ]);
     $translation->save();
