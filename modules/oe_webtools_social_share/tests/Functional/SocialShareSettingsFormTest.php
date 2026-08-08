@@ -54,6 +54,44 @@ class SocialShareSettingsFormTest extends BrowserTestBase {
     $assert->pageTextContainsOnce('The configuration options have been saved.');
     $assert->checkboxChecked('Display only icons');
     $this->assertEquals(TRUE, $this->config('oe_webtools_social_share.settings')->get('icons'));
+
+    // Enable custom networks option.
+    $page = $this->getSession()->getPage();
+    $page->checkField('Customize social networks');
+    $networks = [
+      'linkedin' => [
+        'visible' => TRUE,
+        'weight' => 0,
+      ],
+      'email' => [
+        'visible' => FALSE,
+        'weight' => 1,
+      ],
+      'facebook' => [
+        'visible' => TRUE,
+        'weight' => 2,
+      ],
+      'yammer' => [
+        'visible' => FALSE,
+        'weight' => 3,
+      ],
+    ];
+    $base_selector = 'networks_wrapper[networks]';
+    foreach ($networks as $network => $settings) {
+      $selector = "{$base_selector}[{$network}]";
+      $page->checkField("{$selector}[enabled]");
+      $page->selectFieldOption("{$selector}[weight]", (string) $settings['weight']);
+      if ($settings['visible']) {
+        $page->checkField("{$selector}[visible]");
+      }
+    }
+    $page->pressButton('Save configuration');
+    $this->container->get('config.factory')->reset('oe_webtools_social_share.settings');
+    // Assert the values are saved.
+    $assert->pageTextContainsOnce('The configuration options have been saved.');
+    $assert->checkboxChecked('Customize social networks');
+    $this->assertEquals(TRUE, $this->config('oe_webtools_social_share.settings')->get('custom_networks'));
+    $this->assertEqualsCanonicalizing($networks, $this->config('oe_webtools_social_share.settings')->get('networks'));
   }
 
 }
