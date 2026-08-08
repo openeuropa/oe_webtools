@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Default theme implementation for rendering webtools HTML 2 Media link to media version.
+ *
+ * Available variables:
+ * - url: The page to be converted in pdf.
+ *
+ * @ingroup themeable
+ */
+#}
+  {% include '@ecl-twig/link' with {
+    link: {
+      type: 'primary',
+      label: 'PDF version',
+      path:  url,
+      icon_position: 'before'
+    },
+    icon: {
+      name: 'download',
+      path: ecl_icon_path
+    },
+    extra_attributes: [
+      { name: 'target', value: '_blank' }, 
+    ],
+    extra_classes: 'oe-webtools-html2media-pdf-link',
+  } %}
