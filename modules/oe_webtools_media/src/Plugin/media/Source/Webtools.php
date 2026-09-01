@@ -108,6 +108,7 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
         'etrans',
         'cdown',
         'qlik',
+        'shorthand',
       ],
     ] + parent::defaultConfiguration();
   }
@@ -213,6 +214,12 @@ class Webtools extends MediaSourceBase implements WebtoolsInterface {
       'cdown' => [
         'name' => $this->t('Countdown'),
         'services' => ['cdown'],
+        'default_thumbnail' => 'generic.png',
+        'blacklist' => [],
+      ],
+      'shorthand' => [
+        'name' => $this->t('Shorthand'),
+        'services' => ['shorthand'],
         'default_thumbnail' => 'generic.png',
         'blacklist' => [],
       ],

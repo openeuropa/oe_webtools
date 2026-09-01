@@ -140,6 +140,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       'etrans',
       'cdown',
       'qlik',
+      'shorthand',
     ];
 
     $assert_session->fieldValueEquals('Blacklist', implode(PHP_EOL, $default_list));
@@ -236,6 +237,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
         '',
       ],
       ['cdown', 'Countdown', 'cdown', 'service', '/generic.png', 'map', ''],
+      ['shorthand', 'Shorthand', 'shorthand', 'service', '/generic.png', 'map', ''],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'charts'],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'chart'],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'racing'],
@@ -253,6 +255,7 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'etrans'],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'cdown'],
       ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'qlik'],
+      ['generic', 'Generic', 'captcha', 'service', '/generic.png', '', 'shorthand'],
       ['generic', 'Generic', 'app', 'utility', '/generic.png', '', ''],
     ];
   }

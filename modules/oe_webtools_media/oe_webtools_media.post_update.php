@@ -68,3 +68,29 @@ function oe_webtools_media_post_update_00002(): void {
     $media_type->save();
   }
 }
+
+/**
+ * Add the shorthand service to the webtools media blacklist config.
+ */
+function oe_webtools_media_post_update_00003(): void {
+  /** @var \Drupal\media\MediaTypeInterface[] $media_types */
+  $media_types = MediaType::loadMultiple();
+  foreach ($media_types as $media_type) {
+    if ($media_type->get('source') !== 'webtools') {
+      continue;
+    }
+
+    $source_config = $media_type->get('source_configuration');
+    if ($source_config['widget_type'] !== 'generic') {
+      continue;
+    }
+
+    if (in_array('shorthand', $source_config['generic_widget_type_blacklist'])) {
+      continue;
+    }
+
+    $source_config['generic_widget_type_blacklist'][] = 'shorthand';
+    $media_type->set('source_configuration', $source_config);
+    $media_type->save();
+  }
+}
