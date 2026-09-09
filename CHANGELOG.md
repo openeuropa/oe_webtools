@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.47.0](https://github.com/openeuropa/oe_webtools/tree/1.47.0) (2026-09-09)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.46.0...1.47.0)
+
+**Merged pull requests:**
+
+- EWPP-7205: Add support for Webtools Shorthand service. [\#325](https://github.com/openeuropa/oe_webtools/pull/325) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-6988: Trigger pipeline. [\#323](https://github.com/openeuropa/oe_webtools/pull/323) ([nagyad](https://github.com/nagyad))
+- EWPP-6602: Switch to v2 of captcha. [\#322](https://github.com/openeuropa/oe_webtools/pull/322) ([bircher](https://github.com/bircher))
+
 ## [1.46.0](https://github.com/openeuropa/oe_webtools/tree/1.46.0) (2026-06-02)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.45.0...1.46.0)
