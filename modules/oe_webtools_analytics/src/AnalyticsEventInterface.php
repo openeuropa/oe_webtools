@@ -38,7 +38,7 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
   public const LANG = 'lang';
 
   /**
-   * The analytics tools name, for e.g: piwik.
+   * The analytics tools name, for e.g: analytics.
    */
   public const UTILITY = 'utility';
 
@@ -146,9 +146,9 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
    * Sets the utility parameter.
    *
    * @param string $utility
-   *   By default is set to "piwik".
+   *   By default is set to "analytics".
    */
-  public function setUtility(string $utility = 'piwik'): void;
+  public function setUtility(string $utility = 'analytics'): void;
 
   /**
    * Sets custom dimensions.
@@ -226,7 +226,7 @@ interface AnalyticsEventInterface extends \JsonSerializable, RefinableCacheableD
    * Get the utility parameter.
    *
    * @return string
-   *   A string which by default is "piwik"
+   *   A string which by default is "analytics"
    */
   public function getUtility(): string;
 
