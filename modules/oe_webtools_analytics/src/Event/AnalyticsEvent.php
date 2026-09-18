@@ -100,7 +100,7 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
    * The analytic parameter.
    *
    * @var string
-   *   A string which by default it sets to "piwik".
+   *   A string which by default it sets to "analytics".
    */
   protected $utility;
 
@@ -187,7 +187,7 @@ class AnalyticsEvent extends Event implements \JsonSerializable, AnalyticsEventI
   /**
    * {@inheritdoc}
    */
-  public function setUtility(string $utility = 'piwik'): void {
+  public function setUtility(string $utility = 'analytics'): void {
     $this->utility = $utility;
   }
 
