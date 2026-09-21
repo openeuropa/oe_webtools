@@ -1,0 +1,8 @@
+name: OpenEuropa Webtools eTrans - Language Concept 2023
+description: Provides a block that adds machine translation possibility for preferred EU language using Language Concept 2023
+package: OpenEuropa Webtools
+type: module
+core_version_requirement: ^10
+dependencies:
+  - oe_webtools:oe_webtools
+  - oe_multilingual:oe_multilingual
