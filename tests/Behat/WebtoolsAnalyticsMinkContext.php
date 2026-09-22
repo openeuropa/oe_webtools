@@ -32,7 +32,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
     /** @var \Behat\Mink\Element\NodeElement $script */
     foreach ($scripts as $script) {
       $json_value = json_decode($script->getText(), TRUE);
-      if (isset($json_value['utility']) && $json_value['utility'] == 'piwik') {
+      if (isset($json_value['utility']) && $json_value['utility'] == 'analytics') {
         $json_found = TRUE;
         Assert::assertEquals($value, $json_value[$parameter] ?? '');
       }
@@ -58,7 +58,7 @@ class WebtoolsAnalyticsMinkContext extends MinkContext {
     /** @var \Behat\Mink\Element\NodeElement $script */
     foreach ($scripts as $script) {
       $json_value = json_decode($script->getText(), TRUE);
-      if (isset($json_value['utility']) && $json_value['utility'] == 'piwik') {
+      if (isset($json_value['utility']) && $json_value['utility'] == 'analytics') {
         $json_found = TRUE;
         Assert::assertArrayNotHasKey($parameter, $json_value);
       }
