@@ -64,16 +64,16 @@ class SectionRulesTest extends BrowserTestBase {
 
     // Frontpage doesn't match any rule so it doesn't render a section.
     $this->drupalGet('<front>');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"]}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"]}');
 
     // The administration page matches the first rule so it renders section1.
     $this->drupalGet('admin');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"siteSection":"section1","is403":true}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"],"siteSection":"section1","is403":true}');
 
     // The configuration page matches both rules but since they have the same
     // weight, the first rule is applied and section1 is rendered.
     $this->drupalGet('admin/config');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"siteSection":"section1","is403":true}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"],"siteSection":"section1","is403":true}');
 
     // Change weight of rules.
     /** @var \Drupal\oe_webtools_analytics_rules\Entity\WebtoolsAnalyticsRuleInterface $id2 */
@@ -93,7 +93,7 @@ class SectionRulesTest extends BrowserTestBase {
     // The configuration page matches both rules but since the second rule
     // is now lighter the second rule is applied and section2 is rendered.
     $this->drupalGet('admin/config');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"siteSection":"section2","is403":true}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"],"siteSection":"section2","is403":true}');
   }
 
 }
