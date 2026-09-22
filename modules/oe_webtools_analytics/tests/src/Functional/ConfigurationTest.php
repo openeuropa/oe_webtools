@@ -45,13 +45,13 @@ class ConfigurationTest extends BrowserTestBase {
 
     $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"instance":"testing"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"],"instance":"testing"}');
 
     $this->drupalGet('not-existing-page');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is404":true,"instance":"testing"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"],"is404":true,"instance":"testing"}');
 
     $this->drupalGet('admin');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123","sitePath":["ec.europa.eu"],"is403":true,"instance":"testing"}');
 
     // Test the cache invalidation.
     $this->drupalLogin($user);
@@ -61,7 +61,7 @@ class ConfigurationTest extends BrowserTestBase {
 
     $this->drupalLogout();
     $this->drupalGet('<front>');
-    $this->assertBodyContainsApplicationJson('{"utility":"piwik","siteID":"123e4567-e89b-12d3-a456-426614174000","sitePath":["ec.europa.eu"],"instance":"testing"}');
+    $this->assertBodyContainsApplicationJson('{"utility":"analytics","siteID":"123e4567-e89b-12d3-a456-426614174000","sitePath":["ec.europa.eu"],"instance":"testing"}');
   }
 
 }

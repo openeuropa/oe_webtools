@@ -4,7 +4,7 @@ Feature: Webtools Analytics multilingual aliases
   As the site manager
   I need to be able to create rules that allow to pair section names with regular expressions with supporting aliases
 
-  @cleanup:webtools_analytics_rule @cleanup:path_alias @cleanup-aliases
+  @cleanup:webtools_analytics_rule @cleanup:path_alias @cleanup-aliases @ttt
   Scenario: Create Webtools Analytics Rule with supporting multilingual aliases
     Given I am logged in as a user with the "administer webtools analytics, access administration pages" permission
     And the Webtools Analytics configuration is set to use the id '123' and the site path 'sitePath'
