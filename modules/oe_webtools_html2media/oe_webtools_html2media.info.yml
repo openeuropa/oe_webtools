@@ -1,0 +1,6 @@
+name: 'OpenEuropa Webtools HTML 2 Media'
+type: module
+description: 'Implements webtools HTML 2 Media services'
+core_version_requirement: ^8.8 || ^9
+package: 'ATOF'
+php: 7.1

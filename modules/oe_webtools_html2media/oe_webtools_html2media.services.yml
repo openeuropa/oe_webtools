@@ -1,0 +1,6 @@
+services:
+  oe_webtools_html2media.webtools:
+    class: Drupal\oe_webtools_html2media\WebtoolsHtmlToMedia
+    arguments: ['@config.factory', '@logger.factory', '@messenger', '@http_client']
+    tags:
+      - {name: webtools}
