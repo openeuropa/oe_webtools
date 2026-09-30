@@ -62,6 +62,9 @@ class WePickIconsWidgetTest extends BrowserTestBase {
 
     // Assert the pickicons script exists on the page with default settings.
     $this->assertSession()->responseContains('<script type="application/json">{"service":"pickicons","target":"#edit-field-icon-0","title":"Icon picker"}</script>');
+    // Assert the webtools components are collected, so the element is rendered
+    // also when added to the page via Ajax.
+    $this->assertSession()->responseContains('oe_webtools/assets/js/component_collect.js');
 
     // Update the modal title.
     $entity_form_display->setComponent('field_icon', [
@@ -148,6 +151,19 @@ class WePickIconsWidgetTest extends BrowserTestBase {
     $this->drupalGet('/node/' . $node->id() . '/edit');
     $icon_field = $this->assertSession()->elementExists('css', '#edit-field-icon-0');
     $this->assertEquals('{"name":"ro","family":"flags"}', $icon_field->getValue());
+
+    // Make the field required.
+    $field = FieldConfig::loadByName('node', 'page', 'field_icon');
+    $field->setRequired(TRUE);
+    $field->save();
+
+    $this->drupalGet('/node/add/page');
+    $this->assertSession()->elementExists('css', 'textarea#edit-field-icon-0[data-wepick-icons]');
+    $this->assertSession()->responseContains('oe_webtools_wepick_icons/js/wepick-icons.js');
+    $this->submitForm(['title[0][value]' => 'Node without icon'], 'Save');
+    // The required attribute is removed from the hidden textarea via JS, but
+    // the form validation should apply instead.
+    $this->assertSession()->pageTextContains('field_icon field is required.');
   }
 
 }
