@@ -62,6 +62,9 @@ class WePickIconsWidgetTest extends BrowserTestBase {
 
     // Assert the pickicons script exists on the page with default settings.
     $this->assertSession()->responseContains('<script type="application/json">{"service":"pickicons","target":"#edit-field-icon-0","title":"Icon picker"}</script>');
+    // Assert the webtools components are collected, so the element is rendered
+    // also when added to the page via Ajax.
+    $this->assertSession()->responseContains('oe_webtools/assets/js/component_collect.js');
 
     // Update the modal title.
     $entity_form_display->setComponent('field_icon', [
