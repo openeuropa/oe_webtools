@@ -66,6 +66,9 @@ class WePickIcons extends Textfield {
 
     $element['#wepick_icons'] = Markup::create(Json::encode($config));
     $element['#attached']['library'][] = 'oe_webtools/drupal.webtools-smartloader';
+    // The element can be added to the page via Ajax, so re-trigger the
+    // webtools loader to render it.
+    $element['#attached']['library'][] = 'oe_webtools/oe_webtools.component-collect';
     unset($element['#attributes']['data-autocomplete-path']);
     $element['#attributes']['maxlength'] = '100000000';
     $element['#maxlength'] = '100000000';
