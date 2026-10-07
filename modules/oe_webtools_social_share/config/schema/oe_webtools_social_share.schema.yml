@@ -6,3 +6,25 @@ oe_webtools_social_share.settings:
       type: boolean
       label: 'Icons'
       description: 'Whether the Social share block displays only icons without labels.'
+    custom_networks:
+      type: boolean
+      label: 'Customize social networks'
+      description: 'Whether the social networks are customized.'
+    networks:
+      type: sequence
+      label: 'Social networks'
+      description: 'List of social networks with settings.'
+      sequence:
+        type: mapping
+        mapping:
+          name:
+            type: string
+            label: 'Network name'
+          visible:
+            type: boolean
+            label: 'Visible on screen'
+            description: 'Whether this network is shown directly on screen or under the "More share options" link.'
+          weight:
+            type: integer
+            label: 'Weight'
+            description: 'The relative ordering of the network for drag-and-drop sorting.'
