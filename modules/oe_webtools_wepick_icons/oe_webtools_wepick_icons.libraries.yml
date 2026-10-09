@@ -1,0 +1,6 @@
+oe_webtools_wepick_icons.element:
+  js:
+    js/wepick-icons.js: {}
+  dependencies:
+    - core/drupal
+    - core/once

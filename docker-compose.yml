@@ -1,6 +1,6 @@
 services:
   web:
-    image: fpfis/httpd-php:8.3-dev
+    image: fpfis/httpd-php:8.3-ci
     working_dir: /var/www/html
     ports:
       - 8080:8080
