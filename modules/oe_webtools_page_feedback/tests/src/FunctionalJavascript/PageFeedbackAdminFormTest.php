@@ -54,60 +54,35 @@ class PageFeedbackAdminFormTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains('Webtools Page Feedback Form settings');
     $this->assertSession()->checkboxNotChecked('Enabled');
     $this->assertSession()->pageTextContains('Check this box if you would like to enable the Page feedback form on this site.');
-    $this->assertSession()->fieldValueEquals('Form ID', '');
-    $this->assertFalse($this->assertSession()->elementExists('css', 'input#edit-feedback-form-id')->hasAttribute('required'));
-    $this->assertSession()->pageTextContains('Provide your webtools form ID.');
-    // The new optional Survey URL field is present and empty by default.
-    $this->assertSession()->fieldValueEquals('Survey URL', '');
-    $this->assertSession()->pageTextContains('Optional URL to the website survey. May contain the {zz} token as a language placeholder.');
+    $this->assertSession()->fieldValueEquals('Embed code', '');
+    $this->assertFalse($this->assertSession()->elementExists('css', 'textarea#edit-embed-code')->hasAttribute('required'));
+    $this->assertSession()->pageTextContains('JSON-encoded parameters passed to the Page Feedback Form widget');
 
-    // Configure the form with a valid form id and a survey URL that contains
-    // the {zz} language placeholder.
-    // The placeholder must round-trip un-encoded.
+    // Configure the form with a valid embed code.
     $page = $this->getSession()->getPage();
     $page->checkField('Enabled');
-    $this->assertSession()->elementAttributeContains('css', 'input#edit-feedback-form-id', 'required', 'required');
-    $page->fillField('Form ID', '1234abc');
-    $page->fillField('Survey URL', 'https://example.com/?lang={zz}');
+    $this->assertSession()->elementAttributeContains('css', 'textarea#edit-embed-code', 'required', 'required');
+    $page->fillField('Embed code', '{"id": "1234abc"}');
     $page->pressButton('Save configuration');
     // Assert values are correctly saved.
     $this->assertSession()->pageTextContains('The configuration options have been saved.');
     $this->assertSession()->checkboxChecked('Enabled');
-    $this->assertSession()->fieldValueEquals('Form ID', '1234abc');
-    $this->assertSession()->fieldValueEquals('Survey URL', 'https://example.com/?lang={zz}');
+    $this->assertSession()->fieldValueEquals('Embed code', '{"id": "1234abc"}');
     $page_feedback_config = $this->config('oe_webtools_page_feedback.settings');
     $this->assertEquals(TRUE, $page_feedback_config->get('enabled'));
-    $this->assertEquals('1234abc', $page_feedback_config->get('feedback_form_id'));
-    $this->assertEquals('https://example.com/?lang={zz}', $page_feedback_config->get('survey'));
+    $this->assertEquals('{"id": "1234abc"}', $page_feedback_config->get('embed_code'));
 
-    // An invalid URL in the survey field is rejected.
-    $page->fillField('Survey URL', 'not-a-url');
+    // Invalid JSON in the embed code is rejected.
+    $page->fillField('Embed code', '{invalid json');
     $page->pressButton('Save configuration');
-    $this->assertSession()->pageTextContains('The Survey URL must be a valid absolute URL. The {zz} language placeholder is allowed.');
+    $this->assertSession()->pageTextContains('The embed code must be valid JSON.');
     // The previous value must still be in config — invalid submit did not save.
     $this->drupalGet('/admin/config/system/oe_webtools_page_feedback');
-    $this->assertSession()->fieldValueEquals('Survey URL', 'https://example.com/?lang={zz}');
-
-    // An ftp:// URL has the right syntactic shape (UrlHelper::isValid accepts
-    // ftp) but is blocked by the http/https scheme restriction.
-    $page->fillField('Survey URL', 'ftp://example.com/survey');
-    $page->pressButton('Save configuration');
-    $this->assertSession()->pageTextContains('The Survey URL must use the http or https scheme.');
-    // Previous valid value is still in config.
-    $this->drupalGet('/admin/config/system/oe_webtools_page_feedback');
-    $this->assertSession()->fieldValueEquals('Survey URL', 'https://example.com/?lang={zz}');
-
-    // Clearing the survey URL is allowed (optional field).
-    $page->fillField('Survey URL', '');
-    $page->pressButton('Save configuration');
-    $this->assertSession()->pageTextContains('The configuration options have been saved.');
-    $page_feedback_config = $this->config('oe_webtools_page_feedback.settings');
-    $this->assertSame('', (string) $page_feedback_config->get('survey'));
+    $this->assertSession()->fieldValueEquals('Embed code', '{"id": "1234abc"}');
 
     // Disable the block and check states.
-    $this->drupalGet('/admin/config/system/oe_webtools_page_feedback');
     $page->uncheckField('Enabled');
-    $this->assertFalse($this->assertSession()->elementExists('css', 'input#edit-feedback-form-id')->hasAttribute('required'));
+    $this->assertFalse($this->assertSession()->elementExists('css', 'textarea#edit-embed-code')->hasAttribute('required'));
     $page->pressButton('Save configuration');
     $this->assertSession()->pageTextContains('The configuration options have been saved.');
   }
