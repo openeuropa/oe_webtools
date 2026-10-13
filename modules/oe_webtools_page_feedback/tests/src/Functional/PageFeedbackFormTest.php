@@ -51,11 +51,10 @@ class PageFeedbackFormTest extends BrowserTestBase {
 
     $page_feedback_config = $this->config('oe_webtools_page_feedback.settings');
     $page_feedback_config->set('enabled', TRUE);
-    $page_feedback_config->set('feedback_form_id', '1234')->save();
+    $page_feedback_config->set('embed_code', '{"service":"dff","id":"1234","lang":"[langcode]"}')->save();
 
-    // Assert the block is rendered only on node pages following the interface
-    // language, and that the new DFF widget config (no "version", with
-    // "target") is emitted.
+    // Assert the block is rendered only on node pages and that the [langcode]
+    // placeholder is replaced with the current interface language.
     $this->drupalGet('/node/1');
     $this->assertSession()->pageTextContains('Page node');
     $this->assertBodyContainsApplicationJson('{"service":"dff","id":"1234","lang":"en"}');
@@ -66,36 +65,34 @@ class PageFeedbackFormTest extends BrowserTestBase {
     $this->drupalGet('/pt-pt/node/1');
     $this->assertBodyContainsApplicationJson('{"service":"dff","id":"1234","lang":"pt"}');
 
-    $page_feedback_config->set('feedback_form_id', '1234abc')->save();
+    $page_feedback_config->set('embed_code', '{"service":"dff","id":"1234abc","lang":"[langcode]"}')->save();
     $this->drupalGet('/pt-pt/node/1');
     $this->assertBodyContainsApplicationJson('{"service":"dff","id":"1234abc","lang":"pt"}');
 
-    // Survey passthrough. Reset form id to keep the expected JSON predictable.
-    $page_feedback_config->set('feedback_form_id', '1234')->save();
-
-    // When "survey" is empty, the key must be absent from the JSON payload.
+    // The embed code is rendered as is: nothing is added, including "service".
+    $page_feedback_config->set('embed_code', '{"id":"1234"}')->save();
     $this->drupalGet('/node/1');
-    $this->assertSession()->responseNotContains('"survey"');
+    $this->assertApplicationJsonEquals(['id' => '1234']);
 
-    // When "survey" is set, it is forwarded verbatim, including the {zz}
-    // language token, which must NOT be URL-encoded.
-    $page_feedback_config->set('survey', 'https://example.com/?lang={zz}')->save();
+    // Arbitrary parameters in the embed code are forwarded verbatim.
+    $page_feedback_config->set('embed_code', '{"service":"dff","id":"1234","survey":"https://example.com/?lang={zz}"}')->save();
     $this->drupalGet('/node/1');
     $this->assertApplicationJsonEquals([
       'service' => 'dff',
       'id' => '1234',
-      'lang' => 'en',
       'survey' => 'https://example.com/?lang={zz}',
     ]);
 
-    // Reset survey to empty for the disable-block assertions below, so a stale
-    // value does not leak into the "block disabled" check.
-    $page_feedback_config->set('survey', '')->save();
+    // An empty embed code renders nothing.
+    $page_feedback_config->set('embed_code', '')->save();
+    $this->drupalGet('/node/1');
+    $this->assertSession()->pageTextContains('Page node');
+    $this->assertSession()->responseNotContains('"service":"dff"');
 
     // Disable the block and assert the block is not rendered and the cache was
     // properly invalidated.
     $page_feedback_config->set('enabled', FALSE);
-    $page_feedback_config->set('feedback_form_id', '1234')->save();
+    $page_feedback_config->set('embed_code', '{"service":"dff","id":"1234"}')->save();
     $this->drupalGet('/node/1');
     $this->assertSession()->pageTextContains('Page node');
     $this->assertSession()->responseNotContains('"service":"dff"');

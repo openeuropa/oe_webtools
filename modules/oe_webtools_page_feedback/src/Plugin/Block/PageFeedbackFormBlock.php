@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Drupal\oe_webtools_page_feedback\Plugin\Block;
 
-use Drupal\Component\Serialization\Json;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\CacheableMetadata;
@@ -97,28 +96,24 @@ class PageFeedbackFormBlock extends BlockBase implements ContainerFactoryPluginI
     $langcode = array_search($this->languageManager->getCurrentLanguage()->getId(), $language_mappings);
     $current_langcode = $langcode ?: $this->languageManager->getCurrentLanguage()->getId();
 
-    $feedback_form_json = [
-      'service' => 'dff',
-      'id' => $config->get('feedback_form_id'),
-      'lang' => $current_langcode,
-    ];
-
-    $survey = $config->get('survey');
-    if (!empty($survey)) {
-      $feedback_form_json['survey'] = $survey;
-    }
-
     $build = [
       '#cache' => [
         'tags' => $config->getCacheTags(),
         'contexts' => ['languages:' . LanguageInterface::TYPE_INTERFACE],
       ],
     ];
+
+    // The embed code is rendered as configured, with [langcode] placeholder.
+    $embed_code = str_replace('[langcode]', $current_langcode, (string) $config->get('embed_code'));
+    if ($embed_code === '') {
+      return $build;
+    }
+
     $build['content'] = [
       '#attached' => ['library' => ['oe_webtools/drupal.webtools-smartloader']],
       '#type' => 'html_tag',
       '#tag' => 'script',
-      '#value' => Json::encode($feedback_form_json),
+      '#value' => $embed_code,
       '#attributes' => ['type' => 'application/json'],
     ];
 
