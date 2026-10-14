@@ -7,14 +7,14 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.3",
-        "drupal/core": "^10.6",
+        "drupal/core": "^10 || ^11",
         "ext-json": "*"
     },
     "require-dev": {
         "composer/installers": "^2.3",
         "drupal/captcha": "^1.10 || ^2.0",
-        "drupal/core-composer-scaffold": "^10.6",
-        "drupal/core-dev": "^10.6",
+        "drupal/core-composer-scaffold": "^10 || ^11",
+        "drupal/core-dev": "^10 || ^11",
         "drupal/drupal-extension": "5.2.1",
         "drupal/geocoder": "^4.0",
         "drupal/geofield": "^1.0",
@@ -26,8 +26,7 @@
         "openeuropa/oe_multilingual": "^1.20",
         "openeuropa/rdf_skos": "^1.2",
         "openeuropa/task-runner-drupal-project-symlink": "^1.0",
-        "openeuropa/webtools-geocoding-provider": "^0.3",
-        "behat/behat": "3.32.0"
+        "openeuropa/webtools-geocoding-provider": "^0.3"
     },
     "conflict": {
         "openeuropa/oe_webtools_location": "*"
