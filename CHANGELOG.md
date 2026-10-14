@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.48.0](https://github.com/openeuropa/oe_webtools/tree/1.48.0) (2026-10-14)
+
+[Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.47.0...1.48.0)
+
+**Merged pull requests:**
+
+- EWPP-7447: Restore Drupal 11 support. [\#334](https://github.com/openeuropa/oe_webtools/pull/334) ([nagyad](https://github.com/nagyad))
+- EWPP-7354: Re-trigger the webtools loader for WePickIcons element. [\#332](https://github.com/openeuropa/oe_webtools/pull/332) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-7252: Migrate webtools feedback form settings to embed code. [\#331](https://github.com/openeuropa/oe_webtools/pull/331) ([intelektron](https://github.com/intelektron))
+- EWPP-7292: Change utility value for webtools analytic embed code. [\#329](https://github.com/openeuropa/oe_webtools/pull/329) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.47.0](https://github.com/openeuropa/oe_webtools/tree/1.47.0) (2026-09-09)
 
 [Full Changelog](https://github.com/openeuropa/oe_webtools/compare/1.46.0...1.47.0)
