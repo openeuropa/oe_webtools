@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for oe_webtools_etrans module.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme().
+ */
+function oe_webtools_etrans_lc2023_theme() {
+  return [
+    'oe_webtools_etrans_lc2023' => [
+      'variables' => [
+        'oe_wt_etrans_script' => NULL,
+        'oe_wt_etrans_lc2023' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_language_switch_links_alter().
+ */
+function oe_webtools_etrans_lc2023_language_switch_links_alter(array &$links, $type, Url $url) {
+  $default_language_code = \Drupal::languageManager()->getDefaultLanguage()->getId();
+  foreach ($links as $lang_code => $link) {
+    if ($lang_code !== $default_language_code) {
+      continue;
+    }
+    // Set default language class.
+    $links[$default_language_code]['attributes']['class'][] = 'oe-webtools-lc2023-default-language';
+    if (isset($links[$default_language_code]['query']['prefLang'])) {
+      unset($links[$default_language_code]['query']['prefLang']);
+    }
+  }
+}
