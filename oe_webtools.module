@@ -24,3 +24,13 @@ function oe_webtools_library_info_alter(&$libraries, $extension) {
     ];
   }
 }
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function oe_webtools_module_implements_alter(&$implementations, $hook) {
+  if ($hook === 'requirements') {
+    // We have our own version.
+    unset($implementations['sparql_entity_storage']);
+  }
+}
