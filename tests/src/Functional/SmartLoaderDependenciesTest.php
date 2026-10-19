@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\oe_webtools\Functional;
 
-use Drupal\Core\Test\FunctionalTestSetupTrait;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\oe_webtools_analytics\AnalyticsEventInterface;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests that the configured settings are correctly outputted in the page.
  *
  * @group oe_webtools
+ * @group batch2
  */
 class SmartLoaderDependenciesTest extends BrowserTestBase {
 
-  use FunctionalTestSetupTrait;
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
@@ -30,6 +31,14 @@ class SmartLoaderDependenciesTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Test override of the smartload library js file.

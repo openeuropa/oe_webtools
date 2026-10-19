@@ -8,13 +8,17 @@ use Drupal\Tests\media\FunctionalJavascript\MediaSourceTestBase;
 use Drupal\media\Entity\MediaType;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaTypeInterface;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Webtools media source.
  *
  * @group oe_webtools_media
+ * @group batch2
  */
 class MediaSourceWebtoolsTest extends MediaSourceTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * Modules to enable.
@@ -30,12 +34,21 @@ class MediaSourceWebtoolsTest extends MediaSourceTestBase {
     'oe_webtools',
     'oe_webtools_js_mock',
     'oe_webtools_media',
+    'oe_webtools_media_wcloud_mock',
   ];
 
   /**
    * {@inheritdoc}
    */
   protected $defaultTheme = 'starterkit_theme';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Tests the Webtools media source.

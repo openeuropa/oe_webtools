@@ -13,6 +13,7 @@ use Drupal\Tests\UnitTestCase;
  * Tests the validation of the WePick Icons form element.
  *
  * @coversDefaultClass \Drupal\oe_webtools_wepick_icons\Element\WePickIcons
+ * @group batch1
  */
 class WePickIconsValidationTest extends UnitTestCase {
 

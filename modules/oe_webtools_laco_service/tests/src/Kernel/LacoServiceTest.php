@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Tests the Laco service functionality.
+ *
+ * @group batch1
  */
 class LacoServiceTest extends KernelTestBase {
 

@@ -9,17 +9,24 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the WePick Icons widget using the WePick Icons form element.
+ *
+ * @group batch1
  */
 class WePickIconsWidgetTest extends BrowserTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'node',
+    'geofield',
+    'oe_webtools_maps',
     'oe_webtools_wepick_icons',
   ];
 
@@ -27,6 +34,14 @@ class WePickIconsWidgetTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Tests the WePick Icons widget renders the correct JSON config.

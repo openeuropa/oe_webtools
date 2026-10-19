@@ -6,25 +6,45 @@ namespace Drupal\Tests\oe_webtools_hotjar\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the hotjar.
+ *
+ * @group batch1
  */
 class HotjarTest extends BrowserTestBase {
 
   use ApplicationJsonAssertTrait;
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
+    'config',
+    'system',
+    'language',
+    'oe_webtools_analytics',
+    'oe_webtools_analytics_rules',
+    'oe_webtools_globan',
     'oe_webtools_hotjar',
+    'oe_webtools_js_mock',
+    'oe_webtools_laco_widget',
   ];
 
   /**
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Test the hotjar widget.

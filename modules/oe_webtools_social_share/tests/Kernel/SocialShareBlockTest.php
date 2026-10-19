@@ -9,6 +9,8 @@ use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Tests the Social Share widget provided by oe_webtools.
+ *
+ * @group batch2
  */
 class SocialShareBlockTest extends KernelTestBase {
 

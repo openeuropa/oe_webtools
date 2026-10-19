@@ -7,13 +7,17 @@ namespace Drupal\Tests\oe_webtools_page_feedback\Functional;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 use Drupal\language\Entity\ConfigurableLanguage;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Page Feedback Form webtools widget.
+ *
+ * @group batch2
  */
 class PageFeedbackFormTest extends BrowserTestBase {
 
   use ApplicationJsonAssertTrait;
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
@@ -23,6 +27,8 @@ class PageFeedbackFormTest extends BrowserTestBase {
     'language',
     'block',
     'oe_webtools_page_feedback',
+    'oe_webtools_search_widget',
+    'oe_webtools_social_share',
   ];
 
   /**
@@ -34,6 +40,7 @@ class PageFeedbackFormTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->drupalPlaceBlock('oe_webtools_page_feedback_form');

@@ -10,4 +10,4 @@ jobs:
   automated-tests:
     uses: openeuropa/github-ci/.github/workflows/drupal-ci.yml@main
     with:
-      run_behat: true
+      run_phpunit_batches: TRUE
