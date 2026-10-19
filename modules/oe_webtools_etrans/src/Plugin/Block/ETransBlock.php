@@ -39,6 +39,7 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
     'delay' => 0,
     'include' => '',
     'exclude' => '',
+    'live' => FALSE,
   ];
 
   /**
@@ -118,6 +119,12 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       }
     }
 
+    if (!empty($this->configuration['live'])
+      && $this->configuration['live']) {
+      $json['config'] = [
+        'live' => $this->configuration['live'],
+      ];
+    }
     $build = [
       '#cache' => [
         'contexts' => ['languages:' . LanguageInterface::TYPE_INTERFACE],
@@ -202,6 +209,13 @@ class ETransBlock extends BlockBase implements ContainerFactoryPluginInterface {
       '#title' => $this->t('Exclude'),
       '#description' => $this->t('A list of CSS selectors indicating page elements to be excluded from the translation even if they are inside an "include" element. One selector per line.'),
       '#default_value' => (string) $this->configuration['exclude'],
+    ];
+
+    $form['live'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Live translation'),
+      '#description' => $this->t('When live is set to true, after an user is translating a page to a specific language, all pages visited by user will be automatically translated to the selected language.'),
+      '#default_value' => $this->configuration['live'] ?? FALSE,
     ];
 
     return $form;
