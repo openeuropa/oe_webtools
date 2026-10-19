@@ -12,7 +12,8 @@ drupal:
     password: ""
   sparql:
     host: "sparql"
-    port: "8890"
+    port: "3030"
+    database: "triplestore"
   post_install:
     # Prepare the instance.
     - "./vendor/bin/drush en toolbar -y"
@@ -37,6 +38,7 @@ drupal:
           prefix: ""
           host: ${drupal.sparql.host}
           port: ${drupal.sparql.port}
+          database: ${drupal.sparql.database}
           namespace: 'Drupal\sparql_entity_storage\Driver\Database\sparql'
           driver: 'sparql'
 static_html:
