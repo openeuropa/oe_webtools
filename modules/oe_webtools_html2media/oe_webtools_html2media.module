@@ -1,0 +1,17 @@
+<?php
+
+/**
+ * @file
+ * Contains oe_webtools_html2media.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function oe_webtools_html2media_theme() {
+  return [
+    'oe_webtools_html2media_block_link' => [
+      'variables' => ['url' => NULL, 'params' => NULL],
+    ],
+  ];
+}

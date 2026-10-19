@@ -1,0 +1,7 @@
+oe_webtools_html2media.webtools:
+  path: '/oe-webtools-html2media'
+  defaults:
+    _controller: '\Drupal\oe_webtools_html2media\Controller\WebtoolsToMediaController::getPage'
+    _title: 'HTML 2 Media'
+  requirements:
+    _permission: 'use webtools html2media version'
