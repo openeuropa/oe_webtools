@@ -6,15 +6,18 @@ namespace Drupal\Tests\oe_webtools_analytics\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests that the configured settings are correctly output in the page.
  *
  * @group oe_webtools_analytics
+ * @group batch1
  */
 class ConfigurationTest extends BrowserTestBase {
 
   use ApplicationJsonAssertTrait;
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
@@ -22,7 +25,13 @@ class ConfigurationTest extends BrowserTestBase {
   protected static $modules = [
     'config',
     'system',
+    'language',
     'oe_webtools_analytics',
+    'oe_webtools_analytics_rules',
+    'oe_webtools_globan',
+    'oe_webtools_hotjar',
+    'oe_webtools_js_mock',
+    'oe_webtools_laco_widget',
   ];
 
   /**
@@ -31,17 +40,30 @@ class ConfigurationTest extends BrowserTestBase {
   protected $defaultTheme = 'stark';
 
   /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
+
+  /**
    * Tests if the configuration for the Webtools library is present on the page.
    */
   public function testLibraryLoading(): void {
     $user = $this->createUser(['administer webtools analytics']);
     $this->drupalLogin($user);
     $this->drupalGet('admin/config/system/oe_webtools_analytics');
+    $this->assertSession()->pageTextContains('Webtools Analytics settings');
     $page = $this->getSession()->getPage();
     $page->fillField('Site ID', '123');
     $page->fillField('Site path', 'ec.europa.eu');
     $page->fillField('Instance', 'testing');
     $page->pressButton('Save configuration');
+    $this->assertSession()->pageTextContains('The configuration options have been saved.');
+    $this->assertSession()->fieldValueEquals('Site ID', '123');
+    $this->assertSession()->fieldValueEquals('Site path', 'ec.europa.eu');
+    $this->assertSession()->fieldValueEquals('Instance', 'testing');
 
     $this->drupalLogout();
     $this->drupalGet('<front>');

@@ -7,7 +7,7 @@ drupal:
   database:
     host: "mysql"
     port: "3306"
-    name: "oe_webtools"
+    name: "drupal"
     user: "root"
     password: ""
   sparql:
@@ -39,9 +39,6 @@ drupal:
           port: ${drupal.sparql.port}
           namespace: 'Drupal\sparql_entity_storage\Driver\Database\sparql'
           driver: 'sparql'
-static_html:
-  base_url: "http://web:8080/tests/fixtures/static_html"
-
 selenium:
   host: "http://selenium"
   port: "4444"
@@ -53,13 +50,20 @@ commands:
     - { task: "run", command: "drupal:drush-setup" }
     - { task: "run", command: "drupal:settings-setup" }
     - { task: "run", command: "setup:phpunit" }
-    - { task: "run", command: "setup:behat" }
   setup:phpunit:
     - { task: "process", source: "phpunit.xml.dist", destination: "phpunit.xml" }
-    # Generate settings.testing.php, it will be used when running functional tests.
-    - { task: "process-php", type: "write", config: "drupal.settings", source: "${drupal.root}/sites/default/default.settings.php", destination: "${drupal.root}/sites/default/settings.testing.php", override: true }
-  setup:behat:
-      - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
+    - { task: "remove", file: "build/sites/default/settings.testing.php" }
+    - task: "append"
+      file: "build/sites/default/settings.testing.php"
+      text: |
+          <?php
+              $settings['extension_discovery_scan_tests'] = TRUE;
+              $databases['sparql_default']['default'] = [
+                'host' => 'sparql',
+                'port' => '8890',
+                'namespace' => 'Drupal\sparql_entity_storage\Driver\Database\sparql',
+                'driver' => 'sparql',
+              ];
   # Use the following commands only if you can run Task Runner commands on your host machine.
   sparql:purge:
     - "docker-compose exec sparql ./vendor/bin/robo purge"
@@ -68,3 +72,29 @@ commands:
   sparql:reset:
     - { task: "run", command: "sparql:purge" }
     - { task: "run", command: "sparql:import" }
+  toolkit:code-review:
+      - { task: "exec", command: "./vendor/bin/grumphp run" }
+  toolkit:test-phpunit:
+    - { task: "run", command: "toolkit:test-phpunit-batches" }
+
+toolkit:
+  build:
+    custom-code-folder: '${drupal.root}/modules/custom'
+  lint:
+    eslint:
+      options_yaml: 'no-error-on-unmatched-pattern'
+      options_js: 'no-error-on-unmatched-pattern'
+  test:
+    phpstan:
+      config: phpstan.neon.dist
+    phpunit:
+      execution: parallel
+      batches:
+        - batch1
+        - batch2
+      commands:
+        before:
+          # Wait until the shared MySQL server is up AND the "drupal" database is
+          # queryable before launching the parallel batches. This is to ensure that Kernel tests have
+          # a database if they are first in the batch.
+          - { task: "exec", command: "for i in $(seq 1 30); do mysql -h mysql -P 3306 -u root -e 'USE drupal; SELECT 1' >/dev/null 2>&1 && break; echo \"waiting for drupal database ($i/30)\"; sleep 2; done; mysql -h mysql -P 3306 -u root -e 'USE drupal; SELECT 1'" }

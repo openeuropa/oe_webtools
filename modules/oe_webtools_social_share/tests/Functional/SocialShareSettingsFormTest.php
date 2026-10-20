@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_social_share\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Social share widget settings form.
+ *
+ * @group batch2
  */
 class SocialShareSettingsFormTest extends BrowserTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
@@ -18,6 +23,8 @@ class SocialShareSettingsFormTest extends BrowserTestBase {
     'node',
     'language',
     'block',
+    'oe_webtools_page_feedback',
+    'oe_webtools_search_widget',
     'oe_webtools_social_share',
   ];
 
@@ -25,6 +32,14 @@ class SocialShareSettingsFormTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Tests Social share form configuration.

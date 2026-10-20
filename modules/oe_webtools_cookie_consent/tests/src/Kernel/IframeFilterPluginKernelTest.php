@@ -11,6 +11,8 @@ use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
  * Tests the iframe filter plugin.
+ *
+ * @group batch1
  */
 class IframeFilterPluginKernelTest extends KernelTestBase {
 

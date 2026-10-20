@@ -9,18 +9,25 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Webtools maps formatter.
+ *
+ * @group batch1
  */
 class WebtoolsMapsFormatterTest extends BrowserTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'node',
+    'geofield',
     'oe_webtools_maps',
+    'oe_webtools_wepick_icons',
   ];
 
   /**
@@ -32,6 +39,7 @@ class WebtoolsMapsFormatterTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->drupalCreateContentType(['type' => 'page', 'name' => 'Basic page']);

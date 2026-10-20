@@ -10,17 +10,23 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Wtag widget using the Wtag form element.
+ *
+ * @group batch2
  */
 class WtagWidgetTest extends BrowserTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'node',
+    'oe_webtools_js_mock',
     'oe_webtools_wtag',
   ];
 
@@ -40,6 +46,7 @@ class WtagWidgetTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->drupalCreateContentType(['type' => 'page', 'name' => 'Basic page']);

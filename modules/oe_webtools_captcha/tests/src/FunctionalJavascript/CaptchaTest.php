@@ -6,14 +6,17 @@ namespace Drupal\Tests\oe_webtools_captcha\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\user\Traits\UserCreationTrait;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests that the captcha is rendered and validates correctly.
  *
  * @group oe_webtools_captcha
+ * @group batch1
  */
 class CaptchaTest extends WebDriverTestBase {
 
+  use CachedDatabaseInstallTrait;
   use UserCreationTrait;
 
   /**
@@ -30,6 +33,14 @@ class CaptchaTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'olivero';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Tests The configuration is well saved from the form to config.
@@ -52,6 +63,7 @@ class CaptchaTest extends WebDriverTestBase {
     // First make sure we can't log in without the captcha.
     $page->fillField('Username', $user->getAccountName());
     $page->fillField('Password', $user->passRaw);
+    $this->getSession()->wait(1000);
     $this->waitForWebtoolsCaptcha();
     $page->pressButton('Log in');
     $this->assertSession()->pageTextContainsOnce('The answer you entered for the CAPTCHA was not correct.');

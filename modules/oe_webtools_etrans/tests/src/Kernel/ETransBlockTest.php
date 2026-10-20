@@ -9,6 +9,8 @@ use Drupal\language\Entity\ConfigurableLanguage;
 
 /**
  * Tests the block that displays the Webtools eTrans link.
+ *
+ * @group batch1
  */
 class ETransBlockTest extends KernelTestBase {
 

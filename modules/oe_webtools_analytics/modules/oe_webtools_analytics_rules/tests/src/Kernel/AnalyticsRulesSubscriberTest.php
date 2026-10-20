@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
  * Tests that rule based analytics sections are returned for the current path.
  *
  * @group oe_webtools_analytics_rules
+ * @group batch1
  */
 class AnalyticsRulesSubscriberTest extends KernelTestBase {
 
@@ -104,13 +105,6 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
   protected $ruleEntityType;
 
   /**
-   * The entity storage for the Webtools Analytics Rule entities.
-   *
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  protected $ruleEntityStorage;
-
-  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
@@ -129,7 +123,6 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
     $this->pathProcessor = $this->container->get('path_processor_manager');
     $this->requestStack = $this->container->get('request_stack');
     $this->ruleEntityType = $this->entityTypeManager->getDefinition('webtools_analytics_rule');
-    $this->ruleEntityStorage = $this->entityTypeManager->getStorage('webtools_analytics_rule');
 
     $this->createPathAliases();
   }
@@ -460,7 +453,7 @@ class AnalyticsRulesSubscriberTest extends KernelTestBase {
    */
   protected function createRules(array $rules_data): void {
     foreach ($rules_data as $id => $rule_data) {
-      $this->ruleEntityStorage->create([
+      $this->entityTypeManager->getStorage('webtools_analytics_rule')->create([
         'id' => $id,
         'section' => $rule_data['section'],
         'regex' => $rule_data['regex'],
