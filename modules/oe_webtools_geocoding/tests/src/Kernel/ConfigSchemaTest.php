@@ -11,6 +11,7 @@ use Drupal\KernelTests\KernelTestBase;
  * Tests the config schema of the Webtools Geocoding module.
  *
  * @group oe_webtools_geocoding
+ * @group batch1
  */
 class ConfigSchemaTest extends KernelTestBase {
 

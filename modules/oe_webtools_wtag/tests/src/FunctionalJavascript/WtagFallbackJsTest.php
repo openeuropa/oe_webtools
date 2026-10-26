@@ -11,19 +11,24 @@ use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
 use Drupal\rdf_skos\Entity\Concept;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Wtag fallback JS behaviour.
+ *
+ * @group batch2
  */
 class WtagFallbackJsTest extends WebDriverTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
     'node',
-    'oe_webtools_wtag',
     'oe_webtools_js_mock',
+    'oe_webtools_wtag',
   ];
 
   /**
@@ -35,6 +40,7 @@ class WtagFallbackJsTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
     $this->drupalCreateContentType(['type' => 'page', 'name' => 'Basic page']);
     FieldStorageConfig::create([

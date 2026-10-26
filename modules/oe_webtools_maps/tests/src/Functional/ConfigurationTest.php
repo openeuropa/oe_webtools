@@ -10,21 +10,26 @@ use Drupal\Tests\oe_webtools\Traits\ApplicationJsonAssertTrait;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\Entity\Node;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests that the configured settings are correctly reflected in the page.
+ *
+ * @group batch1
  */
 class ConfigurationTest extends BrowserTestBase {
 
   use ApplicationJsonAssertTrait;
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
   protected static $modules = [
-    'geofield',
     'node',
+    'geofield',
     'oe_webtools_maps',
+    'oe_webtools_wepick_icons',
   ];
 
   /**
@@ -36,6 +41,7 @@ class ConfigurationTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->drupalCreateContentType([

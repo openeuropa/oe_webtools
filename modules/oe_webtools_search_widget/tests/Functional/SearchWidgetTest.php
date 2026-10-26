@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_search_widget\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Search widget webtools widget.
+ *
+ * @group batch2
  */
 class SearchWidgetTest extends WebDriverTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
@@ -18,7 +23,9 @@ class SearchWidgetTest extends WebDriverTestBase {
     'node',
     'language',
     'block',
+    'oe_webtools_page_feedback',
     'oe_webtools_search_widget',
+    'oe_webtools_social_share',
   ];
 
   /**
@@ -37,6 +44,7 @@ class SearchWidgetTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->block = $this->drupalPlaceBlock('oe_webtools_search_widget');

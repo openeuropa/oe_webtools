@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Drupal\Tests\oe_webtools_media\Functional;
 
 use Drupal\Tests\media\Functional\MediaFunctionalTestBase;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Webtools media source WCLOUD integration.
  *
  * @group oe_webtools_media
+ * @group batch1
  */
 class WcloudIntegrationTest extends MediaFunctionalTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'stark';
+  protected $defaultTheme = 'starterkit_theme';
 
   /**
    * Modules to enable.
@@ -24,11 +28,24 @@ class WcloudIntegrationTest extends MediaFunctionalTestBase {
    * @var array
    */
   protected static $modules = [
+    'system',
+    'node',
+    'field_ui',
+    'media',
     'json_field',
     'oe_webtools',
+    'oe_webtools_js_mock',
     'oe_webtools_media',
     'oe_webtools_media_wcloud_mock',
   ];
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
+    parent::setUp();
+  }
 
   /**
    * Tests the Webtools media source support for WCLOUD.

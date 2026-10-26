@@ -6,11 +6,16 @@ namespace Drupal\Tests\oe_webtools_etrans\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the unified translations via webtool.
+ *
+ * @group batch1
  */
 class UnifiedEtransBlockTest extends WebDriverTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * The text format used for the node bodies created in this test.
@@ -45,6 +50,7 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->resetAll();
@@ -139,6 +145,7 @@ class UnifiedEtransBlockTest extends WebDriverTestBase {
     $this->assertSession()->pageTextContains("I'm a text that will be translated.");
     $this->assertSession()->pageTextContains("Portuguese is available via eTranslation, the European Commission's machine translation service.");
     $this->clickLink('Translate to Portuguese');
+    $this->getSession()->wait(1000);
     $this->assertSession()->pageTextContains("Tradução em curso. Por favor aguarde.");
     $this->assertSession()->linkExists("Cancelar tradução");
   }

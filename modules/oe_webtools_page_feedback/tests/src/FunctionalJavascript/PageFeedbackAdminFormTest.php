@@ -6,11 +6,16 @@ namespace Drupal\Tests\oe_webtools_page_feedback\FunctionalJavascript;
 
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\language\Entity\ConfigurableLanguage;
+use OpenEuropa\TestingUtilities\Traits\CachedDatabaseInstallTrait;
 
 /**
  * Tests the Page Feedback Form webtools widget configuration.
+ *
+ * @group batch2
  */
 class PageFeedbackAdminFormTest extends WebDriverTestBase {
+
+  use CachedDatabaseInstallTrait;
 
   /**
    * {@inheritdoc}
@@ -20,6 +25,8 @@ class PageFeedbackAdminFormTest extends WebDriverTestBase {
     'language',
     'block',
     'oe_webtools_page_feedback',
+    'oe_webtools_search_widget',
+    'oe_webtools_social_share',
   ];
 
   /**
@@ -31,6 +38,7 @@ class PageFeedbackAdminFormTest extends WebDriverTestBase {
    * {@inheritdoc}
    */
   protected function setUp(): void {
+    $this->cacheDbInstall = TRUE;
     parent::setUp();
 
     $this->drupalPlaceBlock('oe_webtools_page_feedback_form');

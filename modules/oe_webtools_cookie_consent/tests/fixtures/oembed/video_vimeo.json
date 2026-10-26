@@ -1,0 +1,12 @@
+{
+  "type": "video",
+  "version": "1.0",
+  "provider_name": "Vimeo",
+  "provider_url": "https:\/\/vimeo.com\/",
+  "title": "The European Union goals at COP 28 2023",
+  "author_name": "European Commission",
+  "author_url": "https:\/\/vimeo.com\/europeancommission",
+  "html": "<iframe width=\"480\" height=\"270\" src=\"https:\/\/player.vimeo.com\/video\/7073899?app_id=122963\" frameborder=\"0\" allowfullscreen title=\"The European Union goals at COP 28 2023\"><\/iframe>",
+  "width": 480,
+  "height": 270
+}
